@@ -1,0 +1,23 @@
+{
+    "maxDay": 7,
+    "data": [
+        {
+            "date": "2025-3-25",
+            "fileInfoList": [
+                {
+                    "name": "testFile.png",
+                    "path": "/root/home/testFile.png"
+                }
+            ]
+        },
+        {
+            "date": "2025-3-27",
+            "fileInfoList": [
+                {
+                    "name": "testFile.png",
+                    "path": "/root/home/testFile.png"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+{
+  "static":{
+    "appID":"6e3aaf4e-7a62-46d7-172d-e244038c4ae7",
+    "appName":"文件管理",
+    "organization":"",
+    "Version":"0.0.1",
+    "appexecName":"fileManagement",
+    "Architecture":"amd64",
+    "Section":"",
+    "Priority":"",
+    "Essential":"",
+    "Author":{
+      "name":"ZerasEager",
+      "email":"ZerasEager@qq.com"
+    },
+    "Provides":"",
+    "icon":"./res/icon.png",
+    "depend":[
+      {
+        "name":"libalsa",
+        "version":"1.5.1"
+      },
+      {
+        "name":"libssl",
+        "version":"1.0.0"
+      }
+    ],
+    "lib":[
+      "./lib"
+    ],
+    "start":"./start.sh"
+  }
+}

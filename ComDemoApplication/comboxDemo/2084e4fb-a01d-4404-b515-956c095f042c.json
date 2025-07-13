@@ -1,0 +1,26 @@
+{
+    "static":{
+      "appID":"2084e4fb-a01d-4404-b515-956c095f042c",
+      "appName":"下拉框演示",
+      "organization":"",
+      "Version":"1.0.0",
+      "appexecName":"comboxDemo",
+      "Architecture":"amd64",
+      "Section":"",
+      "Priority":"",
+      "Essential":"",
+      "Author":{
+        "name":"Chingan",
+        "email":"2111956539@qq.com"
+      },
+      "Provides":"",
+      "icon":"./res/icon.png",
+      "depend":[
+      ],
+      "lib":[
+        "./lib"
+      ],
+      "start":"./start.sh"
+    }
+  }
+  

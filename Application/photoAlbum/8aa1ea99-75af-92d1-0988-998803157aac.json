@@ -1,0 +1,25 @@
+{
+  "static":{
+    "appID":"8aa1ea99-75af-92d1-0988-998803157aac",
+    "appName":"相册",
+    "organization":"",
+    "Version":"1.0.0",
+    "appexecName":"photoAlbum",
+    "Architecture":"amd64",
+    "Section":"",
+    "Priority":"",
+    "Essential":"",
+    "Author":{
+      "name":"Chingan",
+      "email":"2111956539@qq.com"
+    },
+    "Provides":"",
+    "icon":"./res/icon.png",
+    "depend":[
+    ],
+    "lib":[
+      "./lib"
+    ],
+    "start":"./start.sh"
+  }
+}

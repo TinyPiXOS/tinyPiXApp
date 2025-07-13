@@ -1,0 +1,25 @@
+{
+  "static":{
+    "appID":"4a1a4cb1-5d7b-952f-9ddd-416857b44e84",
+    "appName":"日历",
+    "organization":"",
+    "Version":"0.0.1",
+    "appexecName":"calendar",
+    "Architecture":"amd64",
+    "Section":"",
+    "Priority":"",
+    "Essential":"",
+    "Author":{
+      "name":"Chingan",
+      "email":"2111956539@qq.com"
+    },
+    "Provides":"",
+    "icon":"./res/icon.png",
+    "depend":[
+    ],
+    "lib":[
+      "./lib"
+    ],
+    "start":"./start.sh"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "static":{
+    "appID":"fb1412cf-84de-4138-b401-215b6e9b1c11",
+    "appName":"Label演示",
+    "organization":"",
+    "Version":"1.0.0",
+    "appexecName":"labelDemo",
+    "Architecture":"amd64",
+    "Section":"",
+    "Priority":"",
+    "Essential":"",
+    "Author":{
+      "name":"Chingan",
+      "email":"2111956539@qq.com"
+    },
+    "Provides":"",
+    "icon":"./res/icon.png",
+    "depend":[
+    ],
+    "lib":[
+      "./lib"
+    ],
+    "start":"./start.sh"
+  }
+}
