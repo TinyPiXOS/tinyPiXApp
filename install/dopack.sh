@@ -17,8 +17,8 @@ declare -A PATH_MAPPINGS=(
     # 相对路径会自动转换为绝对路径
     # 格式: [源目录]="模式:目标路径"
 	# 模式支持: overwrite(覆盖) | merge(合并) | update(更新)
-    ["./$ARCH/app"]="update:/System/app"
-	["./$ARCH/conf"]="update:/System/conf"
+    ["./{ARCH}/app"]="update:/System/app"
+	["./{ARCH}/conf"]="update:/System/conf"
 )
 # =====================================================
 
@@ -127,7 +127,7 @@ intelligent_copy() {
 
 # ---------------------- 主流程 ----------------------
 echo "===== 开始灵活路径打包 ====="
-
+ACTUAL_ARCH=$(resolve_architecture)
 # 1. 创建临时根目录
 echo "▸ 创建临时工作区: $TMP_ROOT_DIR"
 rm -rf "$TMP_ROOT_DIR"
