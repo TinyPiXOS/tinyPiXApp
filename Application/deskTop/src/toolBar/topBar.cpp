@@ -78,12 +78,19 @@ void topBar::destruction()
 
 void topBar::setVisible(bool visible)
 {
-    // topBar显隐的时候也要通知settingbar状态变换
-    // 刷新应用工具栏尺寸
-    // if (appSettingBar_)
-    //     appSettingBar_->resizeSettingBar(this);
+    // 隐藏topbar内部控件
+    sysDateLabel_->setVisible(visible);
+	sysTimeLabel_->setVisible(visible);
 
-    tpDialog::setVisible(visible);
+	// 蓝牙和网络连接状态
+	wifiLabel_->setVisible(visible);
+	blueToothLabel_->setVisible(visible);
+
+	// 电量显示窗
+	elecBattery_->setVisible(visible);
+
+    // tpDialog::setVisible(visible);
+    update();
 }
 
 void topBar::setColor(const int32_t &appColor)

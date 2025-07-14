@@ -140,7 +140,7 @@ bool tpDeskScreen::appChange(int32_t id, int32_t pid, int32_t rotate, int32_t vi
 
 	// 应用启动，不显示上下工具栏
 	// bottomFloatBar_->setVisible(false);
-	topFloatBar_->setVisible(true);
+	topFloatBar_->setVisible(false);
 
 	if (active == false)
 	{
