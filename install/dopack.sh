@@ -2,7 +2,7 @@
 # 修正版：保留完整映射功能 + 相对路径支持 + 软链接生成
 
 # ====================== 配置区域 ======================
-OUTPUT_NAME="tinyPiXApp.run"	# 生成的安装包的名字
+BASE_NAME="tinyPiXApp"	# 生成的安装包的名字，会自动拼接架构和后缀
 TMP_ROOT_DIR="package_build"	# 生成的临时文件的名字
 KEEP_TMP_DIR=false		# 是否保留中间生成的打包源文件
 
@@ -127,7 +127,10 @@ intelligent_copy() {
 
 # ---------------------- 主流程 ----------------------
 echo "===== 开始灵活路径打包 ====="
+#解析架构
 ACTUAL_ARCH=$(resolve_architecture)
+#拼接输出文件名
+OUTPUT_NAME="${BASE_NAME}_${ACTUAL_ARCH}.run"
 # 1. 创建临时根目录
 echo "▸ 创建临时工作区: $TMP_ROOT_DIR"
 rm -rf "$TMP_ROOT_DIR"
