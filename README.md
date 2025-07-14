@@ -340,9 +340,7 @@ git clone https://github.com/TinyPiXOS/tinyPiXApp.git
 - ​**构建 tinyPiXApp**
 
 ```bash
-mkdir build
-cd build
-cmake ../
+cmake .
 make
 make install
 ```
