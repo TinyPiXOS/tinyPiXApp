@@ -124,7 +124,7 @@ void bottomBar::init()
     speedMenu_->addItem("1.5X");
     speedMenu_->addItem("1X");
     speedMenu_->setMinumumWidth(126);
-    connect(speedMenu_, onClicked, this, bottomBar::slotSwitchSpeed);
+    connect(speedMenu_, onClicked, this, &bottomBar::slotSwitchSpeed);
 
     speedBtn_ = new tpButton(this);
     speedBtn_->setButtonStyle(tpButton::TextOnly);
@@ -150,7 +150,7 @@ void bottomBar::init()
 
     progressSlider_ = new tpSlider(this);
     progressSlider_->setValue(0);
-    connect(progressSlider_, valueChanged, this, bottomBar::slotChangeProgress);
+    connect(progressSlider_, valueChanged, this, &bottomBar::slotChangeProgress);
 }
 
 tpButton *bottomBar::generalIconBtn(const tpString &iconPath)

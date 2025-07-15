@@ -65,7 +65,7 @@ void topBar::construct()
     elecBattery_->setValue(100);
 
     updateTimetimer_ = new tpTimer(50000);
-    connect(updateTimetimer_, SIGNALS(tpTimer, timeout), this, SLOTS(topBar, slotUpdateSystemTime));
+    connect(updateTimetimer_, timeout, this, &topBar::slotUpdateSystemTime);
     updateTimetimer_->start();
 
     // 系统启动就要刷新一下时间

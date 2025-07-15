@@ -158,9 +158,9 @@ void mainWindowService::initUi()
     tpShared<tpSurface> musicIconImage = tpMakeShared<tpSurface>(applicationDirPath() + "/../res/音频.png");
     isMusicIconLabel_->setBackGroundImage(musicIconImage);
 
-    connect(bottomBar_, medioOperate, this, mainWindowService::slotOperateMedia);
-    connect(bottomBar_, alterPostion, this, mainWindowService::slotSwitchPos);
-    connect(bottomBar_, switchSpeed, this, mainWindowService::slotSwitchSpeed);
+    connect(bottomBar_, medioOperate, this, &mainWindowService::slotOperateMedia);
+    connect(bottomBar_, alterPostion, this, &mainWindowService::slotSwitchPos);
+    connect(bottomBar_, switchSpeed, this, &mainWindowService::slotSwitchSpeed);
 
     audioPlayer_ = new tpAudioInterface("hw:1,0");
     videoPlayer_ = new tpVideoInterface();
@@ -170,7 +170,7 @@ void mainWindowService::initUi()
     videoPlayer_->setScalingMode(tpVideoInterface::TP_VIDEO_SCALING_FIT); // 推荐格式
 
     updateProgressTimer_ = new tpTimer();
-    connect(updateProgressTimer_, timeout, this, mainWindowService::slotUpdatePlayerProgress);
+    connect(updateProgressTimer_, timeout, this, &mainWindowService::slotUpdatePlayerProgress);
 }
 
 void mainWindowService::slotUpdatePlayerProgress()

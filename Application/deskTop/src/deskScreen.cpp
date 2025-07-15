@@ -552,7 +552,7 @@ void tpDeskScreen::initData()
 
 	appInstallPtr_ = new tpAppInstall("");
 	appInstallTimer_ = new tpTimer(800);
-	connect(appInstallTimer_, timeout, this, tpDeskScreen::slotTimeoutInstallApp);
+	connect(appInstallTimer_, timeout, this, &tpDeskScreen::slotTimeoutInstallApp);
 }
 
 void tpDeskScreen::intDeskAppConfig()

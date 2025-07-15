@@ -32,14 +32,14 @@ appSettingBar::appSettingBar(tpScreen *topScreen)
     powerOffBtn_->setTextVisible(false);
     powerOffBtn_->setEnableBackGroundColor(false);
     powerOffBtn_->setEnabledBorderColor(false);
-    connect(powerOffBtn_, onClicked, this, appSettingBar::slotPowerOff);
+    connect(powerOffBtn_, onClicked, this, &appSettingBar::slotPowerOff);
 
     // 声音进度条
     voiceProgessBar_ = new tpSlideProgressBar(this);
     voiceProgessBar_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-音量.png");
     voiceProgessBar_->setRange(0, 100);
     voiceProgessBar_->setValue(50);
-    connect(voiceProgessBar_, onValueChanged, this, appSettingBar::slotChangeVoice);
+    connect(voiceProgessBar_, onValueChanged, this, &appSettingBar::slotChangeVoice);
 
     // // 亮度进度条
     lightProgessBar_ = new tpSlideProgressBar(this);
@@ -47,19 +47,19 @@ appSettingBar::appSettingBar(tpScreen *topScreen)
     lightProgessBar_->setRange(0, 100);
     lightProgessBar_->setValue(100);
     lightProgessBar_->setEnabled(false);
-    connect(lightProgessBar_, onValueChanged, this, appSettingBar::slotChangelight);
+    connect(lightProgessBar_, onValueChanged, this, &appSettingBar::slotChangelight);
 
     wifiBtn_ = new tpPanelSwitchButton(this);
     wifiBtn_->setCheckable(true);
     wifiBtn_->setText("WIFI");
     wifiBtn_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-WIFI.png");
-    connect(wifiBtn_, onClicked, this, appSettingBar::slotSwitchWifi);
+    connect(wifiBtn_, onClicked, this, &appSettingBar::slotSwitchWifi);
 
     bluetoothBtn_ = new tpPanelSwitchButton(this);
     bluetoothBtn_->setCheckable(true);
     bluetoothBtn_->setText("蓝牙");
     bluetoothBtn_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-蓝牙.png");
-    connect(bluetoothBtn_, onClicked, this, appSettingBar::slotSwitchBluetooth);
+    connect(bluetoothBtn_, onClicked, this, &appSettingBar::slotSwitchBluetooth);
 
     sysLockBtn_ = new tpPanelSwitchButton(this);
     sysLockBtn_->setCheckable(true);

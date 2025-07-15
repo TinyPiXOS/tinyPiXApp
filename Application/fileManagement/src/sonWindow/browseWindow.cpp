@@ -230,7 +230,7 @@ void browseWindow::init()
     menuPanelWidget_ = new tpMenuPanelWidget();
     // menuPanelWidget_->setBackGroundColor(_RGB(255, 0, 0));
     menuPanelWidget_->installEventFilter(scrollWidget);
-    connect(menuPanelWidget_, onClicked, this, browseWindow::sourceMenuChanged);
+    connect(menuPanelWidget_, onClicked, this, &browseWindow::sourceMenuChanged);
 
 #if 1 // 临时数据，TODO，要修改为从配置文件读取
     tpMenuPanelItem *downloadPanelItem = new tpMenuPanelItem();

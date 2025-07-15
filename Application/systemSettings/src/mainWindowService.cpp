@@ -129,7 +129,7 @@ void mainWindowService::initUi()
     subBackBtn_->setFixedSize(tpDisplay::dp2Px(34), tpDisplay::dp2Px(34));
     subBackBtn_->setIcon(applicationDirPath() + "/../res/路径后退.png");
     subBackBtn_->setVisible(false);
-    connect(subBackBtn_, onClicked, this, mainWindowService::slotClickBackBtn);
+    connect(subBackBtn_, onClicked, this, &mainWindowService::slotClickBackBtn);
 
     subTitleLayout->addWidget(subBackBtn_);
     subTitleLayout->addWidget(subTitleLabel_);
@@ -242,7 +242,7 @@ void mainWindowService::createAllSettingTopMenu(tpVBoxLayout *menuLayout)
         // 功能菜单
         tpMenuPanelWidget *menuPanelWidget = new tpMenuPanelWidget();
         menuPanelWidget->installEventFilter(mainScrollPanel_);
-        connect(menuPanelWidget, onClicked, this, mainWindowService::slotClickMenuItem);
+        connect(menuPanelWidget, onClicked, this, &mainWindowService::slotClickMenuItem);
         // menuPanelWidget->setBackGroundColor(_RGB(255, 0, 0));
 
         for (const auto &menuType : menuPanel)
