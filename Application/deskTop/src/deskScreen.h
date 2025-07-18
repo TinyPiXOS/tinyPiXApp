@@ -53,7 +53,7 @@ public:
 	virtual void recvData(const char *topic, const void *data, const uint32_t &size) override;
 
 public:
-	virtual bool appChange(int32_t id, int32_t pid, int32_t rotate, int32_t visible, int32_t active, int32_t color, uint8_t alpha, int32_t require);
+	virtual bool appChange(int32_t id, int32_t pid, int32_t visible, int32_t active, int32_t color, uint8_t alpha, int32_t require);
 
 public:
 	virtual bool onRotateEvent(tpObjectRotateEvent *event) override;

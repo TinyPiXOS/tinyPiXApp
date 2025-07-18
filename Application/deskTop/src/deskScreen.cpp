@@ -118,7 +118,7 @@ void tpDeskScreen::recvData(const char *topic, const void *data, const uint32_t 
 	}
 }
 
-bool tpDeskScreen::appChange(int32_t id, int32_t pid, int32_t rotate, int32_t visible, int32_t active, int32_t color, uint8_t alpha, int32_t require)
+bool tpDeskScreen::appChange(int32_t id, int32_t pid, int32_t visible, int32_t active, int32_t color, uint8_t alpha, int32_t require)
 {
 	int32_t sysid = this->objectSysID();
 
@@ -148,35 +148,9 @@ bool tpDeskScreen::appChange(int32_t id, int32_t pid, int32_t rotate, int32_t vi
 		return false;
 	}
 
-	printf("id = %d, rotate = %d\n", id, rotate);
+	printf("id = %d \n", id);
 
 	int32_t width = 0, height = 0;
-
-	switch (rotate)
-	{
-	case TP_ROT_0:
-	case TP_ROT_360:
-	case TP_ROT_180:
-	case TP_ROT_180X:
-	{
-		width = this->width();
-		height = this->height();
-		isLandscapeScreen_ = true;
-	}
-	break;
-	case TP_ROT_90:
-	case TP_ROT_270X:
-	case TP_ROT_270:
-	case TP_ROT_90X:
-	{
-		width = this->height();
-		height = this->width();
-		isLandscapeScreen_ = false;
-	}
-	break;
-	default:
-		return false;
-	}
 
 	return true;
 }
