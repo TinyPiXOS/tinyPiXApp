@@ -2,6 +2,8 @@ out/
 build/
 install/x86_64
 install/arm_64
+CMakeFiles/
+.cmake/
 Application/calendar/bin/calendar
 Application/deskTop/bin/PiXDesktop
 Application/fileManagement/bin/fileManagement
@@ -17,3 +19,16 @@ ComDemoApplication/flexLayoutDemo/bin/flexLayoutDemo
 ComDemoApplication/labelDemo/bin/labelDemo
 ComDemoApplication/progressBarDemo/bin/progressBarDemo
 ComDemoApplication/sliderDemo/bin/sliderDemo
+cmake_install.cmake
+CMakeCache.txt
+install_manifest.txt
+Makefile
+Application/calendar/Makefile
+Application/deskTop/Makefile
+Application/fileManagement/Makefile
+Application/mediaPlayer/Makefile
+Application/photoAlbum/Makefile
+Application/systemSettings/Makefile
+ComDemoApplication/animationDemo/Makefile
+ComDemoApplication/batteryDemo/Makefile
+ComDemoApplication/buttonDemo/Makefile
