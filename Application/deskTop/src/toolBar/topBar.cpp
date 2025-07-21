@@ -168,6 +168,7 @@ void topBar::slotUpdateSystemTime()
     tpString curDateStr = tpString::number(currentDate.month()) + "月" + tpString::number(currentDate.day()) + "日 " + transWeekData(currentDate.dayOfWeek());
     sysDateLabel_->setText(curDateStr);
 
+    # if 0
     // 获取蓝牙设备状态;取第一个蓝牙设备的状态
     bool blueIsOpen = false;
     tpList<tpBluetoothLocal> blueToothDeviceList = tpBluetoothLocal::getAllDevice();
@@ -191,10 +192,11 @@ void topBar::slotUpdateSystemTime()
             break;
     }
     wifiLabel_->setVisible(isOnline);
+#endif
 
     if (globalTopSettingBar_)
     {
-        globalTopSettingBar_->setBluetoothStatus(blueIsOpen);
+        // globalTopSettingBar_->setBluetoothStatus(blueIsOpen);
         globalTopSettingBar_->updateTime(currentDate.year(), currentDate.month(), currentDate.day(), transWeekData(currentDate.dayOfWeek()));
     }
 }
