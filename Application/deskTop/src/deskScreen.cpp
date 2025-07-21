@@ -67,7 +67,7 @@ void tpDeskScreen::construct()
 
 	tpShared<tpSurface> surface = tpMakeShared<tpSurface>();
 
-	surface->fromFile(applicationDirPath() + "/../res/默认桌面背景.png");
+	surface->fromFile(applicationDirPath() + "/../res/默认桌面背景1x.png");
 
 	this->setBackGroundImage(surface, true);
 

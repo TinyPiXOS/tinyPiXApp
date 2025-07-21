@@ -32,3 +32,4 @@ Application/systemSettings/Makefile
 ComDemoApplication/animationDemo/Makefile
 ComDemoApplication/batteryDemo/Makefile
 ComDemoApplication/buttonDemo/Makefile
+Application/systemSettingsArm/bin/systemSettingsArm
