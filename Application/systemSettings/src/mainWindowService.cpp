@@ -47,13 +47,6 @@ bool mainWindowService::onResizeEvent(tpObjectResizeEvent *event)
     return true;
 }
 
-bool mainWindowService::onRotateEvent(tpObjectRotateEvent *event)
-{
-    std::cout << "systemSetting::onRotateEvent" << std::endl;
-
-    return true;
-}
-
 bool mainWindowService::onActiveEvent(tpObjectActiveEvent *event)
 {
     std::cout << "systemSetting::onActiveEvent" << std::endl;
@@ -212,6 +205,7 @@ void mainWindowService::slotClickMenuItem(tpMenuPanelItem *deviceBtn)
         settingWindow_->setWidget(nullptr);
     }
 
+    returns();
     // if (!deviceBtn->checked())
     // deviceBtn->setChecked(true);
 }

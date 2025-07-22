@@ -32,6 +32,9 @@ tpHash<int32_t, RunAppInfo> globalRunAppMap_ = tpHash<int32_t, RunAppInfo>();
 std::mutex readRunAppMutex_;
 tpHash<tpString, int32_t> globalUuidPidMap_ = tpHash<tpString, int32_t>();
 
+uint32_t globalAppMaxRow = 4;
+uint32_t globalAppMaxColumn = 6;
+
 static inline void BAR_SET_ATTRIB(tpDialog *vars, int32_t pop, int32_t x, int32_t y, int32_t width, int32_t height)
 {
 	if (pop)
@@ -46,14 +49,14 @@ static inline void BAR_SET_ATTRIB(tpDialog *vars, int32_t pop, int32_t x, int32_
 
 void tpDeskScreen::construct()
 {
+	globalMainScreen_ = this;
+
 	// 订阅数据
 	initializeGateway();
 	subscribeGatewayData(RunAppTopic, this);
 
 	setEnableBackGroundColor(false);
 	setEnabledBorderColor(false);
-
-	globalMainScreen_ = this;
 
 	std::cout << "tpDeskScreen::construct()" << std::endl;
 
@@ -73,7 +76,30 @@ void tpDeskScreen::construct()
 
 	// 此处应该读取配置文件中的设置文件，加载配置参数
 
+	// 刷新工具栏位置坐标
 	refreshBar();
+
+	// 刷新APP显示主窗体尺寸和坐标
+	refreshMainAppPanel();
+
+	// 计算可显示APP的行列数
+	// APP显示区域的宽度
+	// APP显示区域是沾满了整个窗口的，要偏移预留空间，让APP图标显示在中间区域，与下部Bar对齐
+	uint32_t mainAppPanelWidth = mainAppPanel_->rect().w;
+	uint32_t mainAppPanelHeight = mainAppPanel_->rect().h;
+	uint32_t panelHMargin = (mainAppPanelWidth - BOTTOM_BAR_WIDTH) / 2.0;
+
+	desktopAppButton* testBtn = new desktopAppButton();
+	testBtn->font()->setFontSize(APP_FONT_SIZE);
+	testBtn->setIconSize(APP_WIDTH_HEIGHT, APP_WIDTH_HEIGHT);
+
+	globalAppMaxRow = 1.0 * (mainAppPanelHeight + APP_V_INTERVAL) / (APP_V_INTERVAL + testBtn->rect().h);
+	globalAppMaxColumn = 1.0 * (BOTTOM_BAR_WIDTH + APP_H_INTERVAL) / (APP_H_INTERVAL + testBtn->rect().w);
+
+	testBtn->deleteLater();
+
+	// globalAppMaxRow = 4;
+	// globalAppMaxColumn = 6;
 
 	intDeskAppConfig();
 }
@@ -151,18 +177,6 @@ bool tpDeskScreen::appChange(int32_t id, int32_t pid, int32_t visible, int32_t a
 	printf("id = %d \n", id);
 
 	int32_t width = 0, height = 0;
-
-	return true;
-}
-
-bool tpDeskScreen::onRotateEvent(tpObjectRotateEvent *event)
-{
-	if (this->actived())
-	{
-		refreshBar();
-
-		intDeskAppConfig();
-	}
 
 	return true;
 }
@@ -534,9 +548,6 @@ void tpDeskScreen::intDeskAppConfig()
 	// 获取所有已安装的APP的UUID列表
 	tpVector<tpString> installAppUuidList = tpAppConfigIO::installAppUuidList();
 
-	// 清理布局，重新构建行列
-	refreshMainAppPanel();
-
 	// 应用数量为0；后边就不用处理了
 	uint32_t appCount = installAppUuidList.size();
 	if (appCount == 0)
@@ -579,7 +590,7 @@ void tpDeskScreen::intDeskAppConfig()
 
 	curPage_ = 0;
 
-	uint32_t pageMaxAppCount = APP_MAX_ROW * APP_MAX_COLUMN;
+	uint32_t pageMaxAppCount = globalAppMaxRow * globalAppMaxColumn;
 
 	// 上一页放不下的APP
 	tpList<ApplicationInfoSPtr> cachePageAppList;
@@ -675,7 +686,7 @@ void tpDeskScreen::intDeskAppConfig()
 
 void tpDeskScreen::createAppBtn()
 {
-	uint32_t pageMaxAppCount = APP_MAX_ROW * APP_MAX_COLUMN;
+	uint32_t pageMaxAppCount = globalAppMaxRow * globalAppMaxColumn;
 
 	tpString appConfigDirPath = appConfigPathStr_ + APP_CONFIG_SON_PATH;
 	tpString appFileDirPath = appConfigPathStr_ + APP_FILES_SON_PATH;
@@ -715,17 +726,17 @@ void tpDeskScreen::createAppBtn()
 		tpVector<int32_t> rowYList;
 		tpVector<int32_t> columnXList;
 
-		for (int row = 0; row < APP_MAX_ROW; ++row)
+		for (int row = 0; row < globalAppMaxRow; ++row)
 		{
 			uint32_t appY = row * (APP_V_INTERVAL + finalBtn->rect().h);
 			rowYList.emplace_back(appY);
 
 			if (row == 0)
 			{
-				for (int column = 0; column < APP_MAX_COLUMN; ++column)
+				for (int column = 0; column < globalAppMaxColumn; ++column)
 				{
 					// pageNum * mainAppPanelWidth + appX
-					uint32_t appX = panelHMargin + (column % APP_MAX_COLUMN) * (APP_H_INTERVAL + finalBtn->rect().w);
+					uint32_t appX = panelHMargin + (column % globalAppMaxColumn) * (APP_H_INTERVAL + finalBtn->rect().w);
 					columnXList.emplace_back(appX);
 				}
 			}
@@ -762,8 +773,6 @@ void tpDeskScreen::refreshMainAppPanel()
 
 	// 减去距离上部Bar和下部bar的距离，在减去bottomBar距离边界距离
 	uint32_t mainAppPanelHeight = height() - tHeight - bottomBarHeight - tpDisplay::dp2Px(20) * 2 - tpDisplay::dp2Px(19);
-
-	// uint32_t mainAppPanelHMargin = (width() - APP_PANEL_WIDTH) / 2.0;
 
 	mainAppPanel_->setWidth(rect().w);
 	mainAppPanel_->setHeight(mainAppPanelHeight);
@@ -825,9 +834,9 @@ desktopAppButton *tpDeskScreen::createDeskAppBtn(ApplicationInfoSPtr appInfo, co
 
 	ItpRect iconButtonRect = appBtn->rect();
 
-	uint32_t curAppRow = (appIndex / APP_MAX_COLUMN);
+	uint32_t curAppRow = (appIndex / globalAppMaxColumn);
 
-	uint32_t appX = appPage * mainAppPanelWidth + panelHMargin + (appIndex % APP_MAX_COLUMN) * (APP_H_INTERVAL + iconButtonRect.w);
+	uint32_t appX = appPage * mainAppPanelWidth + panelHMargin + (appIndex % globalAppMaxColumn) * (APP_H_INTERVAL + iconButtonRect.w);
 	uint32_t appY = curAppRow * (APP_V_INTERVAL + iconButtonRect.h);
 
 	appBtn->move(appX, appY);
@@ -859,7 +868,7 @@ desktopAppButton *tpDeskScreen::configAppBtn(const tpString &appUuid, const tpSt
 	appBtn->setRoundCorners(13);
 
 	appBtn->font()->setFontColor(_RGB(255, 255, 255), _RGB(255, 255, 255));
-	appBtn->font()->setFontSize(tpDisplay::sp2Px(14));
+	appBtn->font()->setFontSize(APP_FONT_SIZE);
 
 	appBtn->setIconSize(APP_WIDTH_HEIGHT, APP_WIDTH_HEIGHT);
 
@@ -964,7 +973,7 @@ void tpDeskScreen::installApp(const tpString &pkgPath)
 	int32_t installPageNum = -1;
 	uint32_t installIndex = 0;
 
-	uint32_t pageMaxAppCount = APP_MAX_ROW * APP_MAX_COLUMN;
+	uint32_t pageMaxAppCount = globalAppMaxRow * globalAppMaxColumn;
 	for (const auto &pageAppInfoIter : allAppInfoMap_)
 	{
 		// 当前页应用已放置满

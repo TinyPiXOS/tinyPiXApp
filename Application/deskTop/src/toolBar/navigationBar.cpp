@@ -3,13 +3,14 @@
 #include "tpDisplay.h"
 #include "tpAnimation.h"
 #include "deskTopGlobal.hpp"
-
-static const uint32_t navigationLineWidth = tpDisplay::dp2Px(328);
-static const uint32_t navigationLineHeight = tpDisplay::dp2Px(6);
+#include "tpApp.h"
 
 navigationBar::navigationBar()
     : tpDialog("tinyPiX_SYS_Float_0531acbf04")
 {
+    const uint32_t navigationLineWidth = globalMainScreen_->screenWidth() * 0.3;
+    const uint32_t navigationLineHeight = tpDisplay::dp2Px(6);
+
     lineLabel_ = new tpLabel(this);
     lineLabel_->setFixedSize(navigationLineWidth, navigationLineHeight);
     lineLabel_->setEnabledBorderColor(false);
@@ -19,7 +20,7 @@ navigationBar::navigationBar()
     lineLabel_->installEventFilter(this);
 
     // 导航线上下各10像素
-    setSize(navigationLineWidth, tpDisplay::dp2Px(16));
+    setSize(navigationLineWidth, tpDisplay::dp2Px(20));
     setBackGroundColor(_RGBA(255, 255, 255, 0));
     // setAlpha(0);
 }
@@ -90,6 +91,17 @@ bool navigationBar::onMouseRleaseEvent(tpMouseEvent *event)
             else
             {
                 tinyPiX_sys_send_home(globalAgent);
+
+                // PiShmBytes *appIdList = nullptr;
+                // int appSize = 0;
+                // tinyPiX_sys_find_win_ids(globalAgent, &appIdList, &appSize, 1);
+
+                // std::cout << "appSizeappSizeappSize" << appSize << std::endl;
+                // for (int i = 0; i < appSize; ++i)
+                // {
+                //     std::cout << "IIIIIIIDDDDDDD" << appIdList[i].id << std::endl;
+                // }
+                // tinyPiX_sys_send_return(globalAgent, 0);
 
                 std::cout << " Return Desktop " << std::endl;
             }

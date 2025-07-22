@@ -24,8 +24,6 @@ public:
 protected:
     virtual bool onResizeEvent(tpObjectResizeEvent *event) override;
 
-    virtual bool onRotateEvent(tpObjectRotateEvent *event) override;
-
     virtual bool onActiveEvent(tpObjectActiveEvent *event) override;
 
 private:
