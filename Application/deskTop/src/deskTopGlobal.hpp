@@ -110,5 +110,5 @@ extern uint32_t globalAppMaxColumn;
 
 // APPIcon的宽高
 #ifndef APP_WIDTH_HEIGHT
-#define APP_WIDTH_HEIGHT globalMainScreen_->screenWidth() * 0.08
+#define APP_WIDTH_HEIGHT globalMainScreen_->screenWidth() * 0.085
 #endif

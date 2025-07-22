@@ -23,7 +23,7 @@ mainWindowService::mainWindowService()
 	tpSlider *slider = new tpSlider(this);
 	slider->setValue(50);
 	slider->setSize(500, 10);
-	slider->move(20, 20);
+	slider->move(20, 60);
 
 	tpSlider *vSlider = new tpSlider(this);
 	vSlider->setDirection(tpSlider::Vertical);
