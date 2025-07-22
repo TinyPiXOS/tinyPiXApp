@@ -224,18 +224,18 @@ void appSettingBar::resizeOperatorBtn()
 
     powerOffBtn_->move(settingBarRect.w - panelHMargin - powerOffBtn_->width(), firstRowY);
 
-    uint32_t secondRowY = firstRowY + dateTimeLabel_->height() + tpDisplay::dp2Px(22);
+    uint32_t secondRowY = firstRowY + dateTimeLabel_->height() + globalMainScreen_->screenHeight() * 0.0305;
     lightProgessBar_->move(panelHMargin, secondRowY);
-    voiceProgessBar_->move(panelHMargin, secondRowY + lightProgessBar_->height() + tpDisplay::dp2Px(25));
+    voiceProgessBar_->move(panelHMargin, secondRowY + lightProgessBar_->height() + globalMainScreen_->screenHeight() * 0.03472);
 
     // std::cout << "lightProgessBar_->width " << lightProgessBar_->width() << " " << lightProgessBar_->height();
     // 按钮宽度161
 
     sysLockBtn_->move(rect().w - panelHMargin - sysLockBtn_->width(), secondRowY);
 
-    bluetoothBtn_->move(sysLockBtn_->pos().x - bluetoothBtn_->width() - tpDisplay::dp2Px(25), secondRowY);
+    bluetoothBtn_->move(sysLockBtn_->pos().x - bluetoothBtn_->width() - globalMainScreen_->screenHeight() * 0.03472, secondRowY);
 
-    wifiBtn_->move(bluetoothBtn_->pos().x - wifiBtn_->width() - tpDisplay::dp2Px(25), secondRowY);
+    wifiBtn_->move(bluetoothBtn_->pos().x - wifiBtn_->width() - globalMainScreen_->screenHeight() * 0.03472, secondRowY);
 }
 
 void appSettingBar::slotPowerOff(bool checked)
