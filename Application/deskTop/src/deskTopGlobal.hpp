@@ -71,7 +71,8 @@ typedef std::shared_ptr<ApplicationInfo> ApplicationInfoSPtr;
 
 // 顶部工具栏高度
 #ifndef TOP_BAR_HEIGHT
-#define TOP_BAR_HEIGHT tpScreen::screenHeight() * 0.04166
+// #define TOP_BAR_HEIGHT tpScreen::screenHeight() * 0.04166
+#define TOP_BAR_HEIGHT tpScreen::screenHeight() * 0.05
 #endif
 
 // APP显示主窗口距离topbar距离

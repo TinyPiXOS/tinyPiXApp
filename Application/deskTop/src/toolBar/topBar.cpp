@@ -5,6 +5,7 @@
 #include "tpDisplay.h"
 #include "tpTime.h"
 #include "tpDate.h"
+#include "tpEvent.h"
 #include "tpSurface.h"
 #include "tpBluetoothLocal.h"
 #include "tpNetworkInterface.h"
@@ -80,14 +81,14 @@ void topBar::setVisible(bool visible)
 {
     // 隐藏topbar内部控件
     sysDateLabel_->setVisible(visible);
-	sysTimeLabel_->setVisible(visible);
+    sysTimeLabel_->setVisible(visible);
 
-	// 蓝牙和网络连接状态
-	wifiLabel_->setVisible(visible);
-	blueToothLabel_->setVisible(visible);
+    // 蓝牙和网络连接状态
+    wifiLabel_->setVisible(visible);
+    blueToothLabel_->setVisible(visible);
 
-	// 电量显示窗
-	elecBattery_->setVisible(visible);
+    // 电量显示窗
+    elecBattery_->setVisible(visible);
 
     // tpDialog::setVisible(visible);
     update();
@@ -110,6 +111,8 @@ bool topBar::onResizeEvent(tpObjectResizeEvent *event)
 
 bool topBar::onMousePressEvent(tpMouseEvent *event)
 {
+    std::cout << "TopBar Press Pos ()" << event->globalPos().x << " , " << event->globalPos().y << std::endl;
+
     return true;
 }
 
@@ -168,7 +171,7 @@ void topBar::slotUpdateSystemTime()
     tpString curDateStr = tpString::number(currentDate.month()) + "月" + tpString::number(currentDate.day()) + "日 " + transWeekData(currentDate.dayOfWeek());
     sysDateLabel_->setText(curDateStr);
 
-    # if 0
+#if 0
     // 获取蓝牙设备状态;取第一个蓝牙设备的状态
     bool blueIsOpen = false;
     tpList<tpBluetoothLocal> blueToothDeviceList = tpBluetoothLocal::getAllDevice();
