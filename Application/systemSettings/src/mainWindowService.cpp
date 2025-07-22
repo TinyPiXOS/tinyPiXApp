@@ -88,7 +88,8 @@ void mainWindowService::initUi()
     tpString resPath = applicationDirPath() + "/../res/";
 
     mainScrollPanel_ = new tpScrollPanel(this);
-    mainScrollPanel_->setFixedWidth(tpDisplay::dp2Px(405));
+    // mainScrollPanel_->setFixedWidth(tpDisplay::dp2Px(405));
+    mainScrollPanel_->setFixedWidth(tpScreen::screenWidth() * 0.375);
     mainScrollPanel_->setBackGroundColor(_RGB(248, 248, 248));
 
     tpChildWidget *scrollWidget = new tpChildWidget(mainScrollPanel_);
