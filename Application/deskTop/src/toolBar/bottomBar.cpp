@@ -11,12 +11,12 @@
 
 #ifndef BOTTOM_BAR_COLOR
 // #define BOTTOM_BAR_COLOR _RGBA(255, 255, 255, 51)
-#define BOTTOM_BAR_COLOR _RGBA(255, 255, 255, 120)
+#define BOTTOM_BAR_COLOR _RGBA(255, 255, 255, 80)
 // #define BOTTOM_BAR_COLOR _RGBA(255, 255, 255, 128)
 #endif
 
 bottomBar::bottomBar(tpScreen *topScreen)
-    : tpDialog(), topScreen_(topScreen)
+    : tpChildWidget(topScreen), topScreen_(topScreen)
 {
     setEnabledBorderColor(false);
     setBackGroundColor(BOTTOM_BAR_COLOR);
@@ -29,7 +29,7 @@ bottomBar::~bottomBar()
 void bottomBar::setVisible(bool visible)
 {
     // std::cout << "bottomBar::setVisible " << visible << std::endl;
-    tpDialog::setVisible(visible);
+    tpChildWidget::setVisible(visible);
 }
 
 void bottomBar::setBottomAppBtn(const tpList<desktopAppButton *> &appList)

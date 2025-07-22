@@ -7,7 +7,7 @@
 #include "toolModule/desktopAppButton.h"
 
 class bottomBar
-	: public tpDialog
+	: public tpChildWidget
 {
 public:
 	// 顶层窗口指针

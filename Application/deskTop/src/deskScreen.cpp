@@ -34,8 +34,9 @@ tpHash<tpString, int32_t> globalUuidPidMap_ = tpHash<tpString, int32_t>();
 
 uint32_t globalAppMaxRow = 4;
 uint32_t globalAppMaxColumn = 6;
+uint32_t globalAppHInterval = 0;
 
-static inline void BAR_SET_ATTRIB(tpDialog *vars, int32_t pop, int32_t x, int32_t y, int32_t width, int32_t height)
+static inline void BAR_SET_ATTRIB(tpChildWidget *vars, int32_t pop, int32_t x, int32_t y, int32_t width, int32_t height)
 {
 	if (pop)
 	{
@@ -89,15 +90,22 @@ void tpDeskScreen::construct()
 	uint32_t mainAppPanelHeight = mainAppPanel_->rect().h;
 	uint32_t panelHMargin = (mainAppPanelWidth - BOTTOM_BAR_WIDTH) / 2.0;
 
-	desktopAppButton* testBtn = new desktopAppButton();
+	desktopAppButton *testBtn = new desktopAppButton();
 	testBtn->font()->setFontSize(APP_FONT_SIZE);
 	testBtn->setIconSize(APP_WIDTH_HEIGHT, APP_WIDTH_HEIGHT);
 
-	globalAppMaxRow = 1.0 * (mainAppPanelHeight + APP_V_INTERVAL) / (APP_V_INTERVAL + testBtn->rect().h);
-	globalAppMaxColumn = 1.0 * (BOTTOM_BAR_WIDTH + APP_H_INTERVAL) / (APP_H_INTERVAL + testBtn->rect().w);
+	int32_t btnWidth = testBtn->rect().w;
+	int32_t btnHeight = testBtn->rect().h;
+
+	globalAppHInterval = globalMainScreen_->screenWidth() * 0.06666;
+
+	globalAppMaxRow = 1.0 * (mainAppPanelHeight + APP_V_INTERVAL) / (APP_V_INTERVAL + btnHeight);
+	globalAppMaxColumn = 1.0 * (BOTTOM_BAR_WIDTH + globalAppHInterval) / (globalAppHInterval + btnWidth);
 
 	testBtn->deleteLater();
 
+	// 根据示例列数，精准计算一下 APP的 水平间隔
+	globalAppHInterval = (BOTTOM_BAR_WIDTH - globalAppMaxColumn * btnWidth) / (globalAppMaxColumn - 1);
 	// globalAppMaxRow = 4;
 	// globalAppMaxColumn = 6;
 
@@ -736,7 +744,7 @@ void tpDeskScreen::createAppBtn()
 				for (int column = 0; column < globalAppMaxColumn; ++column)
 				{
 					// pageNum * mainAppPanelWidth + appX
-					uint32_t appX = panelHMargin + (column % globalAppMaxColumn) * (APP_H_INTERVAL + finalBtn->rect().w);
+					uint32_t appX = panelHMargin + (column % globalAppMaxColumn) * (globalAppHInterval + finalBtn->rect().w);
 					columnXList.emplace_back(appX);
 				}
 			}
@@ -836,7 +844,7 @@ desktopAppButton *tpDeskScreen::createDeskAppBtn(ApplicationInfoSPtr appInfo, co
 
 	uint32_t curAppRow = (appIndex / globalAppMaxColumn);
 
-	uint32_t appX = appPage * mainAppPanelWidth + panelHMargin + (appIndex % globalAppMaxColumn) * (APP_H_INTERVAL + iconButtonRect.w);
+	uint32_t appX = appPage * mainAppPanelWidth + panelHMargin + (appIndex % globalAppMaxColumn) * (globalAppHInterval + iconButtonRect.w);
 	uint32_t appY = curAppRow * (APP_V_INTERVAL + iconButtonRect.h);
 
 	appBtn->move(appX, appY);
