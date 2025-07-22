@@ -458,7 +458,7 @@ void tpDeskScreen::slotTimeoutInstallApp()
 
 void tpDeskScreen::initData()
 {
-	globalTopSettingBar_ = new appSettingBar(this);
+	globalTopSettingBar_ = new appSettingBar();
 	if (globalTopSettingBar_ == nullptr)
 	{
 		std::cout << "topSettingBar init error!" << std::endl;
