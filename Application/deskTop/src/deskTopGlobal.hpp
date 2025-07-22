@@ -109,5 +109,5 @@ extern uint32_t globalAppMaxColumn;
 
 // APPIcon的宽高
 #ifndef APP_WIDTH_HEIGHT
-#define APP_WIDTH_HEIGHT tpScreen::screenWidth() * 0.07807
+#define APP_WIDTH_HEIGHT tpScreen::screenWidth() * 0.08
 #endif

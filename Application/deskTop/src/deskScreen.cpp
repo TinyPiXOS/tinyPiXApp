@@ -227,7 +227,7 @@ bool tpDeskScreen::onMouseMoveEvent(tpMouseEvent *event)
 	{
 		ItpPoint curMousePos = event->globalPos();
 
-		if ((curMousePos.y - pressTopBarPoint_.y) >= 5)
+		if ((curMousePos.y - pressTopBarPoint_.y) >= 2)
 		{
 			// 触发一次下拉事件后，不再重复触发
 			pressTopBar_ = false;

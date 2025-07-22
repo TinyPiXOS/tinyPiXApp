@@ -23,6 +23,8 @@ navigationBar::navigationBar()
     setSize(navigationLineWidth, tpDisplay::dp2Px(20));
     setBackGroundColor(_RGBA(255, 255, 255, 0));
     // setAlpha(0);
+
+    lastAnimationTime_ = tpTime::currentTime();
 }
 
 navigationBar::~navigationBar()
@@ -54,12 +56,24 @@ bool navigationBar::onMouseRleaseEvent(tpMouseEvent *event)
     ItpPoint curPos = event->globalPos();
     if (std::abs(curPos.x - mousePressPoint_.x) < 5 && std::abs(curPos.y - mousePressPoint_.y) < 5)
     {
-        tpAnimation *moveAnimation = new tpAnimation(lineLabel_, tpAnimation::Pos);
-        moveAnimation->setStartValue(lineLabel_->pos());
-        moveAnimation->setKeyValueAt(0.5, ItpPoint(0, 0));
-        moveAnimation->setEndValue(lineLabel_->pos());
-        moveAnimation->setDuration(500);
-        moveAnimation->start();
+        tpTime curTime = tpTime::currentTime();
+        int64_t animationTimeInterval = lastAnimationTime_.msecsTo(curTime);
+        lastAnimationTime_ = curTime;
+
+        // std::cout << " 动画间隔 ： " << animationTimeInterval << std::endl;
+
+        if (animationTimeInterval > 500)
+        {
+            int32_t lienY = (height() - lineLabel_->height()) / 2.0;
+            lineLabel_->move(0, lienY);
+
+            tpAnimation *moveAnimation = new tpAnimation(lineLabel_, tpAnimation::Pos);
+            moveAnimation->setStartValue(lineLabel_->pos());
+            moveAnimation->setKeyValueAt(0.5, ItpPoint(0, 0));
+            moveAnimation->setEndValue(lineLabel_->pos());
+            moveAnimation->setDuration(500);
+            moveAnimation->start();
+        }
     }
     else
     {
