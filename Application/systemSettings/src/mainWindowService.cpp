@@ -205,7 +205,6 @@ void mainWindowService::slotClickMenuItem(tpMenuPanelItem *deviceBtn)
         settingWindow_->setWidget(nullptr);
     }
 
-    returns();
     // if (!deviceBtn->checked())
     // deviceBtn->setChecked(true);
 }
