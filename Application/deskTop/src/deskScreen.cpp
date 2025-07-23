@@ -211,6 +211,9 @@ bool tpDeskScreen::onMousePressEvent(tpMouseEvent *event)
 	// 记录鼠标点击坐标
 	uint32_t pressY = event->globalPos().y;
 
+	std::cout << "pressY " << pressY << std::endl;
+	std::cout << "TOP_BAR_HEIGHT " << TOP_BAR_HEIGHT << std::endl;
+	
 	if (pressY < TOP_BAR_HEIGHT)
 	{
 		pressTopBar_ = true;
