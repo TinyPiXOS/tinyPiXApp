@@ -15,7 +15,7 @@ class appSettingBar
     : public tpDialog
 {
 public:
-    appSettingBar(tpScreen *topScreen);
+    appSettingBar();
     virtual ~appSettingBar();
 
     virtual void setVisible(bool visible) override;
@@ -57,8 +57,6 @@ private:
     void slotPowerOff(bool checked);
 
 private:
-    tpScreen *topScreen_;
-
     bool mouseLeftPress_;
     ItpPoint pressPoint_;
 

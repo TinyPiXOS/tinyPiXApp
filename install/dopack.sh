@@ -2,7 +2,7 @@
 # 修正版：保留完整映射功能 + 相对路径支持 + 软链接生成
 
 # ====================== 配置区域 ======================
-OUTPUT_NAME="tinyPiXApp.run"	# 生成的安装包的名字
+BASE_NAME="tinyPiXApp"	# 生成的安装包的名字，会自动拼接架构和后缀
 TMP_ROOT_DIR="package_build"	# 生成的临时文件的名字
 KEEP_TMP_DIR=false		# 是否保留中间生成的打包源文件
 
@@ -17,8 +17,8 @@ declare -A PATH_MAPPINGS=(
     # 相对路径会自动转换为绝对路径
     # 格式: [源目录]="模式:目标路径"
 	# 模式支持: overwrite(覆盖) | merge(合并) | update(更新)
-    ["./$ARCH/app"]="update:/System/app"
-	["./$ARCH/conf"]="update:/System/conf"
+    ["./{ARCH}/app"]="update:/System/app"
+	["./{ARCH}/conf"]="update:/System/conf"
 )
 # =====================================================
 
@@ -127,7 +127,10 @@ intelligent_copy() {
 
 # ---------------------- 主流程 ----------------------
 echo "===== 开始灵活路径打包 ====="
-
+#解析架构
+ACTUAL_ARCH=$(resolve_architecture)
+#拼接输出文件名
+OUTPUT_NAME="${BASE_NAME}_${ACTUAL_ARCH}.run"
 # 1. 创建临时根目录
 echo "▸ 创建临时工作区: $TMP_ROOT_DIR"
 rm -rf "$TMP_ROOT_DIR"
@@ -277,11 +280,8 @@ echo "目标目录: $TARGET_DIR"
 echo "映射文件: $MAPPING_FILE"
 
 # 检查系统依赖包 ----------------------------------------
-echo "▸ 正在检查系统依赖包 (架构: $ARCH)"
+#echo "▸ 正在检查系统依赖包 (架构: $ARCH)"
 packages=(
-	librsvg2-dev libssl-dev libavcodec-dev libavformat-dev libavutil-dev libavfilter-dev libavdevice-dev
-	bluez-obexd bluez-alsa-utils libasound2-plugin-bluez
-	libboost-all-dev libleveldb-dev libmarisa-dev libopencc-dev libyaml-cpp-dev libgoogle-glog-dev
 )
 
 check_and_install_packages() {
@@ -309,7 +309,8 @@ check_and_install_packages() {
     done
 }
 
-check_and_install_packages "${packages[@]}"
+#不再检查依赖安装情况
+#check_and_install_packages "${packages[@]}"
 
 # ====================== 文件复制逻辑 ======================
 # 处理映射表
@@ -422,8 +423,8 @@ while IFS= read -r mapping; do
 done < "$MAPPING_FILE"
 
 
-# 在文件复制后调用
-create_symlinks
+# 在文件复制后调用（APP没有需要处理的软连接，如果后续需要增加，从和core复制此函数）
+# create_symlinks
 
 echo -e "\n✅ 安装成功完成"
 exit 0
@@ -450,7 +451,7 @@ tail -n +$ARCHIVE_START "$0" | base64 -d | tar -xzf - -C "$EXTRACT_DIR"
 
 # 增加调试：检查解压内容
 echo "▸ 解压目录内容:"
-ls -lR "$EXTRACT_DIR"
+#ls -lR "$EXTRACT_DIR"
 
 # 执行安装器
 if [ -n "$INSTALL_DIR" ]; then
@@ -463,7 +464,7 @@ fi
 
 # 清理
 rm -rf "$EXTRACT_DIR"
-echo "✅ 安装流程完成!"
+echo " 安装流程完成!"
 exit 0
 
 __ARCHIVE_BELOW__

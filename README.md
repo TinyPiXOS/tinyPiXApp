@@ -309,7 +309,7 @@ TinyPiXOS整体架构图
 
 - ​**操作系统**: Ubuntu 22.04.4 LTS  
 - ​**编译器**: gcc g++ 11.4.0  
-- ​**构建工具**: >=CMake 3.5.0  
+- ​**构建工具**: >=CMake 3.20.0  
 - ​**语言标准**: C++11  
 
 理论上对操作系统无限制；目前只在 Ubuntu 22.04.4 LTS 进行了验证。编译器版本和构建工具必须相同或高于要求版本。
@@ -337,13 +337,83 @@ git clone https://github.com/TinyPiXOS/tinyPiXApp.git
 # 需要先安装完成 tinyPiXCore 相关依赖；参考官网 tinyPiXCore 安装教程
 ```
 
-- ​**构建 tinyPiXApp**
+- ​**构建 tinyPiXApp Debug版本**
 
 ```bash
 cmake .
 make
 make install
 ```
+
+或者显示指定构建版本
+
+```bash
+cmake --preset=debug
+make
+make install
+```
+
+- ​**构建 tinyPiXApp Release版本**
+
+```bash
+cmake --preset=release
+make
+make install
+```
+
+- ​**交叉编译构建 tinyPiXApp Arm Debug版本**
+
+-使用默认编译器：
+
+```bash
+/usr/bin/arm-linux-gnueabihf-gcc
+/usr/bin/arm-linux-gnueabihf-g++
+```
+
+```bash
+cmake --preset=arm-debug
+make
+make install
+```
+
+手动指定编译器（配置时覆盖编译器路径）
+
+```bash
+cmake --preset=arm-debug \
+  -DCMAKE_C_COMPILER=/your/custom/path/arm-linux-gnueabihf-gcc \
+  -DCMAKE_CXX_COMPILER=/your/custom/path/arm-linux-gnueabihf-g++
+make
+make install
+```
+
+根据/usr下安装目录，或者 tinyPiXApp/install/arm 目录，移植对应文件至ARM即可。
+
+- ​**交叉编译构建 tinyPiXApp Arm Release版本**
+
+使用默认编译器：
+
+```bash
+/usr/bin/arm-linux-gnueabihf-gcc
+/usr/bin/arm-linux-gnueabihf-g++
+```
+
+```bash
+cmake --preset=arm-release
+make
+make install
+```
+
+手动指定编译器（配置时覆盖编译器路径）
+
+```bash
+cmake --preset=arm-release \
+  -DCMAKE_C_COMPILER=/your/custom/path/arm-linux-gnueabihf-gcc \
+  -DCMAKE_CXX_COMPILER=/your/custom/path/arm-linux-gnueabihf-g++
+make
+make install
+```
+
+根据/usr下安装目录，或者 tinyPiXApp/install/arm 目录，移植对应文件至ARM即可。
 
 ### 使用说明
 

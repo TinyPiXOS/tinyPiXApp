@@ -173,7 +173,7 @@ void InternetSettingWindow::initUi()
     // 网卡列表
     netDeviceListCbx_ = new tpListCheckBoxGroup();
     netDeviceListCbx_->installEventFilter(this);
-    connect(netDeviceListCbx_, onStatusChanged, this, InternetSettingWindow::slotSwitchNetDevice);
+    connect(netDeviceListCbx_, onStatusChanged, this, &InternetSettingWindow::slotSwitchNetDevice);
 
     tpList<tpNetworkInterface> internetDeviceList = tpNetworkInterface::getAllDevice();
     for (const auto &internetDevice : internetDeviceList)
@@ -194,7 +194,7 @@ void InternetSettingWindow::initUi()
     applyIpv4Btn_->setRoundCorners(20);
     applyIpv4Btn_->setText("确定");
     applyIpv4Btn_->installEventFilter(this);
-    connect(applyIpv4Btn_, onClicked, this, InternetSettingWindow::slotSaveIpv4Config);
+    connect(applyIpv4Btn_, onClicked, this, &InternetSettingWindow::slotSaveIpv4Config);
 
     // 构建DNS配置面板
     tpLabel *dnsConfigTitle = createGroupNameLabel("DNS设置");
@@ -208,7 +208,7 @@ void InternetSettingWindow::initUi()
     applyDnsBtn_->setRoundCorners(20);
     applyDnsBtn_->setText("确定");
     applyDnsBtn_->installEventFilter(this);
-    connect(applyDnsBtn_, onClicked, this, InternetSettingWindow::slotSaveDnsConfig);
+    connect(applyDnsBtn_, onClicked, this, &InternetSettingWindow::slotSaveDnsConfig);
 
     mainLayout_->addWidget(selectNetDeviceTitle);
     mainLayout_->addWidget(netDeviceListCbx_);

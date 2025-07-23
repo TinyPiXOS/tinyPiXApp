@@ -85,6 +85,6 @@ void topBar::init()
     closeMediaBtn_->setEnableBackGroundColor(false);
     closeMediaBtn_->setFixedSize(tpDisplay::dp2Px(34), tpDisplay::dp2Px(34));
     closeMediaBtn_->setIcon(applicationDirPath() + "/../res/后退.png");
-    connect(closeMediaBtn_, onClicked, this, topBar::slotCloseMedia);
+    connect(closeMediaBtn_, onClicked, this, &topBar::slotCloseMedia);
     closeMediaBtn_->setVisible(false);
 }

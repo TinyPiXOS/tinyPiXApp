@@ -142,7 +142,7 @@ tpChildWidget *clearSpaceWindow::genClearFileWidget()
     releaseSpaceBtn_->setProperty("type", "FunctionButton");
     releaseSpaceBtn_->setButtonStyle(tpButton::TextOnly);
     releaseSpaceBtn_->setText("确认并释放空间");
-    connect(releaseSpaceBtn_, onClicked, this, clearSpaceWindow::SlotClearSpaceFile);
+    connect(releaseSpaceBtn_, onClicked, this, &clearSpaceWindow::SlotClearSpaceFile);
 
     titleLayout->addWidget(nameLabel);
     titleLayout->addWidget(subLine);

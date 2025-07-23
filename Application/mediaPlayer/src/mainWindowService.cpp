@@ -117,7 +117,7 @@ void mainWindowService::setBackBtnVisible(const bool &visible)
     topBar_->setBackBtnVisible(visible);
 }
 
-bool mainWindowService::appChange(int32_t id, int32_t pid, int32_t rotate, int32_t visible, int32_t active, int32_t color, uint8_t alpha, int32_t require)
+bool mainWindowService::appChange(int32_t id, int32_t pid, int32_t visible, int32_t active, int32_t color, uint8_t alpha, int32_t require)
 {
     std::cout << "mainWindowService::appChange" << std::endl;
 
@@ -129,13 +129,6 @@ bool mainWindowService::appChange(int32_t id, int32_t pid, int32_t rotate, int32
 bool mainWindowService::onResizeEvent(tpObjectResizeEvent *event)
 {
     std::cout << "mainWindowService::onResizeEvent" << std::endl;
-
-    return true;
-}
-
-bool mainWindowService::onRotateEvent(tpObjectRotateEvent *event)
-{
-    std::cout << "mainWindowService::onRotateEvent" << std::endl;
 
     return true;
 }
@@ -158,9 +151,9 @@ void mainWindowService::initUi()
     tpShared<tpSurface> musicIconImage = tpMakeShared<tpSurface>(applicationDirPath() + "/../res/音频.png");
     isMusicIconLabel_->setBackGroundImage(musicIconImage);
 
-    connect(bottomBar_, medioOperate, this, mainWindowService::slotOperateMedia);
-    connect(bottomBar_, alterPostion, this, mainWindowService::slotSwitchPos);
-    connect(bottomBar_, switchSpeed, this, mainWindowService::slotSwitchSpeed);
+    connect(bottomBar_, medioOperate, this, &mainWindowService::slotOperateMedia);
+    connect(bottomBar_, alterPostion, this, &mainWindowService::slotSwitchPos);
+    connect(bottomBar_, switchSpeed, this, &mainWindowService::slotSwitchSpeed);
 
     audioPlayer_ = new tpAudioInterface("hw:1,0");
     videoPlayer_ = new tpVideoInterface();
@@ -170,7 +163,7 @@ void mainWindowService::initUi()
     videoPlayer_->setScalingMode(tpVideoInterface::TP_VIDEO_SCALING_FIT); // 推荐格式
 
     updateProgressTimer_ = new tpTimer();
-    connect(updateProgressTimer_, timeout, this, mainWindowService::slotUpdatePlayerProgress);
+    connect(updateProgressTimer_, timeout, this, &mainWindowService::slotUpdatePlayerProgress);
 }
 
 void mainWindowService::slotUpdatePlayerProgress()

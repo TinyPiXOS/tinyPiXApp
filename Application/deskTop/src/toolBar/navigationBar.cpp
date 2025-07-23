@@ -3,13 +3,14 @@
 #include "tpDisplay.h"
 #include "tpAnimation.h"
 #include "deskTopGlobal.hpp"
-
-static const uint32_t navigationLineWidth = tpDisplay::dp2Px(328);
-static const uint32_t navigationLineHeight = tpDisplay::dp2Px(6);
+#include "tpApp.h"
 
 navigationBar::navigationBar()
     : tpDialog("tinyPiX_SYS_Float_0531acbf04")
 {
+    const uint32_t navigationLineWidth = globalMainScreen_->screenWidth() * 0.3;
+    const uint32_t navigationLineHeight = tpDisplay::dp2Px(6);
+
     lineLabel_ = new tpLabel(this);
     lineLabel_->setFixedSize(navigationLineWidth, navigationLineHeight);
     lineLabel_->setEnabledBorderColor(false);
@@ -19,9 +20,11 @@ navigationBar::navigationBar()
     lineLabel_->installEventFilter(this);
 
     // 导航线上下各10像素
-    setSize(navigationLineWidth, tpDisplay::dp2Px(16));
+    setSize(navigationLineWidth, tpDisplay::dp2Px(20));
     setBackGroundColor(_RGBA(255, 255, 255, 0));
     // setAlpha(0);
+
+    lastAnimationTime_ = tpTime::currentTime();
 }
 
 navigationBar::~navigationBar()
@@ -53,12 +56,24 @@ bool navigationBar::onMouseRleaseEvent(tpMouseEvent *event)
     ItpPoint curPos = event->globalPos();
     if (std::abs(curPos.x - mousePressPoint_.x) < 5 && std::abs(curPos.y - mousePressPoint_.y) < 5)
     {
-        tpAnimation *moveAnimation = new tpAnimation(lineLabel_, tpAnimation::Pos);
-        moveAnimation->setStartValue(lineLabel_->pos());
-        moveAnimation->setKeyValueAt(0.5, ItpPoint(0, 0));
-        moveAnimation->setEndValue(lineLabel_->pos());
-        moveAnimation->setDuration(500);
-        moveAnimation->start();
+        tpTime curTime = tpTime::currentTime();
+        int64_t animationTimeInterval = lastAnimationTime_.msecsTo(curTime);
+        lastAnimationTime_ = curTime;
+
+        // std::cout << " 动画间隔 ： " << animationTimeInterval << std::endl;
+
+        if (animationTimeInterval > 500)
+        {
+            int32_t lienY = (height() - lineLabel_->height()) / 2.0;
+            lineLabel_->move(0, lienY);
+
+            tpAnimation *moveAnimation = new tpAnimation(lineLabel_, tpAnimation::Pos);
+            moveAnimation->setStartValue(lineLabel_->pos());
+            moveAnimation->setKeyValueAt(0.5, ItpPoint(0, 0));
+            moveAnimation->setEndValue(lineLabel_->pos());
+            moveAnimation->setDuration(500);
+            moveAnimation->start();
+        }
     }
     else
     {
@@ -90,6 +105,17 @@ bool navigationBar::onMouseRleaseEvent(tpMouseEvent *event)
             else
             {
                 tinyPiX_sys_send_home(globalAgent);
+
+                // PiShmBytes *appIdList = nullptr;
+                // int appSize = 0;
+                // tinyPiX_sys_find_win_ids(globalAgent, &appIdList, &appSize, 1);
+
+                // std::cout << "appSizeappSizeappSize" << appSize << std::endl;
+                // for (int i = 0; i < appSize; ++i)
+                // {
+                //     std::cout << "IIIIIIIDDDDDDD" << appIdList[i].id << std::endl;
+                // }
+                // tinyPiX_sys_send_return(globalAgent, 0);
 
                 std::cout << " Return Desktop " << std::endl;
             }

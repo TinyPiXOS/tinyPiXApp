@@ -37,6 +37,9 @@ private:
     ItpPoint mousePressPoint_;
 
     tpTime mousePressTime_;
+
+    // 上一次动画执行时间，避免重复执行动画
+    tpTime lastAnimationTime_;
 };
 
 #endif

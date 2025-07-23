@@ -131,7 +131,7 @@ void fileListWindow::refreshPath(const tpString &path)
             item->setPath(fileInfo.absoluteFilePath());
             item->installEventFilter(this);
 
-            connect(item, onClicked, this, fileListWindow::SlotClickFileItem);
+            connect(item, onClicked, this, &fileListWindow::SlotClickFileItem);
 
             gridFileLayout_->addWidget(item);
         }
@@ -145,7 +145,7 @@ void fileListWindow::refreshPath(const tpString &path)
             item->setPath(fileInfo.absoluteFilePath());
             item->installEventFilter(this);
 
-            connect(item, onClicked, this, fileListWindow::SlotClickListFileItem);
+            connect(item, onClicked, this, &fileListWindow::SlotClickListFileItem);
 
             listFileLayout_->addWidget(item);
         }
@@ -223,7 +223,7 @@ void fileListWindow::init()
             { SlotBackPath(); });
 
     popBtn_ = new usbPopButton();
-    connect((tpButton *)popBtn_, onClicked, this, fileListWindow::SlotPopUsb);
+    connect((tpButton *)popBtn_, onClicked, this, &fileListWindow::SlotPopUsb);
 
     // 功能设置窗口
     settingWindow_ = new settingWindow();
@@ -235,7 +235,7 @@ void fileListWindow::init()
     settingBtn_->setEnableBackGroundColor(false);
     settingBtn_->setFixedSize(tpDisplay::dp2Px(34), tpDisplay::dp2Px(34));
     settingBtn_->setIcon(applicationDirPath() + "/../res/功能设置.png");
-    connect(settingBtn_, onClicked, this, fileListWindow::SlotShowSetting);
+    connect(settingBtn_, onClicked, this, &fileListWindow::SlotShowSetting);
 
     filePathWidget_ = new tpFilePathWidget();
     filePathWidget_->setVisible(false);

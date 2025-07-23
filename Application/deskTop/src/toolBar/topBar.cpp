@@ -5,6 +5,7 @@
 #include "tpDisplay.h"
 #include "tpTime.h"
 #include "tpDate.h"
+#include "tpEvent.h"
 #include "tpSurface.h"
 #include "tpBluetoothLocal.h"
 #include "tpNetworkInterface.h"
@@ -65,7 +66,7 @@ void topBar::construct()
     elecBattery_->setValue(100);
 
     updateTimetimer_ = new tpTimer(50000);
-    connect(updateTimetimer_, SIGNALS(tpTimer, timeout), this, SLOTS(topBar, slotUpdateSystemTime));
+    connect(updateTimetimer_, timeout, this, &topBar::slotUpdateSystemTime);
     updateTimetimer_->start();
 
     // 系统启动就要刷新一下时间
@@ -78,12 +79,19 @@ void topBar::destruction()
 
 void topBar::setVisible(bool visible)
 {
-    // topBar显隐的时候也要通知settingbar状态变换
-    // 刷新应用工具栏尺寸
-    // if (appSettingBar_)
-    //     appSettingBar_->resizeSettingBar(this);
+    // 隐藏topbar内部控件
+    sysDateLabel_->setVisible(visible);
+    sysTimeLabel_->setVisible(visible);
 
-    tpDialog::setVisible(visible);
+    // 蓝牙和网络连接状态
+    wifiLabel_->setVisible(visible);
+    blueToothLabel_->setVisible(visible);
+
+    // 电量显示窗
+    elecBattery_->setVisible(visible);
+
+    // tpDialog::setVisible(visible);
+    update();
 }
 
 void topBar::setColor(const int32_t &appColor)
@@ -103,6 +111,8 @@ bool topBar::onResizeEvent(tpObjectResizeEvent *event)
 
 bool topBar::onMousePressEvent(tpMouseEvent *event)
 {
+    std::cout << "TopBar Press Pos ()" << event->globalPos().x << " , " << event->globalPos().y << std::endl;
+
     return true;
 }
 
@@ -161,6 +171,7 @@ void topBar::slotUpdateSystemTime()
     tpString curDateStr = tpString::number(currentDate.month()) + "月" + tpString::number(currentDate.day()) + "日 " + transWeekData(currentDate.dayOfWeek());
     sysDateLabel_->setText(curDateStr);
 
+#if 0
     // 获取蓝牙设备状态;取第一个蓝牙设备的状态
     bool blueIsOpen = false;
     tpList<tpBluetoothLocal> blueToothDeviceList = tpBluetoothLocal::getAllDevice();
@@ -184,10 +195,11 @@ void topBar::slotUpdateSystemTime()
             break;
     }
     wifiLabel_->setVisible(isOnline);
+#endif
 
     if (globalTopSettingBar_)
     {
-        globalTopSettingBar_->setBluetoothStatus(blueIsOpen);
+        // globalTopSettingBar_->setBluetoothStatus(blueIsOpen);
         globalTopSettingBar_->updateTime(currentDate.year(), currentDate.month(), currentDate.day(), transWeekData(currentDate.dayOfWeek()));
     }
 }

@@ -25,7 +25,7 @@ appTaskManageWindow::appTaskManageWindow()
     clearAllBtn_ = new tpButton(this);
     clearAllBtn_->setProperty("type", "TaskManageClearButton");
     clearAllBtn_->setText("清除全部");
-    connect(clearAllBtn_, onClicked, this, appTaskManageWindow::slotClearAllApp);
+    connect(clearAllBtn_, onClicked, this, &appTaskManageWindow::slotClearAllApp);
 
     clearAllBtn_->setStyleSheet(R"(tpButton[type="TaskManageClearButton"] { \
                                     height: 38dp; \
@@ -117,8 +117,8 @@ void appTaskManageWindow::setVisible(bool visible)
             // previewWidget->setPreviewImg("/home/hawk/Public/tinyPiXOS/tinyPiXApp/deskTop/res/测试.png");
             previewWidget->setId(appIdInfo.pid, appIdInfo.id);
 
-            connect(previewWidget, signalKillApp, this, appTaskManageWindow::slotKillApp);
-            connect(previewWidget, signalOpenApp, this, appTaskManageWindow::slotOpenApp);
+            connect(previewWidget, signalKillApp, this, &appTaskManageWindow::slotKillApp);
+            connect(previewWidget, signalOpenApp, this, &appTaskManageWindow::slotOpenApp);
 
             allTaskWidgetMap_[appIdInfo.pid] = previewWidget;
 

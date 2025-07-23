@@ -29,7 +29,7 @@ mainWindowService::~mainWindowService()
 {
 }
 
-bool mainWindowService::appChange(int32_t id, int32_t pid, int32_t rotate, int32_t visible, int32_t active, int32_t color, uint8_t alpha, int32_t require)
+bool mainWindowService::appChange(int32_t id, int32_t pid, int32_t visible, int32_t active, int32_t color, uint8_t alpha, int32_t require)
 {
     std::cout << "systemSetting::appChange" << std::endl;
 
@@ -43,13 +43,6 @@ bool mainWindowService::appChange(int32_t id, int32_t pid, int32_t rotate, int32
 bool mainWindowService::onResizeEvent(tpObjectResizeEvent *event)
 {
     std::cout << "systemSetting::onResizeEvent" << std::endl;
-
-    return true;
-}
-
-bool mainWindowService::onRotateEvent(tpObjectRotateEvent *event)
-{
-    std::cout << "systemSetting::onRotateEvent" << std::endl;
 
     return true;
 }
@@ -88,7 +81,8 @@ void mainWindowService::initUi()
     tpString resPath = applicationDirPath() + "/../res/";
 
     mainScrollPanel_ = new tpScrollPanel(this);
-    mainScrollPanel_->setFixedWidth(tpDisplay::dp2Px(405));
+    // mainScrollPanel_->setFixedWidth(tpDisplay::dp2Px(405));
+    mainScrollPanel_->setFixedWidth(tpScreen::screenWidth() * 0.375);
     mainScrollPanel_->setBackGroundColor(_RGB(248, 248, 248));
 
     tpChildWidget *scrollWidget = new tpChildWidget(mainScrollPanel_);
@@ -129,7 +123,7 @@ void mainWindowService::initUi()
     subBackBtn_->setFixedSize(tpDisplay::dp2Px(34), tpDisplay::dp2Px(34));
     subBackBtn_->setIcon(applicationDirPath() + "/../res/路径后退.png");
     subBackBtn_->setVisible(false);
-    connect(subBackBtn_, onClicked, this, mainWindowService::slotClickBackBtn);
+    connect(subBackBtn_, onClicked, this, &mainWindowService::slotClickBackBtn);
 
     subTitleLayout->addWidget(subBackBtn_);
     subTitleLayout->addWidget(subTitleLabel_);
@@ -242,7 +236,7 @@ void mainWindowService::createAllSettingTopMenu(tpVBoxLayout *menuLayout)
         // 功能菜单
         tpMenuPanelWidget *menuPanelWidget = new tpMenuPanelWidget();
         menuPanelWidget->installEventFilter(mainScrollPanel_);
-        connect(menuPanelWidget, onClicked, this, mainWindowService::slotClickMenuItem);
+        connect(menuPanelWidget, onClicked, this, &mainWindowService::slotClickMenuItem);
         // menuPanelWidget->setBackGroundColor(_RGB(255, 0, 0));
 
         for (const auto &menuType : menuPanel)
