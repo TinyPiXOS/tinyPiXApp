@@ -1,10 +1,6 @@
 #include "bottomBar.h"
 #include "tpDisplay.h"
 
-#ifndef BOTTOM_MARGIN
-#define BOTTOM_MARGIN tpDisplay::dp2Px(16)
-#endif
-
 #ifndef BOTTOM_CONTENT_MARGIN
 #define BOTTOM_CONTENT_MARGIN tpDisplay::dp2Px(24)
 #endif
@@ -96,13 +92,12 @@ void bottomBar::caculateBottomAppPos()
     uint32_t appAllWidth = bottomAppCount * APP_WIDTH_HEIGHT + (bottomAppCount - 1) * BOTTOM_CONTENT_MARGIN;
 
     uint32_t appStartX = (BOTTOM_BAR_WIDTH - appAllWidth) / 2.0;
+    uint32_t appStartY = (BOTTOM_BAR_HEIGHT - APP_WIDTH_HEIGHT) / 2.0;
 
     // 因为按钮是以顶层窗口为父类，所以坐标要叠加bittomBar的XY坐标
     for (int32_t i = 0; i < systemAppBtnList_.size(); ++i)
     {
         desktopAppButton *bottomAppBtn = systemAppBtnList_.at(i);
-
-        bottomAppBtn->move(appStartX + (APP_WIDTH_HEIGHT + BOTTOM_CONTENT_MARGIN) * i, BOTTOM_MARGIN);
-        // bottomAppBtn->move(pos().x + appStartX + (APP_WIDTH_HEIGHT + BOTTOM_CONTENT_MARGIN) * i, pos().y + BOTTOM_MARGIN);
+        bottomAppBtn->move(appStartX + (APP_WIDTH_HEIGHT + BOTTOM_CONTENT_MARGIN) * i, appStartY);
     }
 }

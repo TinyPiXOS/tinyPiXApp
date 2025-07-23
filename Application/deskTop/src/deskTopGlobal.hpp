@@ -66,7 +66,7 @@ typedef std::shared_ptr<ApplicationInfo> ApplicationInfoSPtr;
 #endif
 
 #ifndef BOTTOM_BAR_HEIGHT
-#define BOTTOM_BAR_HEIGHT globalMainScreen_->screenHeight() * 0.15555
+#define BOTTOM_BAR_HEIGHT globalMainScreen_->screenHeight() * 0.16
 #endif
 
 // 顶部工具栏高度
@@ -110,5 +110,5 @@ extern uint32_t globalAppMaxColumn;
 
 // APPIcon的宽高
 #ifndef APP_WIDTH_HEIGHT
-#define APP_WIDTH_HEIGHT globalMainScreen_->screenWidth() * 0.085
+#define APP_WIDTH_HEIGHT globalMainScreen_->screenHeight() * 0.1275
 #endif
