@@ -211,8 +211,8 @@ bool tpDeskScreen::onMousePressEvent(tpMouseEvent *event)
 	// 记录鼠标点击坐标
 	uint32_t pressY = event->globalPos().y;
 
-	std::cout << "pressY " << pressY << std::endl;
-	std::cout << "TOP_BAR_HEIGHT " << TOP_BAR_HEIGHT << std::endl;
+	// std::cout << "pressY " << pressY << std::endl;
+	// std::cout << "TOP_BAR_HEIGHT " << TOP_BAR_HEIGHT << std::endl;
 	
 	if (pressY < TOP_BAR_HEIGHT)
 	{
@@ -918,15 +918,15 @@ void tpDeskScreen::startApp(const tpString &uuid, const tpVector<tpString> &argL
 		// 根据pid查询winid
 		PiShmBytes *appIdList = nullptr;
 		int appSize = 0;
-		tinyPiX_sys_find_win_ids(globalAgent, &appIdList, &appSize, 1);
+		tinyPiX_sys_find_win_ids(globalAgent, &appIdList, &appSize, Q_FIXS);
 
 		int32_t winId = 0;
 		for (int i = 0; i < appSize; ++i)
 		{
 			PiShmBytes appIdInfo = appIdList[i];
-			if (appIdInfo.pid == pid)
+			if (appIdInfo.p_id == pid)
 			{
-				winId = appIdInfo.id;
+				winId = appIdInfo.s_id;
 				break;
 			}
 		}

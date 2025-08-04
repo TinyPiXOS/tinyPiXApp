@@ -55,7 +55,7 @@ void appTaskManageWindow::setVisible(bool visible)
         // 获取所有应用列表
         PiShmBytes *appIdList = nullptr;
         int appSize = 0;
-        tinyPiX_sys_find_win_ids(globalAgent, &appIdList, &appSize, 1);
+        tinyPiX_sys_find_win_ids(globalAgent, &appIdList, &appSize, Q_FIXS);
 
         // 清空上一次的任务列表
         taskScrollPanel_->clearObject();
@@ -70,20 +70,13 @@ void appTaskManageWindow::setVisible(bool visible)
             PiShmBytes appIdInfo = appIdList[i];
 
             std::cout << "App Index " << i << std::endl;
-            std::cout << "App Id " << appIdInfo.id << "  Pid " << appIdInfo.pid << std::endl;
-
-            // 应用抓图，grabWindow
-            // char dispDir[1024];
-            // const char *readDispDir = tinyPiX_sys_get_disp_dir(globalAgent);
-            // sprintf(dispDir, "%s/%d-%d", readDispDir, appIdInfo.pid, appIdInfo.id);
-            // std::cout << "dispDir " << dispDir << std::endl;
-            // IPiSharedEx *sharedEx = cache_ex_map_surface_read(dispDir);
+            std::cout << "App Id " << appIdInfo.s_id << "  Pid " << appIdInfo.p_id << std::endl;
 
             // 根据pid查询应用的信息
-            if (!globalRunAppMap_.contains(appIdInfo.pid))
+            if (!globalRunAppMap_.contains(appIdInfo.p_id))
                 continue;
 
-            const auto &curAppInfo = globalRunAppMap_[appIdInfo.pid];
+            const auto &curAppInfo = globalRunAppMap_[appIdInfo.p_id];
             std::cout << "运行应用信息： " << curAppInfo.appName << std::endl;
 
             appPreviewWidget *previewWidget = new appPreviewWidget(this);
@@ -91,36 +84,20 @@ void appTaskManageWindow::setVisible(bool visible)
             previewWidget->setIcon(curAppInfo.appIconPath);
 
             // 应用抓图，grabWindow
-            // char dispDir[1024];
-            // const char *readDispDir1 = tinyPiX_sys_get_disp_dir(globalAgent);
-            // std::cout << "readDispDir " << readDispDir1 << std::endl;
-            // const char *readDispDir = "/System/run/.tinyPiX/display";
-            
-            // sprintf(dispDir, "%s/%d-%d", readDispDir, appIdInfo.pid, appIdInfo.id);
-            // std::cout << "dispDir " << dispDir << std::endl;
+            IPiWFSurface* surfacePtr = tinyPiX_sys_get_obj_surface(globalAgent, appIdInfo.s_id, appIdInfo.p_id);
 
-            tpString readDispDir = tinyPiX_sys_get_disp_dir(globalAgent);
-            tpString dispDir = /*readDispDir + */ "/System/run/.tinyPiX/display/" + tpString::number(appIdInfo.pid) + "-" + tpString::number(appIdInfo.id);
+            tpShared<tpSurface> appDisplayImage = tpMakeShared<tpSurface>(surfacePtr);
 
-            // std::cout << "dispDir " << dispDir << std::endl;
+            tinyPiX_surface_free(surfacePtr);
 
-            IPiSharedEx *sharedEx = cache_ex_map_surface_read(dispDir.c_str());
-
-            tpShared<tpSurface> previewImg = nullptr;
-            // std::cout << "sharedEx  " << sharedEx << std::endl;
-            if (sharedEx)
-            {
-                previewImg = tpMakeShared<tpSurface>(cache_ex_map_surface(sharedEx));
-            }
-
-            previewWidget->setPreviewImg(previewImg);
+            previewWidget->setPreviewImg(appDisplayImage);
             // previewWidget->setPreviewImg("/home/hawk/Public/tinyPiXOS/tinyPiXApp/deskTop/res/测试.png");
-            previewWidget->setId(appIdInfo.pid, appIdInfo.id);
+            previewWidget->setId(appIdInfo.p_id, appIdInfo.s_id);
 
             connect(previewWidget, signalKillApp, this, &appTaskManageWindow::slotKillApp);
             connect(previewWidget, signalOpenApp, this, &appTaskManageWindow::slotOpenApp);
 
-            allTaskWidgetMap_[appIdInfo.pid] = previewWidget;
+            allTaskWidgetMap_[appIdInfo.p_id] = previewWidget;
 
             uint32_t taskBtnXPos = taskHInterval + (i / 2) * (taskWidth_ + taskHInterval);
             uint32_t taskBtnYPos = taskVInterval + (i % 2) * (taskHeight_ + taskVInterval);
@@ -229,7 +206,7 @@ void appTaskManageWindow::slotClearAllApp(bool)
     {
         PiShmBytes appIdInfo = appIdList[i];
 
-        tinyPiX_sys_kill_process(globalAgent, appIdInfo.pid);
+        tinyPiX_sys_kill_process(globalAgent, appIdInfo.p_id);
     }
 
     // 清理缓存的应用运行信息
