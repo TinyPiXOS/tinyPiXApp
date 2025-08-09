@@ -5,6 +5,7 @@ appOperateMaskWindow::appOperateMaskWindow()
     : tpDialog()
 {
     setAlpha(204);
+    setVisible(false);
 }
 
 appOperateMaskWindow::~appOperateMaskWindow()
