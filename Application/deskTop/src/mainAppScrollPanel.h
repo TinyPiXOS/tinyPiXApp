@@ -36,6 +36,7 @@ protected:
     virtual bool onWheelEvent(tpWheelEvent *event) override;
 
     virtual bool onMouseMoveEvent(tpMouseEvent *event) override;
+	virtual bool onLeaveEvent(tpObjectLeaveEvent *event) override;
 
 private:
     bool mouseLeftPress_;
