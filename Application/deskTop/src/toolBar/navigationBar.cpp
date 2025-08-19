@@ -53,6 +53,7 @@ bool navigationBar::onMousePressEvent(tpMouseEvent *event)
 
 bool navigationBar::onMouseRleaseEvent(tpMouseEvent *event)
 {
+    std::cout << "navigationBar::onMouseRleaseEvent " << std::endl;
     ItpPoint curPos = event->globalPos();
     if (std::abs(curPos.x - mousePressPoint_.x) < 5 && std::abs(curPos.y - mousePressPoint_.y) < 5)
     {
@@ -128,7 +129,7 @@ bool navigationBar::onMouseRleaseEvent(tpMouseEvent *event)
 bool navigationBar::onMouseMoveEvent(tpMouseEvent *event)
 {
     static int aaa = 0;
-    // std::cout << "navigationBar::onMouseMoveEvent" << aaa++ << std::endl;
+    std::cout << "navigationBar::onMouseMoveEvent" << aaa++ << std::endl;
 
     // if (event->state())
     // {

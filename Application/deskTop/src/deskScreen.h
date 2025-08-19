@@ -11,7 +11,7 @@
 #include "tpMenu.h"
 #include "tpCarouselButton.h"
 #include "deskTopGlobal.hpp"
-#include "tpDesktopGlobal.h"
+#include "tpNetDataGlobal.h"
 #include "tpGateway.h"
 #include "tpAppInstall.h"
 #include "tpTimer.h"

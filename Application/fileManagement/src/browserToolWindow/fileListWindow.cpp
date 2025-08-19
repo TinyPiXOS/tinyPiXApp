@@ -10,7 +10,7 @@
 #include "tpJsonDocument.h"
 #include "tpJsonObject.h"
 #include "tpFile.h"
-#include "tpDesktopGlobal.h"
+#include "tpNetDataGlobal.h"
 #include "tpGateway.h"
 #include "tpSystemApi.h"
 
