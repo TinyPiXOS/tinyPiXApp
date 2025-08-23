@@ -3,7 +3,7 @@
 #include "tpHBoxLayout.h"
 #include "tpFont.h"
 #include "tpDisplay.h"
-#include "tpSurface.h"
+#include "TpImage.h"
 
 usbPopButton::usbPopButton(tpChildWidget *parent)
     : tpButton(parent)
@@ -27,9 +27,7 @@ void usbPopButton::init()
     iconLabel_->setFixedSize(tpDisplay::dp2Px(23), tpDisplay::dp2Px(23));
     iconLabel_->installEventFilter(this);
 
-    tpShared<tpSurface> expandIcon = tpMakeShared<tpSurface>();
-    expandIcon->fromFile(applicationDirPath() + "/../res/箭头-未展开.png");
-    iconLabel_->setBackGroundImage(expandIcon);
+    iconLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/箭头-未展开.png"));
 
     tpHBoxLayout* mainLayout = new tpHBoxLayout();
     mainLayout->addWidget(nameLabel_);

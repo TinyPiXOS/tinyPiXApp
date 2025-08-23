@@ -1,6 +1,6 @@
 #include "listFileItem.h"
 #include "tpFileInfo.h"
-#include "tpSurface.h"
+#include "TpImage.h"
 #include "tpVBoxLayout.h"
 #include "tpHBoxLayout.h"
 #include "tpDir.h"
@@ -144,9 +144,7 @@ void listFileItem::setPath(const tpString &filePath)
 
     // typeLabel_->setText(typeStr);
 
-    tpShared<tpSurface> iconSurface = tpMakeShared<tpSurface>();
-    iconSurface->fromFile(iconPath);
-    iconLabel_->setBackGroundImage(iconSurface);
+    iconLabel_->setBackGroundImage(TpImage(iconPath));
 
     update();
 }

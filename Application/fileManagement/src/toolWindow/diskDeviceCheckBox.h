@@ -8,7 +8,7 @@
 
 #include "tpChildWidget.h"
 #include "tpLabel.h"
-#include "tpSurface.h"
+#include "TpImage.h"
 #include "tpEvent.h"
 #include "tpSignalSlot.h"
 
@@ -51,8 +51,8 @@ private:
     tpLabel *spaceLabel_;
     tpLabel *expandLabel_;
 
-    tpShared<tpSurface> normalIcon_;
-    tpShared<tpSurface> checkedIcon_;
+    TpImage normalIcon_;
+    TpImage checkedIcon_;
 };
 
 #endif

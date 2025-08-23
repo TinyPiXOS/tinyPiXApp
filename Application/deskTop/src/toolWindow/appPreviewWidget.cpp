@@ -3,7 +3,7 @@
 #include "tpFont.h"
 #include "tpHBoxLayout.h"
 #include "tpVBoxLayout.h"
-#include "tpSurface.h"
+#include "TpImage.h"
 #include "deskTopGlobal.hpp"
 
 appPreviewWidget::appPreviewWidget(tpChildWidget *parent)
@@ -34,8 +34,7 @@ appPreviewWidget::~appPreviewWidget()
 
 void appPreviewWidget::setIcon(const tpString &iconPath)
 {
-    tpShared<tpSurface> bgImage = tpMakeShared<tpSurface>(iconPath);
-    iconLabel_->setBackGroundImage(bgImage);
+    iconLabel_->setBackGroundImage(TpImage(iconPath));
 }
 
 void appPreviewWidget::setName(const tpString &name)
@@ -45,15 +44,11 @@ void appPreviewWidget::setName(const tpString &name)
 
 void appPreviewWidget::setPreviewImg(const tpString &path)
 {
-    tpShared<tpSurface> bgImage = tpMakeShared<tpSurface>(path);
-    previewImgLabel_->setBackGroundImage(bgImage);
+    previewImgLabel_->setBackGroundImage(TpImage(path));
 }
 
-void appPreviewWidget::setPreviewImg(tpShared<tpSurface> image)
+void appPreviewWidget::setPreviewImg(TpImage image)
 {
-    if (!image)
-        return;
-
     previewImgLabel_->setBackGroundImage(image);
 }
 

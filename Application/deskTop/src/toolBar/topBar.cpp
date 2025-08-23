@@ -6,7 +6,7 @@
 #include "tpTime.h"
 #include "tpDate.h"
 #include "tpEvent.h"
-#include "tpSurface.h"
+#include "TpImage.h"
 #include "tpBluetoothLocal.h"
 #include "tpNetworkInterface.h"
 
@@ -52,12 +52,12 @@ void topBar::construct()
 
     wifiLabel_ = new tpLabel(this);
     wifiLabel_->setSize(tpDisplay::dp2Px(17), tpDisplay::dp2Px(17));
-    wifiLabel_->setBackGroundImage(tpMakeShared<tpSurface>(applicationDirPath() + "/../res/topBar/WIFI.png"));
+    wifiLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/topBar/WIFI.png"));
     wifiLabel_->setVisible(false);
 
     blueToothLabel_ = new tpLabel(this);
     blueToothLabel_->setSize(tpDisplay::dp2Px(17), tpDisplay::dp2Px(17));
-    blueToothLabel_->setBackGroundImage(tpMakeShared<tpSurface>(applicationDirPath() + "/../res/topBar/蓝牙.png"));
+    blueToothLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/topBar/蓝牙.png"));
     blueToothLabel_->setVisible(false);
 
     elecBattery_ = new tpBattery(this);

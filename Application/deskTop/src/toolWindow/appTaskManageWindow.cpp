@@ -1,5 +1,5 @@
 #include "appTaskManageWindow.h"
-#include "tpSurface.h"
+#include "TpImage.h"
 #include "deskTopGlobal.hpp"
 #include "base/cacheex.h"
 
@@ -86,11 +86,11 @@ void appTaskManageWindow::setVisible(bool visible)
             // 应用抓图，grabWindow
             IPiWFSurface* surfacePtr = tinyPiX_sys_get_obj_surface(globalAgent, appIdInfo.s_id, appIdInfo.p_id);
 
-            tpShared<tpSurface> appDisplayImage = tpMakeShared<tpSurface>(surfacePtr);
+            // tpShared<tpSurface> appDisplayImage = tpMakeShared<tpSurface>(surfacePtr);
 
             tinyPiX_surface_free(surfacePtr);
 
-            previewWidget->setPreviewImg(appDisplayImage);
+            // previewWidget->setPreviewImg(appDisplayImage);
             // previewWidget->setPreviewImg("/home/hawk/Public/tinyPiXOS/tinyPiXApp/deskTop/res/测试.png");
             previewWidget->setId(appIdInfo.p_id, appIdInfo.s_id);
 

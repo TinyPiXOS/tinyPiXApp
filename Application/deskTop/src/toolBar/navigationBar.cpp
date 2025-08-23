@@ -1,5 +1,5 @@
 #include "navigationBar.h"
-#include "tpCanvas.h"
+#include "TpCanvas.h"
 #include "tpDisplay.h"
 #include "tpAnimation.h"
 #include "deskTopGlobal.hpp"

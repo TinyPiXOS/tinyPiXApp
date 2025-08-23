@@ -2,7 +2,7 @@
 #include "tpHBoxLayout.h"
 #include "tpDisplay.h"
 #include "tpFont.h"
-#include "tpCanvas.h"
+#include "TpCanvas.h"
 #include "tpLine.h"
 #include "tpEvent.h"
 
@@ -21,10 +21,10 @@ diskDeviceCheckBox::~diskDeviceCheckBox()
 void diskDeviceCheckBox::setIcon(const tpString &normalIcon, const tpString &checkedIcon)
 {
     if (!normalIcon.empty())
-        normalIcon_->fromFile(normalIcon);
+        normalIcon_.load(normalIcon);
 
     if (!checkedIcon.empty())
-        checkedIcon_->fromFile(checkedIcon);
+        checkedIcon_.load(checkedIcon);
 }
 
 void diskDeviceCheckBox::setName(const tpString &name)
@@ -66,7 +66,7 @@ bool diskDeviceCheckBox::onPaintEvent(tpObjectPaintEvent *event)
         iconLabel_->setBackGroundImage(normalIcon_);
     }
 
-    // tpCanvas *paintCanvas = event->canvas();
+    // TpCanvas *paintCanvas = event->canvas();
 
     // 在name和space中间画一个竖线
     // std::cout << "spaceLabel_->pos().x " << spaceLabel_->pos().x << std::endl;
@@ -125,12 +125,7 @@ void diskDeviceCheckBox::init()
     expandLabel_ = new tpLabel(this);
     expandLabel_->setFixedSize(tpDisplay::dp2Px(23), tpDisplay::dp2Px(23));
 
-    tpShared<tpSurface> expandIcon = tpMakeShared<tpSurface>();
-    expandIcon->fromFile(applicationDirPath() + "/../res/箭头-未展开.png");
-    expandLabel_->setBackGroundImage(expandIcon);
-
-    normalIcon_ = tpMakeShared<tpSurface>();
-    checkedIcon_ = tpMakeShared<tpSurface>();
+    expandLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/箭头-未展开.png"));
 
     tpShared<tpCssData> curCssData = currentStatusCss();
 

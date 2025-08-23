@@ -1,7 +1,7 @@
 #include "mainWindowService.h"
 #include "tpLabel.h"
 #include "tpFont.h"
-#include "tpSurface.h"
+#include "TpImage.h"
 
 mainWindowService::mainWindowService()
     : tpFixScreen()
@@ -78,9 +78,7 @@ mainWindowService::mainWindowService()
 	}
 
 	tpLabel *label6 = new tpLabel(this);
-	tpShared<tpSurface> bgSurface = tpMakeShared<tpSurface>();
-	bgSurface->fromFile(applicationDirPath() + "/../res/test.svg");
-	label6->setBackGroundImage(bgSurface);
+	label6->setBackGroundImage(TpImage(applicationDirPath() + "/../res/test.svg"));
 	// label6->setBackGroundColor(_RGB(255, 0, 0));
 	// label6->setBlurRadius(20);
 	label6->setRect(300, 300, 300, 300);

@@ -1,5 +1,5 @@
 #include "deskScreen.h"
-#include "tpSurface.h"
+#include "TpImage.h"
 #include "tpEvent.h"
 #include "deskTopGlobal.hpp"
 #include "tpJsonDocument.h"
@@ -69,11 +69,7 @@ void tpDeskScreen::construct()
 
     // 此处应该读取配置文件中的设置文件，可以保留上次设置的背景图片
 
-    tpShared<tpSurface> surface = tpMakeShared<tpSurface>();
-
-    surface->fromFile(applicationDirPath() + "/../res/默认桌面背景1x.png");
-
-    this->setBackGroundImage(surface, true);
+    this->setBackGroundImage(TpImage(applicationDirPath() + "/../res/默认桌面背景1x.png"), true);
 
     // 此处应该读取配置文件中的设置文件，加载配置参数
 

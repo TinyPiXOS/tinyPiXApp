@@ -1,5 +1,5 @@
 #include "sysLockWindow.h"
-#include "tpSurface.h"
+#include "TpImage.h"
 #include "tpString.h"
 #include "tpFont.h"
 #include "deskTopGlobal.hpp"
@@ -22,13 +22,10 @@ void sysLockWindow::setVisible(bool visible)
     {
         // TODO 显示时，刷新一下锁屏壁纸
         tpString lockBgImgPath = applicationDirPath() + "/../res/controlPanel/lock_background.png";
-        tpShared<tpSurface> surface = tpMakeShared<tpSurface>();
-
-        surface->fromFile(lockBgImgPath);
 
         // TODO,显示时，刷新用户logo
 
-        this->setBackGroundImage(surface, true);
+        this->setBackGroundImage(TpImage(lockBgImgPath), true);
         refreshLockWindow(true);
 
         slotUpdateSystemTime();
@@ -134,10 +131,7 @@ void sysLockWindow::initUi()
     systemDateTimeLabel_->setText("15 : 30");
 
     unlockDirectLabel_ = new tpLabel(this);
-    tpShared<tpSurface> surface = tpMakeShared<tpSurface>();
-
-    surface->fromFile(applicationDirPath() + "/../res/双上箭头白.png");
-    unlockDirectLabel_->setBackGroundImage(surface, true);
+    unlockDirectLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/双上箭头白.png"));
 
     unlockPromptLabel_ = new tpLabel(this);
     unlockPromptLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
@@ -164,9 +158,7 @@ void sysLockWindow::initUi()
     welcomeLabel_->setText("欢迎使用");
 
     userIconLabel_ = new tpLabel(this);
-    tpShared<tpSurface> userIconSurface = tpMakeShared<tpSurface>();
-    userIconSurface->fromFile(applicationDirPath() + "/../res/用户.png");
-    userIconLabel_->setBackGroundImage(userIconSurface, true);
+    userIconLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/用户.png"));
 
     pwdEdit_ = new tpLineEdit(this);
 

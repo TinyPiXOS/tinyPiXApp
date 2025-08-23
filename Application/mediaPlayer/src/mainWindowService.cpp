@@ -5,8 +5,9 @@
 #include "tpLabel.h"
 #include "tpLine.h"
 #include "tpFont.h"
-#include "tpSurface.h"
+#include "TpImage.h"
 #include "tpFileInfo.h"
+#include "TpSurface.h"
 
 mainWindowService::mainWindowService()
     : tpFixScreen(), topBar_(new topBar()), bottomBar_(new bottomBar()), fileType_(UnknowFile), videoPlayer_(nullptr)
@@ -82,8 +83,7 @@ void mainWindowService::setPlayFile(const tpString &filePath)
         isMusicIconLabel_->setVisible(false);
 
         // 设置视频第一帧图片
-        tpShared<tpSurface> testBgImage = tpMakeShared<tpSurface>(applicationDirPath() + "/../res/测试视频封面.jpg");
-        setBackGroundImage(testBgImage);
+        setBackGroundImage(TpImage(applicationDirPath() + "/../res/测试视频封面.jpg"));
 
         // 启动视频设备
         videoPlayer_->setWindowSize(width(), height());
@@ -148,8 +148,7 @@ void mainWindowService::initUi()
     isMusicIconLabel_->setFixedSize(tpDisplay::dp2Px(100), tpDisplay::dp2Px(100));
     isMusicIconLabel_->setVisible(false);
     isMusicIconLabel_->setRoundCorners(tpDisplay::dp2Px(50));
-    tpShared<tpSurface> musicIconImage = tpMakeShared<tpSurface>(applicationDirPath() + "/../res/音频.png");
-    isMusicIconLabel_->setBackGroundImage(musicIconImage);
+    isMusicIconLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/音频.png"));
 
     connect(bottomBar_, medioOperate, this, &mainWindowService::slotOperateMedia);
     connect(bottomBar_, alterPostion, this, &mainWindowService::slotSwitchPos);
@@ -347,7 +346,7 @@ int mainWindowService::videoRbgDataCallback(uint8_t **data, int *linesize, uint3
     uint32_t height = this->height();
 
     // 2. 创建临时tpSurface对象
-    auto surface = tpMakeShared<tpSurface>();
+    auto surface = tpMakeShared<TpSurface>();
 
     // 3. 创建与视频帧尺寸匹配的Surface（ARGB32格式）
     if (!surface->create(
@@ -362,8 +361,7 @@ int mainWindowService::videoRbgDataCallback(uint8_t **data, int *linesize, uint3
             0xFF000000, // A掩码
             0xFF,       // alpha值
             false,      // 不启用colorKey
-            0,          // colorKey值
-            nullptr     // 无裁剪区域
+            0          // colorKey值
             ))
     {
         // 创建失败处理
@@ -393,7 +391,7 @@ int mainWindowService::videoRbgDataCallback(uint8_t **data, int *linesize, uint3
     }
 
     // 6. 将surface传递到渲染线程
-    setBackGroundImage(surface);
+    // setBackGroundImage(surface);
     update();
 
     return 0;

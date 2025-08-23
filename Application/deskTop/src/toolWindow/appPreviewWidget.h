@@ -25,7 +25,7 @@ public:
 
     // 设置预览图
     void setPreviewImg(const tpString &path);
-    void setPreviewImg(tpShared<tpSurface> image);
+    void setPreviewImg(TpImage image);
 
     // 设置应用的pid和Id
     void setId(const int32_t &pid, const int32_t &winId);
