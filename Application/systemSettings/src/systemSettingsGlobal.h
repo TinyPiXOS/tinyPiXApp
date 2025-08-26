@@ -1,8 +1,8 @@
 #ifndef __SYSTEM_SETTINGS_GLOBAL_H
 #define __SYSTEM_SETTINGS_GLOBAL_H
 
-#include "tpLabel.h"
-#include "tpFont.h"
+#include "TpLabel.h"
+#include "TpFont.h"
 
 enum SettingType
 {
@@ -20,9 +20,9 @@ enum SettingType
 };
 
 // 创建一个分组标题label 
-static tpLabel* createGroupNameLabel(const tpString& text)
+static TpLabel* createGroupNameLabel(const TpString& text)
 {
-    tpLabel *sourceLabel = new tpLabel(text);
+    TpLabel *sourceLabel = new TpLabel(text);
     sourceLabel->font()->setFontSize(11);
     sourceLabel->setFixedHeight(sourceLabel->font()->pixelHeight());
     sourceLabel->font()->setFontColor(_RGB(89, 89, 89), _RGB(89, 89, 89));

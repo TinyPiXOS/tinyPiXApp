@@ -1,13 +1,13 @@
 #include "recentlyWindow.h"
-#include "tpVBoxLayout.h"
-#include "tpHBoxLayout.h"
-#include "tpLabel.h"
-#include "tpFont.h"
-#include "tpDisplay.h"
-#include "tpButton.h"
+#include "TpVBoxLayout.h"
+#include "TpHBoxLayout.h"
+#include "TpLabel.h"
+#include "TpFont.h"
+#include "TpDisplay.h"
+#include "TpButton.h"
 
-recentlyWindow::recentlyWindow(tpChildWidget *parent)
-    : tpChildWidget(parent)
+recentlyWindow::recentlyWindow(TpChildWidget *parent)
+    : TpChildWidget(parent)
 {
     init();
 
@@ -19,39 +19,39 @@ recentlyWindow::~recentlyWindow()
 {
 }
 
-bool recentlyWindow::onMousePressEvent(tpMouseEvent *event)
+bool recentlyWindow::onMousePressEvent(TpMouseEvent *event)
 {
-    tpChildWidget::onMousePressEvent(event);
+    TpChildWidget::onMousePressEvent(event);
 
     pressPopMenu_->setVisible(false);
 
     for (const auto &fileWidget : fileWidgetList_)
     {
-        fileWidget->setSelectMode(tpCollapsibleFileWidget::Normal);
+        fileWidget->setSelectMode(TpCollapsibleFileWidget::Normal);
     }
 
     return true;
 }
 
-bool recentlyWindow::onMouseRleaseEvent(tpMouseEvent *event)
+bool recentlyWindow::onMouseRleaseEvent(TpMouseEvent *event)
 {
-    tpChildWidget::onMouseRleaseEvent(event);
+    TpChildWidget::onMouseRleaseEvent(event);
 
     return true;
 }
 
-bool recentlyWindow::eventFilter(tpObject *watched, tpEvent *event)
+bool recentlyWindow::eventFilter(TpObject *watched, TpEvent *event)
 {
-    if (event->eventType() == tpEvent::EVENT_MOUSE_PRESS_TYPE)
+    if (event->eventType() == TpEvent::EVENT_MOUSE_PRESS_TYPE)
     {
-        tpMouseEvent *mouseEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseEvent = dynamic_cast<TpMouseEvent *>(event);
         onMousePressEvent(mouseEvent);
     }
     
     return false;
 }
 
-void recentlyWindow::SlotLongPressItem(tpCollapsibleFileWidget *fileWidget)
+void recentlyWindow::SlotLongPressItem(TpCollapsibleFileWidget *fileWidget)
 {
     ItpSize popMenuSize = pressPopMenu_->screenSize();
 
@@ -60,20 +60,20 @@ void recentlyWindow::SlotLongPressItem(tpCollapsibleFileWidget *fileWidget)
     pressPopMenu_->setVisible(true);
 
     // 所有当前item添加cbx
-    fileWidget->setSelectMode(tpCollapsibleFileWidget::MultiSelection);
+    fileWidget->setSelectMode(TpCollapsibleFileWidget::MultiSelection);
 }
 
 void recentlyWindow::init()
 {
-    tpVBoxLayout *mainLayout = new tpVBoxLayout();
+    TpVBoxLayout *mainLayout = new TpVBoxLayout();
 
     // 初始化长按弹出窗口
     pressPopMenu_ = new pressPopWindow();
 
-    uint32_t layoutMargin = tpDisplay::dp2Px(25);
+    uint32_t layoutMargin = TpDisplay::dp2Px(25);
     mainLayout->setContentsMargins(layoutMargin, layoutMargin, layoutMargin, 0);
 
-    tpLabel *titleLabel = new tpLabel("最近", this);
+    TpLabel *titleLabel = new TpLabel("最近", this);
     titleLabel->font()->setFontSize(19);
     titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
     titleLabel->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
@@ -84,26 +84,26 @@ void recentlyWindow::init()
     clearWindow_ = new clearSpaceWindow();
 
     // 清理按钮
-    clearButton_ = new tpButton(this);
-    clearButton_->setButtonStyle(tpButton::IconOnly);
+    clearButton_ = new TpButton(this);
+    clearButton_->setButtonStyle(TpButton::IconOnly);
     clearButton_->setEnableBackGroundColor(false);
-    clearButton_->setFixedSize(tpDisplay::dp2Px(34), tpDisplay::dp2Px(34));
+    clearButton_->setFixedSize(TpDisplay::dp2Px(34), TpDisplay::dp2Px(34));
     clearButton_->setIcon(applicationDirPath() + "/../res/清理.png");
     connect(clearButton_, onClicked, [=](bool)
             { clearWindow_->showMaximum(); });
     clearButton_->installEventFilter(this);
 
-    tpHBoxLayout *titleLayout = new tpHBoxLayout();
+    TpHBoxLayout *titleLayout = new TpHBoxLayout();
     titleLayout->setContentsMargins(0, 0, 0, 0);
     titleLayout->addWidget(titleLabel, 10);
     titleLayout->addWidget(clearButton_, 1);
 
-    mainScrollPanel_ = new tpScrollPanel(this);
+    mainScrollPanel_ = new TpScrollPanel(this);
     mainScrollPanel_->installEventFilter(this);
     // mainScrollPanel_->setBackGroundColor(_RGB(0, 0, 255));
 
-    tpChildWidget *scrollWidget = new tpChildWidget(mainScrollPanel_);
-    tpVBoxLayout *scrollLayout = new tpVBoxLayout();
+    TpChildWidget *scrollWidget = new TpChildWidget(mainScrollPanel_);
+    TpVBoxLayout *scrollLayout = new TpVBoxLayout();
     scrollWidget->setSize(600, 1500);
     scrollWidget->installEventFilter(this);
 
@@ -116,7 +116,7 @@ void recentlyWindow::init()
 
     // deviceList_.emplace_back(testDevice);
 
-    searchEdit_ = new tpLineEdit();
+    searchEdit_ = new TpLineEdit();
     searchEdit_->setProperty("type", "fileManageEdit");
     searchEdit_->setIcon(applicationDirPath() + "/../res/搜索.png");
     searchEdit_->setPlaceholderText("搜索文件");
@@ -129,7 +129,7 @@ void recentlyWindow::init()
     createRecentlyFileList(scrollLayout);
     createRecentlyFileList(scrollLayout);
 
-    scrollLayout->addSpacer(new tpSpacerItem(20, 20, tpSpacerItem::Minimum, tpSpacerItem::Expanding));
+    scrollLayout->addSpacer(new TpSpacerItem(20, 20, TpSpacerItem::Minimum, TpSpacerItem::Expanding));
 
     // 将布局设置到滚动widget
     scrollWidget->setLayout(scrollLayout);
@@ -142,9 +142,9 @@ void recentlyWindow::init()
     setLayout(mainLayout);
 }
 
-void recentlyWindow::createRecentlyFileList(tpVBoxLayout *scrollLayout)
+void recentlyWindow::createRecentlyFileList(TpVBoxLayout *scrollLayout)
 {
-    tpCollapsibleFileWidget *testFileWidget = new tpCollapsibleFileWidget();
+    TpCollapsibleFileWidget *testFileWidget = new TpCollapsibleFileWidget();
     testFileWidget->setTitle("今天");
     testFileWidget->setSubTitle("2月14日");
 
@@ -153,11 +153,11 @@ void recentlyWindow::createRecentlyFileList(tpVBoxLayout *scrollLayout)
 
     for (int i = 0; i < 10; ++i)
     {
-        tpCollapsibleFileItem *item = new tpCollapsibleFileItem();
+        TpCollapsibleFileItem *item = new TpCollapsibleFileItem();
         // item->setFixedSize(100, 100);
         // item->setBackGroundColor(_RGB(255, 0, 0));
-        item->setName(tpString::number(i) + ".png");
-        item->setPath("/root/" + tpString::number(i) + ".png");
+        item->setName(TpString::number(i) + ".png");
+        item->setPath("/root/" + TpString::number(i) + ".png");
 
         testFileWidget->addFileItem(item);
     }

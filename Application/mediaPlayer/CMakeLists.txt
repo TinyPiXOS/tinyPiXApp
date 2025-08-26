@@ -25,8 +25,8 @@ link_directories("/usr/lib")
 set(SOURCE_FILES
     ${SOURCE_PATH}/main.cpp
     ${SOURCE_PATH}/mainWindowService.cpp
-    ${SOURCE_PATH}/toolBar/bottomBar.cpp
-    ${SOURCE_PATH}/toolBar/topBar.cpp
+    ${SOURCE_PATH}/ToolBar/bottomBar.cpp
+    ${SOURCE_PATH}/ToolBar/topBar.cpp
 )
 
 include_directories(${SOURCE_PATH})

@@ -1,9 +1,9 @@
 #include "settingBase.h"
 
-settingBase::settingBase(tpChildWidget *parent)
-    : tpChildWidget(parent), titleLabel_(nullptr), backBtn_(nullptr)
+settingBase::settingBase(TpChildWidget *parent)
+    : TpChildWidget(parent), titleLabel_(nullptr), backBtn_(nullptr)
 {
-    mainLayout_ = new tpVBoxLayout();
+    mainLayout_ = new TpVBoxLayout();
     mainLayout_->setSpacing(10);
 }
 
@@ -11,13 +11,13 @@ settingBase::~settingBase()
 {
 }
 
-void settingBase::setTitleBackInfo(tpLabel *titleLabel, tpButton *backBtn)
+void settingBase::setTitleBackInfo(TpLabel *titleLabel, TpButton *backBtn)
 {
     titleLabel_ = titleLabel;
     backBtn_ = backBtn;
 }
 
-void settingBase::setSubTile(const tpString &subTitle)
+void settingBase::setSubTile(const TpString &subTitle)
 {
     if (!titleLabel_)
         return;

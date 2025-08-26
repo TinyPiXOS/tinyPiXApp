@@ -19,13 +19,13 @@ set(SOURCE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/src")
 # 定义源码路径宏
 set(SOURCE_FILES
     ${SOURCE_PATH}/deskEntry.cpp
-    ${SOURCE_PATH}/deskScreen.cpp
+    ${SOURCE_PATH}/DeskScreen.cpp
     ${SOURCE_PATH}/mainAppScrollPanel.cpp
-    ${SOURCE_PATH}/toolBar/topBar.cpp
-    ${SOURCE_PATH}/toolBar/bottomBar.cpp
-    ${SOURCE_PATH}/toolBar/appSettingBar.cpp
-    ${SOURCE_PATH}/toolBar/powerManage.cpp
-    ${SOURCE_PATH}/toolBar/navigationBar.cpp
+    ${SOURCE_PATH}/ToolBar/topBar.cpp
+    ${SOURCE_PATH}/ToolBar/bottomBar.cpp
+    ${SOURCE_PATH}/ToolBar/appSettingBar.cpp
+    ${SOURCE_PATH}/ToolBar/powerManage.cpp
+    ${SOURCE_PATH}/ToolBar/navigationBar.cpp
     ${SOURCE_PATH}/toolWindow/sysLockWindow.cpp
     ${SOURCE_PATH}/toolWindow/appTaskManageWindow.cpp
     ${SOURCE_PATH}/toolWindow/appOperateMaskWindow.cpp

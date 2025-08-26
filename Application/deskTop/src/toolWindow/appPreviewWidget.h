@@ -5,26 +5,26 @@
     应用任务缩略展示窗体
 */
 
-#include "tpChildWidget.h"
-#include "tpButton.h"
-#include "tpEvent.h"
-#include "tpLabel.h"
+#include "TpChildWidget.h"
+#include "TpButton.h"
+#include "TpEvent.h"
+#include "TpLabel.h"
 
 class appPreviewWidget
-    : public tpChildWidget
+    : public TpChildWidget
 {
 public:
-    appPreviewWidget(tpChildWidget *parent = nullptr);
+    appPreviewWidget(TpChildWidget *parent = nullptr);
     virtual ~appPreviewWidget();
 
     // 设置应用图标
-    void setIcon(const tpString &iconPath);
+    void setIcon(const TpString &iconPath);
 
     // 设置应用名称
-    void setName(const tpString &name);
+    void setName(const TpString &name);
 
     // 设置预览图
-    void setPreviewImg(const tpString &path);
+    void setPreviewImg(const TpString &path);
     void setPreviewImg(TpImage image);
 
     // 设置应用的pid和Id
@@ -36,7 +36,7 @@ public:
 
     /// @brief 组件类名，子类实现，返回子类类名字符串，用于匹配CSS中对应样式
     /// @return 类名字符串
-    virtual tpString pluginType() override { return TO_STRING(appPreviewWidget); }
+    virtual TpString pluginType() override { return TO_STRING(appPreviewWidget); }
 
 public
 signals:
@@ -49,24 +49,24 @@ signals:
     declare_signal(signalOpenApp, int32_t);
 
 protected:
-    virtual bool eventFilter(tpObject *watched, tpEvent *event) override;
-    virtual bool onMousePressEvent(tpMouseEvent *event) override;
-    virtual bool onMouseRleaseEvent(tpMouseEvent *event) override;
-    virtual bool onMouseMoveEvent(tpMouseEvent *event) override;
-    virtual bool onLeaveEvent(tpObjectLeaveEvent *event) override;
+    virtual bool eventFilter(TpObject *watched, TpEvent *event) override;
+    virtual bool onMousePressEvent(TpMouseEvent *event) override;
+    virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
+    virtual bool onMouseMoveEvent(TpMouseEvent *event) override;
+    virtual bool onLeaveEvent(TpObjectLeaveEvent *event) override;
 
 private:
     void init();
 
 private:
     // 图标
-    tpLabel *iconLabel_;
+    TpLabel *iconLabel_;
     // 应用名称
-    tpLabel *nameLabel_;
+    TpLabel *nameLabel_;
     // 预览图
-    tpLabel *previewImgLabel_;
+    TpLabel *previewImgLabel_;
     // 关闭按钮
-    tpButton *closeBtn_;
+    TpButton *closeBtn_;
 
     int32_t pid_;
     int32_t winId_;

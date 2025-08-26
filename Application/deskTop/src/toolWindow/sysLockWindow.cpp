@@ -1,11 +1,11 @@
 #include "sysLockWindow.h"
 #include "TpImage.h"
-#include "tpString.h"
-#include "tpFont.h"
+#include "TpString.h"
+#include "TpFont.h"
 #include "deskTopGlobal.hpp"
 
 sysLockWindow::sysLockWindow()
-    : tpDialog(), mouseLeftPress_(false)
+    : TpDialog(), mouseLeftPress_(false)
 {
     initUi();
 
@@ -21,7 +21,7 @@ void sysLockWindow::setVisible(bool visible)
     if (visible)
     {
         // TODO 显示时，刷新一下锁屏壁纸
-        tpString lockBgImgPath = applicationDirPath() + "/../res/controlPanel/lock_background.png";
+        TpString lockBgImgPath = applicationDirPath() + "/../res/controlPanel/lock_background.png";
 
         // TODO,显示时，刷新用户logo
 
@@ -36,7 +36,7 @@ void sysLockWindow::setVisible(bool visible)
         updateTimetimer_->stop();
     }
 
-    tpDialog::setVisible(visible);
+    TpDialog::setVisible(visible);
 }
 
 void sysLockWindow::resizeLockWindow(const ItpRect &mainWindowRect)
@@ -44,21 +44,21 @@ void sysLockWindow::resizeLockWindow(const ItpRect &mainWindowRect)
     this->setRect(0, 0, mainWindowRect.w, mainWindowRect.h);
 
 #if 1 // 壁纸界面组件
-    tpFont *dateTimeFont = systemDateTimeLabel_->font();
+    TpFont *dateTimeFont = systemDateTimeLabel_->font();
     systemDateTimeLabel_->setRect((mainWindowRect.w - dateTimeFont->pixelWidth()) / 2.0, mainWindowRect.h * 0.3, dateTimeFont->pixelWidth() + 10, dateTimeFont->pixelHeight());
 
     unlockDirectLabel_->setRect((mainWindowRect.w - 60) / 2.0, mainWindowRect.h * 0.6, 60, 60);
 
-    tpFont *promptFont = unlockPromptLabel_->font();
+    TpFont *promptFont = unlockPromptLabel_->font();
     unlockPromptLabel_->setRect((mainWindowRect.w - promptFont->pixelWidth()) / 2.0, mainWindowRect.h * 0.75, promptFont->pixelWidth() + 5, promptFont->pixelHeight());
 
 #endif
 
 #if 1 // 登陆界面组件
-    tpFont *systemNameFont = systemNameLabel_->font();
+    TpFont *systemNameFont = systemNameLabel_->font();
     systemNameLabel_->setRect((mainWindowRect.w - systemNameFont->pixelWidth()) / 2.0, mainWindowRect.h * 0.2, systemNameFont->pixelWidth() + 5, systemNameFont->pixelHeight());
 
-    tpFont *welcomeFont = welcomeLabel_->font();
+    TpFont *welcomeFont = welcomeLabel_->font();
     welcomeLabel_->setRect((mainWindowRect.w - welcomeFont->pixelWidth()) / 2.0, mainWindowRect.h * 0.35, welcomeFont->pixelWidth() + 5, welcomeFont->pixelHeight());
 
     userIconLabel_->setRect((mainWindowRect.w - 60) / 2.0, mainWindowRect.h * 0.5, 60, 60);
@@ -72,7 +72,7 @@ void sysLockWindow::resizeLockWindow(const ItpRect &mainWindowRect)
 #endif
 }
 
-bool sysLockWindow::onMousePressEvent(tpMouseEvent *event)
+bool sysLockWindow::onMousePressEvent(TpMouseEvent *event)
 {
     // 记录鼠标点击坐标
     mouseLeftPress_ = event->state();
@@ -81,7 +81,7 @@ bool sysLockWindow::onMousePressEvent(tpMouseEvent *event)
     return true;
 }
 
-bool sysLockWindow::onMouseRleaseEvent(tpMouseEvent *event)
+bool sysLockWindow::onMouseRleaseEvent(TpMouseEvent *event)
 {
     // 记录鼠标点击坐标
     mouseLeftPress_ = event->state();
@@ -89,7 +89,7 @@ bool sysLockWindow::onMouseRleaseEvent(tpMouseEvent *event)
     return true;
 }
 
-bool sysLockWindow::onMouseMoveEvent(tpMouseEvent *event)
+bool sysLockWindow::onMouseMoveEvent(TpMouseEvent *event)
 {
     if (mouseLeftPress_)
     {
@@ -107,9 +107,9 @@ bool sysLockWindow::onMouseMoveEvent(tpMouseEvent *event)
     return true;
 }
 
-bool sysLockWindow::onLeaveEvent(tpObjectLeaveEvent *event)
+bool sysLockWindow::onLeaveEvent(TpObjectLeaveEvent *event)
 {
-    // if (event->eventType() == tpEvent::EVENT_OBJECT_LEAVE_TYPE)
+    // if (event->eventType() == TpEvent::EVENT_OBJECT_LEAVE_TYPE)
     // {
     //     if (event->leave())
     //     {
@@ -124,46 +124,46 @@ bool sysLockWindow::onLeaveEvent(tpObjectLeaveEvent *event)
 
 void sysLockWindow::initUi()
 {
-    systemDateTimeLabel_ = new tpLabel(this);
+    systemDateTimeLabel_ = new TpLabel(this);
     systemDateTimeLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
     systemDateTimeLabel_->font()->setFontSize(50);
     systemDateTimeLabel_->font()->setFontStyle(TINY_FONT_BOLD);
     systemDateTimeLabel_->setText("15 : 30");
 
-    unlockDirectLabel_ = new tpLabel(this);
+    unlockDirectLabel_ = new TpLabel(this);
     unlockDirectLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/双上箭头白.png"));
 
-    unlockPromptLabel_ = new tpLabel(this);
+    unlockPromptLabel_ = new TpLabel(this);
     unlockPromptLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
     unlockPromptLabel_->font()->setFontSize(20);
     unlockPromptLabel_->font()->setFontStyle(TINY_FONT_BOLD);
     unlockPromptLabel_->setText("向上滑动或按任意键解锁");
 
-    updateTimetimer_ = new tpTimer(60000);
+    updateTimetimer_ = new TpTimer(60000);
     connect(updateTimetimer_, timeout, [=]()
             { slotUpdateSystemTime(); });
 
     // 输入密码界面控件
     // 输密码解锁界面
-    systemNameLabel_ = new tpLabel(this);
+    systemNameLabel_ = new TpLabel(this);
     systemNameLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
     systemNameLabel_->font()->setFontSize(50);
     systemNameLabel_->font()->setFontStyle(TINY_FONT_BOLD);
     systemNameLabel_->setText("tinyPiX OS");
 
-    welcomeLabel_ = new tpLabel(this);
+    welcomeLabel_ = new TpLabel(this);
     welcomeLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
     welcomeLabel_->font()->setFontSize(20);
     welcomeLabel_->font()->setFontStyle(TINY_FONT_BOLD);
     welcomeLabel_->setText("欢迎使用");
 
-    userIconLabel_ = new tpLabel(this);
+    userIconLabel_ = new TpLabel(this);
     userIconLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/用户.png"));
 
-    pwdEdit_ = new tpLineEdit(this);
+    pwdEdit_ = new TpLineEdit(this);
 
-    loginBtn_ = new tpButton(applicationDirPath() + "/../res/登录.png", "登录", this);
-    loginBtn_->setButtonStyle(tpButton::IconOnly);
+    loginBtn_ = new TpButton(applicationDirPath() + "/../res/登录.png", "登录", this);
+    loginBtn_->setButtonStyle(TpButton::IconOnly);
     loginBtn_->setEnabledBorderColor(false);
     loginBtn_->setEnableBackGroundColor(false);
     connect(loginBtn_, onClicked, [=](bool)
@@ -214,7 +214,7 @@ void sysLockWindow::slotUpdateSystemTime()
 
     // 格式化时间
     strftime(buffer, 80, "%H : %M", timeinfo);
-    tpString systemTimeStr(buffer);
+    TpString systemTimeStr(buffer);
 
     systemDateTimeLabel_->setText(systemTimeStr);
     systemDateTimeLabel_->update();

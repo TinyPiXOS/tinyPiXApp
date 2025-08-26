@@ -1,13 +1,13 @@
 #include "appPreviewWidget.h"
-#include "tpDisplay.h"
-#include "tpFont.h"
-#include "tpHBoxLayout.h"
-#include "tpVBoxLayout.h"
+#include "TpDisplay.h"
+#include "TpFont.h"
+#include "TpHBoxLayout.h"
+#include "TpVBoxLayout.h"
 #include "TpImage.h"
 #include "deskTopGlobal.hpp"
 
-appPreviewWidget::appPreviewWidget(tpChildWidget *parent)
-    : tpChildWidget(parent), pid_(0)
+appPreviewWidget::appPreviewWidget(TpChildWidget *parent)
+    : TpChildWidget(parent), pid_(0)
 {
     init();
 }
@@ -32,17 +32,17 @@ appPreviewWidget::~appPreviewWidget()
     closeBtn_ = nullptr;
 }
 
-void appPreviewWidget::setIcon(const tpString &iconPath)
+void appPreviewWidget::setIcon(const TpString &iconPath)
 {
     iconLabel_->setBackGroundImage(TpImage(iconPath));
 }
 
-void appPreviewWidget::setName(const tpString &name)
+void appPreviewWidget::setName(const TpString &name)
 {
     nameLabel_->setText(name);
 }
 
-void appPreviewWidget::setPreviewImg(const tpString &path)
+void appPreviewWidget::setPreviewImg(const TpString &path)
 {
     previewImgLabel_->setBackGroundImage(TpImage(path));
 }
@@ -68,27 +68,27 @@ int32_t appPreviewWidget::winId()
     return winId_;
 }
 
-bool appPreviewWidget::eventFilter(tpObject *watched, tpEvent *event)
+bool appPreviewWidget::eventFilter(TpObject *watched, TpEvent *event)
 {
-    if (event->eventType() == tpEvent::EVENT_MOUSE_PRESS_TYPE)
+    if (event->eventType() == TpEvent::EVENT_MOUSE_PRESS_TYPE)
     {
-        tpMouseEvent *mouseEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseEvent = dynamic_cast<TpMouseEvent *>(event);
         onMousePressEvent(mouseEvent);
 
         if (watched == previewImgLabel_)
             return true;
     }
-    else if (event->eventType() == tpEvent::EVENT_MOUSE_RELEASE_TYPE)
+    else if (event->eventType() == TpEvent::EVENT_MOUSE_RELEASE_TYPE)
     {
-        tpMouseEvent *mouseEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseEvent = dynamic_cast<TpMouseEvent *>(event);
         onMouseRleaseEvent(mouseEvent);
 
         if (watched == previewImgLabel_)
             return true;
     }
-    else if (event->eventType() == tpEvent::EVENT_MOUSE_MOVE_TYPE)
+    else if (event->eventType() == TpEvent::EVENT_MOUSE_MOVE_TYPE)
     {
-        tpMouseEvent *mouseEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseEvent = dynamic_cast<TpMouseEvent *>(event);
         onMouseMoveEvent(mouseEvent);
     }
     else
@@ -97,14 +97,14 @@ bool appPreviewWidget::eventFilter(tpObject *watched, tpEvent *event)
     return false;
 }
 
-bool appPreviewWidget::onMousePressEvent(tpMouseEvent *event)
+bool appPreviewWidget::onMousePressEvent(TpMouseEvent *event)
 {
     mousePressPoint_ = event->globalPos();
 
     return true;
 }
 
-bool appPreviewWidget::onMouseRleaseEvent(tpMouseEvent *event)
+bool appPreviewWidget::onMouseRleaseEvent(TpMouseEvent *event)
 {
     // 鼠标如果按下过程中拖动，则不触发打开事件
     ItpPoint curPoint = event->globalPos();
@@ -116,53 +116,53 @@ bool appPreviewWidget::onMouseRleaseEvent(tpMouseEvent *event)
     return true;
 }
 
-bool appPreviewWidget::onMouseMoveEvent(tpMouseEvent *event)
+bool appPreviewWidget::onMouseMoveEvent(TpMouseEvent *event)
 {
     return true;
 }
 
-bool appPreviewWidget::onLeaveEvent(tpObjectLeaveEvent *event)
+bool appPreviewWidget::onLeaveEvent(TpObjectLeaveEvent *event)
 {
     return true;
 }
 
 void appPreviewWidget::init()
 {
-    iconLabel_ = new tpLabel(this);
-    iconLabel_->setFixedSize(tpDisplay::dp2Px(38), tpDisplay::dp2Px(38));
+    iconLabel_ = new TpLabel(this);
+    iconLabel_->setFixedSize(TpDisplay::dp2Px(38), TpDisplay::dp2Px(38));
     iconLabel_->setRoundCorners(6);
     iconLabel_->setProperty("Debug", "iconLabel_");
     iconLabel_->installEventFilter(this);
 
-    nameLabel_ = new tpLabel(this);
+    nameLabel_ = new TpLabel(this);
     nameLabel_->font()->setFontColor(_RGB(255, 255, 255), _RGB(255, 255, 255));
     nameLabel_->font()->setFontSize(13);
     nameLabel_->setText("默认应用");
     nameLabel_->setProperty("Debug", "nameLabel_");
     nameLabel_->installEventFilter(this);
 
-    previewImgLabel_ = new tpLabel(this);
+    previewImgLabel_ = new TpLabel(this);
     previewImgLabel_->setProperty("Debug", "previewImgLabel_");
     previewImgLabel_->installEventFilter(this);
 
-    closeBtn_ = new tpButton(this);
+    closeBtn_ = new TpButton(this);
     closeBtn_->setEnableBackGroundColor(false);
-    closeBtn_->setFixedSize(tpDisplay::dp2Px(35), tpDisplay::dp2Px(35));
-    closeBtn_->setButtonStyle(tpButton::IconOnly);
+    closeBtn_->setFixedSize(TpDisplay::dp2Px(35), TpDisplay::dp2Px(35));
+    closeBtn_->setButtonStyle(TpButton::IconOnly);
     closeBtn_->setIcon(applicationDirPath() + "/../res/关闭.png");
     connect(closeBtn_, onClicked, [=](bool)
             { signalKillApp.emit(pid_); });
     closeBtn_->setProperty("Debug", "closeBtn_");
 
-    tpHBoxLayout *titleLayout = new tpHBoxLayout();
+    TpHBoxLayout *titleLayout = new TpHBoxLayout();
     titleLayout->setSpacing(8);
     titleLayout->setContentsMargins(8, 0, 8, 0);
     titleLayout->addWidget(iconLabel_);
     titleLayout->addWidget(nameLabel_);
-    titleLayout->addSpacer(new tpSpacerItem(10, 10, tpSpacerItem::Expanding));
+    titleLayout->addSpacer(new TpSpacerItem(10, 10, TpSpacerItem::Expanding));
     titleLayout->addWidget(closeBtn_);
 
-    tpVBoxLayout *mainLayout = new tpVBoxLayout();
+    TpVBoxLayout *mainLayout = new TpVBoxLayout();
     mainLayout->setSpacing(8);
     mainLayout->addLayout(titleLayout, 1);
     mainLayout->addWidget(previewImgLabel_, 10);

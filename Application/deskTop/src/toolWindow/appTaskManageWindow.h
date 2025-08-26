@@ -5,16 +5,16 @@
     应用任务管理器
 */
 
-#include "tpDialog.h"
-#include "tpButton.h"
-#include "tpEvent.h"
-#include "tpScrollPanel.h"
-#include "tpVector.h"
+#include "TpDialog.h"
+#include "TpButton.h"
+#include "TpEvent.h"
+#include "TpScrollPanel.h"
+#include "TpVector.h"
 #include "toolWindow/appPreviewWidget.h"
-#include "tpHash.h"
+#include "TpHash.h"
 
 class appTaskManageWindow
-    : public tpDialog
+    : public TpDialog
 {
 public:
     appTaskManageWindow();
@@ -25,16 +25,16 @@ public:
     int32_t getWinIdByPid(const int32_t &pid);
 
 protected:
-    virtual bool eventFilter(tpObject *watched, tpEvent *event) override;
+    virtual bool eventFilter(TpObject *watched, TpEvent *event) override;
 
-    virtual bool onMousePressEvent(tpMouseEvent *event) override;
-    virtual bool onMouseRleaseEvent(tpMouseEvent *event) override;
+    virtual bool onMousePressEvent(TpMouseEvent *event) override;
+    virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
 
-    virtual bool onMouseMoveEvent(tpMouseEvent *event) override;
+    virtual bool onMouseMoveEvent(TpMouseEvent *event) override;
 
-    virtual bool onResizeEvent(tpObjectResizeEvent *event) override;
+    virtual bool onResizeEvent(TpObjectResizeEvent *event) override;
 
-    virtual bool onLeaveEvent(tpObjectLeaveEvent *event) override;
+    virtual bool onLeaveEvent(TpObjectLeaveEvent *event) override;
 
 private:
     // 清理所有应用
@@ -47,17 +47,17 @@ private:
     void slotOpenApp(int32_t pid);
 
 private:
-    tpScrollPanel *taskScrollPanel_;
+    TpScrollPanel *taskScrollPanel_;
 
     ItpPoint mousePressPoint_;
     
     uint32_t taskHeight_;
     uint32_t taskWidth_;
 
-    tpButton *clearAllBtn_;
+    TpButton *clearAllBtn_;
 
     // <pid, 应用预览窗>
-    tpHash<int32_t, appPreviewWidget *> allTaskWidgetMap_;
+    TpHash<int32_t, appPreviewWidget *> allTaskWidgetMap_;
 };
 
 #endif

@@ -1,24 +1,24 @@
 #ifndef __SETTING_BASE_H
 #define __SETTING_BASE_H
 
-#include "tpChildWidget.h"
+#include "TpChildWidget.h"
 #include "systemSettingsGlobal.h"
-#include "tpLabel.h"
-#include "tpButton.h"
-#include "tpVBoxLayout.h"
+#include "TpLabel.h"
+#include "TpButton.h"
+#include "TpVBoxLayout.h"
 
 class settingBase
-    : public tpChildWidget
+    : public TpChildWidget
 {
 public:
-    settingBase(tpChildWidget *parent = nullptr);
+    settingBase(TpChildWidget *parent = nullptr);
     virtual ~settingBase();
 
     // 顶层窗口设置功能窗口标题和后退指针
-    void setTitleBackInfo(tpLabel *titleLabel, tpButton *backBtn);
+    void setTitleBackInfo(TpLabel *titleLabel, TpButton *backBtn);
 
     // 功能窗口进入自己的子菜单；切换标题
-    void setSubTile(const tpString &subTitle);
+    void setSubTile(const TpString &subTitle);
 
     // 设置后退按钮是否显隐
     void setBackBtnVisible(const bool &visible);
@@ -32,12 +32,12 @@ public:
 
 protected:
     // 所有子类使用此布局进行界面构建；确保使用统一的Margin
-    tpVBoxLayout *mainLayout_;
+    TpVBoxLayout *mainLayout_;
 
 private:
     // 使用函数设置；不要直接访问这两个指针
-    tpLabel *titleLabel_;
-    tpButton *backBtn_;
+    TpLabel *titleLabel_;
+    TpButton *backBtn_;
 };
 
 #endif

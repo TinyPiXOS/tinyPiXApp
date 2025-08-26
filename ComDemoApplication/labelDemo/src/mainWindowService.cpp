@@ -1,63 +1,63 @@
 #include "mainWindowService.h"
-#include "tpLabel.h"
-#include "tpFont.h"
+#include "TpLabel.h"
+#include "TpFont.h"
 #include "TpImage.h"
 
 mainWindowService::mainWindowService()
-    : tpFixScreen()
+    : TpFixScreen()
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(226, 226, 226));
     
-    tpLabel *label1 = new tpLabel(this);
+    TpLabel *label1 = new TpLabel(this);
 	label1->font()->setFontColor(_RGBA(255, 0, 0, 255), 0);
-	label1->font()->setAntialias(tpFont::TINY_FONT_ANTIALIAS_BEST);
-	label1->font()->setFontWeight(tpFont::TINY_FONT_WEIGHT_THIN);
+	label1->font()->setAntialias(TpFont::TINY_FONT_ANTIALIAS_BEST);
+	label1->font()->setFontWeight(TpFont::TINY_FONT_WEIGHT_THIN);
 	label1->setText("TINY_FONT_WEIGHT_THIN");
 	label1->setRect(0, 0, 250, 30);
 	label1->setVisible(true);
 	label1->update();
 
-	tpLabel *label2 = new tpLabel(this);
+	TpLabel *label2 = new TpLabel(this);
 	label2->font()->setFontColor(_RGBA(0, 255, 0, 255), 0);
-	label2->font()->setAntialias(tpFont::TINY_FONT_ANTIALIAS_GOOD);
-	label1->font()->setFontWeight(tpFont::TINY_FONT_WEIGHT_ULTRALIGHT);
+	label2->font()->setAntialias(TpFont::TINY_FONT_ANTIALIAS_GOOD);
+	label1->font()->setFontWeight(TpFont::TINY_FONT_WEIGHT_ULTRALIGHT);
 	label2->setAlign(tinyPiX::AlignCenter);
 	label2->setText("TINY_FONT_WEIGHT_ULTRALIGHT");
 	label2->setRect(0, 30, 250, 30);
 	label2->setVisible(true);
 	label2->update();
 
-	tpLabel *label3 = new tpLabel(this);
+	TpLabel *label3 = new TpLabel(this);
 	// label3->font()->setFontColor(_RGBA(0, 0, 255, 255), 0);
-	label3->font()->setAntialias(tpFont::TINY_FONT_ANTIALIAS_GOOD);
-	label1->font()->setFontWeight(tpFont::TINY_FONT_WEIGHT_LIGHT);
+	label3->font()->setAntialias(TpFont::TINY_FONT_ANTIALIAS_GOOD);
+	label1->font()->setFontWeight(TpFont::TINY_FONT_WEIGHT_LIGHT);
 	label3->setAlign(tinyPiX::AlignRight);
 	label3->setText("TINY_FONT_WEIGHT_LIGHT");
 	label3->setRect(0, 60, 250, 30);
 	label3->setVisible(true);
 	label3->update();
 
-	tpLabel *label4 = new tpLabel(this);
+	TpLabel *label4 = new TpLabel(this);
 	// label4->font()->setFontSize(50);
-	label1->font()->setFontWeight(tpFont::TINY_FONT_WEIGHT_SEMILIGHT);
+	label1->font()->setFontWeight(TpFont::TINY_FONT_WEIGHT_SEMILIGHT);
 	label4->setText("TINY_FONT_WEIGHT_SEMILIGHT");
 	label4->setRect(0, 90, 250, 30);
 	label4->setVisible(true);
 	label4->update();
 
-	tpList<tpFont::tpFontWeight> fontWeightValue =
+	TpList<TpFont::TpFontWeight> fontWeightValue =
 		{
-			tpFont::TINY_FONT_WEIGHT_BOOK,
-			tpFont::TINY_FONT_WEIGHT_NORMAL,
-			tpFont::TINY_FONT_WEIGHT_MEDIUM,
-			tpFont::TINY_FONT_WEIGHT_SEMIBOLD,
-			tpFont::TINY_FONT_WEIGHT_BOLD,
-			tpFont::TINY_FONT_WEIGHT_ULTRABOLD,
-			tpFont::TINY_FONT_WEIGHT_HEAVY,
-			tpFont::TINY_FONT_WEIGHT_ULTRAHEAVY};
-	tpList<tpString> fontWeightText =
+			TpFont::TINY_FONT_WEIGHT_BOOK,
+			TpFont::TINY_FONT_WEIGHT_NORMAL,
+			TpFont::TINY_FONT_WEIGHT_MEDIUM,
+			TpFont::TINY_FONT_WEIGHT_SEMIBOLD,
+			TpFont::TINY_FONT_WEIGHT_BOLD,
+			TpFont::TINY_FONT_WEIGHT_ULTRABOLD,
+			TpFont::TINY_FONT_WEIGHT_HEAVY,
+			TpFont::TINY_FONT_WEIGHT_ULTRAHEAVY};
+	TpList<TpString> fontWeightText =
 		{
 			"TINY_FONT_WEIGHT_BOOK",
 			"TINY_FONT_WEIGHT_NORMAL",
@@ -69,7 +69,7 @@ mainWindowService::mainWindowService()
 			"TINY_FONT_WEIGHT_ULTRAHEAVY"};
 	for (int i = 0; i < fontWeightValue.size(); ++i)
 	{
-		tpLabel *labelTmp = new tpLabel(this);
+		TpLabel *labelTmp = new TpLabel(this);
 		labelTmp->font()->setFontWeight(fontWeightValue.at(i));
 		labelTmp->setText(fontWeightText.at(i));
 		labelTmp->setRect(0, 120 + i * 30, 250, 30);
@@ -77,7 +77,7 @@ mainWindowService::mainWindowService()
 		labelTmp->update();
 	}
 
-	tpLabel *label6 = new tpLabel(this);
+	TpLabel *label6 = new TpLabel(this);
 	label6->setBackGroundImage(TpImage(applicationDirPath() + "/../res/test.svg"));
 	// label6->setBackGroundColor(_RGB(255, 0, 0));
 	// label6->setBlurRadius(20);
@@ -98,14 +98,14 @@ bool mainWindowService::appChange(int32_t id, int32_t pid, int32_t visible, int3
     return true;
 }
 
-bool mainWindowService::onResizeEvent(tpObjectResizeEvent *event)
+bool mainWindowService::onResizeEvent(TpObjectResizeEvent *event)
 {
     std::cout << "systemSetting::onResizeEvent" << std::endl;
 
     return true;
 }
 
-bool mainWindowService::onActiveEvent(tpObjectActiveEvent *event)
+bool mainWindowService::onActiveEvent(TpObjectActiveEvent *event)
 {
     std::cout << "systemSetting::onActiveEvent" << std::endl;
 

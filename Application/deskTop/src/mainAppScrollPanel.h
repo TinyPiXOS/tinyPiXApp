@@ -1,15 +1,15 @@
 #ifndef MAIN_APP_SCROLL_PANEL
 #define MAIN_APP_SCROLL_PANEL
 
-#include "tpScrollPanel.h"
-#include "tpEvent.h"
+#include "TpScrollPanel.h"
+#include "TpEvent.h"
 
 /// @brief
 class mainAppScrollPanel
-    : public tpScrollPanel
+    : public TpScrollPanel
 {
 public:
-    mainAppScrollPanel(tpChildWidget *parent = nullptr);
+    mainAppScrollPanel(TpChildWidget *parent = nullptr);
     ~mainAppScrollPanel();
 
     void setMaxPage(const uint32_t &maxPage);
@@ -28,15 +28,15 @@ signals:
     declare_signal(onLongPress);
 
 protected:
-    virtual bool eventFilter(tpObject *watched, tpEvent *event) override;
+    virtual bool eventFilter(TpObject *watched, TpEvent *event) override;
 
-    virtual bool onMousePressEvent(tpMouseEvent *event) override;
-    virtual bool onMouseRleaseEvent(tpMouseEvent *event) override;
-    virtual bool onMouseLongPressEvent(tpMouseEvent *event) override;
-    virtual bool onWheelEvent(tpWheelEvent *event) override;
+    virtual bool onMousePressEvent(TpMouseEvent *event) override;
+    virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
+    virtual bool onMouseLongPressEvent(TpMouseEvent *event) override;
+    virtual bool onWheelEvent(TpWheelEvent *event) override;
 
-    virtual bool onMouseMoveEvent(tpMouseEvent *event) override;
-	virtual bool onLeaveEvent(tpObjectLeaveEvent *event) override;
+    virtual bool onMouseMoveEvent(TpMouseEvent *event) override;
+	virtual bool onLeaveEvent(TpObjectLeaveEvent *event) override;
 
 private:
     bool mouseLeftPress_;

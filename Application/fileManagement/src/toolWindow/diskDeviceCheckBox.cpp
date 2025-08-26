@@ -1,13 +1,13 @@
 #include "diskDeviceCheckBox.h"
-#include "tpHBoxLayout.h"
-#include "tpDisplay.h"
-#include "tpFont.h"
+#include "TpHBoxLayout.h"
+#include "TpDisplay.h"
+#include "TpFont.h"
 #include "TpCanvas.h"
-#include "tpLine.h"
-#include "tpEvent.h"
+#include "TpLine.h"
+#include "TpEvent.h"
 
-diskDeviceCheckBox::diskDeviceCheckBox(tpChildWidget *parent)
-    : tpChildWidget(parent)
+diskDeviceCheckBox::diskDeviceCheckBox(TpChildWidget *parent)
+    : TpChildWidget(parent)
 {
     refreshBaseCss();
 
@@ -18,7 +18,7 @@ diskDeviceCheckBox::~diskDeviceCheckBox()
 {
 }
 
-void diskDeviceCheckBox::setIcon(const tpString &normalIcon, const tpString &checkedIcon)
+void diskDeviceCheckBox::setIcon(const TpString &normalIcon, const TpString &checkedIcon)
 {
     if (!normalIcon.empty())
         normalIcon_.load(normalIcon);
@@ -27,35 +27,35 @@ void diskDeviceCheckBox::setIcon(const tpString &normalIcon, const tpString &che
         checkedIcon_.load(checkedIcon);
 }
 
-void diskDeviceCheckBox::setName(const tpString &name)
+void diskDeviceCheckBox::setName(const TpString &name)
 {
     deviceNameLabel_->setText(name);
 }
 
 void diskDeviceCheckBox::setSpace(const float &curSpace, const float &totalSpace)
 {
-    tpString spaceText = tpString::number(curSpace, 2) + "GB/" + tpString::number(totalSpace, 2) + "GB";
+    TpString spaceText = TpString::number(curSpace, 2) + "GB/" + TpString::number(totalSpace, 2) + "GB";
     spaceLabel_->setText(spaceText);
 }
 
-bool diskDeviceCheckBox::onMouseRleaseEvent(tpMouseEvent *event)
+bool diskDeviceCheckBox::onMouseRleaseEvent(TpMouseEvent *event)
 {
-    tpChildWidget::onMouseRleaseEvent(event);
+    TpChildWidget::onMouseRleaseEvent(event);
 
     onClicked.emit(this);
 
     return true;
 }
 
-bool diskDeviceCheckBox::onResizeEvent(tpObjectResizeEvent *event)
+bool diskDeviceCheckBox::onResizeEvent(TpObjectResizeEvent *event)
 {
-    tpChildWidget::onResizeEvent(event);
+    TpChildWidget::onResizeEvent(event);
     return true;
 }
 
-bool diskDeviceCheckBox::onPaintEvent(tpObjectPaintEvent *event)
+bool diskDeviceCheckBox::onPaintEvent(TpObjectPaintEvent *event)
 {
-    tpChildWidget::onPaintEvent(event);
+    TpChildWidget::onPaintEvent(event);
 
     if (checked())
     {
@@ -80,16 +80,16 @@ bool diskDeviceCheckBox::onPaintEvent(tpObjectPaintEvent *event)
     return true;
 }
 
-bool diskDeviceCheckBox::eventFilter(tpObject *watched, tpEvent *event)
+bool diskDeviceCheckBox::eventFilter(TpObject *watched, TpEvent *event)
 {
-    if (event->eventType() == tpEvent::EVENT_MOUSE_PRESS_TYPE)
+    if (event->eventType() == TpEvent::EVENT_MOUSE_PRESS_TYPE)
     {
-        tpMouseEvent *mouseEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseEvent = dynamic_cast<TpMouseEvent *>(event);
         onMousePressEvent(mouseEvent);
     }
-    else if (event->eventType() == tpEvent::EVENT_MOUSE_RELEASE_TYPE)
+    else if (event->eventType() == TpEvent::EVENT_MOUSE_RELEASE_TYPE)
     {
-        tpMouseEvent *mouseEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseEvent = dynamic_cast<TpMouseEvent *>(event);
         onMouseRleaseEvent(mouseEvent);
     }
     else
@@ -103,33 +103,33 @@ void diskDeviceCheckBox::init()
 {
     setCheckable(true);
 
-    tpShared<tpCssData> cssData = currentStatusCss();
+    tpShared<TpCssData> cssData = currentStatusCss();
 
-    iconLabel_ = new tpLabel(this);
-    iconLabel_->setFixedSize(tpDisplay::dp2Px(33), tpDisplay::dp2Px(33));
+    iconLabel_ = new TpLabel(this);
+    iconLabel_->setFixedSize(TpDisplay::dp2Px(33), TpDisplay::dp2Px(33));
 
-    deviceNameLabel_ = new tpLabel(this);
+    deviceNameLabel_ = new TpLabel(this);
     deviceNameLabel_->font()->setFontColor(cssData->color(), cssData->color());
     deviceNameLabel_->font()->setFontSize(cssData->fontSize());
 
-    tpLine *subLine = new tpLine();
-    subLine->setLineType(tpLine::VLine);
+    TpLine *subLine = new TpLine();
+    subLine->setLineType(TpLine::VLine);
     subLine->setLineLength(18);
     subLine->setColor(_RGB(190, 196, 202));
     subLine->setLineWidth(2);
 
-    spaceLabel_ = new tpLabel(this);
+    spaceLabel_ = new TpLabel(this);
     spaceLabel_->font()->setFontColor(_RGB(140, 140, 140), _RGB(140, 140, 140));
     spaceLabel_->font()->setFontSize(cssData->fontSize());
 
-    expandLabel_ = new tpLabel(this);
-    expandLabel_->setFixedSize(tpDisplay::dp2Px(23), tpDisplay::dp2Px(23));
+    expandLabel_ = new TpLabel(this);
+    expandLabel_->setFixedSize(TpDisplay::dp2Px(23), TpDisplay::dp2Px(23));
 
     expandLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/箭头-未展开.png"));
 
-    tpShared<tpCssData> curCssData = currentStatusCss();
+    tpShared<TpCssData> curCssData = currentStatusCss();
 
-    tpHBoxLayout *mainLayout = new tpHBoxLayout();
+    TpHBoxLayout *mainLayout = new TpHBoxLayout();
     mainLayout->setContentsMargins(curCssData->paddingLeft(), curCssData->paddingTop(), curCssData->paddingRight(), curCssData->paddingBottom());
     mainLayout->setSpacing(10);
 
@@ -142,7 +142,7 @@ void diskDeviceCheckBox::init()
     mainLayout->addWidget(deviceNameLabel_);
     mainLayout->addWidget(subLine);
     mainLayout->addWidget(spaceLabel_);
-    mainLayout->addSpacer(new tpSpacerItem(20, 40, tpSpacerItem::Expanding, tpSpacerItem::Minimum));
+    mainLayout->addSpacer(new TpSpacerItem(20, 40, TpSpacerItem::Expanding, TpSpacerItem::Minimum));
     mainLayout->addWidget(expandLabel_);
     setLayout(mainLayout);
 }

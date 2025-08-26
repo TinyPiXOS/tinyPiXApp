@@ -1,12 +1,12 @@
-#include "tpApp.h"
+#include "TpApp.h"
 #include "mainWindowService.h"
 #include <iostream>
 #include "browserToolWindow/fileListWindow.h"
-#include "tpDialog.h"
+#include "TpDialog.h"
 
 int32_t main(int32_t argc, char *argv[])
 {
-	tpApp app(argc, argv);
+	TpApp app(argc, argv);
 
 	mainWindowService *fileManage = new mainWindowService();
 	app.bindVScreen(fileManage);

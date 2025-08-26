@@ -6,21 +6,21 @@
 #ifndef __FILE_LIST_WINDOW_H
 #define __FILE_LIST_WINDOW_H
 
-#include "tpChildWidget.h"
-#include "tpScrollPanel.h"
-#include "tpVector.h"
-#include "tpCollapsibleFileItem.h"
-#include "tpFlexLayout.h"
-#include "tpButton.h"
-#include "tpFilePathWidget.h"
+#include "TpChildWidget.h"
+#include "TpScrollPanel.h"
+#include "TpVector.h"
+#include "TpCollapsibleFileItem.h"
+#include "TpFlexLayout.h"
+#include "TpButton.h"
+#include "TpFilePathWidget.h"
 #include "browserToolWindow/settingWindow.h"
 #include "browserToolWindow/listFileItem.h"
 #include "toolWindow/usbPopButton.h"
-#include "tpVBoxLayout.h"
-#include "tpImageWidget.h"
+#include "TpVBoxLayout.h"
+#include "TpImageWidget.h"
 
 class fileListWindow
-    : public tpScrollPanel
+    : public TpScrollPanel
 {
 public:
     enum FileListMode
@@ -36,24 +36,24 @@ public:
     };
 
 public:
-    fileListWindow(tpChildWidget *parent = nullptr);
+    fileListWindow(TpChildWidget *parent = nullptr);
     ~fileListWindow();
 
     // 设置显示模式
     void setShowMode(const FileListMode &mode);
 
     // 设置显示目录，根目录
-    void setRootPath(const tpString &path);
+    void setRootPath(const TpString &path);
 
     // 设置显示的路径的设备类型
     void setDeviceType(const DeviceType &deviceType);
 
     // 指定路径刷新UI；必须在根目录下
-    void refreshPath(const tpString &path);
+    void refreshPath(const TpString &path);
 
 private:
     // Item点击槽函数
-    void SlotClickFileItem(tpCollapsibleFileItem *item);
+    void SlotClickFileItem(TpCollapsibleFileItem *item);
 
     // 点击列表Item
     void SlotClickListFileItem(listFileItem *item);
@@ -71,11 +71,11 @@ private:
     void init();
 
     // 指定文件路径打开文件
-    void openFile(const tpString &filePath);
+    void openFile(const TpString &filePath);
 
 private:
     // 主布局
-    tpVBoxLayout *mainLayout_;
+    TpVBoxLayout *mainLayout_;
 
     FileListMode mode_;
     DeviceType deviceType_;
@@ -83,26 +83,26 @@ private:
     // USB设备弹出按钮
     usbPopButton *popBtn_;
 
-    tpString rootPath_;
-    tpString curShowPath_;
+    TpString rootPath_;
+    TpString curShowPath_;
 
     // 网格模式的布局
-    tpFlexLayout *gridFileLayout_;
+    TpFlexLayout *gridFileLayout_;
 
     // 列表模式文件布局
-    tpVBoxLayout *listFileLayout_;
+    TpVBoxLayout *listFileLayout_;
 
-    tpFilePathWidget *filePathWidget_;
+    TpFilePathWidget *filePathWidget_;
 
     // 路径回退按钮
-    tpButton *pathBackBtn_;
-    tpButton *settingBtn_;
+    TpButton *pathBackBtn_;
+    TpButton *settingBtn_;
 
     // 功能设置窗口
     settingWindow *settingWindow_;
 
     // 图片预览窗口
-    tpImageWidget *imagePreviewWidget_;
+    TpImageWidget *imagePreviewWidget_;
 };
 
 #endif

@@ -5,12 +5,12 @@
     APP按钮长按遮罩窗口
 */
 
-#include "tpDialog.h"
-#include "tpEvent.h"
-#include "tpUtils.h"
+#include "TpDialog.h"
+#include "TpEvent.h"
+#include "TpUtils.h"
 
 class appOperateMaskWindow
-    : public tpDialog
+    : public TpDialog
 {
 public:
     appOperateMaskWindow();
@@ -22,8 +22,8 @@ public:
     void setAppRect(const ItpRect &rect, const uint32_t& roundCorners);
 
 protected:
-	virtual bool onMouseRleaseEvent(tpMouseEvent *event) override;
-    virtual bool onPaintEvent(tpObjectPaintEvent *event) override;
+	virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
+    virtual bool onPaintEvent(TpObjectPaintEvent *event) override;
 
 private:
     ItpRect appRect_;

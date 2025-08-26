@@ -1,13 +1,13 @@
 #include "listFileItem.h"
-#include "tpFileInfo.h"
+#include "TpFileInfo.h"
 #include "TpImage.h"
-#include "tpVBoxLayout.h"
-#include "tpHBoxLayout.h"
-#include "tpDir.h"
-#include "tpFont.h"
-#include "tpEvent.h"
+#include "TpVBoxLayout.h"
+#include "TpHBoxLayout.h"
+#include "TpDir.h"
+#include "TpFont.h"
+#include "TpEvent.h"
 
-tpString parseFileSuffix(const tpString &suffix, const bool &isDir)
+TpString parseFileSuffix(const TpString &suffix, const bool &isDir)
 {
     if (isDir)
         return "文件夹";
@@ -34,9 +34,9 @@ tpString parseFileSuffix(const tpString &suffix, const bool &isDir)
         return "未知";
 }
 
-tpString parseIconPath(const tpString &suffix, const bool &isDir)
+TpString parseIconPath(const TpString &suffix, const bool &isDir)
 {
-    tpString resPath = "/usr/res/tinyPiX/fileIcon/";
+    TpString resPath = "/usr/res/tinyPiX/fileIcon/";
 
     // return resPath + "pdf.png";
 
@@ -65,38 +65,38 @@ tpString parseIconPath(const tpString &suffix, const bool &isDir)
         return resPath + "未知.png";
 }
 
-listFileItem::listFileItem(tpChildWidget *parent)
-    : tpChildWidget(parent)
+listFileItem::listFileItem(TpChildWidget *parent)
+    : TpChildWidget(parent)
 {
-    iconLabel_ = new tpLabel(this);
+    iconLabel_ = new TpLabel(this);
     iconLabel_->setFixedSize(50, 50);
 
-    nameLabel_ = new tpLabel(this);
+    nameLabel_ = new TpLabel(this);
     nameLabel_->font()->setFontSize(11);
     nameLabel_->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
     nameLabel_->installEventFilter(this);
 
-    sizeLabel_ = new tpLabel(this);
+    sizeLabel_ = new TpLabel(this);
     sizeLabel_->font()->setFontSize(9);
     sizeLabel_->font()->setFontColor(_RGB(140, 140, 140), _RGB(140, 140, 140));
     sizeLabel_->installEventFilter(this);
 
-    dateTimeLabel_ = new tpLabel(this);
+    dateTimeLabel_ = new TpLabel(this);
     dateTimeLabel_->font()->setFontSize(11);
     dateTimeLabel_->font()->setFontColor(_RGB(89, 89, 89), _RGB(89, 89, 89));
     dateTimeLabel_->installEventFilter(this);
 
-    tpVBoxLayout *nameLayout = new tpVBoxLayout();
+    TpVBoxLayout *nameLayout = new TpVBoxLayout();
     nameLayout->setSpacing(0);
     nameLayout->addWidget(nameLabel_);
     nameLayout->addWidget(sizeLabel_);
 
-    tpHBoxLayout *mainLayout = new tpHBoxLayout();
+    TpHBoxLayout *mainLayout = new TpHBoxLayout();
     mainLayout->setSpacing(15);
 
     mainLayout->addWidget(iconLabel_);
     mainLayout->addLayout(nameLayout);
-    mainLayout->addSpacer(new tpSpacerItem(20, 20, tpSpacerItem::Expanding));
+    mainLayout->addSpacer(new TpSpacerItem(20, 20, TpSpacerItem::Expanding));
     mainLayout->addWidget(dateTimeLabel_);
 
     setLayout(mainLayout);
@@ -106,41 +106,41 @@ listFileItem::~listFileItem()
 {
 }
 
-void listFileItem::setName(const tpString &name)
+void listFileItem::setName(const TpString &name)
 {
     nameLabel_->setText(name);
     update();
 }
 
-void listFileItem::setPath(const tpString &filePath)
+void listFileItem::setPath(const TpString &filePath)
 {
     filePath_ = filePath;
 
     // 解析文件类型，获取资源图片
-    tpFileInfo fileInfo(filePath);
+    TpFileInfo fileInfo(filePath);
 
     bool isDir = false;
-    tpString suffix = "";
+    TpString suffix = "";
     if (fileInfo.isDir())
     {
         isDir = true;
 
-        tpDir pathDir(filePath);
-        sizeLabel_->setText(tpString::number(pathDir.entryInfoList().size()) + "项");
+        TpDir pathDir(filePath);
+        sizeLabel_->setText(TpString::number(pathDir.entryInfoList().size()) + "项");
     }
     else
     {
         int32_t findSuffixIndex = filePath.rfind(".");
         suffix = filePath.mid(findSuffixIndex + 1);
 
-        sizeLabel_->setText(tpString::number(fileInfo.size()) + "Kb");
+        sizeLabel_->setText(TpString::number(fileInfo.size()) + "Kb");
     }
 
     // 设置文件最后更新时间
     dateTimeLabel_->setText(fileInfo.lastModified("%Y-%m-%d %H:%M"));
 
-    // tpString typeStr = parseFileSuffix(suffix, isDir);
-    tpString iconPath = parseIconPath(suffix, isDir);
+    // TpString typeStr = parseFileSuffix(suffix, isDir);
+    TpString iconPath = parseIconPath(suffix, isDir);
 
     // typeLabel_->setText(typeStr);
 
@@ -149,23 +149,23 @@ void listFileItem::setPath(const tpString &filePath)
     update();
 }
 
-tpString listFileItem::path()
+TpString listFileItem::path()
 {
     return filePath_;
 }
 
-bool listFileItem::onMouseRleaseEvent(tpMouseEvent *event)
+bool listFileItem::onMouseRleaseEvent(TpMouseEvent *event)
 {
-    tpChildWidget::onMouseRleaseEvent(event);
+    TpChildWidget::onMouseRleaseEvent(event);
 
     onClicked.emit(this);
 
     return true;
 }
 
-bool listFileItem::onResizeEvent(tpObjectResizeEvent *event)
+bool listFileItem::onResizeEvent(TpObjectResizeEvent *event)
 {
-    tpChildWidget::onResizeEvent(event);
+    TpChildWidget::onResizeEvent(event);
 
     // iconLabel_->setFixedSize(height() * 0.666, height() * 0.666);
 
@@ -175,11 +175,11 @@ bool listFileItem::onResizeEvent(tpObjectResizeEvent *event)
     return true;
 }
 
-bool listFileItem::eventFilter(tpObject *watched, tpEvent *event)
+bool listFileItem::eventFilter(TpObject *watched, TpEvent *event)
 {
-    if (event->eventType() == tpEvent::EVENT_MOUSE_RELEASE_TYPE)
+    if (event->eventType() == TpEvent::EVENT_MOUSE_RELEASE_TYPE)
     {
-        tpMouseEvent *mouseEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseEvent = dynamic_cast<TpMouseEvent *>(event);
         onMouseRleaseEvent(mouseEvent);
     }
 

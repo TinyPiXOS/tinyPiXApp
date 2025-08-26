@@ -1,9 +1,9 @@
-#include "tpApp.h"
+#include "TpApp.h"
 #include "mainWindowService.h"
 
 int32_t main(int32_t argc, char *argv[])
 {
-	tpApp app(argc, argv);
+	TpApp app(argc, argv);
 
 	mainWindowService *mainWindow = new mainWindowService();
 	app.bindVScreen(mainWindow);
@@ -13,7 +13,7 @@ int32_t main(int32_t argc, char *argv[])
 
 	if (argc > 1)
 	{
-		tpString inputFile = argv[1];
+		TpString inputFile = argv[1];
 		mainWindow->setBackBtnVisible(true);
 		mainWindow->setPlayFile(inputFile);
 		// mainWindow->setPlayFile("/System/data/千千阙歌.mp3");

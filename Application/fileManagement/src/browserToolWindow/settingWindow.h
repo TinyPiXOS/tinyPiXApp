@@ -6,16 +6,16 @@
 #ifndef __SETTING_WINDOW_H
 #define __SETTING_WINDOW_H
 
-#include "tpDialog.h"
-#include "tpScrollPanel.h"
-#include "tpEvent.h"
-#include "tpButton.h"
-#include "tpListCheckBoxGroup.h"
-#include "tpComBox.h"
-#include "tpLabel.h"
+#include "TpDialog.h"
+#include "TpScrollPanel.h"
+#include "TpEvent.h"
+#include "TpButton.h"
+#include "TpListCheckBoxGroup.h"
+#include "TpComBox.h"
+#include "TpLabel.h"
 
 class settingWindow
-    : public tpDialog
+    : public TpDialog
 {
 public:
     settingWindow();
@@ -30,28 +30,28 @@ signals:
     declare_signal(onChangeViewMode, uint32_t);
 
 protected:
-    virtual bool onPaintEvent(tpObjectPaintEvent *event) override;
-    virtual bool onMouseRleaseEvent(tpMouseEvent *event) override;
+    virtual bool onPaintEvent(TpObjectPaintEvent *event) override;
+    virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
 
 private:
     void init();
 
-    tpLabel *createContentLabel(const tpString &text);
+    TpLabel *createContentLabel(const TpString &text);
 
 private:
     // 主滚动显示区域
-    tpScrollPanel *mainScrollPanel_;
+    TpScrollPanel *mainScrollPanel_;
 
-    tpButton *closeBtn_;
+    TpButton *closeBtn_;
 
     // 视图选择下拉框
-    tpComBox *viewCbx_;
+    TpComBox *viewCbx_;
 
     // 筛选条件单选组
-    tpListCheckBoxGroup *filterCbxGroup_;
+    TpListCheckBoxGroup *filterCbxGroup_;
 
     // 排序条件单选组
-    tpListCheckBoxGroup *sortCbxGroup_;
+    TpListCheckBoxGroup *sortCbxGroup_;
 };
 
 #endif

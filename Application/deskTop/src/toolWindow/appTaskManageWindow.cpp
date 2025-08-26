@@ -8,26 +8,26 @@
 #endif
 
 // 上下边界距离和任务水平/垂直间距
-static const uint32_t topBottomMargin = tpDisplay::dp2Px(35);
-static const uint32_t taskHInterval = tpDisplay::dp2Px(63);
-static const uint32_t taskVInterval = tpDisplay::dp2Px(29);
+static const uint32_t topBottomMargin = TpDisplay::dp2Px(35);
+static const uint32_t taskHInterval = TpDisplay::dp2Px(63);
+static const uint32_t taskVInterval = TpDisplay::dp2Px(29);
 
 appTaskManageWindow::appTaskManageWindow()
-    : tpDialog("tinyPiX_SYS_Float_0531acbf04")
+    : TpDialog("tinyPiX_SYS_Float_0531acbf04")
 {
     this->setBackGroundColor(TASK_MANAGER_COLOR);
     // this->setAlpha(128);
 
-    taskScrollPanel_ = new tpScrollPanel(this);
+    taskScrollPanel_ = new TpScrollPanel(this);
     taskScrollPanel_->installEventFilter(this);
     taskScrollPanel_->setScrollMode(false);
 
-    clearAllBtn_ = new tpButton(this);
+    clearAllBtn_ = new TpButton(this);
     clearAllBtn_->setProperty("type", "TaskManageClearButton");
     clearAllBtn_->setText("清除全部");
     connect(clearAllBtn_, onClicked, this, &appTaskManageWindow::slotClearAllApp);
 
-    clearAllBtn_->setStyleSheet(R"(tpButton[type="TaskManageClearButton"] { \
+    clearAllBtn_->setStyleSheet(R"(TpButton[type="TaskManageClearButton"] { \
                                     height: 38dp; \
                                     width: 130dp; \
                                     font-size: 15dp;  \
@@ -35,7 +35,7 @@ appTaskManageWindow::appTaskManageWindow()
                                     background-color: rgb(255, 255, 255); \
                                     border-radius: 32;    \
                                     }   \
-                                    tpButton[type="TaskManageClearButton"]:hover {    \
+                                    TpButton[type="TaskManageClearButton"]:hover {    \
                                         background-color: rgb(239, 239, 239); \
                                     })");
 
@@ -48,7 +48,7 @@ appTaskManageWindow::~appTaskManageWindow()
 
 void appTaskManageWindow::setVisible(bool visible)
 {
-    tpDialog::setVisible(visible);
+    TpDialog::setVisible(visible);
 
     if (visible)
     {
@@ -118,27 +118,27 @@ int32_t appTaskManageWindow::getWinIdByPid(const int32_t &pid)
     return 0;
 }
 
-bool appTaskManageWindow::eventFilter(tpObject *watched, tpEvent *event)
+bool appTaskManageWindow::eventFilter(TpObject *watched, TpEvent *event)
 {
-    if (event->eventType() == tpEvent::EVENT_MOUSE_PRESS_TYPE)
+    if (event->eventType() == TpEvent::EVENT_MOUSE_PRESS_TYPE)
     {
-        tpMouseEvent *mouseKeyEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseKeyEvent = dynamic_cast<TpMouseEvent *>(event);
         if (!mouseKeyEvent)
             return false;
 
         onMousePressEvent(mouseKeyEvent);
     }
-    else if (event->eventType() == tpEvent::EVENT_MOUSE_RELEASE_TYPE)
+    else if (event->eventType() == TpEvent::EVENT_MOUSE_RELEASE_TYPE)
     {
-        tpMouseEvent *mouseKeyEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseKeyEvent = dynamic_cast<TpMouseEvent *>(event);
         if (!mouseKeyEvent)
             return false;
 
         onMouseRleaseEvent(mouseKeyEvent);
     }
-    else if (event->eventType() == tpEvent::EVENT_MOUSE_MOVE_TYPE)
+    else if (event->eventType() == TpEvent::EVENT_MOUSE_MOVE_TYPE)
     {
-        tpMouseEvent *mouseMotionEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseMotionEvent = dynamic_cast<TpMouseEvent *>(event);
         if (!mouseMotionEvent)
             return false;
 
@@ -148,17 +148,17 @@ bool appTaskManageWindow::eventFilter(tpObject *watched, tpEvent *event)
     {
     }
 
-    return tpDialog::eventFilter(watched, event);
+    return TpDialog::eventFilter(watched, event);
 }
 
-bool appTaskManageWindow::onMousePressEvent(tpMouseEvent *event)
+bool appTaskManageWindow::onMousePressEvent(TpMouseEvent *event)
 {
     mousePressPoint_ = event->globalPos();
 
     return true;
 }
 
-bool appTaskManageWindow::onMouseRleaseEvent(tpMouseEvent *event)
+bool appTaskManageWindow::onMouseRleaseEvent(TpMouseEvent *event)
 {
     ItpPoint curPoint = event->globalPos();
     if (std::abs(curPoint.x - mousePressPoint_.x) < 5 && std::abs(curPoint.y - mousePressPoint_.y) < 5)
@@ -170,18 +170,18 @@ bool appTaskManageWindow::onMouseRleaseEvent(tpMouseEvent *event)
     return true;
 }
 
-bool appTaskManageWindow::onMouseMoveEvent(tpMouseEvent *event)
+bool appTaskManageWindow::onMouseMoveEvent(TpMouseEvent *event)
 {
     return true;
 }
 
-bool appTaskManageWindow::onResizeEvent(tpObjectResizeEvent *event)
+bool appTaskManageWindow::onResizeEvent(TpObjectResizeEvent *event)
 {
     taskScrollPanel_->setRect(0, 0, width(), height() - topBottomMargin - clearAllBtn_->height());
 
     // 根据屏幕大小，计算每个任务缩略图大小；减去上下边界，以及三行缩略中间的间隔
     taskHeight_ = 1.0 * (height() - topBottomMargin * 3 - clearAllBtn_->height() - taskVInterval) / 2;
-    taskWidth_ = tpDisplay::dp2Px(250);
+    taskWidth_ = TpDisplay::dp2Px(250);
 
     int32_t btnX = (width() - clearAllBtn_->width()) / 2.0;
     clearAllBtn_->move(btnX, height() - topBottomMargin - clearAllBtn_->height());
@@ -189,7 +189,7 @@ bool appTaskManageWindow::onResizeEvent(tpObjectResizeEvent *event)
     return true;
 }
 
-bool appTaskManageWindow::onLeaveEvent(tpObjectLeaveEvent *event)
+bool appTaskManageWindow::onLeaveEvent(TpObjectLeaveEvent *event)
 {
     return true;
 }
@@ -217,7 +217,7 @@ void appTaskManageWindow::slotClearAllApp(bool)
     }
 
     // 清除界面
-    tpVector<tpChildWidget *> objList = taskScrollPanel_->children();
+    TpVector<TpChildWidget *> objList = taskScrollPanel_->children();
     taskScrollPanel_->clearObject();
     for (auto &childAppObj : objList)
     {

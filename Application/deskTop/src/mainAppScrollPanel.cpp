@@ -2,8 +2,8 @@
 #include "deskTopGlobal.hpp"
 #include "math.h"
 
-mainAppScrollPanel::mainAppScrollPanel(tpChildWidget *parent)
-    : tpScrollPanel(parent), maxPageCount_(globalDesktopMaxPageNum), mouseLeftPress_(false), isSwitchPage_(false)
+mainAppScrollPanel::mainAppScrollPanel(TpChildWidget *parent)
+    : TpScrollPanel(parent), maxPageCount_(globalDesktopMaxPageNum), mouseLeftPress_(false), isSwitchPage_(false)
 {
     this->setEnableBackGroundColor(false);
     // this->setBackGroundColor(tpColors::Gold);
@@ -26,43 +26,43 @@ void mainAppScrollPanel::setMoveAppRect(const ItpRect &rect, const int32_t &roun
 {
 }
 
-bool mainAppScrollPanel::eventFilter(tpObject *watched, tpEvent *event)
+bool mainAppScrollPanel::eventFilter(TpObject *watched, TpEvent *event)
 {
-    if (event->eventType() == tpEvent::EVENT_MOUSE_PRESS_TYPE)
+    if (event->eventType() == TpEvent::EVENT_MOUSE_PRESS_TYPE)
     {
-        tpMouseEvent *mouseKeyEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseKeyEvent = dynamic_cast<TpMouseEvent *>(event);
         if (!mouseKeyEvent)
             return false;
 
         onMousePressEvent(mouseKeyEvent);
     }
-    else if (event->eventType() == tpEvent::EVENT_MOUSE_RELEASE_TYPE)
+    else if (event->eventType() == TpEvent::EVENT_MOUSE_RELEASE_TYPE)
     {
-        tpMouseEvent *mouseKeyEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseKeyEvent = dynamic_cast<TpMouseEvent *>(event);
         if (!mouseKeyEvent)
             return false;
 
         onMouseRleaseEvent(mouseKeyEvent);
     }
-    else if (event->eventType() == tpEvent::EVENT_MOUSE_MOVE_TYPE)
+    else if (event->eventType() == TpEvent::EVENT_MOUSE_MOVE_TYPE)
     {
-        tpMouseEvent *mouseMotionEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseMotionEvent = dynamic_cast<TpMouseEvent *>(event);
         if (!mouseMotionEvent)
             return false;
 
         onMouseMoveEvent(mouseMotionEvent);
     }
-    else if (event->eventType() == tpEvent::EVENT_WHEEL_EVENT)
+    else if (event->eventType() == TpEvent::EVENT_WHEEL_EVENT)
     {
-        tpWheelEvent *wheelEvent = dynamic_cast<tpWheelEvent *>(event);
+        TpWheelEvent *wheelEvent = dynamic_cast<TpWheelEvent *>(event);
         if (!wheelEvent)
             return false;
 
         onWheelEvent(wheelEvent);
     }
-    else if (event->eventType() == tpEvent::EVENT_MOUSE_LONG_PRESS_TYPE)
+    else if (event->eventType() == TpEvent::EVENT_MOUSE_LONG_PRESS_TYPE)
     {
-        tpMouseEvent *mouseKeyEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseKeyEvent = dynamic_cast<TpMouseEvent *>(event);
         if (!mouseKeyEvent)
             return false;
 
@@ -75,7 +75,7 @@ bool mainAppScrollPanel::eventFilter(tpObject *watched, tpEvent *event)
     return false;
 }
 
-bool mainAppScrollPanel::onMousePressEvent(tpMouseEvent *event)
+bool mainAppScrollPanel::onMousePressEvent(TpMouseEvent *event)
 {
     // 鼠标左键点击，记录点击坐标
     mouseLeftPress_ = true;
@@ -87,7 +87,7 @@ bool mainAppScrollPanel::onMousePressEvent(tpMouseEvent *event)
     return true;
 }
 
-bool mainAppScrollPanel::onMouseRleaseEvent(tpMouseEvent *event)
+bool mainAppScrollPanel::onMouseRleaseEvent(TpMouseEvent *event)
 {
     mouseLeftPress_ = false;
 
@@ -129,14 +129,14 @@ bool mainAppScrollPanel::onMouseRleaseEvent(tpMouseEvent *event)
     return true;
 }
 
-bool mainAppScrollPanel::onMouseLongPressEvent(tpMouseEvent *event)
+bool mainAppScrollPanel::onMouseLongPressEvent(TpMouseEvent *event)
 {
     onLongPress.emit();
 
     return false;
 }
 
-bool mainAppScrollPanel::onWheelEvent(tpWheelEvent *event)
+bool mainAppScrollPanel::onWheelEvent(TpWheelEvent *event)
 {
     if (event->angleDelta() > 0)
     {
@@ -169,7 +169,7 @@ bool mainAppScrollPanel::onWheelEvent(tpWheelEvent *event)
     return true;
 }
 
-bool mainAppScrollPanel::onMouseMoveEvent(tpMouseEvent *event)
+bool mainAppScrollPanel::onMouseMoveEvent(TpMouseEvent *event)
 {
     if (mouseLeftPress_)
     {
@@ -206,13 +206,13 @@ bool mainAppScrollPanel::onMouseMoveEvent(tpMouseEvent *event)
 
         // std::cout << "Move event->globalPos().X: " << event->globalPos().x << "  event->globalPos().y: " << event->globalPos().y << std::endl;
 
-        // return tpScrollPanel::onMouseMoveEvent(event);
+        // return TpScrollPanel::onMouseMoveEvent(event);
     }
 
     return true;
 }
 
-bool mainAppScrollPanel::onLeaveEvent(tpObjectLeaveEvent *event)
+bool mainAppScrollPanel::onLeaveEvent(TpObjectLeaveEvent *event)
 {
     if (!event->leave())
     {

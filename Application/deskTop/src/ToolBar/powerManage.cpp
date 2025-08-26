@@ -1,25 +1,25 @@
 #include "powerManage.h"
-#include "tpVariant.h"
+#include "TpVariant.h"
 #include "deskTopGlobal.hpp"
 
 #define POWER_MANAGE_BG_COLOR _RGBA(0, 0, 0, 153)
 
 powerManage::powerManage()
-    : tpDialog("tinyPiX_SYS_Float_0531acbf04")
+    : TpDialog("tinyPiX_SYS_Float_0531acbf04")
 {
     setBackGroundColor(POWER_MANAGE_BG_COLOR);
     // setAlpha(102);
 
-    powerRestartBtn_ = new tpButton("重新启动", this);
+    powerRestartBtn_ = new TpButton("重新启动", this);
     powerRestartBtn_->setProperty("type", "ControlPanelPowerButton");
     powerRestartBtn_->setFixedSize(globalMainScreen_->screenWidth() * 0.2824, globalMainScreen_->screenHeight() * 0.0888);
 
-    powerOffBtn_ = new tpButton("关机", this);
+    powerOffBtn_ = new TpButton("关机", this);
     powerOffBtn_->setProperty("type", "ControlPanelPowerButton");
     powerOffBtn_->setFixedSize(globalMainScreen_->screenWidth() * 0.2824, globalMainScreen_->screenHeight() * 0.0888);
 
-    closeBtn_ = new tpButton(this);
-    closeBtn_->setButtonStyle(tpButton::IconOnly);
+    closeBtn_ = new TpButton(this);
+    closeBtn_->setButtonStyle(TpButton::IconOnly);
     closeBtn_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-关闭.png");
     closeBtn_->setEnableBackGroundColor(false);
     closeBtn_->setSize(globalMainScreen_->screenWidth() * 0.055555, globalMainScreen_->screenWidth() * 0.055555);
@@ -46,19 +46,19 @@ powerManage::~powerManage()
 {
 }
 
-bool powerManage::onMousePressEvent(tpMouseEvent *event)
+bool powerManage::onMousePressEvent(TpMouseEvent *event)
 {
     setVisible(false);
 
     return true;
 }
 
-bool powerManage::onMouseRleaseEvent(tpMouseEvent *event)
+bool powerManage::onMouseRleaseEvent(TpMouseEvent *event)
 {
     return true;
 }
 
-bool powerManage::onResizeEvent(tpObjectResizeEvent *event)
+bool powerManage::onResizeEvent(TpObjectResizeEvent *event)
 {
     return true;
 }

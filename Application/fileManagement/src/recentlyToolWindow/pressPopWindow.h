@@ -6,14 +6,14 @@
 #ifndef __PRESS_POP_WINDOW_H
 #define __PRESS_POP_WINDOW_H
 
-#include "tpDialog.h"
-#include "tpVBoxLayout.h"
-#include "tpIconTopButton.h"
-#include "tpMenu.h"
-#include "tpVector.h"
+#include "TpDialog.h"
+#include "TpVBoxLayout.h"
+#include "TpIconTopButton.h"
+#include "TpMenu.h"
+#include "TpVector.h"
 
 class pressPopWindow
-    : public tpDialog
+    : public TpDialog
 {
 public:
     pressPopWindow();
@@ -23,19 +23,19 @@ private:
     void init();
 
 protected:
-    virtual bool onResizeEvent(tpObjectResizeEvent *event) override;
+    virtual bool onResizeEvent(TpObjectResizeEvent *event) override;
 
-    virtual bool eventFilter(tpObject *watched, tpEvent *event) override;
+    virtual bool eventFilter(TpObject *watched, TpEvent *event) override;
 
 private:
     // 选中item后的操作按钮
-    tpIconTopButton *delSelectBtn_;
-    tpIconTopButton *moveSelectBtn_;
-    tpIconTopButton *moreSelectBtn_;
+    TpIconTopButton *delSelectBtn_;
+    TpIconTopButton *moveSelectBtn_;
+    TpIconTopButton *moreSelectBtn_;
 
-    tpVector<tpIconTopButton *> buttonList_;
+    TpVector<TpIconTopButton *> buttonList_;
 
-    tpMenu *moreConfigMenu_;
+    TpMenu *moreConfigMenu_;
 };
 
 #endif

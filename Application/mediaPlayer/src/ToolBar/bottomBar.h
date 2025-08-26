@@ -1,14 +1,14 @@
 #ifndef __BOTTOM_BAR_H
 #define __BOTTOM_BAR_H
 
-#include "tpDialog.h"
-#include "tpButton.h"
-#include "tpLabel.h"
-#include "tpSlider.h"
-#include "tpMenu.h"
+#include "TpDialog.h"
+#include "TpButton.h"
+#include "TpLabel.h"
+#include "TpSlider.h"
+#include "TpMenu.h"
 #include "mediaPlayerGlobal.h"
 
-class bottomBar : public tpDialog
+class bottomBar : public TpDialog
 {
 public:
     bottomBar();
@@ -39,7 +39,7 @@ signals:
     declare_signal(switchSpeed, int32_t);
 
 protected:
-    virtual bool onResizeEvent(tpObjectResizeEvent *event) override;
+    virtual bool onResizeEvent(TpObjectResizeEvent *event) override;
 
 private:
     // 切换倍速
@@ -51,31 +51,31 @@ private:
 private:
     void init();
 
-    tpButton *generalIconBtn(const tpString &iconPath);
+    TpButton *generalIconBtn(const TpString &iconPath);
 
     // 计算播放进度字符串并更新UI
     void caculatePlayProgressStr();
 
 private:
     // 上一个、下一个
-    tpButton *previousFileBtn_;
-    tpButton *nextFileBtn_;
+    TpButton *previousFileBtn_;
+    TpButton *nextFileBtn_;
 
     // 快进快退
-    tpButton *forwardBtn_;
-    tpButton *backwardBtn_;
+    TpButton *forwardBtn_;
+    TpButton *backwardBtn_;
 
     // 暂停
-    tpButton *pauseBtn_;
+    TpButton *pauseBtn_;
     bool isPause_;
     
     // 倍速
-    tpButton *speedBtn_;
-    tpMenu *speedMenu_;
+    TpButton *speedBtn_;
+    TpMenu *speedMenu_;
 
     // 播放进度
-    tpLabel *progressLabel_;
-    tpSlider *progressSlider_;
+    TpLabel *progressLabel_;
+    TpSlider *progressSlider_;
 
     // 当前进度和总时长 S
     double curTimeS_;

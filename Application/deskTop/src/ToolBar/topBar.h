@@ -1,16 +1,16 @@
 #ifndef __TOP_BAR_H
 #define __TOP_BAR_H
 
-#include "tpDialog.h"
-#include "tpLabel.h"
-#include "tpTimer.h"
-#include "tpEvent.h"
-#include "tpBattery.h"
+#include "TpDialog.h"
+#include "TpLabel.h"
+#include "TpTimer.h"
+#include "TpEvent.h"
+#include "TpBattery.h"
 
-class topBar : public tpDialog
+class topBar : public TpDialog
 {
 public:
-	topBar(tpScreen *topScreen);
+	topBar(TpScreen *topScreen);
 	virtual ~topBar();
 
 	virtual void setVisible(bool visible = true) override;
@@ -25,14 +25,14 @@ public:
 								// 其余函数和数据自定义
 
 protected:
-	virtual bool onResizeEvent(tpObjectResizeEvent *event) override;
+	virtual bool onResizeEvent(TpObjectResizeEvent *event) override;
 
-	virtual bool onMousePressEvent(tpMouseEvent *event) override;
-	virtual bool onMouseRleaseEvent(tpMouseEvent *event) override;
+	virtual bool onMousePressEvent(TpMouseEvent *event) override;
+	virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
 
-	virtual bool onMouseMoveEvent(tpMouseEvent *event) override;
+	virtual bool onMouseMoveEvent(TpMouseEvent *event) override;
 
-	virtual bool onLeaveEvent(tpObjectLeaveEvent *event) override;
+	virtual bool onLeaveEvent(TpObjectLeaveEvent *event) override;
 
 private:
 	void caculateTopAppPos();
@@ -40,22 +40,22 @@ private:
 	void slotUpdateSystemTime();
 
 	// 将周几的数字转为汉字显示
-	tpString transWeekData(const int32_t &dayOfWeek);
+	TpString transWeekData(const int32_t &dayOfWeek);
 
 private:
-	tpScreen *topScreen_;
+	TpScreen *topScreen_;
 
-	tpLabel *sysDateLabel_;
-	tpLabel *sysTimeLabel_;
+	TpLabel *sysDateLabel_;
+	TpLabel *sysTimeLabel_;
 
 	// 蓝牙和网络连接状态
-	tpLabel *wifiLabel_;
-	tpLabel *blueToothLabel_;
+	TpLabel *wifiLabel_;
+	TpLabel *blueToothLabel_;
 
 	// 电量显示窗
-	tpBattery *elecBattery_;
+	TpBattery *elecBattery_;
 
-	tpTimer *updateTimetimer_;
+	TpTimer *updateTimetimer_;
 };
 
 #endif

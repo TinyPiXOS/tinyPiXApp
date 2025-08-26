@@ -1,29 +1,29 @@
 #include "mainWindowService.h"
-#include "tpBattery.h"
-#include "tpSignalSlot.h"
-#include "tpSlider.h"
+#include "TpBattery.h"
+#include "TpSignalSlot.h"
+#include "TpSlider.h"
 
 mainWindowService::mainWindowService()
-    : tpFixScreen()
+    : TpFixScreen()
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(128, 128, 128));
     setVisible(true);
 
-    tpBattery *battertWidget = new tpBattery(this);
+    TpBattery *battertWidget = new TpBattery(this);
     battertWidget->setValue(50);
     battertWidget->setWidth(600);
     battertWidget->setHeight(400);
     battertWidget->move(20, 200);
 
-    tpSlider *slider = new tpSlider(this);
+    TpSlider *slider = new TpSlider(this);
     slider->setValue(50);
     slider->setSize(500, 10);
     slider->move(20, 20);
 
-    tpSlider *vSlider = new tpSlider(this);
-    vSlider->setDirection(tpSlider::Vertical);
+    TpSlider *vSlider = new TpSlider(this);
+    vSlider->setDirection(TpSlider::Vertical);
     vSlider->setValue(50);
     vSlider->setSize(10, 500);
     vSlider->move(650, 20);
@@ -48,14 +48,14 @@ bool mainWindowService::appChange(int32_t id, int32_t pid, int32_t visible, int3
     return true;
 }
 
-bool mainWindowService::onResizeEvent(tpObjectResizeEvent *event)
+bool mainWindowService::onResizeEvent(TpObjectResizeEvent *event)
 {
     std::cout << "systemSetting::onResizeEvent" << std::endl;
 
     return true;
 }
 
-bool mainWindowService::onActiveEvent(tpObjectActiveEvent *event)
+bool mainWindowService::onActiveEvent(TpObjectActiveEvent *event)
 {
     std::cout << "systemSetting::onActiveEvent" << std::endl;
 

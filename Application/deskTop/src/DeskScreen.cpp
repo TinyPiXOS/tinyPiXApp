@@ -1,14 +1,14 @@
-#include "deskScreen.h"
+#include "DeskScreen.h"
 #include "TpImage.h"
-#include "tpEvent.h"
+#include "TpEvent.h"
 #include "deskTopGlobal.hpp"
-#include "tpJsonDocument.h"
-#include "tpFile.h"
-#include "tpDir.h"
-#include "tpFont.h"
-#include "tpProcess.h"
-#include "tpMessageBox.h"
-#include "tpAppConfigIO.h"
+#include "TpJsonDocument.h"
+#include "TpFile.h"
+#include "TpDir.h"
+#include "TpFont.h"
+#include "TpProcess.h"
+#include "TpMessageBox.h"
+#include "TpAppConfigIO.h"
 
 #include <iostream>
 
@@ -24,19 +24,19 @@ sysLockWindow *globalSysLockWindow = nullptr;
 appTaskManageWindow *globalAppTaskWindow = nullptr;
 appSettingBar *globalTopSettingBar_ = nullptr;
 
-tpScreen *globalMainScreen_ = nullptr;
+TpScreen *globalMainScreen_ = nullptr;
 IPiSysApiAgent *globalAgent = nullptr;
 
 // <pid, 应用信息>
-tpHash<int32_t, RunAppInfo> globalRunAppMap_ = tpHash<int32_t, RunAppInfo>();
+TpHash<int32_t, RunAppInfo> globalRunAppMap_ = TpHash<int32_t, RunAppInfo>();
 std::mutex readRunAppMutex_;
-tpHash<tpString, int32_t> globalUuidPidMap_ = tpHash<tpString, int32_t>();
+TpHash<TpString, int32_t> globalUuidPidMap_ = TpHash<TpString, int32_t>();
 
 uint32_t globalAppMaxRow = 4;
 uint32_t globalAppMaxColumn = 6;
 uint32_t globalAppHInterval = 0;
 
-static inline void BAR_SET_ATTRIB(tpChildWidget *vars, int32_t pop, int32_t x, int32_t y, int32_t width, int32_t height)
+static inline void BAR_SET_ATTRIB(TpChildWidget *vars, int32_t pop, int32_t x, int32_t y, int32_t width, int32_t height)
 {
     if (pop)
     {
@@ -48,7 +48,7 @@ static inline void BAR_SET_ATTRIB(tpChildWidget *vars, int32_t pop, int32_t x, i
     vars->update();
 }
 
-void tpDeskScreen::construct()
+void DeskScreen::construct()
 {
     globalMainScreen_ = this;
 
@@ -59,7 +59,7 @@ void tpDeskScreen::construct()
     setEnableBackGroundColor(false);
     setEnabledBorderColor(false);
 
-    std::cout << "tpDeskScreen::construct()" << std::endl;
+    std::cout << "DeskScreen::construct()" << std::endl;
 
     initData();
 
@@ -108,7 +108,7 @@ void tpDeskScreen::construct()
     intDeskAppConfig();
 }
 
-void tpDeskScreen::destruction()
+void DeskScreen::destruction()
 {
     if (topFloatBar_)
     {
@@ -127,9 +127,9 @@ void tpDeskScreen::destruction()
     }
 }
 
-void tpDeskScreen::recvData(const char *topic, const void *data, const uint32_t &size)
+void DeskScreen::recvData(const char *topic, const void *data, const uint32_t &size)
 {
-    tpString topicString(topic);
+    TpString topicString(topic);
     if (topicString.compare(RunAppTopic) == 0)
     {
         RunApp recvRunData;
@@ -138,7 +138,7 @@ void tpDeskScreen::recvData(const char *topic, const void *data, const uint32_t 
         std::cout << "RecvStartApp UUID : " << recvRunData.appUuid << std::endl;
 
         // 启动指定应用
-        tpVector<tpString> argList;
+        TpVector<TpString> argList;
         for (const auto &recvArg : recvRunData.argList)
         {
             std::cout << " recvArg : " << recvArg << std::endl;
@@ -148,11 +148,11 @@ void tpDeskScreen::recvData(const char *topic, const void *data, const uint32_t 
     }
 }
 
-bool tpDeskScreen::appChange(int32_t id, int32_t pid, int32_t visible, int32_t active, int32_t color, uint8_t alpha, int32_t require)
+bool DeskScreen::appChange(int32_t id, int32_t pid, int32_t visible, int32_t active, int32_t color, uint8_t alpha, int32_t require)
 {
     int32_t sysid = this->objectSysID();
 
-    // std::cout << "tpDeskScreen::appChange " << std::endl;
+    // std::cout << "DeskScreen::appChange " << std::endl;
     std::cout << "id " << id << std::endl;
     std::cout << "sysid " << sysid << std::endl;
 
@@ -185,9 +185,9 @@ bool tpDeskScreen::appChange(int32_t id, int32_t pid, int32_t visible, int32_t a
     return true;
 }
 
-bool tpDeskScreen::onActiveEvent(tpObjectActiveEvent *event)
+bool DeskScreen::onActiveEvent(TpObjectActiveEvent *event)
 {
-    std::cout << "tpDeskScreen::onActiveEvent " << std::endl;
+    std::cout << "DeskScreen::onActiveEvent " << std::endl;
 
     if (event->isActived())
     {
@@ -202,7 +202,7 @@ bool tpDeskScreen::onActiveEvent(tpObjectActiveEvent *event)
     return true;
 }
 
-bool tpDeskScreen::onMousePressEvent(tpMouseEvent *event)
+bool DeskScreen::onMousePressEvent(TpMouseEvent *event)
 {
     // 记录鼠标点击坐标
     uint32_t pressY = event->globalPos().y;
@@ -219,7 +219,7 @@ bool tpDeskScreen::onMousePressEvent(tpMouseEvent *event)
     return false;
 }
 
-bool tpDeskScreen::onMouseRleaseEvent(tpMouseEvent *event)
+bool DeskScreen::onMouseRleaseEvent(TpMouseEvent *event)
 {
     pressTopBar_ = false;
     pressAppBtn_ = nullptr;
@@ -228,7 +228,7 @@ bool tpDeskScreen::onMouseRleaseEvent(tpMouseEvent *event)
     return false;
 }
 
-bool tpDeskScreen::onMouseMoveEvent(tpMouseEvent *event)
+bool DeskScreen::onMouseMoveEvent(TpMouseEvent *event)
 {
     if (pressTopBar_)
     {
@@ -273,9 +273,9 @@ bool tpDeskScreen::onMouseMoveEvent(tpMouseEvent *event)
     return false;
 }
 
-bool tpDeskScreen::onLeaveEvent(tpObjectLeaveEvent *event)
+bool DeskScreen::onLeaveEvent(TpObjectLeaveEvent *event)
 {
-    // if (event->eventType() == tpEvent::EVENT_OBJECT_LEAVE_TYPE)
+    // if (event->eventType() == TpEvent::EVENT_OBJECT_LEAVE_TYPE)
     // {
     //     if (event->leave())
     //     {
@@ -287,11 +287,11 @@ bool tpDeskScreen::onLeaveEvent(tpObjectLeaveEvent *event)
     return true;
 }
 
-bool tpDeskScreen::eventFilter(tpObject *watched, tpEvent *event)
+bool DeskScreen::eventFilter(TpObject *watched, TpEvent *event)
 {
-    if (event->eventType() == tpEvent::EVENT_MOUSE_PRESS_TYPE)
+    if (event->eventType() == TpEvent::EVENT_MOUSE_PRESS_TYPE)
     {
-        tpMouseEvent *mouseKeyEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseKeyEvent = dynamic_cast<TpMouseEvent *>(event);
         if (!mouseKeyEvent)
             return false;
 
@@ -304,9 +304,9 @@ bool tpDeskScreen::eventFilter(tpObject *watched, tpEvent *event)
             return true;
         }
     }
-    else if (event->eventType() == tpEvent::EVENT_MOUSE_RELEASE_TYPE)
+    else if (event->eventType() == TpEvent::EVENT_MOUSE_RELEASE_TYPE)
     {
-        tpMouseEvent *mouseKeyEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseKeyEvent = dynamic_cast<TpMouseEvent *>(event);
         if (!mouseKeyEvent)
             return false;
 
@@ -319,9 +319,9 @@ bool tpDeskScreen::eventFilter(tpObject *watched, tpEvent *event)
             return true;
         }
     }
-    else if (event->eventType() == tpEvent::EVENT_MOUSE_MOVE_TYPE)
+    else if (event->eventType() == TpEvent::EVENT_MOUSE_MOVE_TYPE)
     {
-        tpMouseEvent *mouseMotionEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseMotionEvent = dynamic_cast<TpMouseEvent *>(event);
         if (!mouseMotionEvent)
             return false;
 
@@ -339,7 +339,7 @@ bool tpDeskScreen::eventFilter(tpObject *watched, tpEvent *event)
     return false;
 }
 
-void tpDeskScreen::slotOperateApp(desktopAppButton *operateBtn)
+void DeskScreen::slotOperateApp(desktopAppButton *operateBtn)
 {
     if (operateBtn)
     {
@@ -353,12 +353,12 @@ void tpDeskScreen::slotOperateApp(desktopAppButton *operateBtn)
 
         // uint32_t delIndex = operateMenu_->addItem("卸载", applicationDirPath() + "/../res/删除.png");
 
-        operateMenu_->exec(btnRect.x, btnRect.y - tpDisplay::dp2Px(11) - operateMenu_->height());
+        operateMenu_->exec(btnRect.x, btnRect.y - TpDisplay::dp2Px(11) - operateMenu_->height());
     }
     else
     {
         // APP抖动
-        tpList<tpObject *> appList = mainAppPanel_->objectList();
+        TpList<TpObject *> appList = mainAppPanel_->objectList();
         for (const auto &appButton : appList)
         {
             desktopAppButton *iconButton = dynamic_cast<desktopAppButton *>(appButton);
@@ -373,7 +373,7 @@ void tpDeskScreen::slotOperateApp(desktopAppButton *operateBtn)
     isMoveMode_ = true;
 }
 
-void tpDeskScreen::slotDeleteApp(desktopAppButton *operateBtn)
+void DeskScreen::slotDeleteApp(desktopAppButton *operateBtn)
 {
     if (!operateBtn)
     {
@@ -381,7 +381,7 @@ void tpDeskScreen::slotDeleteApp(desktopAppButton *operateBtn)
         return;
     }
 
-    tpString removeUuid = operateBtn->property("UUID").toString();
+    TpString removeUuid = operateBtn->property("UUID").toString();
 
     if (removeUuid.empty())
     {
@@ -447,7 +447,7 @@ void tpDeskScreen::slotDeleteApp(desktopAppButton *operateBtn)
     update();
 }
 
-void tpDeskScreen::slotTimeoutInstallApp()
+void DeskScreen::slotTimeoutInstallApp()
 {
     std::cout << "安装应用UUID" << appInstallPtr_->getAppUUID() << std::endl;
 
@@ -463,7 +463,7 @@ void tpDeskScreen::slotTimeoutInstallApp()
     }
 }
 
-void tpDeskScreen::initData()
+void DeskScreen::initData()
 {
     globalTopSettingBar_ = new appSettingBar();
     if (globalTopSettingBar_ == nullptr)
@@ -523,7 +523,7 @@ void tpDeskScreen::initData()
     }
     mainAppPanel_->installEventFilter(this);
 
-    carouselButton_ = new tpCarouselButton(this);
+    carouselButton_ = new TpCarouselButton(this);
 
     connect(mainAppPanel_, onPageChanged, [=](uint32_t curPage_)
             { carouselButton_->setCurrentIndex(curPage_); });
@@ -532,7 +532,7 @@ void tpDeskScreen::initData()
     maskWindow_->installEventFilter(this);
     // maskWindow_->setVisible(false);
 
-    operateMenu_ = new tpMenu();
+    operateMenu_ = new TpMenu();
     uint32_t delIndex = operateMenu_->addItem("卸载", applicationDirPath() + "/../res/删除.png");
     connect(operateMenu_, onClicked, [=](uint32_t index)
             {
@@ -542,20 +542,20 @@ void tpDeskScreen::initData()
 				if (index == delIndex)
 				{
 					slotDeleteApp(pressAppBtn_);
-					// tpMessageBox::information("卸载成功");
+					// TpMessageBox::information("卸载成功");
 					operateMenu_->close();
 					maskWindow_->close();
 				} });
 
-    appInstallPtr_ = new tpAppInstall("");
-    appInstallTimer_ = new tpTimer(800);
-    connect(appInstallTimer_, timeout, this, &tpDeskScreen::slotTimeoutInstallApp);
+    appInstallPtr_ = new TpAppInstall("");
+    appInstallTimer_ = new TpTimer(800);
+    connect(appInstallTimer_, timeout, this, &DeskScreen::slotTimeoutInstallApp);
 }
 
-void tpDeskScreen::intDeskAppConfig()
+void DeskScreen::intDeskAppConfig()
 {
     // 获取所有已安装的APP的UUID列表
-    tpVector<tpString> installAppUuidList = tpAppConfigIO::installAppUuidList();
+    TpVector<TpString> installAppUuidList = TpAppConfigIO::installAppUuidList();
 
     // 应用数量为0；后边就不用处理了
     uint32_t appCount = installAppUuidList.size();
@@ -563,34 +563,34 @@ void tpDeskScreen::intDeskAppConfig()
         return;
 
     // 解析APP所在页和行列信息
-    tpJsonObject appPageInfoJsonObj;
+    TpJsonObject appPageInfoJsonObj;
 
-    tpFile appPageInfoFile(applicationDirPath() + "/../conf/appIndexConfig.json");
-    appPageInfoFile.open(tpFile::ReadOnly);
+    TpFile appPageInfoFile(applicationDirPath() + "/../conf/appIndexConfig.json");
+    appPageInfoFile.open(TpFile::ReadOnly);
     if (appPageInfoFile.isOpen())
     {
-        tpString appPageInfoStr = appPageInfoFile.readAll();
+        TpString appPageInfoStr = appPageInfoFile.readAll();
         appPageInfoFile.close();
 
         // 转换json对象
-        appPageInfoJsonObj = tpJsonDocument::fromJson(appPageInfoStr).object();
+        appPageInfoJsonObj = TpJsonDocument::fromJson(appPageInfoStr).object();
     }
 
     // 解析在BottomBar中的App
-    tpVector<tpString> bottomBarAppUuidList;
+    TpVector<TpString> bottomBarAppUuidList;
 
-    tpFile bottomBarAppInfoFile(applicationDirPath() + "/../conf/bottomBarAppConfig.json");
-    bottomBarAppInfoFile.open(tpFile::ReadOnly);
+    TpFile bottomBarAppInfoFile(applicationDirPath() + "/../conf/bottomBarAppConfig.json");
+    bottomBarAppInfoFile.open(TpFile::ReadOnly);
     if (bottomBarAppInfoFile.isOpen())
     {
-        tpString botomBarAppInfoJsonStr = bottomBarAppInfoFile.readAll();
+        TpString botomBarAppInfoJsonStr = bottomBarAppInfoFile.readAll();
 
-        tpJsonObject bottomBarAppJson = tpJsonDocument::fromJson(botomBarAppInfoJsonStr).object();
+        TpJsonObject bottomBarAppJson = TpJsonDocument::fromJson(botomBarAppInfoJsonStr).object();
 
-        tpJsonArray bottomAppIdList = bottomBarAppJson.value("appList").toArray();
+        TpJsonArray bottomAppIdList = bottomBarAppJson.value("appList").toArray();
         for (int i = 0; i < bottomAppIdList.count(); ++i)
         {
-            tpString bottomUuid = bottomAppIdList.at(i).toString();
+            TpString bottomUuid = bottomAppIdList.at(i).toString();
             bottomBarAppUuidList.emplace_back(bottomUuid);
         }
 
@@ -602,16 +602,16 @@ void tpDeskScreen::intDeskAppConfig()
     uint32_t pageMaxAppCount = globalAppMaxRow * globalAppMaxColumn;
 
     // 上一页放不下的APP
-    tpList<ApplicationInfoSPtr> cachePageAppList;
+    TpList<ApplicationInfoSPtr> cachePageAppList;
 
     for (int32_t i = 0; i < installAppUuidList.size(); ++i)
     {
-        tpString curAppUuid = installAppUuidList.at(i);
+        TpString curAppUuid = installAppUuidList.at(i);
 
         // 查询该应用是否有配置页数和行列信息
         if (appPageInfoJsonObj.contains(curAppUuid))
         {
-            tpJsonObject curAppPageInfoObj = appPageInfoJsonObj.value(curAppUuid).toObject();
+            TpJsonObject curAppPageInfoObj = appPageInfoJsonObj.value(curAppUuid).toObject();
             uint32_t appPage = curAppPageInfoObj.value("page").toUint();
             uint32_t appIndex = curAppPageInfoObj.value("index").toUint();
 
@@ -693,12 +693,12 @@ void tpDeskScreen::intDeskAppConfig()
     refreshAppPage(curPage_);
 }
 
-void tpDeskScreen::createAppBtn()
+void DeskScreen::createAppBtn()
 {
     uint32_t pageMaxAppCount = globalAppMaxRow * globalAppMaxColumn;
 
-    tpString appConfigDirPath = appConfigPathStr_ + APP_CONFIG_SON_PATH;
-    tpString appFileDirPath = appConfigPathStr_ + APP_FILES_SON_PATH;
+    TpString appConfigDirPath = appConfigPathStr_ + APP_CONFIG_SON_PATH;
+    TpString appFileDirPath = appConfigPathStr_ + APP_FILES_SON_PATH;
 
     // APP显示区域的宽度
     uint32_t mainAppPanelWidth = mainAppPanel_->rect().w;
@@ -714,12 +714,12 @@ void tpDeskScreen::createAppBtn()
     for (const auto &pageAppInfoIter : allAppInfoMap_)
     {
         uint32_t appPage = pageAppInfoIter.first;
-        tpList<ApplicationInfoSPtr> curPageAppList = pageAppInfoIter.second;
+        TpList<ApplicationInfoSPtr> curPageAppList = pageAppInfoIter.second;
 
         for (const auto &appInfoSptrIter : curPageAppList)
         {
             // 解析应用图标、名称信息
-            tpAppConfigIO configIO(appInfoSptrIter->appUuid);
+            TpAppConfigIO configIO(appInfoSptrIter->appUuid);
 
             desktopAppButton *appBtn = createDeskAppBtn(appInfoSptrIter, configIO.iconPath(), configIO.appName());
             if (!appBtn)
@@ -732,8 +732,8 @@ void tpDeskScreen::createAppBtn()
     // 计算一页里面，所有行列的XY坐标
     if (finalBtn)
     {
-        tpVector<int32_t> rowYList;
-        tpVector<int32_t> columnXList;
+        TpVector<int32_t> rowYList;
+        TpVector<int32_t> columnXList;
 
         for (int row = 0; row < globalAppMaxRow; ++row)
         {
@@ -756,11 +756,11 @@ void tpDeskScreen::createAppBtn()
     }
 
     // 创建工具栏的图标
-    tpList<desktopAppButton *> bottomAppList;
+    TpList<desktopAppButton *> bottomAppList;
     for (const auto &bottomAppInfo : bottomBarAppList_)
     {
         // 解析应用图标、名称信息
-        tpAppConfigIO configIO(bottomAppInfo->appUuid);
+        TpAppConfigIO configIO(bottomAppInfo->appUuid);
 
         desktopAppButton *appBtn = configAppBtn(bottomAppInfo->appUuid, configIO.iconPath(), configIO.appName());
         bottomAppList.emplace_back(appBtn);
@@ -770,7 +770,7 @@ void tpDeskScreen::createAppBtn()
     mainAppPanel_->recal(true);
 }
 
-void tpDeskScreen::refreshMainAppPanel()
+void DeskScreen::refreshMainAppPanel()
 {
     uint32_t tHeight = topFloatBar_->height();
     uint32_t bottomBarHeight = bottomFloatBar_->height();
@@ -781,7 +781,7 @@ void tpDeskScreen::refreshMainAppPanel()
     // uint32_t appIntervalPx = appDisplayHeight * 0.0279;
 
     // 减去距离上部Bar和下部bar的距离，在减去bottomBar距离边界距离
-    uint32_t mainAppPanelHeight = height() - tHeight - bottomBarHeight - tpDisplay::dp2Px(20) * 2 - tpDisplay::dp2Px(19);
+    uint32_t mainAppPanelHeight = height() - tHeight - bottomBarHeight - TpDisplay::dp2Px(20) * 2 - TpDisplay::dp2Px(19);
 
     mainAppPanel_->setWidth(rect().w);
     mainAppPanel_->setHeight(mainAppPanelHeight);
@@ -803,29 +803,29 @@ void tpDeskScreen::refreshMainAppPanel()
     carouselButton_->move(carouselButtonX, carouselButtonY);
 }
 
-void tpDeskScreen::refreshAppPage(const uint32_t &pageNum)
+void DeskScreen::refreshAppPage(const uint32_t &pageNum)
 {
 }
 
-void tpDeskScreen::refreshBar()
+void DeskScreen::refreshBar()
 {
     if (!topFloatBar_ || !bottomFloatBar_)
         return;
 
     // 计算底部bar的X坐标
     uint32_t bottomX = (width() - BOTTOM_BAR_WIDTH) / 2.0;
-    uint32_t bottomY = height() - BOTTOM_BAR_HEIGHT - tpDisplay::dp2Px(19);
+    uint32_t bottomY = height() - BOTTOM_BAR_HEIGHT - TpDisplay::dp2Px(19);
 
     bottomFloatBar_->setRoundCorners(13);
 
-    BAR_SET_ATTRIB(topFloatBar_, tpFixScreen::ITP_FULL_STYLE, 0, 0, width(), TOP_BAR_HEIGHT);
-    BAR_SET_ATTRIB(bottomFloatBar_, tpFixScreen::ITP_FULL_STYLE, bottomX, bottomY, BOTTOM_BAR_WIDTH, BOTTOM_BAR_HEIGHT);
+    BAR_SET_ATTRIB(topFloatBar_, TpFixScreen::ITP_FULL_STYLE, 0, 0, width(), TOP_BAR_HEIGHT);
+    BAR_SET_ATTRIB(bottomFloatBar_, TpFixScreen::ITP_FULL_STYLE, bottomX, bottomY, BOTTOM_BAR_WIDTH, BOTTOM_BAR_HEIGHT);
 
     uint32_t navigationX = (width() - navigationFloatBar_->width()) / 2.0;
-    BAR_SET_ATTRIB(navigationFloatBar_, tpFixScreen::ITP_FULL_STYLE, navigationX, height() - navigationFloatBar_->height(), navigationFloatBar_->width(), navigationFloatBar_->height());
+    BAR_SET_ATTRIB(navigationFloatBar_, TpFixScreen::ITP_FULL_STYLE, navigationX, height() - navigationFloatBar_->height(), navigationFloatBar_->width(), navigationFloatBar_->height());
 }
 
-desktopAppButton *tpDeskScreen::createDeskAppBtn(ApplicationInfoSPtr appInfo, const tpString &iconPath, const tpString &appName)
+desktopAppButton *DeskScreen::createDeskAppBtn(ApplicationInfoSPtr appInfo, const TpString &iconPath, const TpString &appName)
 {
     desktopAppButton *appBtn = configAppBtn(appInfo->appUuid, iconPath, appName);
     if (!appBtn)
@@ -856,7 +856,7 @@ desktopAppButton *tpDeskScreen::createDeskAppBtn(ApplicationInfoSPtr appInfo, co
     return appBtn;
 }
 
-desktopAppButton *tpDeskScreen::configAppBtn(const tpString &appUuid, const tpString &iconPath, const tpString &appName)
+desktopAppButton *DeskScreen::configAppBtn(const TpString &appUuid, const TpString &iconPath, const TpString &appName)
 {
     // 根据APP uuid去查询App配置文件
     desktopAppButton *appBtn = new desktopAppButton(iconPath, appName, nullptr);
@@ -884,7 +884,7 @@ desktopAppButton *tpDeskScreen::configAppBtn(const tpString &appUuid, const tpSt
     return appBtn;
 }
 
-void tpDeskScreen::startApp(const tpString &uuid, const tpVector<tpString> &argList)
+void DeskScreen::startApp(const TpString &uuid, const TpVector<TpString> &argList)
 {
     // 是否是系统安装包
     if (uuid.compare("SytemAppInstallUuid") == 0)
@@ -899,9 +899,9 @@ void tpDeskScreen::startApp(const tpString &uuid, const tpVector<tpString> &argL
         return;
     }
 
-    tpString appFileDirPath = appConfigPathStr_ + APP_FILES_SON_PATH + uuid;
+    TpString appFileDirPath = appConfigPathStr_ + APP_FILES_SON_PATH + uuid;
 
-    tpDir appFileDir(appFileDirPath);
+    TpDir appFileDir(appFileDirPath);
     if (!appFileDir.exists())
     {
         std::cout << "UUid: " << uuid << " 应用文件夹不存在" << std::endl;
@@ -936,17 +936,17 @@ void tpDeskScreen::startApp(const tpString &uuid, const tpVector<tpString> &argL
     else
     {
         // 解析应用图标、名称信息
-        tpAppConfigIO configIO(uuid);
+        TpAppConfigIO configIO(uuid);
 
-        tpString runnerPath = configIO.runnerPath();
-        tpFileInfo runnerFileInfo(runnerPath);
+        TpString runnerPath = configIO.runnerPath();
+        TpFileInfo runnerFileInfo(runnerPath);
         if (!runnerFileInfo.exists())
         {
             std::cout << "应用 " << configIO.appName() << " 可执行程序不存在!" << std::endl;
             return;
         }
 
-        tpProcess exeProcess;
+        TpProcess exeProcess;
         exeProcess.start(runnerPath, argList);
         // exeProcess.start(exePathStr);
         int32_t processPID = exeProcess.launchProcessID();
@@ -964,17 +964,17 @@ void tpDeskScreen::startApp(const tpString &uuid, const tpVector<tpString> &argL
     }
 }
 
-void tpDeskScreen::installApp(const tpString &pkgPath)
+void DeskScreen::installApp(const TpString &pkgPath)
 {
     // 应用安装
     appInstallPtr_->setPath(pkgPath);
-    tpString installAppUuid = appInstallPtr_->getAppUUID();
+    TpString installAppUuid = appInstallPtr_->getAppUUID();
 
     // 判断应用是否已安装
-    tpVector<tpString> instasllAppIDList = tpAppConfigIO::installAppUuidList();
+    TpVector<TpString> instasllAppIDList = TpAppConfigIO::installAppUuidList();
     if (instasllAppIDList.contains(installAppUuid))
     {
-        tpMessageBox::information("应用已安装!");
+        TpMessageBox::information("应用已安装!");
         return;
     }
 
@@ -1022,8 +1022,8 @@ void tpDeskScreen::installApp(const tpString &pkgPath)
     allAppInfoMap_[installPageNum].emplace_back(installAppInfp);
 
     // 桌面添加应用图标以及遮罩层
-    tpString iconPath = appInstallPtr_->getIcon();
-    tpString appName = appInstallPtr_->getAppName();
+    TpString iconPath = appInstallPtr_->getIcon();
+    TpString appName = appInstallPtr_->getAppName();
 
     std::cout << "Install iconPath" << iconPath << std::endl;
     std::cout << "Install appName" << appName << std::endl;
@@ -1035,7 +1035,7 @@ void tpDeskScreen::installApp(const tpString &pkgPath)
     appInstallTimer_->start();
 }
 
-uint32_t tpDeskScreen::findAppIndex(const tpList<ApplicationInfoSPtr> &pageAppList)
+uint32_t DeskScreen::findAppIndex(const TpList<ApplicationInfoSPtr> &pageAppList)
 {
     uint32_t findIndex = 0;
     if (pageAppList.size() == 0)

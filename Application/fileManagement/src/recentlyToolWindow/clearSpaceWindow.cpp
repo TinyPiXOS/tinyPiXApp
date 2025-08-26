@@ -1,15 +1,15 @@
 #include "clearSpaceWindow.h"
-#include "tpDisplay.h"
-#include "tpVBoxLayout.h"
-#include "tpHBoxLayout.h"
-#include "tpLabel.h"
-#include "tpFont.h"
-#include "tpLine.h"
-#include "tpMessageBox.h"
+#include "TpDisplay.h"
+#include "TpVBoxLayout.h"
+#include "TpHBoxLayout.h"
+#include "TpLabel.h"
+#include "TpFont.h"
+#include "TpLine.h"
+#include "TpMessageBox.h"
 
-int32_t layoutMargin = tpDisplay::dp2Px(20);
+int32_t layoutMargin = TpDisplay::dp2Px(20);
 
-clearSpaceWindow::clearSpaceWindow() : tpDialog()
+clearSpaceWindow::clearSpaceWindow() : TpDialog()
 {
     setBackGroundColor(_RGB(248, 248, 248));
     // setBackGroundColor(_RGB(248, 0, 0));
@@ -24,30 +24,30 @@ clearSpaceWindow::~clearSpaceWindow()
 
 void clearSpaceWindow::SlotClearSpaceFile(bool)
 {
-    tpMessageBox::information("已清理垃圾文件");
+    TpMessageBox::information("已清理垃圾文件");
 }
 
 void clearSpaceWindow::init()
 {
     // 标题布局
-    tpHBoxLayout *titleLayout = new tpHBoxLayout();
+    TpHBoxLayout *titleLayout = new TpHBoxLayout();
     titleLayout->setContentsMargins(0, 0, 0, 12);
     titleLayout->setSpacing(12);
 
-    tpVBoxLayout *mainLayout = new tpVBoxLayout();
+    TpVBoxLayout *mainLayout = new TpVBoxLayout();
     mainLayout->setSpacing(12);
     mainLayout->setContentsMargins(layoutMargin, layoutMargin, layoutMargin, 0);
 
     // 清理按钮
-    backBtn_ = new tpButton(this);
-    backBtn_->setButtonStyle(tpButton::IconOnly);
+    backBtn_ = new TpButton(this);
+    backBtn_->setButtonStyle(TpButton::IconOnly);
     backBtn_->setEnableBackGroundColor(false);
-    backBtn_->setFixedSize(tpDisplay::dp2Px(34), tpDisplay::dp2Px(34));
+    backBtn_->setFixedSize(TpDisplay::dp2Px(34), TpDisplay::dp2Px(34));
     backBtn_->setIcon(applicationDirPath() + "/../res/路径后退.png");
     connect(backBtn_, onClicked, [=](bool)
             { setVisible(false); });
 
-    tpLabel *titleLabel = new tpLabel("空间清理");
+    TpLabel *titleLabel = new TpLabel("空间清理");
     // titleLabel->setBackGroundColor(_RGB(255, 0, 0));
     titleLabel->font()->setFontSize(19);
     // titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
@@ -57,45 +57,45 @@ void clearSpaceWindow::init()
     titleLayout->addWidget(backBtn_);
     titleLayout->addWidget(titleLabel);
 
-    tpChildWidget *localSpaceWidget = genLocalSpaceWidget();
+    TpChildWidget *localSpaceWidget = genLocalSpaceWidget();
 
-    tpChildWidget *clearWidget = genClearFileWidget();
+    TpChildWidget *clearWidget = genClearFileWidget();
 
     mainLayout->addLayout(titleLayout);
     mainLayout->addWidget(localSpaceWidget);
     mainLayout->addWidget(clearWidget);
-    mainLayout->addSpacer(new tpSpacerItem(20, 20, tpSpacerItem::Minimum, tpSpacerItem::Expanding));
+    mainLayout->addSpacer(new TpSpacerItem(20, 20, TpSpacerItem::Minimum, TpSpacerItem::Expanding));
 
     setLayout(mainLayout);
 }
 
-tpChildWidget *clearSpaceWindow::genLocalSpaceWidget()
+TpChildWidget *clearSpaceWindow::genLocalSpaceWidget()
 {
-    tpHBoxLayout *titleLayout = new tpHBoxLayout();
+    TpHBoxLayout *titleLayout = new TpHBoxLayout();
     titleLayout->setContentsMargins(0, 0, 0, 0);
 
-    tpVBoxLayout *spaceWidgetLayout = new tpVBoxLayout();
+    TpVBoxLayout *spaceWidgetLayout = new TpVBoxLayout();
     spaceWidgetLayout->setContentsMargins(18, 35, 18, 35);
 
-    tpChildWidget *localSpaceWidget = new tpChildWidget();
+    TpChildWidget *localSpaceWidget = new TpChildWidget();
     localSpaceWidget->setBackGroundColor(_RGB(255, 255, 255));
     localSpaceWidget->setRoundCorners(20);
 
-    tpLabel *nameLabel = new tpLabel();
+    TpLabel *nameLabel = new TpLabel();
     nameLabel->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
     nameLabel->font()->setFontSize(12);
     nameLabel->setText("本地空间");
 
-    tpLabel *spaceLabel = new tpLabel();
+    TpLabel *spaceLabel = new TpLabel();
     spaceLabel->font()->setFontColor(_RGB(89, 89, 89), _RGB(89, 89, 89));
     spaceLabel->font()->setFontSize(12);
     spaceLabel->setText("已使用 136 GB/256 GB");
 
     titleLayout->addWidget(nameLabel);
-    titleLayout->addSpacer(new tpSpacerItem(20, 20, tpSpacerItem::Expanding));
+    titleLayout->addSpacer(new TpSpacerItem(20, 20, TpSpacerItem::Expanding));
     titleLayout->addWidget(spaceLabel);
 
-    tpPercentProgressBar *percetProgress = new tpPercentProgressBar();
+    TpPercentProgressBar *percetProgress = new TpPercentProgressBar();
     // TODO ,查询本地存储各个类别文件存储大小
     percetProgress->setTotalValue(256);
     percetProgress->addItem("图片", 35);
@@ -113,41 +113,41 @@ tpChildWidget *clearSpaceWindow::genLocalSpaceWidget()
     return localSpaceWidget;
 }
 
-tpChildWidget *clearSpaceWindow::genClearFileWidget()
+TpChildWidget *clearSpaceWindow::genClearFileWidget()
 {
-    tpHBoxLayout *titleLayout = new tpHBoxLayout();
+    TpHBoxLayout *titleLayout = new TpHBoxLayout();
     titleLayout->setContentsMargins(18, 35, 18, 35);
 
-    tpChildWidget *clearWidget = new tpChildWidget();
+    TpChildWidget *clearWidget = new TpChildWidget();
     clearWidget->setBackGroundColor(_RGB(255, 255, 255));
     clearWidget->setRoundCorners(20);
 
-    tpLabel *nameLabel = new tpLabel();
+    TpLabel *nameLabel = new TpLabel();
     nameLabel->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
     nameLabel->font()->setFontSize(12);
     nameLabel->setText("垃圾文件");
 
-    tpLine *subLine = new tpLine();
-    subLine->setLineType(tpLine::VLine);
+    TpLine *subLine = new TpLine();
+    subLine->setLineType(TpLine::VLine);
     subLine->setLineLength(12);
     subLine->setColor(_RGB(190, 196, 202));
     subLine->setLineWidth(2);
 
-    tpLabel *spaceLabel = new tpLabel();
+    TpLabel *spaceLabel = new TpLabel();
     spaceLabel->font()->setFontColor(_RGB(140, 140, 140), _RGB(140, 140, 140));
     spaceLabel->font()->setFontSize(12);
     spaceLabel->setText("416MB");
 
-    releaseSpaceBtn_ = new tpButton();
+    releaseSpaceBtn_ = new TpButton();
     releaseSpaceBtn_->setProperty("type", "FunctionButton");
-    releaseSpaceBtn_->setButtonStyle(tpButton::TextOnly);
+    releaseSpaceBtn_->setButtonStyle(TpButton::TextOnly);
     releaseSpaceBtn_->setText("确认并释放空间");
     connect(releaseSpaceBtn_, onClicked, this, &clearSpaceWindow::SlotClearSpaceFile);
 
     titleLayout->addWidget(nameLabel);
     titleLayout->addWidget(subLine);
     titleLayout->addWidget(spaceLabel);
-    titleLayout->addSpacer(new tpSpacerItem(20, 20, tpSpacerItem::Expanding));
+    titleLayout->addSpacer(new TpSpacerItem(20, 20, TpSpacerItem::Expanding));
     titleLayout->addWidget(releaseSpaceBtn_);
 
     clearWidget->setLayout(titleLayout);

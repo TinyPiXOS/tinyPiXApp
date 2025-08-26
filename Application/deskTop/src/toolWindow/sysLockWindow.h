@@ -1,15 +1,15 @@
 #ifndef __SYS_LOCK_WINDOW_H
 #define __SYS_LOCK_WINDOW_H
 
-#include "tpDialog.h"
-#include "tpButton.h"
-#include "tpEvent.h"
-#include "tpLabel.h"
-#include "tpTimer.h"
-#include "tpLineEdit.h"
+#include "TpDialog.h"
+#include "TpButton.h"
+#include "TpEvent.h"
+#include "TpLabel.h"
+#include "TpTimer.h"
+#include "TpLineEdit.h"
 
 class sysLockWindow
-    : public tpDialog
+    : public TpDialog
 {
 public:
     sysLockWindow();
@@ -22,12 +22,12 @@ public:
     void resizeLockWindow(const ItpRect &mainWindowRect);
 
 protected:
-    virtual bool onMousePressEvent(tpMouseEvent *event) override;
-	virtual bool onMouseRleaseEvent(tpMouseEvent *event) override;
+    virtual bool onMousePressEvent(TpMouseEvent *event) override;
+	virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
 
-    virtual bool onMouseMoveEvent(tpMouseEvent *event) override;
+    virtual bool onMouseMoveEvent(TpMouseEvent *event) override;
 
-    virtual bool onLeaveEvent(tpObjectLeaveEvent *event) override;
+    virtual bool onLeaveEvent(TpObjectLeaveEvent *event) override;
 
 private:
     void initUi();
@@ -46,20 +46,20 @@ private:
     ItpPoint pressPoint_;
 
     // 更新时间定时器
-	tpTimer *updateTimetimer_;
+	TpTimer *updateTimetimer_;
 
     // 锁屏壁纸界面提示信息；时间、解锁提示、解锁方向提示
-    tpLabel *systemDateTimeLabel_;
-    tpLabel *unlockPromptLabel_;
-    tpLabel *unlockDirectLabel_;
+    TpLabel *systemDateTimeLabel_;
+    TpLabel *unlockPromptLabel_;
+    TpLabel *unlockDirectLabel_;
 
     // 输密码解锁界面
-    tpLabel *systemNameLabel_;
-    tpLabel *welcomeLabel_;
-    tpLabel *userIconLabel_;
+    TpLabel *systemNameLabel_;
+    TpLabel *welcomeLabel_;
+    TpLabel *userIconLabel_;
 
-    tpLineEdit* pwdEdit_;
-    tpButton* loginBtn_;
+    TpLineEdit* pwdEdit_;
+    TpButton* loginBtn_;
 };
 
 #endif

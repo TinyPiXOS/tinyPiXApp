@@ -2,24 +2,24 @@
 #define __INTERNET_SETTING_WINDOW_H
 
 #include "settingWindow/settingBase.h"
-#include "tpLineEdit.h"
+#include "TpLineEdit.h"
 #include "systemSettingsGlobal.h"
-#include "tpListCheckBoxGroup.h"
-#include "tpMenuPanelWidget.h"
-#include "tpOnOffButton.h"
+#include "TpListCheckBoxGroup.h"
+#include "TpMenuPanelWidget.h"
+#include "TpOnOffButton.h"
 
 class InternetSettingWindow
     : public settingBase
 {
 public:
-    InternetSettingWindow(tpChildWidget *parent = nullptr);
+    InternetSettingWindow(TpChildWidget *parent = nullptr);
     virtual ~InternetSettingWindow();
 
     // 界面刷新数据
     virtual void refreshData() override;
 
 protected:
-    virtual bool onResizeEvent(tpObjectResizeEvent *event) override;
+    virtual bool onResizeEvent(TpObjectResizeEvent *event) override;
 
 private:
     // 点击保存IPV4配置数据
@@ -29,7 +29,7 @@ private:
     void slotSaveDnsConfig(bool);
 
     // 切换网卡选择
-    void slotSwitchNetDevice(tpListCheckBoxGroupItem* item);
+    void slotSwitchNetDevice(TpListCheckBoxGroupItem* item);
 
 private:
     void initUi();
@@ -41,28 +41,28 @@ private:
     void configDnsPanel();
 
     // 刷新指定网卡信息; 网卡名称
-    void refreshNetDeviceInfo(const tpString& netName);
+    void refreshNetDeviceInfo(const TpString& netName);
 
 private:
     // 网卡列表单选组
-    tpListCheckBoxGroup *netDeviceListCbx_;
+    TpListCheckBoxGroup *netDeviceListCbx_;
 
     // IPV4设置
-    tpMenuPanelWidget *ipv4ConfigPanel_;
-    tpOnOffButton* isDhcpBtn_;
-    tpLineEdit *ipAddrEdit_;
-    tpLineEdit *maskEdit_;
-    tpLineEdit *gatewayEdit_;
+    TpMenuPanelWidget *ipv4ConfigPanel_;
+    TpOnOffButton* isDhcpBtn_;
+    TpLineEdit *ipAddrEdit_;
+    TpLineEdit *maskEdit_;
+    TpLineEdit *gatewayEdit_;
 
     // 应用ipv4设置按钮
-    tpButton *applyIpv4Btn_;
+    TpButton *applyIpv4Btn_;
 
     // DNS设置
-    tpMenuPanelWidget *dnsConfigPanel_;
-    tpOnOffButton* autoDnseBtn_;
-    tpLineEdit *firstDnsEdit_;
-    tpLineEdit *secondDnsEdit_;
-    tpButton *applyDnsBtn_;
+    TpMenuPanelWidget *dnsConfigPanel_;
+    TpOnOffButton* autoDnseBtn_;
+    TpLineEdit *firstDnsEdit_;
+    TpLineEdit *secondDnsEdit_;
+    TpButton *applyDnsBtn_;
 };
 
 #endif

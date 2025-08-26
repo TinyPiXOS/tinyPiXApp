@@ -1,13 +1,13 @@
 #include "settingWindow.h"
-#include "tpVBoxLayout.h"
-#include "tpHBoxLayout.h"
-#include "tpDisplay.h"
-#include "tpEvent.h"
-#include "tpFont.h"
+#include "TpVBoxLayout.h"
+#include "TpHBoxLayout.h"
+#include "TpDisplay.h"
+#include "TpEvent.h"
+#include "TpFont.h"
 
 #define BG_COLOR _RGBA(0, 0, 0, 153)
 
-settingWindow::settingWindow() : tpDialog()
+settingWindow::settingWindow() : TpDialog()
 {
     setBackGroundColor(BG_COLOR);
     init();
@@ -20,11 +20,11 @@ settingWindow::~settingWindow()
 
 void settingWindow::setVisible(bool visible)
 {
-    setSize(tpScreen::screenWidth(), tpScreen::screenHeight());
-    mainScrollPanel_->setFixedSize(tpDisplay::dp2Px(429), tpScreen::screenHeight());
-    mainScrollPanel_->move(tpScreen::screenWidth() - mainScrollPanel_->width(), 0);
+    setSize(TpScreen::screenWidth(), TpScreen::screenHeight());
+    mainScrollPanel_->setFixedSize(TpDisplay::dp2Px(429), TpScreen::screenHeight());
+    mainScrollPanel_->move(TpScreen::screenWidth() - mainScrollPanel_->width(), 0);
 
-    tpDialog::setVisible(visible);
+    TpDialog::setVisible(visible);
 
     if (visible == false)
     {
@@ -33,15 +33,15 @@ void settingWindow::setVisible(bool visible)
     }
 }
 
-bool settingWindow::onPaintEvent(tpObjectPaintEvent *event)
+bool settingWindow::onPaintEvent(TpObjectPaintEvent *event)
 {
-    tpDialog::onPaintEvent(event);
+    TpDialog::onPaintEvent(event);
     return true;
 }
 
-bool settingWindow::onMouseRleaseEvent(tpMouseEvent *event)
+bool settingWindow::onMouseRleaseEvent(TpMouseEvent *event)
 {
-    tpDialog::onMouseRleaseEvent(event);
+    TpDialog::onMouseRleaseEvent(event);
 
     if (!mainScrollPanel_->toScreen().contains(event->globalPos().x, event->globalPos().y))
     {
@@ -54,52 +54,52 @@ bool settingWindow::onMouseRleaseEvent(tpMouseEvent *event)
 
 void settingWindow::init()
 {
-    mainScrollPanel_ = new tpScrollPanel(this);
+    mainScrollPanel_ = new TpScrollPanel(this);
     mainScrollPanel_->setBackGroundColor(_RGB(248, 248, 248));
 
-    tpChildWidget *scrollWidget = new tpChildWidget(mainScrollPanel_);
+    TpChildWidget *scrollWidget = new TpChildWidget(mainScrollPanel_);
     scrollWidget->setBackGroundColor(_RGB(248, 248, 248));
 
-    tpLabel *titleLabel = new tpLabel("功能设置");
+    TpLabel *titleLabel = new TpLabel("功能设置");
     titleLabel->font()->setFontSize(19);
     titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
     titleLabel->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
 
-    closeBtn_ = new tpButton();
-    closeBtn_->setButtonStyle(tpButton::IconOnly);
+    closeBtn_ = new TpButton();
+    closeBtn_->setButtonStyle(TpButton::IconOnly);
     closeBtn_->setEnableBackGroundColor(false);
-    closeBtn_->setFixedSize(tpDisplay::dp2Px(34), tpDisplay::dp2Px(34));
+    closeBtn_->setFixedSize(TpDisplay::dp2Px(34), TpDisplay::dp2Px(34));
     closeBtn_->setIcon(applicationDirPath() + "/../res/关闭.png");
     connect(closeBtn_, onClicked, [=](bool)
             { setVisible(false); });
 
-    tpHBoxLayout *titleLayout = new tpHBoxLayout();
+    TpHBoxLayout *titleLayout = new TpHBoxLayout();
     titleLayout->setContentsMargins(0, 0, 0, 0);
     // titleLayout->setContentsMargins(6, 0, 6, 0);
     titleLayout->addWidget(titleLabel);
     titleLayout->addWidget(closeBtn_);
 
-    tpLabel *viewLabel = createContentLabel("视图");
-    viewCbx_ = new tpComBox();
+    TpLabel *viewLabel = createContentLabel("视图");
+    viewCbx_ = new TpComBox();
     viewCbx_->setTitle("视图模式");
     viewCbx_->addItem("视图模式");
     viewCbx_->addItem("列表模式");
 
-    tpLabel *filterLabel = createContentLabel("筛选");
-    filterCbxGroup_ = new tpListCheckBoxGroup();
+    TpLabel *filterLabel = createContentLabel("筛选");
+    filterCbxGroup_ = new TpListCheckBoxGroup();
     filterCbxGroup_->addItem("文件名称");
     filterCbxGroup_->addItem("文件大小");
     filterCbxGroup_->addItem("修改时间");
     filterCbxGroup_->addItem("文件类型");
 
-    tpLabel *sortLabel = createContentLabel("排序");
-    sortCbxGroup_ = new tpListCheckBoxGroup();
+    TpLabel *sortLabel = createContentLabel("排序");
+    sortCbxGroup_ = new TpListCheckBoxGroup();
     sortCbxGroup_->addItem("正序");
     sortCbxGroup_->addItem("倒序");
 
-    int32_t layoutMargin = tpDisplay::dp2Px(20);
+    int32_t layoutMargin = TpDisplay::dp2Px(20);
 
-    tpVBoxLayout *mainLayout = new tpVBoxLayout();
+    TpVBoxLayout *mainLayout = new TpVBoxLayout();
     mainLayout->setContentsMargins(18, layoutMargin, 18, 0);
     mainLayout->setSpacing(10);
 
@@ -110,16 +110,16 @@ void settingWindow::init()
     mainLayout->addWidget(filterCbxGroup_);
     mainLayout->addWidget(sortLabel);
     mainLayout->addWidget(sortCbxGroup_);
-    mainLayout->addSpacer(new tpSpacerItem(20, 20, tpSpacerItem::Minimum, tpSpacerItem::Expanding));
+    mainLayout->addSpacer(new TpSpacerItem(20, 20, TpSpacerItem::Minimum, TpSpacerItem::Expanding));
 
     scrollWidget->setLayout(mainLayout);
     mainScrollPanel_->setWidget(scrollWidget);
 }
 
-tpLabel *settingWindow::createContentLabel(const tpString &text)
+TpLabel *settingWindow::createContentLabel(const TpString &text)
 {
-    tpLabel *viewLabel = new tpLabel(text);
-    // viewLabel->setAlign(tpLabel::TP_ALIGN_RIGHT);
+    TpLabel *viewLabel = new TpLabel(text);
+    // viewLabel->setAlign(TpLabel::TP_ALIGN_RIGHT);
     viewLabel->font()->setFontSize(12);
     viewLabel->setFixedHeight(viewLabel->font()->pixelHeight());
     viewLabel->font()->setFontColor(_RGB(89, 89, 89), _RGB(89, 89, 89));

@@ -1,26 +1,26 @@
 #ifndef __TP_VDESK_SCREEN_H
 #define __TP_VDESK_SCREEN_H
 
-#include "tpFixScreen.h"
-#include "tpJsonObject.h"
-#include "tpGateway.h"
-#include "tpScrollPanel.h"
-#include "tpDisplay.h"
-#include "tpGridLayout.h"
+#include "TpFixScreen.h"
+#include "TpJsonObject.h"
+#include "TpGateway.h"
+#include "TpScrollPanel.h"
+#include "TpDisplay.h"
+#include "TpGridLayout.h"
 #include "mainAppScrollPanel.h"
-#include "tpMenu.h"
-#include "tpCarouselButton.h"
+#include "TpMenu.h"
+#include "TpCarouselButton.h"
 #include "deskTopGlobal.hpp"
-#include "tpNetDataGlobal.h"
-#include "tpGateway.h"
-#include "tpAppInstall.h"
-#include "tpTimer.h"
+#include "TpNetDataGlobal.h"
+#include "TpGateway.h"
+#include "TpAppInstall.h"
+#include "TpTimer.h"
 
 #include "toolWindow/sysLockWindow.h"
 #include "toolWindow/appOperateMaskWindow.h"
-#include "toolBar/topBar.h"
-#include "toolBar/bottomBar.h"
-#include "toolBar/navigationBar.h"
+#include "ToolBar/topBar.h"
+#include "ToolBar/bottomBar.h"
+#include "ToolBar/navigationBar.h"
 #include "toolModule/caculateAppPos.h"
 #include "toolModule/desktopAppButton.h"
 
@@ -37,13 +37,13 @@
 
 TP_DEF_VOID_TYPE_VAR(ItpScreenPrivData);
 
-class tpDeskScreen
-	: public tpFixScreen,
-	  public tpGateway
+class DeskScreen
+	: public TpFixScreen,
+	  public TpGateway
 {
 public:
-	tpDeskScreen();
-	virtual ~tpDeskScreen();
+	DeskScreen();
+	virtual ~DeskScreen();
 
 public:
 	virtual void construct();	// 这个函数直接会被构造函数调用，不需要去修改构造，初始化代码直接在这个函数中写就好
@@ -56,15 +56,15 @@ public:
 	virtual bool appChange(int32_t id, int32_t pid, int32_t visible, int32_t active, int32_t color, uint8_t alpha, int32_t require);
 
 public:
-	virtual bool onActiveEvent(tpObjectActiveEvent *event) override;
+	virtual bool onActiveEvent(TpObjectActiveEvent *event) override;
 
-	virtual bool onMousePressEvent(tpMouseEvent *event) override;
-	virtual bool onMouseRleaseEvent(tpMouseEvent *event) override;
+	virtual bool onMousePressEvent(TpMouseEvent *event) override;
+	virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
 	
-	virtual bool onMouseMoveEvent(tpMouseEvent *event) override;
-	virtual bool onLeaveEvent(tpObjectLeaveEvent *event) override;
+	virtual bool onMouseMoveEvent(TpMouseEvent *event) override;
+	virtual bool onLeaveEvent(TpObjectLeaveEvent *event) override;
 
-	virtual bool eventFilter(tpObject *watched, tpEvent *event) override;
+	virtual bool eventFilter(TpObject *watched, TpEvent *event) override;
 
 private:
 	/// @brief 长按桌面或图标，触发卸载/移动事件；长按桌面operateBtn为空
@@ -95,20 +95,20 @@ private:
 	void refreshBar();
 
 	/// @brief 创建桌面图标；放置在桌面窗体内；内部会初始化按钮；并根据页码索引放置在对应位置
-	desktopAppButton *createDeskAppBtn(ApplicationInfoSPtr appInfo, const tpString &iconPath, const tpString &appName);
+	desktopAppButton *createDeskAppBtn(ApplicationInfoSPtr appInfo, const TpString &iconPath, const TpString &appName);
 
 	// 给入APPuuid创建配置app按钮;配置按钮信息、绑定信号槽等；工具栏按钮和桌面按钮均通过此函数创建
 	// UUID、应用图标绝对路径、应用名称
-	desktopAppButton *configAppBtn(const tpString &appUuid, const tpString &iconPath, const tpString &appName);
+	desktopAppButton *configAppBtn(const TpString &appUuid, const TpString &iconPath, const TpString &appName);
 
 	// 指定应用UUID启动应用；若已在后台则唤醒
-	void startApp(const tpString &uuid, const tpVector<tpString> &argList = tpVector<tpString>());
+	void startApp(const TpString &uuid, const TpVector<TpString> &argList = TpVector<TpString>());
 
 	// 指定文件路径安装应用
-	void installApp(const tpString &pkgPath);
+	void installApp(const TpString &pkgPath);
 
 	// 给入当前页所有APP信息，获取可用的APP索引，函数外部需要判断该页APP是否已经放满了
-	uint32_t findAppIndex(const tpList<ApplicationInfoSPtr> &pageAppList);
+	uint32_t findAppIndex(const TpList<ApplicationInfoSPtr> &pageAppList);
 
 private:
 	// 顶部和底部工具栏
@@ -116,36 +116,36 @@ private:
 	bottomBar *bottomFloatBar_ = nullptr;
 	navigationBar *navigationFloatBar_ = nullptr;
 
-	tpAppInstall *appInstallPtr_;
-	tpTimer *appInstallTimer_;
+	TpAppInstall *appInstallPtr_;
+	TpTimer *appInstallTimer_;
 
 	// APP显示主区域
 	mainAppScrollPanel *mainAppPanel_;
 
 	// 菜单轮播按钮
-	tpCarouselButton *carouselButton_;
+	TpCarouselButton *carouselButton_;
 
 	// 是否是横屏，默认为横屏
 	bool isLandscapeScreen_ = true;
 
 	// 后缀要带 /
-	tpString appConfigPathStr_ = "/System/";
+	TpString appConfigPathStr_ = "/System/";
 
 	// 当前显示页码
 	uint32_t curPage_ = 0;
 
 	// 页码，该页的APP信息
-	tpMap<uint32_t, tpList<ApplicationInfoSPtr>> allAppInfoMap_;
+	TpMap<uint32_t, TpList<ApplicationInfoSPtr>> allAppInfoMap_;
 
 	// 底部工具栏的应用信息
-	tpList<ApplicationInfoSPtr> bottomBarAppList_;
+	TpList<ApplicationInfoSPtr> bottomBarAppList_;
 
 	// 鼠标点击topBar坐标
 	ItpPoint pressTopBarPoint_;
 	bool pressTopBar_ = false;
 
 	// 应用长按操作菜单
-	tpMenu *operateMenu_;
+	TpMenu *operateMenu_;
 	// 应用长按遮罩层
 	appOperateMaskWindow *maskWindow_;
 	// 鼠标按下时的APP对象，鼠标释放时置空

@@ -1,8 +1,8 @@
 #include "bottomBar.h"
-#include "tpDisplay.h"
+#include "TpDisplay.h"
 
 #ifndef BOTTOM_CONTENT_MARGIN
-#define BOTTOM_CONTENT_MARGIN tpDisplay::dp2Px(24)
+#define BOTTOM_CONTENT_MARGIN TpDisplay::dp2Px(24)
 #endif
 
 #ifndef BOTTOM_BAR_COLOR
@@ -11,8 +11,8 @@
 // #define BOTTOM_BAR_COLOR _RGBA(255, 255, 255, 128)
 #endif
 
-bottomBar::bottomBar(tpScreen *topScreen)
-    : tpChildWidget(topScreen), topScreen_(topScreen)
+bottomBar::bottomBar(TpScreen *topScreen)
+    : TpChildWidget(topScreen), topScreen_(topScreen)
 {
     setEnabledBorderColor(false);
     setBackGroundColor(BOTTOM_BAR_COLOR);
@@ -25,10 +25,10 @@ bottomBar::~bottomBar()
 void bottomBar::setVisible(bool visible)
 {
     // std::cout << "bottomBar::setVisible " << visible << std::endl;
-    tpChildWidget::setVisible(visible);
+    TpChildWidget::setVisible(visible);
 }
 
-void bottomBar::setBottomAppBtn(const tpList<desktopAppButton *> &appList)
+void bottomBar::setBottomAppBtn(const TpList<desktopAppButton *> &appList)
 {
     systemAppBtnList_ = appList;
 
@@ -42,7 +42,7 @@ void bottomBar::setBottomAppBtn(const tpList<desktopAppButton *> &appList)
     update();
 }
 
-tpList<desktopAppButton *> bottomBar::bottomAppBtnList()
+TpList<desktopAppButton *> bottomBar::bottomAppBtnList()
 {
     // TODO: 在此处插入 return 语句
     return systemAppBtnList_;
@@ -63,24 +63,24 @@ void bottomBar::removeApp(desktopAppButton *removeBtn)
     }
 }
 
-bool bottomBar::onResizeEvent(tpObjectResizeEvent *event)
+bool bottomBar::onResizeEvent(TpObjectResizeEvent *event)
 {
     return true;
 }
 
-bool bottomBar::onMoveEvent(tpObjectMoveEvent *event)
+bool bottomBar::onMoveEvent(TpObjectMoveEvent *event)
 {
     caculateBottomAppPos();
 
     return true;
 }
 
-bool bottomBar::onMousePressEvent(tpMouseEvent *event)
+bool bottomBar::onMousePressEvent(TpMouseEvent *event)
 {
     return true;
 }
 
-bool bottomBar::onMouseRleaseEvent(tpMouseEvent *event)
+bool bottomBar::onMouseRleaseEvent(TpMouseEvent *event)
 {
     return true;
 }

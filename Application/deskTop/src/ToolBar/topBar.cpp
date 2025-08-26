@@ -1,14 +1,14 @@
 #include "topBar.h"
-#include "tpFont.h"
-#include "tpString.h"
+#include "TpFont.h"
+#include "TpString.h"
 #include "deskTopGlobal.hpp"
-#include "tpDisplay.h"
-#include "tpTime.h"
-#include "tpDate.h"
-#include "tpEvent.h"
+#include "TpDisplay.h"
+#include "TpTime.h"
+#include "TpDate.h"
+#include "TpEvent.h"
 #include "TpImage.h"
-#include "tpBluetoothLocal.h"
-#include "tpNetworkInterface.h"
+#include "TpBluetoothLocal.h"
+#include "TpNetworkInterface.h"
 
 #include <cmath>
 
@@ -18,8 +18,8 @@ bool globalSystemLockStatus = false;
 #define TOP_BAR_COLOR _RGBA(255, 255, 255, 0)
 #endif
 
-topBar::topBar(tpScreen *topScreen)
-    : tpDialog("tinyPiX_SYS_Float_0531acbf04"), topScreen_(topScreen)
+topBar::topBar(TpScreen *topScreen)
+    : TpDialog("tinyPiX_SYS_Float_0531acbf04"), topScreen_(topScreen)
 {
     setEnabledBorderColor(false);
     setBackGroundColor(TOP_BAR_COLOR);
@@ -36,36 +36,36 @@ topBar::~topBar()
 
 void topBar::construct()
 {
-    sysTimeLabel_ = new tpLabel(this);
+    sysTimeLabel_ = new TpLabel(this);
     sysTimeLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
-    sysTimeLabel_->font()->setFontSize(tpDisplay::sp2Px(11));
+    sysTimeLabel_->font()->setFontSize(TpDisplay::sp2Px(11));
     sysTimeLabel_->setText("09:43");
     sysTimeLabel_->setWidth(sysTimeLabel_->font()->pixelWidth());
-    sysTimeLabel_->setHeight(tpDisplay::dp2Px(17));
+    sysTimeLabel_->setHeight(TpDisplay::dp2Px(17));
 
-    sysDateLabel_ = new tpLabel(this);
+    sysDateLabel_ = new TpLabel(this);
     sysDateLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
-    sysDateLabel_->font()->setFontSize(tpDisplay::sp2Px(11));
+    sysDateLabel_->font()->setFontSize(TpDisplay::sp2Px(11));
     sysDateLabel_->setText("2月22日 周二");
     sysDateLabel_->setWidth(sysDateLabel_->font()->pixelWidth());
-    sysDateLabel_->setHeight(tpDisplay::dp2Px(17));
+    sysDateLabel_->setHeight(TpDisplay::dp2Px(17));
 
-    wifiLabel_ = new tpLabel(this);
-    wifiLabel_->setSize(tpDisplay::dp2Px(17), tpDisplay::dp2Px(17));
+    wifiLabel_ = new TpLabel(this);
+    wifiLabel_->setSize(TpDisplay::dp2Px(17), TpDisplay::dp2Px(17));
     wifiLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/topBar/WIFI.png"));
     wifiLabel_->setVisible(false);
 
-    blueToothLabel_ = new tpLabel(this);
-    blueToothLabel_->setSize(tpDisplay::dp2Px(17), tpDisplay::dp2Px(17));
+    blueToothLabel_ = new TpLabel(this);
+    blueToothLabel_->setSize(TpDisplay::dp2Px(17), TpDisplay::dp2Px(17));
     blueToothLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/topBar/蓝牙.png"));
     blueToothLabel_->setVisible(false);
 
-    elecBattery_ = new tpBattery(this);
-    elecBattery_->setWidth(tpDisplay::dp2Px(25));
-    elecBattery_->setHeight(tpDisplay::dp2Px(16));
+    elecBattery_ = new TpBattery(this);
+    elecBattery_->setWidth(TpDisplay::dp2Px(25));
+    elecBattery_->setHeight(TpDisplay::dp2Px(16));
     elecBattery_->setValue(100);
 
-    updateTimetimer_ = new tpTimer(50000);
+    updateTimetimer_ = new TpTimer(50000);
     connect(updateTimetimer_, timeout, this, &topBar::slotUpdateSystemTime);
     updateTimetimer_->start();
 
@@ -90,7 +90,7 @@ void topBar::setVisible(bool visible)
     // 电量显示窗
     elecBattery_->setVisible(visible);
 
-    // tpDialog::setVisible(visible);
+    // TpDialog::setVisible(visible);
     update();
 }
 
@@ -98,7 +98,7 @@ void topBar::setColor(const int32_t &appColor)
 {
 }
 
-bool topBar::onResizeEvent(tpObjectResizeEvent *event)
+bool topBar::onResizeEvent(TpObjectResizeEvent *event)
 {
     caculateTopAppPos();
 
@@ -109,26 +109,26 @@ bool topBar::onResizeEvent(tpObjectResizeEvent *event)
     return true;
 }
 
-bool topBar::onMousePressEvent(tpMouseEvent *event)
+bool topBar::onMousePressEvent(TpMouseEvent *event)
 {
     std::cout << "TopBar Press Pos ()" << event->globalPos().x << " , " << event->globalPos().y << std::endl;
 
     return true;
 }
 
-bool topBar::onMouseRleaseEvent(tpMouseEvent *event)
+bool topBar::onMouseRleaseEvent(TpMouseEvent *event)
 {
     return true;
 }
 
-bool topBar::onMouseMoveEvent(tpMouseEvent *event)
+bool topBar::onMouseMoveEvent(TpMouseEvent *event)
 {
     return true;
 }
 
-bool topBar::onLeaveEvent(tpObjectLeaveEvent *event)
+bool topBar::onLeaveEvent(TpObjectLeaveEvent *event)
 {
-    if (event->eventType() == tpEvent::EVENT_OBJECT_LEAVE_TYPE)
+    if (event->eventType() == TpEvent::EVENT_OBJECT_LEAVE_TYPE)
     {
         if (event->leave())
         {
@@ -147,44 +147,44 @@ void topBar::caculateTopAppPos()
     // std::cout << " statusBtnWh :" << statusBtnWh << std::endl;
 
     // 添加系统时间和系统日期
-    sysTimeLabel_->move(tpDisplay::dp2Px(16), (topBarRect.h - sysTimeLabel_->height()) / 2.0);
+    sysTimeLabel_->move(TpDisplay::dp2Px(16), (topBarRect.h - sysTimeLabel_->height()) / 2.0);
 
-    uint32_t sysDateXPos = sysTimeLabel_->rect().x + sysTimeLabel_->width() + tpDisplay::dp2Px(12);
+    uint32_t sysDateXPos = sysTimeLabel_->rect().x + sysTimeLabel_->width() + TpDisplay::dp2Px(12);
     sysDateLabel_->move(sysDateXPos, (topBarRect.h - sysDateLabel_->height()) / 2.0);
 
-    elecBattery_->move(width() - elecBattery_->width() - tpDisplay::dp2Px(16), (topBarRect.h - elecBattery_->height()) / 2.0);
+    elecBattery_->move(width() - elecBattery_->width() - TpDisplay::dp2Px(16), (topBarRect.h - elecBattery_->height()) / 2.0);
 
-    wifiLabel_->move(elecBattery_->pos().x - wifiLabel_->width() - tpDisplay::dp2Px(5), (topBarRect.h - wifiLabel_->height()) / 2.0);
+    wifiLabel_->move(elecBattery_->pos().x - wifiLabel_->width() - TpDisplay::dp2Px(5), (topBarRect.h - wifiLabel_->height()) / 2.0);
 
-    blueToothLabel_->move(wifiLabel_->pos().x - blueToothLabel_->width() - tpDisplay::dp2Px(5), (topBarRect.h - blueToothLabel_->height()) / 2.0);
+    blueToothLabel_->move(wifiLabel_->pos().x - blueToothLabel_->width() - TpDisplay::dp2Px(5), (topBarRect.h - blueToothLabel_->height()) / 2.0);
 }
 
 void topBar::slotUpdateSystemTime()
 {
     // 更新时间
-    tpTime currentTime = tpTime::currentTime();
-    tpString curTimeStr = currentTime.toString("HH:mm");
+    TpTime currentTime = TpTime::currentTime();
+    TpString curTimeStr = currentTime.toString("HH:mm");
     sysTimeLabel_->setText(curTimeStr);
 
     // 更新日期
-    tpDate currentDate = tpDate::currentDate();
-    tpString curDateStr = tpString::number(currentDate.month()) + "月" + tpString::number(currentDate.day()) + "日 " + transWeekData(currentDate.dayOfWeek());
+    TpDate currentDate = TpDate::currentDate();
+    TpString curDateStr = TpString::number(currentDate.month()) + "月" + TpString::number(currentDate.day()) + "日 " + transWeekData(currentDate.dayOfWeek());
     sysDateLabel_->setText(curDateStr);
 
 #if 0
     // 获取蓝牙设备状态;取第一个蓝牙设备的状态
     bool blueIsOpen = false;
-    tpList<tpBluetoothLocal> blueToothDeviceList = tpBluetoothLocal::getAllDevice();
+    TpList<TpBluetoothLocal> blueToothDeviceList = TpBluetoothLocal::getAllDevice();
     if (blueToothDeviceList.size() > 0)
     {
-        tpBluetoothLocal& firstBlueDevice = blueToothDeviceList.front();
+        TpBluetoothLocal& firstBlueDevice = blueToothDeviceList.front();
         blueIsOpen = firstBlueDevice.isPowerOn();
         blueToothLabel_->setVisible(blueIsOpen);
     }
 
     // 设置网络状态;任意一网卡有网就显示连接状态
     bool isOnline = false;
-    tpList<tpNetworkInterface> networkList = tpNetworkInterface::getAllDevice();
+    TpList<TpNetworkInterface> networkList = TpNetworkInterface::getAllDevice();
     for (auto &internetDevice : networkList)
     {
         // 网卡关闭不处理
@@ -204,7 +204,7 @@ void topBar::slotUpdateSystemTime()
     }
 }
 
-tpString topBar::transWeekData(const int32_t &dayOfWeek)
+TpString topBar::transWeekData(const int32_t &dayOfWeek)
 {
     switch (dayOfWeek)
     {

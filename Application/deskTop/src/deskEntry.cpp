@@ -1,17 +1,17 @@
 #include "deskEntry.h"
-#include "tpApp.h"
-#include "deskScreen.h"
-#include "toolBar/topBar.h"
-#include "toolBar/bottomBar.h"
+#include "TpApp.h"
+#include "DeskScreen.h"
+#include "ToolBar/topBar.h"
+#include "ToolBar/bottomBar.h"
 
-tpDeskScreen::tpDeskScreen() : tpFixScreen("tinyPiX_DeskTop_0x43ef3dc14"), pressAppBtn_(nullptr)
+DeskScreen::DeskScreen() : TpFixScreen("tinyPiX_DeskTop_0x43ef3dc14"), pressAppBtn_(nullptr)
 	, isMoveMode_(false), installingApp_(nullptr)
 {
 	this->construct();
 	this->setVisible(true);
 }
 
-tpDeskScreen::~tpDeskScreen()
+DeskScreen::~DeskScreen()
 {
 	this->destruction();
 }
@@ -19,8 +19,8 @@ tpDeskScreen::~tpDeskScreen()
 // int deskEntry_Start(int argc, char *argv[])
 int main(int argc, char *argv[])
 {
-	tpApp app(argc, argv);
-	tpDeskScreen *deskTop = new tpDeskScreen();
+	TpApp app(argc, argv);
+	DeskScreen *deskTop = new DeskScreen();
 
 	if (deskTop)
 	{

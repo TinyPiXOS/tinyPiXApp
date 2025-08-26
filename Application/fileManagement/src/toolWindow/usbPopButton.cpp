@@ -1,12 +1,12 @@
 #include "usbPopButton.h"
-#include "tpEvent.h"
-#include "tpHBoxLayout.h"
-#include "tpFont.h"
-#include "tpDisplay.h"
+#include "TpEvent.h"
+#include "TpHBoxLayout.h"
+#include "TpFont.h"
+#include "TpDisplay.h"
 #include "TpImage.h"
 
-usbPopButton::usbPopButton(tpChildWidget *parent)
-    : tpButton(parent)
+usbPopButton::usbPopButton(TpChildWidget *parent)
+    : TpButton(parent)
 {
     init();
 }
@@ -17,19 +17,19 @@ usbPopButton::~usbPopButton()
 
 void usbPopButton::init()
 {
-    nameLabel_ = new tpLabel();
+    nameLabel_ = new TpLabel();
     nameLabel_->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
     nameLabel_->font()->setFontSize(12);
     nameLabel_->setText("安全弹出");
     nameLabel_->installEventFilter(this);
 
-    iconLabel_ = new tpLabel();
-    iconLabel_->setFixedSize(tpDisplay::dp2Px(23), tpDisplay::dp2Px(23));
+    iconLabel_ = new TpLabel();
+    iconLabel_->setFixedSize(TpDisplay::dp2Px(23), TpDisplay::dp2Px(23));
     iconLabel_->installEventFilter(this);
 
     iconLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/箭头-未展开.png"));
 
-    tpHBoxLayout* mainLayout = new tpHBoxLayout();
+    TpHBoxLayout* mainLayout = new TpHBoxLayout();
     mainLayout->addWidget(nameLabel_);
     mainLayout->addWidget(iconLabel_);
 

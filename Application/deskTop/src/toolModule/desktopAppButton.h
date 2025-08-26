@@ -5,16 +5,16 @@
     用于显示APP安装进度
 */
 
-#include "tpVector.h"
-#include "tpIconTopButton.h"
+#include "TpVector.h"
+#include "TpIconTopButton.h"
 
 class hollowWidget;
-class desktopAppButton : public tpIconTopButton
+class desktopAppButton : public TpIconTopButton
 {
 public:
-    desktopAppButton(tpChildWidget *parent = nullptr);
+    desktopAppButton(TpChildWidget *parent = nullptr);
 
-    desktopAppButton(const tpString &iconPath, const tpString &text, tpChildWidget *parent);
+    desktopAppButton(const TpString &iconPath, const TpString &text, TpChildWidget *parent);
 
     virtual ~desktopAppButton();
 
@@ -27,16 +27,16 @@ public:
     void setInstallProgress(const uint32_t &progress);
 
 protected:
-    virtual bool onResizeEvent(tpObjectResizeEvent *event) override;
+    virtual bool onResizeEvent(TpObjectResizeEvent *event) override;
 
 private:
     hollowWidget *hollowWidget_;
 };
 
-class hollowWidget : public tpChildWidget
+class hollowWidget : public TpChildWidget
 {
 public:
-    hollowWidget(tpChildWidget *parent = nullptr);
+    hollowWidget(TpChildWidget *parent = nullptr);
     ~hollowWidget();
 
     /// @brief 设置安装进度
@@ -44,7 +44,7 @@ public:
     void setInstallProgress(const uint32_t &progress);
 
 protected:
-    virtual bool onPaintEvent(tpObjectPaintEvent *event) override;
+    virtual bool onPaintEvent(TpObjectPaintEvent *event) override;
 
 private:
     uint32_t installProgress_;

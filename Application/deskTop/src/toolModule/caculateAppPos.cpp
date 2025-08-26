@@ -9,17 +9,17 @@ caculateAppPos::~caculateAppPos()
 {
 }
 
-void caculateAppPos::setCurPage(const int32_t &pageNum, const tpVector<tpIconTopButton *> &curPageAppList)
+void caculateAppPos::setCurPage(const int32_t &pageNum, const TpVector<TpIconTopButton *> &curPageAppList)
 {
     curPage_ = pageNum;
     appList_ = curPageAppList;
 }
 
-void caculateAppPos::setRowY(const tpVector<int32_t> &yList)
+void caculateAppPos::setRowY(const TpVector<int32_t> &yList)
 {
 }
 
-void caculateAppPos::setColumnX(const tpVector<int32_t> &xList)
+void caculateAppPos::setColumnX(const TpVector<int32_t> &xList)
 {
 }
 

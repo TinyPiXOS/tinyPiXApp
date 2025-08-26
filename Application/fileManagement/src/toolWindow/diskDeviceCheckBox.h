@@ -6,22 +6,22 @@
 #ifndef __DISK_DEVICE_CHECKBOX_H
 #define __DISK_DEVICE_CHECKBOX_H
 
-#include "tpChildWidget.h"
-#include "tpLabel.h"
+#include "TpChildWidget.h"
+#include "TpLabel.h"
 #include "TpImage.h"
-#include "tpEvent.h"
-#include "tpSignalSlot.h"
+#include "TpEvent.h"
+#include "TpSignalSlot.h"
 
 class diskDeviceCheckBox
-    : public tpChildWidget
+    : public TpChildWidget
 {
 public:
-    diskDeviceCheckBox(tpChildWidget *parent = nullptr);
+    diskDeviceCheckBox(TpChildWidget *parent = nullptr);
     ~diskDeviceCheckBox();
 
-    void setIcon(const tpString &normalIcon, const tpString &checkedIcon);
+    void setIcon(const TpString &normalIcon, const TpString &checkedIcon);
 
-    void setName(const tpString &name);
+    void setName(const TpString &name);
 
     void setSpace(const float &curSpaceGb, const float &totalSpaceGb);
 
@@ -32,24 +32,24 @@ signals:
     declare_signal(onClicked, diskDeviceCheckBox *);
 
 protected:
-    virtual tpString pluginType() { return TO_STRING(diskDeviceCheckBox); }
+    virtual TpString pluginType() { return TO_STRING(diskDeviceCheckBox); }
 
-    virtual bool onMouseRleaseEvent(tpMouseEvent *event) override;
+    virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
 
-    virtual bool onResizeEvent(tpObjectResizeEvent *event) override;
+    virtual bool onResizeEvent(TpObjectResizeEvent *event) override;
 
-    virtual bool onPaintEvent(tpObjectPaintEvent *event) override;
+    virtual bool onPaintEvent(TpObjectPaintEvent *event) override;
 
-    virtual bool eventFilter(tpObject *watched, tpEvent *event) override;
+    virtual bool eventFilter(TpObject *watched, TpEvent *event) override;
 
 private:
     void init();
 
 private:
-    tpLabel *iconLabel_;
-    tpLabel *deviceNameLabel_;
-    tpLabel *spaceLabel_;
-    tpLabel *expandLabel_;
+    TpLabel *iconLabel_;
+    TpLabel *deviceNameLabel_;
+    TpLabel *spaceLabel_;
+    TpLabel *expandLabel_;
 
     TpImage normalIcon_;
     TpImage checkedIcon_;

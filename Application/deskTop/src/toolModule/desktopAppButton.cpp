@@ -1,15 +1,15 @@
 #include "desktopAppButton.h"
 #include "TpCanvas.h"
 
-desktopAppButton::desktopAppButton(tpChildWidget *parent)
-    : tpIconTopButton(parent)
+desktopAppButton::desktopAppButton(TpChildWidget *parent)
+    : TpIconTopButton(parent)
 {
     hollowWidget_ = new hollowWidget(this);
     hollowWidget_->setVisible(false);
 }
 
-desktopAppButton::desktopAppButton(const tpString &iconPath, const tpString &text, tpChildWidget *parent)
-    : tpIconTopButton(iconPath, text, parent)
+desktopAppButton::desktopAppButton(const TpString &iconPath, const TpString &text, TpChildWidget *parent)
+    : TpIconTopButton(iconPath, text, parent)
 {
     hollowWidget_ = new hollowWidget(this);
     hollowWidget_->setVisible(false);
@@ -22,7 +22,7 @@ desktopAppButton::~desktopAppButton()
 
 void desktopAppButton::setRoundCorners(const uint32_t &round)
 {
-    tpIconTopButton::setRoundCorners(round);
+    TpIconTopButton::setRoundCorners(round);
     hollowWidget_->setRoundCorners(round);
 }
 
@@ -36,17 +36,17 @@ void desktopAppButton::setInstallProgress(const uint32_t &progress)
         hollowWidget_->setVisible(true);
 }
 
-bool desktopAppButton::onResizeEvent(tpObjectResizeEvent *event)
+bool desktopAppButton::onResizeEvent(TpObjectResizeEvent *event)
 {
-    tpIconTopButton::onResizeEvent(event);
+    TpIconTopButton::onResizeEvent(event);
 
     hollowWidget_->setSize(width(), width());
 
     return true;
 }
 
-hollowWidget::hollowWidget(tpChildWidget *parent)
-    : tpChildWidget(parent), installProgress_(100)
+hollowWidget::hollowWidget(TpChildWidget *parent)
+    : TpChildWidget(parent), installProgress_(100)
 {
 }
 
@@ -59,9 +59,9 @@ void hollowWidget::setInstallProgress(const uint32_t &progress)
     installProgress_ = progress;
 }
 
-bool hollowWidget::onPaintEvent(tpObjectPaintEvent *event)
+bool hollowWidget::onPaintEvent(TpObjectPaintEvent *event)
 {
-    tpChildWidget::onPaintEvent(event);
+    TpChildWidget::onPaintEvent(event);
 
     // 应用正在安装中；根据安装进度绘制遮罩层
     TpCanvas *painter = event->canvas();

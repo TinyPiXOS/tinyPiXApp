@@ -2,7 +2,7 @@
 #include "TpCanvas.h"
 
 appOperateMaskWindow::appOperateMaskWindow()
-    : tpDialog()
+    : TpDialog()
 {
     setAlpha(204);
     setVisible(false);
@@ -19,13 +19,13 @@ void appOperateMaskWindow::setAppRect(const ItpRect &rect, const uint32_t &round
     update();
 }
 
-bool appOperateMaskWindow::onMouseRleaseEvent(tpMouseEvent *event)
+bool appOperateMaskWindow::onMouseRleaseEvent(TpMouseEvent *event)
 {
     close();
     return true;
 }
 
-bool appOperateMaskWindow::onPaintEvent(tpObjectPaintEvent *event)
+bool appOperateMaskWindow::onPaintEvent(TpObjectPaintEvent *event)
 {
     TpCanvas *painter = event->canvas();
 

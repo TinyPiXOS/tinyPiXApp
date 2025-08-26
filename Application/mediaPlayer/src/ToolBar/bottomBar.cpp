@@ -1,15 +1,15 @@
 #include "bottomBar.h"
-#include "tpFont.h"
-#include "tpString.h"
-#include "tpDisplay.h"
-#include "tpTime.h"
-#include "tpDate.h"
+#include "TpFont.h"
+#include "TpString.h"
+#include "TpDisplay.h"
+#include "TpTime.h"
+#include "TpDate.h"
 
 // 按钮之间间距
 const int32_t buttonMargin = 31;
 
 bottomBar::bottomBar()
-    : tpDialog(), allTimeS_(0), curTimeS_(0), isPause_(false)
+    : TpDialog(), allTimeS_(0), curTimeS_(0), isPause_(false)
 {
     setEnabledBorderColor(false);
     setBackGroundColor(_RGBA(255, 255, 255, 0));
@@ -35,9 +35,9 @@ bottomBar::~bottomBar()
 {
 }
 
-bool bottomBar::onResizeEvent(tpObjectResizeEvent *event)
+bool bottomBar::onResizeEvent(TpObjectResizeEvent *event)
 {
-    tpDialog::onResizeEvent(event);
+    TpDialog::onResizeEvent(event);
 
     // 调整布局
     // 进度条
@@ -78,7 +78,7 @@ void bottomBar::slotSwitchSpeed(uint32_t speedIndex)
         "1.5X"
         "1X"
     */
-    tpString speedName = speedMenu_->itemText(speedIndex);
+    TpString speedName = speedMenu_->itemText(speedIndex);
     speedBtn_->setText(speedName);
 
     // 切换倍速 TODO
@@ -92,7 +92,7 @@ void bottomBar::slotChangeProgress(int32_t curValue)
 
 void bottomBar::init()
 {
-    tpString resPath = applicationDirPath() + "/../res/";
+    TpString resPath = applicationDirPath() + "/../res/";
 
     // 上一个、下一个
     previousFileBtn_ = generalIconBtn(applicationDirPath() + "/../res/上一个.png");
@@ -118,7 +118,7 @@ void bottomBar::init()
                 pauseBtn_->setIcon(applicationDirPath() + (isPause_ ? "/../res/播放.png": "/../res/暂停.png")); });
 
     // 倍速
-    speedMenu_ = new tpMenu();
+    speedMenu_ = new TpMenu();
     speedMenu_->addItem("3X");
     speedMenu_->addItem("2X");
     speedMenu_->addItem("1.5X");
@@ -126,11 +126,11 @@ void bottomBar::init()
     speedMenu_->setMinumumWidth(126);
     connect(speedMenu_, onClicked, this, &bottomBar::slotSwitchSpeed);
 
-    speedBtn_ = new tpButton(this);
-    speedBtn_->setButtonStyle(tpButton::TextOnly);
+    speedBtn_ = new TpButton(this);
+    speedBtn_->setButtonStyle(TpButton::TextOnly);
     speedBtn_->setBackGroundColor(_RGB(255, 255, 255));
-    speedBtn_->setFixedSize(tpDisplay::dp2Px(53), tpDisplay::dp2Px(28));
-    speedBtn_->setRoundCorners(tpDisplay::dp2Px(7));
+    speedBtn_->setFixedSize(TpDisplay::dp2Px(53), TpDisplay::dp2Px(28));
+    speedBtn_->setRoundCorners(TpDisplay::dp2Px(7));
     speedBtn_->setText("1X");
     connect(speedBtn_, onClicked, [=](bool)
             {
@@ -142,23 +142,23 @@ void bottomBar::init()
         speedMenu_->exec(menuX, menuY); });
 
     // 播放进度
-    progressLabel_ = new tpLabel(this);
+    progressLabel_ = new TpLabel(this);
     progressLabel_->setText("0:0 / 0:0");
     progressLabel_->setEnableBackGroundColor(false);
     progressLabel_->font()->setFontColor(_RGB(255, 255, 255), _RGB(255, 255, 255));
     progressLabel_->font()->setFontSize(15);
 
-    progressSlider_ = new tpSlider(this);
+    progressSlider_ = new TpSlider(this);
     progressSlider_->setValue(0);
     connect(progressSlider_, valueChanged, this, &bottomBar::slotChangeProgress);
 }
 
-tpButton *bottomBar::generalIconBtn(const tpString &iconPath)
+TpButton *bottomBar::generalIconBtn(const TpString &iconPath)
 {
-    tpButton *newButton = new tpButton(this);
-    newButton->setButtonStyle(tpButton::IconOnly);
+    TpButton *newButton = new TpButton(this);
+    newButton->setButtonStyle(TpButton::IconOnly);
     newButton->setEnableBackGroundColor(false);
-    newButton->setFixedSize(tpDisplay::dp2Px(34), tpDisplay::dp2Px(34));
+    newButton->setFixedSize(TpDisplay::dp2Px(34), TpDisplay::dp2Px(34));
     newButton->setIcon(iconPath);
     return newButton;
 }
@@ -175,7 +175,7 @@ void bottomBar::caculatePlayProgressStr()
     int32_t allTimeMinute = allTimeS_ / 60;
     int32_t allTimeSecond = (int32_t)allTimeS_ % 60;
 
-    tpString progresStr = tpString::number(curTimeMinute) + ":" + tpString::number(curTimeSecond) + " / " + tpString::number(allTimeMinute) + ":" + tpString::number(allTimeSecond);
+    TpString progresStr = TpString::number(curTimeMinute) + ":" + TpString::number(curTimeSecond) + " / " + TpString::number(allTimeMinute) + ":" + TpString::number(allTimeSecond);
 
     progressLabel_->setText(progresStr);
 

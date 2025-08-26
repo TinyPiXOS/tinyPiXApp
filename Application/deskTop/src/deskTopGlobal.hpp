@@ -4,8 +4,8 @@
 #include <cstdint>
 #include "toolWindow/sysLockWindow.h"
 #include "toolWindow/appTaskManageWindow.h"
-#include "toolBar/appSettingBar.h"
-#include "tpDisplay.h"
+#include "ToolBar/appSettingBar.h"
+#include "TpDisplay.h"
 #include "tinyPiXUtils.h"
 #include "tinyPiXSys.h"
 
@@ -25,16 +25,16 @@ extern sysLockWindow *globalSysLockWindow;
 extern appSettingBar *globalTopSettingBar_;
 
 // 主窗体
-extern tpScreen *globalMainScreen_;
+extern TpScreen *globalMainScreen_;
 
 extern IPiSysApiAgent *globalAgent;
 
 // 正在运行的应用信息
 struct RunAppInfo
 {
-    tpString appName;
-    tpString appUuid;
-    tpString appIconPath;
+    TpString appName;
+    TpString appUuid;
+    TpString appIconPath;
     int32_t pid;
 
     RunAppInfo() : appName(""), appUuid(""), appIconPath(""), pid(0)
@@ -43,14 +43,14 @@ struct RunAppInfo
 };
 extern std::mutex readRunAppMutex_;
 // <pid, 应用信息>
-extern tpHash<int32_t, RunAppInfo> globalRunAppMap_;
+extern TpHash<int32_t, RunAppInfo> globalRunAppMap_;
 // 应用uuid对应的pid
-extern tpHash<tpString, int32_t> globalUuidPidMap_;
+extern TpHash<TpString, int32_t> globalUuidPidMap_;
 
 // APP页码信息
 struct ApplicationInfo
 {
-    tpString appUuid;
+    TpString appUuid;
     uint32_t page;
     uint32_t index;
 
@@ -71,7 +71,7 @@ typedef std::shared_ptr<ApplicationInfo> ApplicationInfoSPtr;
 
 // 顶部工具栏高度
 #ifndef TOP_BAR_HEIGHT
-// #define TOP_BAR_HEIGHT tpScreen::screenHeight() * 0.04166
+// #define TOP_BAR_HEIGHT TpScreen::screenHeight() * 0.04166
 #define TOP_BAR_HEIGHT globalMainScreen_->screenHeight() * 0.05
 #endif
 
@@ -82,7 +82,7 @@ typedef std::shared_ptr<ApplicationInfo> ApplicationInfoSPtr;
 
 // APP之间水平间隔
 // #ifndef APP_H_INTERVAL
-// #define APP_H_INTERVAL tpScreen::screenWidth() * 0.06666
+// #define APP_H_INTERVAL TpScreen::screenWidth() * 0.06666
 // #endif
 extern uint32_t globalAppHInterval;
 
@@ -105,7 +105,7 @@ extern uint32_t globalAppMaxColumn;
 // #endif
 
 #ifndef APP_FONT_SIZE
-#define APP_FONT_SIZE tpDisplay::sp2Px(11)
+#define APP_FONT_SIZE TpDisplay::sp2Px(11)
 #endif
 
 // APPIcon的宽高

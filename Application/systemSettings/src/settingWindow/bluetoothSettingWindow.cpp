@@ -1,6 +1,6 @@
 #include "bluetoothSettingWindow.h"
 
-bluetoothSettingWindow::bluetoothSettingWindow(tpChildWidget *parent)
+bluetoothSettingWindow::bluetoothSettingWindow(TpChildWidget *parent)
     : settingBase(parent)
 {
     initUi();
@@ -10,7 +10,7 @@ bluetoothSettingWindow::~bluetoothSettingWindow()
 {
 }
 
-bool bluetoothSettingWindow::onResizeEvent(tpObjectResizeEvent *event)
+bool bluetoothSettingWindow::onResizeEvent(TpObjectResizeEvent *event)
 {
     return true;
 }
@@ -18,29 +18,29 @@ bool bluetoothSettingWindow::onResizeEvent(tpObjectResizeEvent *event)
 void bluetoothSettingWindow::initUi()
 {
     // 本机信息
-    tpLabel *localDeviceTitle = createGroupNameLabel("当前可被附近的蓝牙设备发现");
+    TpLabel *localDeviceTitle = createGroupNameLabel("当前可被附近的蓝牙设备发现");
     localDeviceTitle->installEventFilter(this);
 
     // 构建IPV4配置面板
-    lovalDevicePanel_ = new tpMenuPanelWidget();
+    lovalDevicePanel_ = new TpMenuPanelWidget();
     configLocalDevicePanel();
 
     // 构建已配对的设备
-    tpLabel *connectDeviceTitle = createGroupNameLabel("已配对的设备");
+    TpLabel *connectDeviceTitle = createGroupNameLabel("已配对的设备");
     connectDeviceTitle->installEventFilter(this);
 
-    connectDevicePanel_ = new tpMenuPanelWidget();
-    connectDeviceItem_ = new tpMenuPanelItem();
+    connectDevicePanel_ = new TpMenuPanelWidget();
+    connectDeviceItem_ = new TpMenuPanelItem();
     connectDeviceItem_->setTitle("无设备");
     // connectDeviceItem->setSubTitle("");
     connectDevicePanel_->addItem(connectDeviceItem_);
 
     // 可用设备
-    tpLabel *usableDeviceTitle = createGroupNameLabel("可用设备");
+    TpLabel *usableDeviceTitle = createGroupNameLabel("可用设备");
     usableDeviceTitle->installEventFilter(this);
 
-    usableDevicePanel_ = new tpMenuPanelWidget();
-    tpMenuPanelItem* noDeviceItem = new tpMenuPanelItem();
+    usableDevicePanel_ = new TpMenuPanelWidget();
+    TpMenuPanelItem* noDeviceItem = new TpMenuPanelItem();
     noDeviceItem->setTitle("无设备");
     // connectDeviceItem->setSubTitle("");
     usableDevicePanel_->addItem(noDeviceItem);
@@ -59,9 +59,9 @@ void bluetoothSettingWindow::initUi()
 
 void bluetoothSettingWindow::configLocalDevicePanel()
 {
-    tpMenuPanelItem *deiveNameItem = new tpMenuPanelItem();
+    TpMenuPanelItem *deiveNameItem = new TpMenuPanelItem();
     deiveNameItem->setTitle("设备名称");
-    localDeviceNameEdit_ = new tpLineEdit();
+    localDeviceNameEdit_ = new TpLineEdit();
     localDeviceNameEdit_->setText("tinyPix OS");
     localDeviceNameEdit_->setPlaceholderText("请输入");
     localDeviceNameEdit_->setFixedSize(200, 30);
@@ -69,7 +69,7 @@ void bluetoothSettingWindow::configLocalDevicePanel()
     deiveNameItem->setCustomizeWidget(localDeviceNameEdit_);
     lovalDevicePanel_->addItem(deiveNameItem);
 
-    tpMenuPanelItem *recvFileItem = new tpMenuPanelItem();
+    TpMenuPanelItem *recvFileItem = new TpMenuPanelItem();
     recvFileItem->setTitle("接收的文件");
     recvFileItem->setSubTitle("共0个");
     lovalDevicePanel_->addItem(recvFileItem);

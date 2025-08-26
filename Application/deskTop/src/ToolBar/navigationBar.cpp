@@ -1,17 +1,17 @@
 #include "navigationBar.h"
 #include "TpCanvas.h"
-#include "tpDisplay.h"
-#include "tpAnimation.h"
+#include "TpDisplay.h"
+#include "TpAnimation.h"
 #include "deskTopGlobal.hpp"
-#include "tpApp.h"
+#include "TpApp.h"
 
 navigationBar::navigationBar()
-    : tpDialog("tinyPiX_SYS_Float_0531acbf04")
+    : TpDialog("tinyPiX_SYS_Float_0531acbf04")
 {
     const uint32_t navigationLineWidth = globalMainScreen_->screenWidth() * 0.3;
-    const uint32_t navigationLineHeight = tpDisplay::dp2Px(6);
+    const uint32_t navigationLineHeight = TpDisplay::dp2Px(6);
 
-    lineLabel_ = new tpLabel(this);
+    lineLabel_ = new TpLabel(this);
     lineLabel_->setFixedSize(navigationLineWidth, navigationLineHeight);
     lineLabel_->setEnabledBorderColor(false);
     lineLabel_->setEnableBackGroundColor(true);
@@ -20,11 +20,11 @@ navigationBar::navigationBar()
     lineLabel_->installEventFilter(this);
 
     // 导航线上下各10像素
-    setSize(navigationLineWidth, tpDisplay::dp2Px(20));
+    setSize(navigationLineWidth, TpDisplay::dp2Px(20));
     setBackGroundColor(_RGBA(255, 255, 255, 0));
     // setAlpha(0);
 
-    lastAnimationTime_ = tpTime::currentTime();
+    lastAnimationTime_ = TpTime::currentTime();
 }
 
 navigationBar::~navigationBar()
@@ -35,7 +35,7 @@ void navigationBar::setColor(const int32_t &appColor)
 {
 }
 
-bool navigationBar::onResizeEvent(tpObjectResizeEvent *event)
+bool navigationBar::onResizeEvent(TpObjectResizeEvent *event)
 {
     int32_t lienY = (height() - lineLabel_->height()) / 2.0;
     lineLabel_->move(0, lienY);
@@ -43,21 +43,21 @@ bool navigationBar::onResizeEvent(tpObjectResizeEvent *event)
     return true;
 }
 
-bool navigationBar::onMousePressEvent(tpMouseEvent *event)
+bool navigationBar::onMousePressEvent(TpMouseEvent *event)
 {
     mousePressPoint_ = event->globalPos();
-    mousePressTime_ = tpTime::currentTime();
+    mousePressTime_ = TpTime::currentTime();
 
     return true;
 }
 
-bool navigationBar::onMouseRleaseEvent(tpMouseEvent *event)
+bool navigationBar::onMouseRleaseEvent(TpMouseEvent *event)
 {
     std::cout << "navigationBar::onMouseRleaseEvent " << std::endl;
     ItpPoint curPos = event->globalPos();
     if (std::abs(curPos.x - mousePressPoint_.x) < 5 && std::abs(curPos.y - mousePressPoint_.y) < 5)
     {
-        tpTime curTime = tpTime::currentTime();
+        TpTime curTime = TpTime::currentTime();
         int64_t animationTimeInterval = lastAnimationTime_.msecsTo(curTime);
         lastAnimationTime_ = curTime;
 
@@ -68,7 +68,7 @@ bool navigationBar::onMouseRleaseEvent(tpMouseEvent *event)
             int32_t lienY = (height() - lineLabel_->height()) / 2.0;
             lineLabel_->move(0, lienY);
 
-            tpAnimation *moveAnimation = new tpAnimation(lineLabel_, tpAnimation::Pos);
+            TpAnimation *moveAnimation = new TpAnimation(lineLabel_, TpAnimation::Pos);
             moveAnimation->setStartValue(lineLabel_->pos());
             moveAnimation->setKeyValueAt(0.5, ItpPoint(0, 0));
             moveAnimation->setEndValue(lineLabel_->pos());
@@ -78,7 +78,7 @@ bool navigationBar::onMouseRleaseEvent(tpMouseEvent *event)
     }
     else
     {
-        tpTime mouseReleaseTime = tpTime::currentTime();
+        TpTime mouseReleaseTime = TpTime::currentTime();
         int32_t msTime = mousePressTime_.msecsTo(mouseReleaseTime);
 
         int32_t offsetY = mousePressPoint_.y - curPos.y;
@@ -126,7 +126,7 @@ bool navigationBar::onMouseRleaseEvent(tpMouseEvent *event)
     return true;
 }
 
-bool navigationBar::onMouseMoveEvent(tpMouseEvent *event)
+bool navigationBar::onMouseMoveEvent(TpMouseEvent *event)
 {
     static int aaa = 0;
     std::cout << "navigationBar::onMouseMoveEvent" << aaa++ << std::endl;
@@ -139,32 +139,32 @@ bool navigationBar::onMouseMoveEvent(tpMouseEvent *event)
     return true;
 }
 
-bool navigationBar::onLeaveEvent(tpObjectLeaveEvent *event)
+bool navigationBar::onLeaveEvent(TpObjectLeaveEvent *event)
 {
     return true;
 }
 
-bool navigationBar::onPaintEvent(tpObjectPaintEvent *event)
+bool navigationBar::onPaintEvent(TpObjectPaintEvent *event)
 {
-    tpDialog::onPaintEvent(event);
+    TpDialog::onPaintEvent(event);
     return true;
 }
 
-bool navigationBar::eventFilter(tpObject *watched, tpEvent *event)
+bool navigationBar::eventFilter(TpObject *watched, TpEvent *event)
 {
-    if (event->eventType() == tpEvent::EVENT_MOUSE_PRESS_TYPE)
+    if (event->eventType() == TpEvent::EVENT_MOUSE_PRESS_TYPE)
     {
-        tpMouseEvent *mouseEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseEvent = dynamic_cast<TpMouseEvent *>(event);
         onMousePressEvent(mouseEvent);
     }
-    else if (event->eventType() == tpEvent::EVENT_MOUSE_RELEASE_TYPE)
+    else if (event->eventType() == TpEvent::EVENT_MOUSE_RELEASE_TYPE)
     {
-        tpMouseEvent *mouseEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseEvent = dynamic_cast<TpMouseEvent *>(event);
         onMouseRleaseEvent(mouseEvent);
     }
-    else if (event->eventType() == tpEvent::EVENT_MOUSE_MOVE_TYPE)
+    else if (event->eventType() == TpEvent::EVENT_MOUSE_MOVE_TYPE)
     {
-        tpMouseEvent *mouseEvent = dynamic_cast<tpMouseEvent *>(event);
+        TpMouseEvent *mouseEvent = dynamic_cast<TpMouseEvent *>(event);
         onMouseMoveEvent(mouseEvent);
     }
     else

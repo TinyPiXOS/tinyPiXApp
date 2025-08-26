@@ -1,16 +1,16 @@
 #include "mainWindowService.h"
-#include "tpSignalSlot.h"
-#include "tpHBoxLayout.h"
-#include "tpDisplay.h"
-#include "tpLabel.h"
-#include "tpLine.h"
-#include "tpFont.h"
+#include "TpSignalSlot.h"
+#include "TpHBoxLayout.h"
+#include "TpDisplay.h"
+#include "TpLabel.h"
+#include "TpLine.h"
+#include "TpFont.h"
 #include "TpImage.h"
-#include "tpFileInfo.h"
+#include "TpFileInfo.h"
 #include "TpSurface.h"
 
 mainWindowService::mainWindowService()
-    : tpFixScreen(), topBar_(new topBar()), bottomBar_(new bottomBar()), fileType_(UnknowFile), videoPlayer_(nullptr)
+    : TpFixScreen(), topBar_(new topBar()), bottomBar_(new bottomBar()), fileType_(UnknowFile), videoPlayer_(nullptr)
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
@@ -32,9 +32,9 @@ mainWindowService::~mainWindowService()
 {
 }
 
-void mainWindowService::setPlayFile(const tpString &filePath)
+void mainWindowService::setPlayFile(const TpString &filePath)
 {
-    tpFileInfo inputFile(filePath);
+    TpFileInfo inputFile(filePath);
     if (!inputFile.exists())
     {
         std::cout << "文件不存在：" << filePath << std::endl;
@@ -45,7 +45,7 @@ void mainWindowService::setPlayFile(const tpString &filePath)
         return;
     }
 
-    tpString fileSuffix = inputFile.suffix();
+    TpString fileSuffix = inputFile.suffix();
     fileType_ = checkFileType(fileSuffix);
 
     if (fileType_ == UnknowFile)
@@ -106,7 +106,7 @@ void mainWindowService::setPlayFile(const tpString &filePath)
     }
 
     // 设置文件名称
-    tpString fileBaseName = inputFile.fileName();
+    TpString fileBaseName = inputFile.fileName();
     topBar_->setFileName(fileBaseName);
 
     update();
@@ -126,14 +126,14 @@ bool mainWindowService::appChange(int32_t id, int32_t pid, int32_t visible, int3
     return true;
 }
 
-bool mainWindowService::onResizeEvent(tpObjectResizeEvent *event)
+bool mainWindowService::onResizeEvent(TpObjectResizeEvent *event)
 {
     std::cout << "mainWindowService::onResizeEvent" << std::endl;
 
     return true;
 }
 
-bool mainWindowService::onActiveEvent(tpObjectActiveEvent *event)
+bool mainWindowService::onActiveEvent(TpObjectActiveEvent *event)
 {
     std::cout << "mainWindowService::onActiveEvent" << std::endl;
 
@@ -144,24 +144,24 @@ void mainWindowService::initUi()
 {
     refreshBarSize();
 
-    isMusicIconLabel_ = new tpLabel(this);
-    isMusicIconLabel_->setFixedSize(tpDisplay::dp2Px(100), tpDisplay::dp2Px(100));
+    isMusicIconLabel_ = new TpLabel(this);
+    isMusicIconLabel_->setFixedSize(TpDisplay::dp2Px(100), TpDisplay::dp2Px(100));
     isMusicIconLabel_->setVisible(false);
-    isMusicIconLabel_->setRoundCorners(tpDisplay::dp2Px(50));
+    isMusicIconLabel_->setRoundCorners(TpDisplay::dp2Px(50));
     isMusicIconLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/音频.png"));
 
     connect(bottomBar_, medioOperate, this, &mainWindowService::slotOperateMedia);
     connect(bottomBar_, alterPostion, this, &mainWindowService::slotSwitchPos);
     connect(bottomBar_, switchSpeed, this, &mainWindowService::slotSwitchSpeed);
 
-    audioPlayer_ = new tpAudioInterface("hw:1,0");
-    videoPlayer_ = new tpVideoInterface();
+    audioPlayer_ = new TpAudioInterface("hw:1,0");
+    videoPlayer_ = new TpVideoInterface();
 
-    tpVideoInterface::UserCallback videoCallback = std::bind(&mainWindowService::videoRbgDataCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
+    TpVideoInterface::UserCallback videoCallback = std::bind(&mainWindowService::videoRbgDataCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
     videoPlayer_->setDisplayFunction(videoCallback);
-    videoPlayer_->setScalingMode(tpVideoInterface::TP_VIDEO_SCALING_FIT); // 推荐格式
+    videoPlayer_->setScalingMode(TpVideoInterface::TP_VIDEO_SCALING_FIT); // 推荐格式
 
-    updateProgressTimer_ = new tpTimer();
+    updateProgressTimer_ = new TpTimer();
     connect(updateProgressTimer_, timeout, this, &mainWindowService::slotUpdatePlayerProgress);
 }
 
@@ -315,7 +315,7 @@ void mainWindowService::refreshBarSize()
     }
 }
 
-mainWindowService::PlayerFileType mainWindowService::checkFileType(const tpString &suffix)
+mainWindowService::PlayerFileType mainWindowService::checkFileType(const TpString &suffix)
 {
     // -1为不可播放文件；0为音频文件，1为视频文件
     if (suffix.compare("mp3") == 0 || suffix.compare("MP3") == 0 || suffix.compare("wav") == 0 || suffix.compare("ogg") == 0 || suffix.compare("flac") == 0 || suffix.compare("aac") == 0)

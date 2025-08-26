@@ -6,13 +6,13 @@
 #ifndef __CLEAR_SPACE_WINDOW_H
 #define __CLEAR_SPACE_WINDOW_H
 
-#include "tpDialog.h"
-#include "tpVBoxLayout.h"
-#include "tpButton.h"
-#include "tpPercentProgressBar.h"
+#include "TpDialog.h"
+#include "TpVBoxLayout.h"
+#include "TpButton.h"
+#include "TpPercentProgressBar.h"
 
 class clearSpaceWindow
-    : public tpDialog
+    : public TpDialog
 {
 public:
     clearSpaceWindow();
@@ -26,16 +26,16 @@ private:
     void init();
 
     // 构建本地空间子窗口
-    tpChildWidget *genLocalSpaceWidget();
+    TpChildWidget *genLocalSpaceWidget();
 
     // 生成清理空间子窗口
-    tpChildWidget *genClearFileWidget();
+    TpChildWidget *genClearFileWidget();
 
 private:
     // 返回上层按钮
-    tpButton *backBtn_;
+    TpButton *backBtn_;
 
-    tpButton *releaseSpaceBtn_;
+    TpButton *releaseSpaceBtn_;
 };
 
 #endif

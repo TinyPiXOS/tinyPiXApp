@@ -1,21 +1,21 @@
 #include "browseWindow.h"
-#include "tpHBoxLayout.h"
-#include "tpVBoxLayout.h"
-#include "tpDisplay.h"
+#include "TpHBoxLayout.h"
+#include "TpVBoxLayout.h"
+#include "TpDisplay.h"
 #include "TpCanvas.h"
 #include "fileManagementGlobal.h"
 
-static const tpString ITEM_PATH_TYPE = "FastPath";
+static const TpString ITEM_PATH_TYPE = "FastPath";
 
-browseWindow::browseWindow(tpChildWidget *parent)
-    : tpChildWidget(parent)
+browseWindow::browseWindow(TpChildWidget *parent)
+    : TpChildWidget(parent)
 {
     init();
 
     setBackGroundColor(_RGB(255, 255, 255));
     // setBackGroundColor(_RGB(248, 248, 248));
 
-    connect(diskManager_, diskAdd, [=](tpDisk *)
+    connect(diskManager_, diskAdd, [=](TpDisk *)
             { std::cout << "******************diskAdd*****************" << std::endl; });
 }
 
@@ -25,23 +25,23 @@ browseWindow::~browseWindow()
 
 void browseWindow::setVisible(bool visible)
 {
-    tpChildWidget::setVisible(visible);
+    TpChildWidget::setVisible(visible);
 
     if (!visible)
         return;
 
-    tpChildWidget *scrollWidget = mainScrollPanel_->widget();
-    tpVBoxLayout *deviceListLayout = dynamic_cast<tpVBoxLayout *>(scrollWidget->layout());
+    TpChildWidget *scrollWidget = mainScrollPanel_->widget();
+    TpVBoxLayout *deviceListLayout = dynamic_cast<TpVBoxLayout *>(scrollWidget->layout());
 
     if (!deviceListLayout)
         return;
 
     std::cout << "刷新外置存储设备" << std::endl;
 
-    tpVector<tpObject *> layoutChildList = deviceListLayout->children();
+    TpVector<TpObject *> layoutChildList = deviceListLayout->children();
 
     // 刷新USB设备数据
-    tpVector<diskDeviceCheckBox *> childUsbItemList;
+    TpVector<diskDeviceCheckBox *> childUsbItemList;
     for (const auto &childObj : layoutChildList)
     {
         diskDeviceCheckBox *childUsb = dynamic_cast<diskDeviceCheckBox *>(childObj);
@@ -62,7 +62,7 @@ void browseWindow::setVisible(bool visible)
     layoutChildList = deviceListLayout->children();
 
     // 获取所有外置磁盘数据
-    tpList<tpDisk *> externDiskList = diskManager_->getList();
+    TpList<TpDisk *> externDiskList = diskManager_->getList();
     std::cout << "externDiskList.Size  " << externDiskList.size() << std::endl;
 
     for (const auto &diskInfo : externDiskList)
@@ -87,7 +87,7 @@ void browseWindow::setVisible(bool visible)
         double allSpaceGb = 1.0 * allSpaceByte / 1024 / 1024 / 1024;
         double usedSpaceGb = 1.0 * usedSpaceByte / 1024 / 1024 / 1024;
 
-        tpString usbPath = diskInfo->getMount();
+        TpString usbPath = diskInfo->getMount();
 
         diskDeviceCheckBox *testDevice = new diskDeviceCheckBox();
         testDevice->setIcon(applicationDirPath() + "/../res/USB设备-未选中.png", applicationDirPath() + "/../res/USB设备-选中.png");
@@ -108,9 +108,9 @@ void browseWindow::setVisible(bool visible)
     }
 }
 
-bool browseWindow::onPaintEvent(tpObjectPaintEvent *event)
+bool browseWindow::onPaintEvent(TpObjectPaintEvent *event)
 {
-    tpChildWidget::onPaintEvent(event);
+    TpChildWidget::onPaintEvent(event);
 
     // 绘制左侧菜单滚动区域的底色
     TpCanvas *paintCanvas = event->canvas();
@@ -127,20 +127,20 @@ bool browseWindow::onPaintEvent(tpObjectPaintEvent *event)
 
 void browseWindow::init()
 {
-    diskManager_ = new tpDiskManage(TP_TRUE);
+    diskManager_ = new TpDiskManage(TP_TRUE);
 
-    mainScrollPanel_ = new tpScrollPanel(this);
-    mainScrollPanel_->setFixedWidth(tpDisplay::dp2Px(440));
+    mainScrollPanel_ = new TpScrollPanel(this);
+    mainScrollPanel_->setFixedWidth(TpDisplay::dp2Px(440));
     mainScrollPanel_->setBackGroundColor(_RGB(248, 248, 248));
 
-    tpChildWidget *scrollWidget = new tpChildWidget();
+    TpChildWidget *scrollWidget = new TpChildWidget();
     scrollWidget->setBackGroundColor(_RGB(248, 248, 248));
 
     fileListWindow_ = new fileListWindow();
     fileListWindow_->setRootPath(RootPath);
     fileListWindow_->setDeviceType(fileListWindow::LocalDevice);
 
-    tpLabel *titleLabel = new tpLabel("浏览");
+    TpLabel *titleLabel = new TpLabel("浏览");
     titleLabel->font()->setFontSize(19);
     titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
     titleLabel->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
@@ -148,20 +148,20 @@ void browseWindow::init()
     // titleLabel->setBackGroundColor(_RGB(255, 0, 0));
 
     // 搜索
-    searchEdit_ = new tpLineEdit();
+    searchEdit_ = new TpLineEdit();
     searchEdit_->setProperty("type", "fileManageEdit");
     searchEdit_->setIcon(applicationDirPath() + "/../res/搜索.png");
     searchEdit_->setPlaceholderText("搜索文件");
 
     // 快捷访问
-    fastPathScroll_ = new tpScrollPanel();
+    fastPathScroll_ = new TpScrollPanel();
     fastPathScroll_->setScrollMode(false);
     // fastPathScroll_->setBackGroundColor(_RGB(255, 0, 0));
 
     // 将快捷访问按钮放进中间widget，再放入滚动窗口
-    tpChildWidget *fastScrollWidget = new tpChildWidget();
+    TpChildWidget *fastScrollWidget = new TpChildWidget();
 
-    pictureTileBtn_ = new tpMediaTileButton(fastPathScroll_);
+    pictureTileBtn_ = new TpMediaTileButton(fastPathScroll_);
     pictureTileBtn_->setProperty(ITEM_PATH_TYPE, "/System/data/Pictures");
     pictureTileBtn_->setText("图片");
     pictureTileBtn_->setIcon(applicationDirPath() + "/../res/fastAccess/图片.png");
@@ -170,7 +170,7 @@ void browseWindow::init()
     connect(pictureTileBtn_, onClicked, [=](bool)
             { fastPathBtnClicked(pictureTileBtn_); });
 
-    videoTileBtn_ = new tpMediaTileButton(fastPathScroll_);
+    videoTileBtn_ = new TpMediaTileButton(fastPathScroll_);
     videoTileBtn_->setProperty(ITEM_PATH_TYPE, "/System/data/Videos");
     videoTileBtn_->setText("视频");
     videoTileBtn_->setIcon(applicationDirPath() + "/../res/fastAccess/视频.png");
@@ -179,7 +179,7 @@ void browseWindow::init()
     connect(videoTileBtn_, onClicked, [=](bool)
             { fastPathBtnClicked(videoTileBtn_); });
 
-    textTileBtn_ = new tpMediaTileButton(fastPathScroll_);
+    textTileBtn_ = new TpMediaTileButton(fastPathScroll_);
     textTileBtn_->setProperty(ITEM_PATH_TYPE, "/System/data/Documents");
     textTileBtn_->setText("文本");
     textTileBtn_->setIcon(applicationDirPath() + "/../res/fastAccess/文本.png");
@@ -188,7 +188,7 @@ void browseWindow::init()
     connect(textTileBtn_, onClicked, [=](bool)
             { fastPathBtnClicked(textTileBtn_); });
 
-    musicTileBtn_ = new tpMediaTileButton(fastPathScroll_);
+    musicTileBtn_ = new TpMediaTileButton(fastPathScroll_);
     musicTileBtn_->setProperty(ITEM_PATH_TYPE, "/System/data/Music");
     musicTileBtn_->setText("音频");
     musicTileBtn_->setIcon(applicationDirPath() + "/../res/fastAccess/音频.png");
@@ -197,7 +197,7 @@ void browseWindow::init()
     connect(musicTileBtn_, onClicked, [=](bool)
             { fastPathBtnClicked(musicTileBtn_); });
 
-    applicationTileBtn_ = new tpMediaTileButton(fastPathScroll_);
+    applicationTileBtn_ = new TpMediaTileButton(fastPathScroll_);
     applicationTileBtn_->setProperty(ITEM_PATH_TYPE, "/System/data/Packages");
     applicationTileBtn_->setText("应用");
     applicationTileBtn_->setIcon(applicationDirPath() + "/../res/fastAccess/应用.png");
@@ -207,10 +207,10 @@ void browseWindow::init()
             { fastPathBtnClicked(applicationTileBtn_); });
 
     // 将快速访问按钮添加到中间窗体
-    fastPathScroll_->setFixedHeight(applicationTileBtn_->height() /* + tpDisplay::dp2Px(25)*/);
+    fastPathScroll_->setFixedHeight(applicationTileBtn_->height() /* + TpDisplay::dp2Px(25)*/);
     // fastPathScroll_->setBackGroundColor(_RGB(255, 0, 0));
 
-    fastScrollWidget->setLayout(new tpHBoxLayout());
+    fastScrollWidget->setLayout(new TpHBoxLayout());
     fastScrollWidget->layout()->setSpacing(12);
     fastScrollWidget->layout()->addWidget(pictureTileBtn_);
     fastScrollWidget->layout()->addWidget(videoTileBtn_);
@@ -221,27 +221,27 @@ void browseWindow::init()
     fastPathScroll_->setWidget(fastScrollWidget);
 
     // 来源
-    tpLabel *sourceLabel = new tpLabel("来源");
+    TpLabel *sourceLabel = new TpLabel("来源");
     sourceLabel->font()->setFontSize(11);
     sourceLabel->setFixedHeight(sourceLabel->font()->pixelHeight());
     sourceLabel->font()->setFontColor(_RGB(89, 89, 89), _RGB(89, 89, 89));
     sourceLabel->installEventFilter(scrollWidget);
 
-    menuPanelWidget_ = new tpMenuPanelWidget();
+    menuPanelWidget_ = new TpMenuPanelWidget();
     // menuPanelWidget_->setBackGroundColor(_RGB(255, 0, 0));
     menuPanelWidget_->installEventFilter(scrollWidget);
     connect(menuPanelWidget_, onClicked, this, &browseWindow::sourceMenuChanged);
 
 #if 1 // 临时数据，TODO，要修改为从配置文件读取
-    tpMenuPanelItem *downloadPanelItem = new tpMenuPanelItem();
+    TpMenuPanelItem *downloadPanelItem = new TpMenuPanelItem();
     downloadPanelItem->setProperty(ITEM_PATH_TYPE, "/System/data/Downloads");
     downloadPanelItem->setIcon(applicationDirPath() + "/../res/fileSource/下载与接收.png");
     downloadPanelItem->setTitle("下载与接收");
     menuPanelWidget_->addItem(downloadPanelItem);
 #endif
 
-    tpVBoxLayout *menuLayout = new tpVBoxLayout();
-    int32_t layoutMargin = tpDisplay::dp2Px(20);
+    TpVBoxLayout *menuLayout = new TpVBoxLayout();
+    int32_t layoutMargin = TpDisplay::dp2Px(20);
     // menuLayout->setContentsMargins(0, 0, 0, 0);
     menuLayout->setContentsMargins(0, 0, layoutMargin, 0);
     menuLayout->setSpacing(10);
@@ -253,7 +253,7 @@ void browseWindow::init()
     menuLayout->addWidget(sourceLabel);
     menuLayout->addWidget(menuPanelWidget_);
 
-    tpHBoxLayout *mainLayout = new tpHBoxLayout();
+    TpHBoxLayout *mainLayout = new TpHBoxLayout();
     mainLayout->setSpacing(0);
     // mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setContentsMargins(layoutMargin, layoutMargin, layoutMargin, 0);
@@ -269,7 +269,7 @@ void browseWindow::init()
     setLayout(mainLayout);
 }
 
-void browseWindow::fastPathBtnClicked(tpMediaTileButton *clickBtn)
+void browseWindow::fastPathBtnClicked(TpMediaTileButton *clickBtn)
 {
     // 屏蔽选中态重复选中
     bool isSelected = clickBtn->checked();
@@ -297,7 +297,7 @@ void browseWindow::fastPathBtnClicked(tpMediaTileButton *clickBtn)
     // 移除所有来源按钮选中
     menuPanelWidget_->clearSelection();
 
-    tpString curPath = clickBtn->property(ITEM_PATH_TYPE).toString();
+    TpString curPath = clickBtn->property(ITEM_PATH_TYPE).toString();
 
     fileListWindow_->setRootPath(RootPath);
 
@@ -335,7 +335,7 @@ void browseWindow::devicePathBtnClicked(diskDeviceCheckBox *clickBtn)
     // 移除所有来源按钮选中
     menuPanelWidget_->clearSelection();
 
-    tpString curPath = clickBtn->property(ITEM_PATH_TYPE).toString();
+    TpString curPath = clickBtn->property(ITEM_PATH_TYPE).toString();
     std::cout << "curPath " << curPath << std::endl;
 
     // USB设备重新设置根目录
@@ -346,7 +346,7 @@ void browseWindow::devicePathBtnClicked(diskDeviceCheckBox *clickBtn)
     fileListWindow_->refreshPath(curPath);
 }
 
-void browseWindow::sourceMenuChanged(tpMenuPanelItem *sourceItem)
+void browseWindow::sourceMenuChanged(TpMenuPanelItem *sourceItem)
 {
     // 屏蔽选中态重复选中
     bool isSelected = sourceItem->checked();
@@ -368,7 +368,7 @@ void browseWindow::sourceMenuChanged(tpMenuPanelItem *sourceItem)
         deviceBtn->setChecked(false);
     }
 
-    tpString curPath = sourceItem->property(ITEM_PATH_TYPE).toString();
+    TpString curPath = sourceItem->property(ITEM_PATH_TYPE).toString();
     fileListWindow_->setRootPath(RootPath);
 
     fileListWindow_->setDeviceType(fileListWindow::LocalDevice);

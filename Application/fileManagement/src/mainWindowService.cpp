@@ -1,8 +1,8 @@
 #include "mainWindowService.h"
-#include "tpSignalSlot.h"
+#include "TpSignalSlot.h"
 #include "fileManagementGlobal.h"
-#include "tpVBoxLayout.h"
-#include "tpTabBar.h"
+#include "TpVBoxLayout.h"
+#include "TpTabBar.h"
 
 enum TreeNodeType
 {
@@ -18,7 +18,7 @@ enum TreeNodeType
 static const uint32_t TreeNodeDataTypeRole = 0;
 
 mainWindowService::mainWindowService()
-    : tpFixScreen()
+    : TpFixScreen()
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
@@ -41,7 +41,7 @@ bool mainWindowService::appChange(int32_t id, int32_t pid, int32_t visible, int3
     return true;
 }
 
-bool mainWindowService::onResizeEvent(tpObjectResizeEvent *event)
+bool mainWindowService::onResizeEvent(TpObjectResizeEvent *event)
 {
     std::cout << "mainWindowService::onResizeEvent" << std::endl;
 
@@ -50,7 +50,7 @@ bool mainWindowService::onResizeEvent(tpObjectResizeEvent *event)
     return true;
 }
 
-bool mainWindowService::onActiveEvent(tpObjectActiveEvent *event)
+bool mainWindowService::onActiveEvent(TpObjectActiveEvent *event)
 {
     std::cout << "mainWindowService::onActiveEvent" << std::endl;
 
@@ -61,7 +61,7 @@ bool mainWindowService::onActiveEvent(tpObjectActiveEvent *event)
 
 void mainWindowService::initUi()
 {
-    tpString resPath = applicationDirPath() + "/../res/";
+    TpString resPath = applicationDirPath() + "/../res/";
 
     recentlyWindow_ = new recentlyWindow();
     // recentlyWindow_->setVisible(true);
@@ -70,15 +70,15 @@ void mainWindowService::initUi()
     browseWindow_ = new browseWindow();
     // recentlyWindow_->setVisible(false);
 
-    mainTabWidget_ = new tpTabWidget(this);
+    mainTabWidget_ = new TpTabWidget(this);
     mainTabWidget_->addTab(recentlyWindow_, "最近");
     mainTabWidget_->addTab(browseWindow_, "浏览");
 
-    tpTabBar *tabBar = mainTabWidget_->tabBar();
+    TpTabBar *tabBar = mainTabWidget_->tabBar();
     tabBar->setIcon(0, applicationDirPath() + "/../res/最近-normal.png", applicationDirPath() + "/../res/最近-focus.png");
     tabBar->setIcon(1, applicationDirPath() + "/../res/浏览-normal.png", applicationDirPath() + "/../res/浏览-focus.png");
 
-    tpVBoxLayout *mainLayout = new tpVBoxLayout();
+    TpVBoxLayout *mainLayout = new TpVBoxLayout();
     mainLayout->setContentsMargins(0, 0, 0, 0);
 
     mainLayout->addWidget(mainTabWidget_);
@@ -86,9 +86,9 @@ void mainWindowService::initUi()
     setLayout(mainLayout);
 }
 
-void mainWindowService::slotPathChanged(const tpString &path)
+void mainWindowService::slotPathChanged(const TpString &path)
 {
-    tpString changePath = "";
+    TpString changePath = "";
     if (path.startsWith(RootPath))
     {
         changePath = RootPath;

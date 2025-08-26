@@ -1,21 +1,21 @@
 #include "mainWindowService.h"
-#include "tpSignalSlot.h"
+#include "TpSignalSlot.h"
 #include "systemSettingsGlobal.h"
-#include "tpHBoxLayout.h"
-#include "tpDisplay.h"
-#include "tpLabel.h"
-#include "tpFont.h"
-#include "tpOnOffButton.h"
-#include "tpLine.h"
-#include "tpBluetoothLocal.h"
+#include "TpHBoxLayout.h"
+#include "TpDisplay.h"
+#include "TpLabel.h"
+#include "TpFont.h"
+#include "TpOnOffButton.h"
+#include "TpLine.h"
+#include "TpBluetoothLocal.h"
 
 #include "settingWindow/InternetSettingWindow.h"
 #include "settingWindow/bluetoothSettingWindow.h"
 
-const tpString SettingTypeStr = "settingType";
+const TpString SettingTypeStr = "settingType";
 
 mainWindowService::mainWindowService()
-    : tpFixScreen(), curSelectItem_(nullptr)
+    : TpFixScreen(), curSelectItem_(nullptr)
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
@@ -40,14 +40,14 @@ bool mainWindowService::appChange(int32_t id, int32_t pid, int32_t visible, int3
     return true;
 }
 
-bool mainWindowService::onResizeEvent(tpObjectResizeEvent *event)
+bool mainWindowService::onResizeEvent(TpObjectResizeEvent *event)
 {
     std::cout << "systemSetting::onResizeEvent" << std::endl;
 
     return true;
 }
 
-bool mainWindowService::onActiveEvent(tpObjectActiveEvent *event)
+bool mainWindowService::onActiveEvent(TpObjectActiveEvent *event)
 {
     std::cout << "systemSetting::onActiveEvent" << std::endl;
 
@@ -56,14 +56,14 @@ bool mainWindowService::onActiveEvent(tpObjectActiveEvent *event)
     // 获取蓝牙设备状态;取第一个蓝牙设备的状态
     if (allMenuItemMapper_.contains(BlueToothSetting))
     {
-        tpOnOffButton *bluetoothOnOffBtn = dynamic_cast<tpOnOffButton *>(allMenuItemMapper_.value(BlueToothSetting)->customizeWidget());
+        TpOnOffButton *bluetoothOnOffBtn = dynamic_cast<TpOnOffButton *>(allMenuItemMapper_.value(BlueToothSetting)->customizeWidget());
         if (bluetoothOnOffBtn)
         {
             bool blueIsOpen = false;
-            tpList<tpBluetoothLocal> blueToothDeviceList = tpBluetoothLocal::getAllDevice();
+            TpList<TpBluetoothLocal> blueToothDeviceList = TpBluetoothLocal::getAllDevice();
             if (blueToothDeviceList.size() > 0)
             {
-                tpBluetoothLocal& firstBlueDevice = blueToothDeviceList.front();
+                TpBluetoothLocal& firstBlueDevice = blueToothDeviceList.front();
                 blueIsOpen = firstBlueDevice.isPowerOn();
             }
 
@@ -78,17 +78,17 @@ bool mainWindowService::onActiveEvent(tpObjectActiveEvent *event)
 
 void mainWindowService::initUi()
 {
-    tpString resPath = applicationDirPath() + "/../res/";
+    TpString resPath = applicationDirPath() + "/../res/";
 
-    mainScrollPanel_ = new tpScrollPanel(this);
-    // mainScrollPanel_->setFixedWidth(tpDisplay::dp2Px(405));
-    mainScrollPanel_->setFixedWidth(tpScreen::screenWidth() * 0.375);
+    mainScrollPanel_ = new TpScrollPanel(this);
+    // mainScrollPanel_->setFixedWidth(TpDisplay::dp2Px(405));
+    mainScrollPanel_->setFixedWidth(TpScreen::screenWidth() * 0.375);
     mainScrollPanel_->setBackGroundColor(_RGB(248, 248, 248));
 
-    tpChildWidget *scrollWidget = new tpChildWidget(mainScrollPanel_);
+    TpChildWidget *scrollWidget = new TpChildWidget(mainScrollPanel_);
     scrollWidget->setBackGroundColor(_RGB(248, 248, 248));
 
-    tpLabel *titleLabel = new tpLabel("设置");
+    TpLabel *titleLabel = new TpLabel("设置");
     titleLabel->font()->setFontSize(19);
     titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
     titleLabel->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
@@ -96,20 +96,20 @@ void mainWindowService::initUi()
     // titleLabel->setBackGroundColor(_RGB(255, 0, 0));
 
     // 搜索
-    searchEdit_ = new tpLineEdit();
+    searchEdit_ = new TpLineEdit();
     searchEdit_->setProperty("type", "fileManageEdit");
     searchEdit_->setIcon(applicationDirPath() + "/../res/搜索.png");
     searchEdit_->setPlaceholderText("搜索设置项");
 
     // 右侧显示功能窗口
-    settingWindow_ = new tpScrollPanel(this);
+    settingWindow_ = new TpScrollPanel(this);
 
     // 右侧功能窗口title布局
-    tpHBoxLayout *subTitleLayout = new tpHBoxLayout();
+    TpHBoxLayout *subTitleLayout = new TpHBoxLayout();
     subTitleLayout->setSpacing(20);
     subTitleLayout->setContentsMargins(0, 0, 0, 0);
 
-    subTitleLabel_ = new tpLabel("");
+    subTitleLabel_ = new TpLabel("");
     // titleLabel->setBackGroundColor(_RGB(255, 0, 0));
     subTitleLabel_->font()->setFontSize(19);
     subTitleLabel_->setFixedHeight(titleLabel->font()->pixelHeight());
@@ -117,26 +117,26 @@ void mainWindowService::initUi()
     subTitleLabel_->setText("");
     subTitleLabel_->installEventFilter(settingWindow_);
 
-    subBackBtn_ = new tpButton();
-    subBackBtn_->setButtonStyle(tpButton::IconOnly);
+    subBackBtn_ = new TpButton();
+    subBackBtn_->setButtonStyle(TpButton::IconOnly);
     subBackBtn_->setEnableBackGroundColor(false);
-    subBackBtn_->setFixedSize(tpDisplay::dp2Px(34), tpDisplay::dp2Px(34));
+    subBackBtn_->setFixedSize(TpDisplay::dp2Px(34), TpDisplay::dp2Px(34));
     subBackBtn_->setIcon(applicationDirPath() + "/../res/路径后退.png");
     subBackBtn_->setVisible(false);
     connect(subBackBtn_, onClicked, this, &mainWindowService::slotClickBackBtn);
 
     subTitleLayout->addWidget(subBackBtn_);
     subTitleLayout->addWidget(subTitleLabel_);
-    subTitleLayout->addSpacer(new tpSpacerItem(20, 20, tpSpacerItem::Expanding, tpSpacerItem::Minimum));
+    subTitleLayout->addSpacer(new TpSpacerItem(20, 20, TpSpacerItem::Expanding, TpSpacerItem::Minimum));
 
-    int32_t layoutMargin = tpDisplay::dp2Px(20);
+    int32_t layoutMargin = TpDisplay::dp2Px(20);
 
-    tpVBoxLayout *rightWindowLayout = new tpVBoxLayout();
+    TpVBoxLayout *rightWindowLayout = new TpVBoxLayout();
     rightWindowLayout->setContentsMargins(layoutMargin, 0, layoutMargin, 0);
     rightWindowLayout->addLayout(subTitleLayout);
     rightWindowLayout->addWidget(settingWindow_);
 
-    tpVBoxLayout *menuLayout = new tpVBoxLayout();
+    TpVBoxLayout *menuLayout = new TpVBoxLayout();
     // menuLayout->setContentsMargins(0, 0, 0, 0);
     menuLayout->setContentsMargins(0, 0, layoutMargin, 0);
     menuLayout->setSpacing(18);
@@ -148,7 +148,7 @@ void mainWindowService::initUi()
     // 最后添加一个弹簧，确保控件紧密排列
     // menuLayout->addWidget(searchEdit_);
 
-    tpHBoxLayout *mainLayout = new tpHBoxLayout();
+    TpHBoxLayout *mainLayout = new TpHBoxLayout();
     mainLayout->setSpacing(0);
     // mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setContentsMargins(layoutMargin, layoutMargin, layoutMargin, 0);
@@ -157,8 +157,8 @@ void mainWindowService::initUi()
     scrollWidget->setLayout(menuLayout);
     mainScrollPanel_->setWidget(scrollWidget);
 
-    tpLine *subLine = new tpLine();
-    subLine->setLineType(tpLine::VLine);
+    TpLine *subLine = new TpLine();
+    subLine->setLineType(TpLine::VLine);
     subLine->setColor(_RGB(190, 196, 202));
     subLine->setFixedWidth(2);
 
@@ -177,9 +177,9 @@ void mainWindowService::initUi()
     createAllSettingWindow();
 }
 
-void mainWindowService::slotClickMenuItem(tpMenuPanelItem *deviceBtn)
+void mainWindowService::slotClickMenuItem(TpMenuPanelItem *deviceBtn)
 {
-    tpMenuPanelWidget *curPanel = dynamic_cast<tpMenuPanelWidget *>(deviceBtn->parent());
+    TpMenuPanelWidget *curPanel = dynamic_cast<TpMenuPanelWidget *>(deviceBtn->parent());
     for (const auto &panel : allMenuPanelList_)
     {
         if (panel == curPanel)
@@ -223,32 +223,32 @@ void mainWindowService::slotClickBackBtn(bool)
     }
 }
 
-void mainWindowService::createAllSettingTopMenu(tpVBoxLayout *menuLayout)
+void mainWindowService::createAllSettingTopMenu(TpVBoxLayout *menuLayout)
 {
-    tpList<tpList<SettingType>> itemNameList;
-    itemNameList.emplace_back(tpList<SettingType>{WLANSetting, BlueToothSetting, InternetSetting, HotspotSetting});
-    itemNameList.emplace_back(tpList<SettingType>{WallPaperSetting, DisplaySetting, DesktopSetting});
-    itemNameList.emplace_back(tpList<SettingType>{VoiceSetting});
-    itemNameList.emplace_back(tpList<SettingType>{DeviceSetting, MoreSetting, ApplicationSetting});
+    TpList<TpList<SettingType>> itemNameList;
+    itemNameList.emplace_back(TpList<SettingType>{WLANSetting, BlueToothSetting, InternetSetting, HotspotSetting});
+    itemNameList.emplace_back(TpList<SettingType>{WallPaperSetting, DisplaySetting, DesktopSetting});
+    itemNameList.emplace_back(TpList<SettingType>{VoiceSetting});
+    itemNameList.emplace_back(TpList<SettingType>{DeviceSetting, MoreSetting, ApplicationSetting});
 
     for (const auto &menuPanel : itemNameList)
     {
         // 功能菜单
-        tpMenuPanelWidget *menuPanelWidget = new tpMenuPanelWidget();
+        TpMenuPanelWidget *menuPanelWidget = new TpMenuPanelWidget();
         menuPanelWidget->installEventFilter(mainScrollPanel_);
         connect(menuPanelWidget, onClicked, this, &mainWindowService::slotClickMenuItem);
         // menuPanelWidget->setBackGroundColor(_RGB(255, 0, 0));
 
         for (const auto &menuType : menuPanel)
         {
-            tpString menuItemName = generalSettingNames(menuType);
+            TpString menuItemName = generalSettingNames(menuType);
 
-            tpMenuPanelItem *menuPanelItem = new tpMenuPanelItem();
+            TpMenuPanelItem *menuPanelItem = new TpMenuPanelItem();
             menuPanelItem->setIcon(applicationDirPath() + "/../res/menuItem/" + menuItemName + ".png");
             menuPanelItem->setTitle(menuItemName);
             menuPanelItem->setProperty(SettingTypeStr, (int32_t)menuType);
 
-            tpChildWidget *customWidget = generalCustomWidget(menuType);
+            TpChildWidget *customWidget = generalCustomWidget(menuType);
             if (customWidget)
             {
                 menuPanelItem->setCustomizeWidget(customWidget);
@@ -263,7 +263,7 @@ void mainWindowService::createAllSettingTopMenu(tpVBoxLayout *menuLayout)
     }
 }
 
-tpString mainWindowService::generalSettingNames(const SettingType &type)
+TpString mainWindowService::generalSettingNames(const SettingType &type)
 {
     switch (type)
     {
@@ -294,11 +294,11 @@ tpString mainWindowService::generalSettingNames(const SettingType &type)
     return "未命名设置";
 }
 
-tpChildWidget *mainWindowService::generalCustomWidget(const SettingType &type)
+TpChildWidget *mainWindowService::generalCustomWidget(const SettingType &type)
 {
     if (type == BlueToothSetting)
     {
-        tpOnOffButton *onOffBnt = new tpOnOffButton();
+        TpOnOffButton *onOffBnt = new TpOnOffButton();
         onOffBnt->setFixedSize(45, 24);
         return onOffBnt;
     }
@@ -321,13 +321,13 @@ void mainWindowService::refreshTopMenuStatus()
     allMenuItemMapper_[WLANSetting]->setSubTitle("关闭");
     allMenuItemMapper_[HotspotSetting]->setSubTitle("关闭");
 
-    tpOnOffButton *bluetoothOnOffBtn = dynamic_cast<tpOnOffButton *>(allMenuItemMapper_[BlueToothSetting]->customizeWidget());
+    TpOnOffButton *bluetoothOnOffBtn = dynamic_cast<TpOnOffButton *>(allMenuItemMapper_[BlueToothSetting]->customizeWidget());
     if (bluetoothOnOffBtn)
     {
         bluetoothOnOffBtn->setOnOff(false);
     }
 
-    tpList<tpBluetoothLocal> bluetoothDeviceList = tpBluetoothLocal::getAllDevice();
+    TpList<TpBluetoothLocal> bluetoothDeviceList = TpBluetoothLocal::getAllDevice();
     for (auto &bluetoothDevice : bluetoothDeviceList)
     {
         std::cout << "蓝牙设备名称:" << bluetoothDevice.getName() << std::endl;

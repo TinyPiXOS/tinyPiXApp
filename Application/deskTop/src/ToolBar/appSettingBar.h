@@ -1,18 +1,18 @@
 #ifndef __APP_SETTING_BAR_H
 #define __APP_SETTING_BAR_H
 
-#include "tpDialog.h"
-#include "tpButton.h"
-#include "tpEvent.h"
-#include "tpIconTopButton.h"
-#include "tpVector.h"
-#include "tpSlideProgressBar.h"
-#include "tpLabel.h"
-#include "tpPanelSwitchButton.h"
+#include "TpDialog.h"
+#include "TpButton.h"
+#include "TpEvent.h"
+#include "TpIconTopButton.h"
+#include "TpVector.h"
+#include "TpSlideProgressBar.h"
+#include "TpLabel.h"
+#include "TpPanelSwitchButton.h"
 #include "powerManage.h"
 
 class appSettingBar
-    : public tpDialog
+    : public TpDialog
 {
 public:
     appSettingBar();
@@ -21,21 +21,21 @@ public:
     virtual void setVisible(bool visible) override;
 
     // 更新系统时间
-    void updateTime(const int32_t &year, const int32_t &month, const int32_t &day, const tpString &weekDay);
+    void updateTime(const int32_t &year, const int32_t &month, const int32_t &day, const TpString &weekDay);
 
     // 设置蓝牙开关状态
     void setBluetoothStatus(const bool &status);
 
     // void set
 protected:
-    virtual bool onMousePressEvent(tpMouseEvent *event) override;
-    virtual bool onMouseRleaseEvent(tpMouseEvent *event) override;
+    virtual bool onMousePressEvent(TpMouseEvent *event) override;
+    virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
 
-    virtual bool onMouseMoveEvent(tpMouseEvent *event) override;
+    virtual bool onMouseMoveEvent(TpMouseEvent *event) override;
 
-    // virtual bool onLeaveEvent(tpObjectLeaveEvent *event) override;
+    // virtual bool onLeaveEvent(TpObjectLeaveEvent *event) override;
 
-    virtual bool onResizeEvent(tpObjectResizeEvent *event) override;
+    virtual bool onResizeEvent(TpObjectResizeEvent *event) override;
 
 private:
     // 点击切换蓝牙状态按钮
@@ -61,24 +61,24 @@ private:
     ItpPoint pressPoint_;
 
     // 日期lable
-    tpLabel *dateTimeLabel_;
+    TpLabel *dateTimeLabel_;
 
-    tpIconTopButton *powerOffBtn_;
+    TpIconTopButton *powerOffBtn_;
 
     // // 声音进度条
-    tpSlideProgressBar *voiceProgessBar_;
+    TpSlideProgressBar *voiceProgessBar_;
 
     // // 亮度进度条
-    tpSlideProgressBar *lightProgessBar_;
+    TpSlideProgressBar *lightProgessBar_;
 
-    tpPanelSwitchButton *wifiBtn_;
-    tpPanelSwitchButton *bluetoothBtn_;
+    TpPanelSwitchButton *wifiBtn_;
+    TpPanelSwitchButton *bluetoothBtn_;
     // 锁定旋转
-    tpPanelSwitchButton *sysLockBtn_;
+    TpPanelSwitchButton *sysLockBtn_;
 
     // 电源管理窗口
     powerManage *powerManageWindow_;
-    // tpVector<tpButton *> operatorBtnList_;
+    // TpVector<TpButton *> operatorBtnList_;
 };
 
 #endif

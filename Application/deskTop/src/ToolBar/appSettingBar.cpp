@@ -2,32 +2,32 @@
 #include "topBar.h"
 #include "deskTopGlobal.hpp"
 #include <iostream>
-#include "tpString.h"
-#include "tpVariant.h"
-#include "tpBluetoothLocal.h"
-#include "tpMessageBox.h"
-#include "tpSound.h"
+#include "TpString.h"
+#include "TpVariant.h"
+#include "TpBluetoothLocal.h"
+#include "TpMessageBox.h"
+#include "TpSound.h"
 
 #ifndef SETTING_BAR_COLOR
 #define SETTING_BAR_COLOR _RGBA(93, 97, 208, 204)
 #endif
 
 appSettingBar::appSettingBar()
-    : tpDialog("tinyPiX_SYS_Float_0531acbf04")
+    : TpDialog("tinyPiX_SYS_Float_0531acbf04")
 {
     this->setEnabledBorderColor(false);
     this->setBackGroundColor(SETTING_BAR_COLOR);
     // this->setAlpha(51);
     // setVisible(false);
 
-    dateTimeLabel_ = new tpLabel(this);
+    dateTimeLabel_ = new TpLabel(this);
     dateTimeLabel_->setProperty("type", "controlPanelDateTimeLabel");
     dateTimeLabel_->setText("2025年12月12日 周六");
     dateTimeLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
-    dateTimeLabel_->font()->setFontSize(globalMainScreen_->screenWidth() * 0.016); // tpDisplay::sp2Px(16)
+    dateTimeLabel_->font()->setFontSize(globalMainScreen_->screenWidth() * 0.016); // TpDisplay::sp2Px(16)
     dateTimeLabel_->setSize(dateTimeLabel_->font()->pixelWidth(), dateTimeLabel_->font()->pixelHeight());
 
-    powerOffBtn_ = new tpIconTopButton(applicationDirPath() + "/../res/controlPanel/控制面板-电源.png", "", this);
+    powerOffBtn_ = new TpIconTopButton(applicationDirPath() + "/../res/controlPanel/控制面板-电源.png", "", this);
     powerOffBtn_->setIconSize(globalMainScreen_->screenWidth() * 0.032, globalMainScreen_->screenWidth() * 0.032);
     powerOffBtn_->setTextVisible(false);
     powerOffBtn_->setEnableBackGroundColor(false);
@@ -35,7 +35,7 @@ appSettingBar::appSettingBar()
     connect(powerOffBtn_, onClicked, this, &appSettingBar::slotPowerOff);
 
     // 声音进度条
-    voiceProgessBar_ = new tpSlideProgressBar(this);
+    voiceProgessBar_ = new TpSlideProgressBar(this);
     voiceProgessBar_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-音量.png");
     voiceProgessBar_->setRange(0, 100);
     voiceProgessBar_->setValue(50);
@@ -43,7 +43,7 @@ appSettingBar::appSettingBar()
     connect(voiceProgessBar_, onValueChanged, this, &appSettingBar::slotChangeVoice);
 
     // // 亮度进度条
-    lightProgessBar_ = new tpSlideProgressBar(this);
+    lightProgessBar_ = new TpSlideProgressBar(this);
     lightProgessBar_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-亮度.png");
     lightProgessBar_->setRange(0, 100);
     lightProgessBar_->setValue(100);
@@ -51,21 +51,21 @@ appSettingBar::appSettingBar()
     lightProgessBar_->setFixedSize(globalMainScreen_->screenWidth() * 0.2824, globalMainScreen_->screenHeight() * 0.0888);
     connect(lightProgessBar_, onValueChanged, this, &appSettingBar::slotChangelight);
 
-    wifiBtn_ = new tpPanelSwitchButton(this);
+    wifiBtn_ = new TpPanelSwitchButton(this);
     wifiBtn_->setCheckable(true);
     wifiBtn_->setText("WIFI");
     wifiBtn_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-WIFI.png");
     wifiBtn_->setFixedSize(globalMainScreen_->screenWidth() * 0.14166, globalMainScreen_->screenWidth() * 0.14166);
     connect(wifiBtn_, onClicked, this, &appSettingBar::slotSwitchWifi);
 
-    bluetoothBtn_ = new tpPanelSwitchButton(this);
+    bluetoothBtn_ = new TpPanelSwitchButton(this);
     bluetoothBtn_->setCheckable(true);
     bluetoothBtn_->setText("蓝牙");
     bluetoothBtn_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-蓝牙.png");
     bluetoothBtn_->setFixedSize(globalMainScreen_->screenWidth() * 0.14166, globalMainScreen_->screenWidth() * 0.14166);
     connect(bluetoothBtn_, onClicked, this, &appSettingBar::slotSwitchBluetooth);
 
-    sysLockBtn_ = new tpPanelSwitchButton(this);
+    sysLockBtn_ = new TpPanelSwitchButton(this);
     sysLockBtn_->setCheckable(true);
     sysLockBtn_->setText("锁定");
     sysLockBtn_->setFixedSize(globalMainScreen_->screenWidth() * 0.14166, globalMainScreen_->screenWidth() * 0.14166);
@@ -84,15 +84,15 @@ appSettingBar::~appSettingBar()
 
 void appSettingBar::setVisible(bool visible)
 {
-    tpDialog::setVisible(visible);
+    TpDialog::setVisible(visible);
 
     // 刷新音量
-    tpList<tpString> soundList = tpSound::getDevices();
+    TpList<TpString> soundList = TpSound::getDevices();
     if (soundList.size() > 0)
     {
         voiceProgessBar_->setEnabled(true);
 
-        tpSound sound(soundList.front());
+        TpSound sound(soundList.front());
         voiceProgessBar_->setValue(sound.getSystemVolume());
     }
     else
@@ -111,9 +111,9 @@ void appSettingBar::setVisible(bool visible)
     // sysLockBtn_->setVisible(visible);
 }
 
-void appSettingBar::updateTime(const int32_t &year, const int32_t &month, const int32_t &day, const tpString &weekDay)
+void appSettingBar::updateTime(const int32_t &year, const int32_t &month, const int32_t &day, const TpString &weekDay)
 {
-    dateTimeLabel_->setText(tpString::number(year) + "年" + tpString::number(month) + "月" + tpString::number(day) + "日" + weekDay);
+    dateTimeLabel_->setText(TpString::number(year) + "年" + TpString::number(month) + "月" + TpString::number(day) + "日" + weekDay);
 }
 
 void appSettingBar::setBluetoothStatus(const bool &status)
@@ -121,7 +121,7 @@ void appSettingBar::setBluetoothStatus(const bool &status)
     bluetoothBtn_->setChecked(status);
 }
 
-bool appSettingBar::onMousePressEvent(tpMouseEvent *event)
+bool appSettingBar::onMousePressEvent(TpMouseEvent *event)
 {
     mouseLeftPress_ = event->state();
     pressPoint_ = event->globalPos();
@@ -129,16 +129,16 @@ bool appSettingBar::onMousePressEvent(tpMouseEvent *event)
     return true;
 }
 
-bool appSettingBar::onMouseRleaseEvent(tpMouseEvent *event)
+bool appSettingBar::onMouseRleaseEvent(TpMouseEvent *event)
 {
     mouseLeftPress_ = event->state();
 
     return true;
 }
 
-bool appSettingBar::onMouseMoveEvent(tpMouseEvent *event)
+bool appSettingBar::onMouseMoveEvent(TpMouseEvent *event)
 {
-    // tpDialog::onMouseMoveEvent(event);
+    // TpDialog::onMouseMoveEvent(event);
 
     if (mouseLeftPress_)
     {
@@ -158,7 +158,7 @@ bool appSettingBar::onMouseMoveEvent(tpMouseEvent *event)
     return true;
 }
 
-bool appSettingBar::onResizeEvent(tpObjectResizeEvent *event)
+bool appSettingBar::onResizeEvent(TpObjectResizeEvent *event)
 {
     resizeOperatorBtn();
 
@@ -168,16 +168,16 @@ bool appSettingBar::onResizeEvent(tpObjectResizeEvent *event)
 void appSettingBar::slotSwitchBluetooth(bool checked)
 {
     bool blueIsOpen = false;
-    tpList<tpBluetoothLocal> blueToothDeviceList = tpBluetoothLocal::getAllDevice();
+    TpList<TpBluetoothLocal> blueToothDeviceList = TpBluetoothLocal::getAllDevice();
     if (blueToothDeviceList.size() == 0)
     {
         bluetoothBtn_->setChecked(false);
 
-        tpMessageBox msg("tinyPiX_SYS_Float_0531acbf04");
-        msg.setMessageType(tpMessageBox::Information);
+        TpMessageBox msg("tinyPiX_SYS_Float_0531acbf04");
+        msg.setMessageType(TpMessageBox::Information);
         msg.setText("未检测到蓝牙设备!");
 
-        tpVector<tpString> btnList;
+        TpVector<TpString> btnList;
         btnList.emplace_back("确认");
 
         msg.setButtonList(btnList);
@@ -202,10 +202,10 @@ void appSettingBar::slotChangeVoice(int32_t value)
     return;
 
     // 刷新音量
-    tpList<tpString> soundList = tpSound::getDevices();
+    TpList<TpString> soundList = TpSound::getDevices();
     if (soundList.size() > 0)
     {
-        tpSound sound(soundList.front());
+        TpSound sound(soundList.front());
         sound.setSystemVolume(value);
     }
 }

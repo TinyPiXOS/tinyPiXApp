@@ -2,19 +2,19 @@
 #define __BLUETOOTH_SETTING_WINDOW_H
 
 #include "settingWindow/settingBase.h"
-#include "tpLineEdit.h"
+#include "TpLineEdit.h"
 #include "systemSettingsGlobal.h"
-#include "tpMenuPanelWidget.h"
+#include "TpMenuPanelWidget.h"
 
 class bluetoothSettingWindow
     : public settingBase
 {
 public:
-    bluetoothSettingWindow(tpChildWidget *parent = nullptr);
+    bluetoothSettingWindow(TpChildWidget *parent = nullptr);
     virtual ~bluetoothSettingWindow();
 
 protected:
-    virtual bool onResizeEvent(tpObjectResizeEvent *event) override;
+    virtual bool onResizeEvent(TpObjectResizeEvent *event) override;
 
 private:
     void initUi();
@@ -24,18 +24,18 @@ private:
 
 private:
     // 本机设备信息
-    tpMenuPanelWidget *lovalDevicePanel_;
+    TpMenuPanelWidget *lovalDevicePanel_;
 
     // 本机名称输入框
-    tpLineEdit* localDeviceNameEdit_;
+    TpLineEdit* localDeviceNameEdit_;
 
     // 已配对设备面板
-    tpMenuPanelWidget *connectDevicePanel_;
+    TpMenuPanelWidget *connectDevicePanel_;
     // 已配对设备信息item
-    tpMenuPanelItem *connectDeviceItem_;
+    TpMenuPanelItem *connectDeviceItem_;
 
     // 可用设备面板
-    tpMenuPanelWidget *usableDevicePanel_;
+    TpMenuPanelWidget *usableDevicePanel_;
 
 };
 
