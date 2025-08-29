@@ -30,7 +30,7 @@ bool appOperateMaskWindow::onPaintEvent(TpObjectPaintEvent *event)
     TpCanvas *painter = event->canvas();
 
     HollowMask hollowData;
-    hollowData.addRoundRectHollow(appRect_, roundCorners_);
+    hollowData.addRectHollow(appRect_, roundCorners_);
     // painter->hollowBox(0, 0, width(), height(), _RGBA(255, 255, 255, 204), hollowData);
     painter->box(0, 0, width(), height(), _RGB(255, 255, 255), hollowData);
 
