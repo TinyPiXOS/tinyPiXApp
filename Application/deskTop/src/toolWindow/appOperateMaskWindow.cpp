@@ -32,7 +32,7 @@ bool appOperateMaskWindow::onPaintEvent(TpObjectPaintEvent *event)
     HollowMask hollowData;
     hollowData.addRoundRectHollow(appRect_, roundCorners_);
     // painter->hollowBox(0, 0, width(), height(), _RGBA(255, 255, 255, 204), hollowData);
-    painter->hollowBox(0, 0, width(), height(), _RGB(255, 255, 255), hollowData);
+    painter->box(0, 0, width(), height(), _RGB(255, 255, 255), hollowData);
 
     return true;
 }

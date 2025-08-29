@@ -74,7 +74,7 @@ bool hollowWidget::onPaintEvent(TpObjectPaintEvent *event)
     pieHollowData.end = 360.0 * installProgress_ / 100;
     pieHollowData.radius = (width() / 2.0) - 3;
     hollowMaskData.addPieHollow(pieHollowData);
-    painter->hollowRoundedBox(0, 0, width(), width(), roundCorners(), _RGBA(0, 0, 0, 125), hollowMaskData);
+    painter->roundedBox(0, 0, width(), width(), roundCorners(), _RGBA(0, 0, 0, 125), hollowMaskData);
 
     return true;
 }
