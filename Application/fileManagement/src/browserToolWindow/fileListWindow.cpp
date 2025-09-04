@@ -164,9 +164,9 @@ void fileListWindow::refreshPath(const TpString &path)
 
     update();
 
-    std::cout << "fileListWindow 最小高度 " << mainLayout_->minumumSize().h << std::endl;
+    std::cout << "fileListWindow 最小高度 " << mainLayout_->minumumSize().height() << std::endl;
 
-    widget()->setMinumumHeight(mainLayout_->minumumSize().h);
+    widget()->setMinumumHeight(mainLayout_->minumumSize().height());
 }
 
 void fileListWindow::SlotShowSetting(bool)

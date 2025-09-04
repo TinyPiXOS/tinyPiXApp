@@ -19,7 +19,7 @@ public:
 
 public:
     // 系统显示大小变换，锁屏窗口大小也要变化
-    void resizeLockWindow(const ItpRect &mainWindowRect);
+    void resizeLockWindow(const TpRect &mainWindowRect);
 
 protected:
     virtual bool onMousePressEvent(TpMouseEvent *event) override;
@@ -43,7 +43,7 @@ private:
     
 private:
     bool mouseLeftPress_;
-    ItpPoint pressPoint_;
+    TpPoint pressPoint_;
 
     // 更新时间定时器
 	TpTimer *updateTimetimer_;

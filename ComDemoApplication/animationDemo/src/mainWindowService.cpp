@@ -26,8 +26,8 @@ mainWindowService::mainWindowService()
     connect(posMoveBtn, onClicked, [=](bool)
             {
 				TpAnimation* widgetAnimation = new TpAnimation(exampleWidget, TpAnimation::Pos);
-				widgetAnimation->setStartValue(ItpPoint(350, 20));
-				widgetAnimation->setEndValue(ItpPoint(700, 300));
+				widgetAnimation->setStartValue(TpPoint(350, 20));
+				widgetAnimation->setEndValue(TpPoint(700, 300));
 				widgetAnimation->setDuration(1000);
 				widgetAnimation->start(); });
 
@@ -39,10 +39,10 @@ mainWindowService::mainWindowService()
     connect(returnMoveBtn, onClicked, [=](bool)
             {
 				TpAnimation* widgetAnimation = new TpAnimation(exampleWidget, TpAnimation::Pos);
-				widgetAnimation->setStartValue(ItpPoint(350, 20));
-				widgetAnimation->setKeyValueAt(0.5, ItpPoint(700, 300));
-				widgetAnimation->setEndValue(ItpPoint(350, 20));
-				// widgetAnimation->setEndValue(ItpPoint(700, 300));
+				widgetAnimation->setStartValue(TpPoint(350, 20));
+				widgetAnimation->setKeyValueAt(0.5, TpPoint(700, 300));
+				widgetAnimation->setEndValue(TpPoint(350, 20));
+				// widgetAnimation->setEndValue(TpPoint(700, 300));
 				widgetAnimation->setDuration(1500);
 				widgetAnimation->start(); });
 
@@ -61,10 +61,10 @@ mainWindowService::mainWindowService()
     connect(loopMoveBtn, onClicked, [&](bool)
             {
 				loopAnimation = new TpAnimation(exampleWidget, TpAnimation::Pos);
-				loopAnimation->setStartValue(ItpPoint(350, 20));
-				loopAnimation->setKeyValueAt(0.5, ItpPoint(700, 300));
-				loopAnimation->setEndValue(ItpPoint(350, 20));
-				// loopAnimation->setEndValue(ItpPoint(700, 300));
+				loopAnimation->setStartValue(TpPoint(350, 20));
+				loopAnimation->setKeyValueAt(0.5, TpPoint(700, 300));
+				loopAnimation->setEndValue(TpPoint(350, 20));
+				// loopAnimation->setEndValue(TpPoint(700, 300));
 				loopAnimation->setDuration(1500);
 				loopAnimation->setLoopCount(-1);
 				loopAnimation->start(); 
@@ -138,8 +138,8 @@ mainWindowService::mainWindowService()
     connect(resizeBtn, onClicked, [=](bool)
             {
 		TpAnimation* widgetAnimation = new TpAnimation(exampleWidget, TpAnimation::Size);
-		widgetAnimation->setStartValue(ItpSize(100, 100));
-		widgetAnimation->setEndValue(ItpSize(300, 500));
+		widgetAnimation->setStartValue(TpSize(100, 100));
+		widgetAnimation->setEndValue(TpSize(300, 500));
 		widgetAnimation->setDuration(1000);
 		widgetAnimation->start(); });
 
@@ -151,8 +151,8 @@ mainWindowService::mainWindowService()
     connect(posResizeBtn, onClicked, [=](bool)
             {
 		TpAnimation* widgetAnimation = new TpAnimation(exampleWidget, TpAnimation::Geometry);
-		widgetAnimation->setStartValue(ItpRect(350, 20, 100, 100));
-		widgetAnimation->setEndValue(ItpRect(700, 300, 300, 300));
+		widgetAnimation->setStartValue(TpRect(350, 20, 100, 100));
+		widgetAnimation->setEndValue(TpRect(700, 300, 300, 300));
 		widgetAnimation->setDuration(1000);
 		widgetAnimation->start(); });
 

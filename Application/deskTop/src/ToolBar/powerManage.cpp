@@ -30,14 +30,14 @@ powerManage::powerManage()
 
     setRect(0, 0, globalMainScreen_->width(), globalMainScreen_->height());
 
-    uint32_t btnX = (rect().w - powerOffBtn_->width()) / 2.0;
+    uint32_t btnX = (rect().width() - powerOffBtn_->width()) / 2.0;
 
     powerRestartBtn_->move(btnX, globalMainScreen_->screenHeight() * 0.33333);
-    powerOffBtn_->move(btnX, powerRestartBtn_->pos().y + powerRestartBtn_->height() + globalMainScreen_->screenHeight() * 0.051388);
+    powerOffBtn_->move(btnX, powerRestartBtn_->pos().y() + powerRestartBtn_->height() + globalMainScreen_->screenHeight() * 0.051388);
 
-    uint32_t closeBtnX = (rect().w - closeBtn_->width()) / 2.0;
+    uint32_t closeBtnX = (rect().width() - closeBtn_->width()) / 2.0;
 
-    closeBtn_->move(closeBtnX, powerOffBtn_->pos().y + powerOffBtn_->height() + globalMainScreen_->screenHeight() * 0.298611);
+    closeBtn_->move(closeBtnX, powerOffBtn_->pos().y() + powerOffBtn_->height() + globalMainScreen_->screenHeight() * 0.298611);
 
     setVisible(false);
 }

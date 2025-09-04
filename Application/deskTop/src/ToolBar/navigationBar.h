@@ -34,7 +34,7 @@ private:
     TpLabel *lineLabel_;
 
     // 鼠标按下的相对坐标
-    ItpPoint mousePressPoint_;
+    TpPoint mousePressPoint_;
 
     TpTime mousePressTime_;
 

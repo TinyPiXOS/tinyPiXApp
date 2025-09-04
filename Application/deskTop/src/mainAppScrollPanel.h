@@ -17,7 +17,7 @@ public:
     void setPage(const uint32_t &page);
 
     // APP移动时，绘制原本位置的圆角框
-    void setMoveAppRect(const ItpRect &rect, const int32_t &round);
+    void setMoveAppRect(const TpRect &rect, const int32_t &round);
 
 public
 signals:
@@ -42,12 +42,12 @@ private:
     bool mouseLeftPress_;
 
     // 鼠标点击坐标
-    ItpPoint originPressPoint_;
+    TpPoint originPressPoint_;
     // 鼠标点击时的偏移量
     int32_t originPressPos_;
 
     // 滑动翻页时缓存坐标
-    ItpPoint updatePoint_;
+    TpPoint updatePoint_;
 
     // 最大页数
     uint32_t maxPageCount_;

@@ -54,8 +54,8 @@ bool navigationBar::onMousePressEvent(TpMouseEvent *event)
 bool navigationBar::onMouseRleaseEvent(TpMouseEvent *event)
 {
     std::cout << "navigationBar::onMouseRleaseEvent " << std::endl;
-    ItpPoint curPos = event->globalPos();
-    if (std::abs(curPos.x - mousePressPoint_.x) < 5 && std::abs(curPos.y - mousePressPoint_.y) < 5)
+    TpPoint curPos = event->globalPos();
+    if (std::abs(curPos.x() - mousePressPoint_.x()) < 5 && std::abs(curPos.y() - mousePressPoint_.y()) < 5)
     {
         TpTime curTime = TpTime::currentTime();
         int64_t animationTimeInterval = lastAnimationTime_.msecsTo(curTime);
@@ -70,7 +70,7 @@ bool navigationBar::onMouseRleaseEvent(TpMouseEvent *event)
 
             TpAnimation *moveAnimation = new TpAnimation(lineLabel_, TpAnimation::Pos);
             moveAnimation->setStartValue(lineLabel_->pos());
-            moveAnimation->setKeyValueAt(0.5, ItpPoint(0, 0));
+            moveAnimation->setKeyValueAt(0.5, TpPoint(0, 0));
             moveAnimation->setEndValue(lineLabel_->pos());
             moveAnimation->setDuration(500);
             moveAnimation->start();
@@ -81,14 +81,14 @@ bool navigationBar::onMouseRleaseEvent(TpMouseEvent *event)
         TpTime mouseReleaseTime = TpTime::currentTime();
         int32_t msTime = mousePressTime_.msecsTo(mouseReleaseTime);
 
-        int32_t offsetY = mousePressPoint_.y - curPos.y;
+        int32_t offsetY = mousePressPoint_.y() - curPos.y();
 
         // std::cout << "Press Hour minut " << mousePressTime_.hour() << "  " << mousePressTime_.minute() << "  " << mousePressTime_.second() << "  " << mousePressTime_.msec() << std::endl;
         // std::cout << "mouseReleaseTime Hour " << mouseReleaseTime.hour() << "  " << mouseReleaseTime.minute() << "  " << mouseReleaseTime.second() << "  " << mouseReleaseTime.msec() << std::endl;
         // std::cout << "msTime " << msTime << std::endl;
 
-        // std::cout << "Press Y : " << mousePressPoint_.y << std::endl;
-        // std::cout << "Motion Y : " << curPos.y << std::endl;
+        // std::cout << "Press Y : " << mousePressPoint_.y() << std::endl;
+        // std::cout << "Motion Y : " << curPos.y() << std::endl;
         // std::cout << "offsetY : " << offsetY << std::endl;
 
         if (offsetY > 4)

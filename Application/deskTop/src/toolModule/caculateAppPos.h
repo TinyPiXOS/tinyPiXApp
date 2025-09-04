@@ -24,7 +24,7 @@ public:
     void setColumnX(const TpVector<int32_t>& xList);
 
     // 根据拖拽按钮坐标，计算是否偏移所有其他按钮腾出位置
-    void moveBtn(const ItpPoint& curPoint);
+    void moveBtn(const TpPoint& curPoint);
 
     // 鼠标释放按钮，自动吸附至最近的网格
     void releaseBtn();

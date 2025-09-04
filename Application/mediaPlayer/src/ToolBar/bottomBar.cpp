@@ -134,9 +134,9 @@ void bottomBar::init()
     speedBtn_->setText("1X");
     connect(speedBtn_, onClicked, [=](bool)
             {
-        ItpRect btnGlobalRect = speedBtn_->toScreen();
-        int32_t menuX = btnGlobalRect.x + btnGlobalRect.w- speedMenu_->width() ;
-        int32_t menuY = btnGlobalRect.y - 7 - speedMenu_->height();
+        TpRect btnGlobalRect = speedBtn_->toScreen();
+        int32_t menuX = btnGlobalRect.x() + btnGlobalRect.width()- speedMenu_->width() ;
+        int32_t menuY = btnGlobalRect.y() - 7 - speedMenu_->height();
 
         std::cout << "menuX  " << menuX << " menuY " << menuY <<std::endl;
         speedMenu_->exec(menuX, menuY); });

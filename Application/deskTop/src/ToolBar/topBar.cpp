@@ -111,7 +111,7 @@ bool topBar::onResizeEvent(TpObjectResizeEvent *event)
 
 bool topBar::onMousePressEvent(TpMouseEvent *event)
 {
-    std::cout << "TopBar Press Pos ()" << event->globalPos().x << " , " << event->globalPos().y << std::endl;
+    std::cout << "TopBar Press Pos ()" << event->globalPos().x() << " , " << event->globalPos().y() << std::endl;
 
     return true;
 }
@@ -141,22 +141,22 @@ bool topBar::onLeaveEvent(TpObjectLeaveEvent *event)
 
 void topBar::caculateTopAppPos()
 {
-    ItpRect topBarRect = rect();
+    TpRect topBarRect = rect();
 
     // std::cout << " topBarRect.h : " << topBarRect.h << " statusBtnInterval : " << statusBtnInterval << " statusBtnWh : " << std::endl;
     // std::cout << " statusBtnWh :" << statusBtnWh << std::endl;
 
     // 添加系统时间和系统日期
-    sysTimeLabel_->move(TpDisplay::dp2Px(16), (topBarRect.h - sysTimeLabel_->height()) / 2.0);
+    sysTimeLabel_->move(TpDisplay::dp2Px(16), (topBarRect.height() - sysTimeLabel_->height()) / 2.0);
 
-    uint32_t sysDateXPos = sysTimeLabel_->rect().x + sysTimeLabel_->width() + TpDisplay::dp2Px(12);
-    sysDateLabel_->move(sysDateXPos, (topBarRect.h - sysDateLabel_->height()) / 2.0);
+    uint32_t sysDateXPos = sysTimeLabel_->rect().x() + sysTimeLabel_->width() + TpDisplay::dp2Px(12);
+    sysDateLabel_->move(sysDateXPos, (topBarRect.height() - sysDateLabel_->height()) / 2.0);
 
-    elecBattery_->move(width() - elecBattery_->width() - TpDisplay::dp2Px(16), (topBarRect.h - elecBattery_->height()) / 2.0);
+    elecBattery_->move(width() - elecBattery_->width() - TpDisplay::dp2Px(16), (topBarRect.height() - elecBattery_->height()) / 2.0);
 
-    wifiLabel_->move(elecBattery_->pos().x - wifiLabel_->width() - TpDisplay::dp2Px(5), (topBarRect.h - wifiLabel_->height()) / 2.0);
+    wifiLabel_->move(elecBattery_->pos().x() - wifiLabel_->width() - TpDisplay::dp2Px(5), (topBarRect.height() - wifiLabel_->height()) / 2.0);
 
-    blueToothLabel_->move(wifiLabel_->pos().x - blueToothLabel_->width() - TpDisplay::dp2Px(5), (topBarRect.h - blueToothLabel_->height()) / 2.0);
+    blueToothLabel_->move(wifiLabel_->pos().x() - blueToothLabel_->width() - TpDisplay::dp2Px(5), (topBarRect.height() - blueToothLabel_->height()) / 2.0);
 }
 
 void topBar::slotUpdateSystemTime()

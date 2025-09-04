@@ -39,36 +39,36 @@ void sysLockWindow::setVisible(bool visible)
     TpDialog::setVisible(visible);
 }
 
-void sysLockWindow::resizeLockWindow(const ItpRect &mainWindowRect)
+void sysLockWindow::resizeLockWindow(const TpRect &mainWindowRect)
 {
-    this->setRect(0, 0, mainWindowRect.w, mainWindowRect.h);
+    this->setRect(0, 0, mainWindowRect.width(), mainWindowRect.height());
 
 #if 1 // 壁纸界面组件
     TpFont *dateTimeFont = systemDateTimeLabel_->font();
-    systemDateTimeLabel_->setRect((mainWindowRect.w - dateTimeFont->pixelWidth()) / 2.0, mainWindowRect.h * 0.3, dateTimeFont->pixelWidth() + 10, dateTimeFont->pixelHeight());
+    systemDateTimeLabel_->setRect((mainWindowRect.width() - dateTimeFont->pixelWidth()) / 2.0, mainWindowRect.height() * 0.3, dateTimeFont->pixelWidth() + 10, dateTimeFont->pixelHeight());
 
-    unlockDirectLabel_->setRect((mainWindowRect.w - 60) / 2.0, mainWindowRect.h * 0.6, 60, 60);
+    unlockDirectLabel_->setRect((mainWindowRect.width() - 60) / 2.0, mainWindowRect.height() * 0.6, 60, 60);
 
     TpFont *promptFont = unlockPromptLabel_->font();
-    unlockPromptLabel_->setRect((mainWindowRect.w - promptFont->pixelWidth()) / 2.0, mainWindowRect.h * 0.75, promptFont->pixelWidth() + 5, promptFont->pixelHeight());
+    unlockPromptLabel_->setRect((mainWindowRect.width()- promptFont->pixelWidth()) / 2.0, mainWindowRect.height() * 0.75, promptFont->pixelWidth() + 5, promptFont->pixelHeight());
 
 #endif
 
 #if 1 // 登陆界面组件
     TpFont *systemNameFont = systemNameLabel_->font();
-    systemNameLabel_->setRect((mainWindowRect.w - systemNameFont->pixelWidth()) / 2.0, mainWindowRect.h * 0.2, systemNameFont->pixelWidth() + 5, systemNameFont->pixelHeight());
+    systemNameLabel_->setRect((mainWindowRect.width() - systemNameFont->pixelWidth()) / 2.0, mainWindowRect.height() * 0.2, systemNameFont->pixelWidth() + 5, systemNameFont->pixelHeight());
 
     TpFont *welcomeFont = welcomeLabel_->font();
-    welcomeLabel_->setRect((mainWindowRect.w - welcomeFont->pixelWidth()) / 2.0, mainWindowRect.h * 0.35, welcomeFont->pixelWidth() + 5, welcomeFont->pixelHeight());
+    welcomeLabel_->setRect((mainWindowRect.width() - welcomeFont->pixelWidth()) / 2.0, mainWindowRect.height() * 0.35, welcomeFont->pixelWidth() + 5, welcomeFont->pixelHeight());
 
-    userIconLabel_->setRect((mainWindowRect.w - 60) / 2.0, mainWindowRect.h * 0.5, 60, 60);
+    userIconLabel_->setRect((mainWindowRect.width() - 60) / 2.0, mainWindowRect.height() * 0.5, 60, 60);
 
     //
     uint32_t pwdLoginInterval = 30;
-    uint32_t editWidth = mainWindowRect.w * 0.3;
-    pwdEdit_->setRect((mainWindowRect.w - editWidth - pwdLoginInterval - 60) / 2.0, mainWindowRect.h * 0.65, editWidth, 50);
+    uint32_t editWidth = mainWindowRect.width() * 0.3;
+    pwdEdit_->setRect((mainWindowRect.width() - editWidth - pwdLoginInterval - 60) / 2.0, mainWindowRect.height() * 0.65, editWidth, 50);
 
-    loginBtn_->setRect(pwdEdit_->rect().x + editWidth + pwdLoginInterval, mainWindowRect.h * 0.65, 50, 50);
+    loginBtn_->setRect(pwdEdit_->rect().x() + editWidth + pwdLoginInterval, mainWindowRect.height() * 0.65, 50, 50);
 #endif
 }
 
@@ -93,9 +93,9 @@ bool sysLockWindow::onMouseMoveEvent(TpMouseEvent *event)
 {
     if (mouseLeftPress_)
     {
-        ItpPoint curMousePos = event->globalPos();
+        TpPoint curMousePos = event->globalPos();
 
-        if ((curMousePos.y - pressPoint_.y) <= -5)
+        if ((curMousePos.y() - pressPoint_.y()) <= -5)
         {
             // 触发一次上拉事件后，不再重复触发
             mouseLeftPress_ = false;

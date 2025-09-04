@@ -19,14 +19,14 @@ public:
     /// @brief 设置APP的区域，坐标为相对于屏幕左上角的XY坐标
     /// @param rect 坐标区域
     /// @param roundCorners 圆角值
-    void setAppRect(const ItpRect &rect, const uint32_t& roundCorners);
+    void setAppRect(const TpRect &rect, const uint32_t& roundCorners);
 
 protected:
 	virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
     virtual bool onPaintEvent(TpObjectPaintEvent *event) override;
 
 private:
-    ItpRect appRect_;
+    TpRect appRect_;
     uint32_t roundCorners_;
 };
 

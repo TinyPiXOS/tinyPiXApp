@@ -58,7 +58,7 @@ private:
 
 private:
     bool mouseLeftPress_;
-    ItpPoint pressPoint_;
+    TpPoint pressPoint_;
 
     // 日期lable
     TpLabel *dateTimeLabel_;

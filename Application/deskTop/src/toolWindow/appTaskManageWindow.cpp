@@ -1,7 +1,6 @@
 #include "appTaskManageWindow.h"
 #include "TpImage.h"
 #include "deskTopGlobal.hpp"
-#include "base/cacheex.h"
 
 #ifndef TASK_MANAGER_COLOR
 #define TASK_MANAGER_COLOR _RGBA(255, 255, 255, 210)
@@ -160,8 +159,8 @@ bool appTaskManageWindow::onMousePressEvent(TpMouseEvent *event)
 
 bool appTaskManageWindow::onMouseRleaseEvent(TpMouseEvent *event)
 {
-    ItpPoint curPoint = event->globalPos();
-    if (std::abs(curPoint.x - mousePressPoint_.x) < 5 && std::abs(curPoint.y - mousePressPoint_.y) < 5)
+    TpPoint curPoint = event->globalPos();
+    if (std::abs(curPoint.x() - mousePressPoint_.x()) < 5 && std::abs(curPoint.y() - mousePressPoint_.y()) < 5)
     {
         setVisible(false);
         update();

@@ -55,7 +55,7 @@ void pressPopWindow::init()
     moreSelectBtn_->setText("更多");
     moreSelectBtn_->setIcon(applicationDirPath() + "/../res/更多.png");
     connect(moreSelectBtn_, onClicked, [=](bool)
-            { moreConfigMenu_->exec(moreSelectBtn_->toScreen().x, moreSelectBtn_->toScreen().y); });
+            { moreConfigMenu_->exec(moreSelectBtn_->toScreen().x(), moreSelectBtn_->toScreen().y()); });
 
     buttonList_.emplace_back(delSelectBtn_);
     buttonList_.emplace_back(moveSelectBtn_);

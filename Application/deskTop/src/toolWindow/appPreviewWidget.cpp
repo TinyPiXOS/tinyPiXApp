@@ -107,8 +107,8 @@ bool appPreviewWidget::onMousePressEvent(TpMouseEvent *event)
 bool appPreviewWidget::onMouseRleaseEvent(TpMouseEvent *event)
 {
     // 鼠标如果按下过程中拖动，则不触发打开事件
-    ItpPoint curPoint = event->globalPos();
-    if (std::abs(curPoint.x - mousePressPoint_.x) < 5 && std::abs(curPoint.y - mousePressPoint_.y) < 5)
+    TpPoint curPoint = event->globalPos();
+    if (std::abs(curPoint.x() - mousePressPoint_.x()) < 5 && std::abs(curPoint.y() - mousePressPoint_.y()) < 5)
     {
         signalOpenApp.emit(pid_);
     }

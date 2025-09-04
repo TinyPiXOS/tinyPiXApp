@@ -141,7 +141,7 @@ private:
 	TpList<ApplicationInfoSPtr> bottomBarAppList_;
 
 	// 鼠标点击topBar坐标
-	ItpPoint pressTopBarPoint_;
+	TpPoint pressTopBarPoint_;
 	bool pressTopBar_ = false;
 
 	// 应用长按操作菜单
@@ -150,7 +150,7 @@ private:
 	appOperateMaskWindow *maskWindow_;
 	// 鼠标按下时的APP对象，鼠标释放时置空
 	desktopAppButton *pressAppBtn_;
-	ItpRect pressBtnRect_;
+	TpRect pressBtnRect_;
 
 	// 当前正在安装的APP
 	desktopAppButton *installingApp_;

@@ -104,7 +104,7 @@ void browseWindow::setVisible(bool visible)
         deviceListLayout->insertWidget((insertIndex > 2) ? insertIndex - 2 : insertIndex, testDevice);
 
         // std::cout << "scrollWidget ... " << deviceListLayout->minumumSize().h << std::endl;
-        scrollWidget->setMinumumHeight(deviceListLayout->minumumSize().h);
+        scrollWidget->setMinumumHeight(deviceListLayout->minumumSize().height());
     }
 }
 
@@ -116,8 +116,8 @@ bool browseWindow::onPaintEvent(TpObjectPaintEvent *event)
     TpCanvas *paintCanvas = event->canvas();
 
     // paintCanvas->box(mainScrollPanel_->width(), 0, mainScrollPanel_->width(), height(), _RGB(255, 255, 255));
-    paintCanvas->box(0, 0, fileListWindow_->pos().x, height(), _RGB(248, 248, 248));
-    // paintCanvas->box(0, 0, fileListWindow_->pos().x, height(), _RGB(0, 0, 248));
+    paintCanvas->box(0, 0, fileListWindow_->pos().x(), height(), _RGB(248, 248, 248));
+    // paintCanvas->box(0, 0, fileListWindow_->pos().x()(), height(), _RGB(0, 0, 248));
 
     // 绘制分割线
     // paintCanvas->vline(mainScrollPanel_->width(), 0, height(), _RGB(190, 196, 202));

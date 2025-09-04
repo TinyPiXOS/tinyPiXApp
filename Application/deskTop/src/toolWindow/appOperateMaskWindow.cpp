@@ -12,7 +12,7 @@ appOperateMaskWindow::~appOperateMaskWindow()
 {
 }
 
-void appOperateMaskWindow::setAppRect(const ItpRect &rect, const uint32_t &roundCorners)
+void appOperateMaskWindow::setAppRect(const TpRect &rect, const uint32_t &roundCorners)
 {
     appRect_ = rect;
     roundCorners_ = roundCorners;

@@ -49,7 +49,7 @@ private:
 private:
     TpScrollPanel *taskScrollPanel_;
 
-    ItpPoint mousePressPoint_;
+    TpPoint mousePressPoint_;
     
     uint32_t taskHeight_;
     uint32_t taskWidth_;

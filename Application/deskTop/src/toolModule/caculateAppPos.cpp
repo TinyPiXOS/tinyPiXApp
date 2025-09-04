@@ -23,7 +23,7 @@ void caculateAppPos::setColumnX(const TpVector<int32_t> &xList)
 {
 }
 
-void caculateAppPos::moveBtn(const ItpPoint &curPoint)
+void caculateAppPos::moveBtn(const TpPoint &curPoint)
 {
 }
 

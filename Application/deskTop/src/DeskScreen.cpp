@@ -82,16 +82,16 @@ void DeskScreen::construct()
     // 计算可显示APP的行列数
     // APP显示区域的宽度
     // APP显示区域是沾满了整个窗口的，要偏移预留空间，让APP图标显示在中间区域，与下部Bar对齐
-    uint32_t mainAppPanelWidth = mainAppPanel_->rect().w;
-    uint32_t mainAppPanelHeight = mainAppPanel_->rect().h;
+    uint32_t mainAppPanelWidth = mainAppPanel_->rect().width();
+    uint32_t mainAppPanelHeight = mainAppPanel_->rect().height();
     uint32_t panelHMargin = (mainAppPanelWidth - BOTTOM_BAR_WIDTH) / 2.0;
 
     desktopAppButton *testBtn = new desktopAppButton();
     testBtn->font()->setFontSize(APP_FONT_SIZE);
     testBtn->setIconSize(APP_WIDTH_HEIGHT, APP_WIDTH_HEIGHT);
 
-    int32_t btnWidth = testBtn->rect().w;
-    int32_t btnHeight = testBtn->rect().h;
+    int32_t btnWidth = testBtn->rect().width();
+    int32_t btnHeight = testBtn->rect().height();
 
     globalAppHInterval = globalMainScreen_->screenWidth() * 0.06666;
 
@@ -205,7 +205,7 @@ bool DeskScreen::onActiveEvent(TpObjectActiveEvent *event)
 bool DeskScreen::onMousePressEvent(TpMouseEvent *event)
 {
     // 记录鼠标点击坐标
-    uint32_t pressY = event->globalPos().y;
+    uint32_t pressY = event->globalPos().y();
 
     // std::cout << "pressY " << pressY << std::endl;
     // std::cout << "TOP_BAR_HEIGHT " << TOP_BAR_HEIGHT << std::endl;
@@ -232,9 +232,9 @@ bool DeskScreen::onMouseMoveEvent(TpMouseEvent *event)
 {
     if (pressTopBar_)
     {
-        ItpPoint curMousePos = event->globalPos();
+        TpPoint curMousePos = event->globalPos();
 
-        if ((curMousePos.y - pressTopBarPoint_.y) >= 2)
+        if ((curMousePos.y() - pressTopBarPoint_.y()) >= 2)
         {
             // 触发一次下拉事件后，不再重复触发
             pressTopBar_ = false;
@@ -251,22 +251,22 @@ bool DeskScreen::onMouseMoveEvent(TpMouseEvent *event)
 #if 0 // 暂时屏蔽长按移动图标功能
 	if (isMoveMode_ && pressAppBtn_)
 	{
-		ItpPoint curGlobalPoint = event->globalPos();
-		// ItpPoint curPoint = event->globalPos();
+		TpPoint curGlobalPoint = event->globalPos();
+		// TpPoint curPoint = event->globalPos();
 
-		// std::cout << "GlobalPos : " << curGlobalPoint.x << "  " << curGlobalPoint.y << std::endl;
-		// std::cout << "curPoint : " << curPoint.x << "  " << curPoint.y << std::endl;
-		// std::cout << "mainAppPanel_ Pos : " << mainAppPanel_->pos().x << "  " << mainAppPanel_->pos().y << std::endl;
+		// std::cout << "GlobalPos : " << curGlobalPoint.x() << "  " << curGlobalPoint.y() << std::endl;
+		// std::cout << "curPoint : " << curPoint.x() << "  " << curPoint.y() << std::endl;
+		// std::cout << "mainAppPanel_ Pos : " << mainAppPanel_->pos().x()() << "  " << mainAppPanel_->pos().y()() << std::endl;
 
 		if (operateMenu_->visible())
 			operateMenu_->close();
 		if (maskWindow_->visible())
 			maskWindow_->close();
 
-		ItpSize iconSize = pressAppBtn_->iconSize();
-		pressAppBtn_->move(curGlobalPoint.x - mainAppPanel_->pos().x - iconSize.w / 2.0, curGlobalPoint.y - mainAppPanel_->pos().y - iconSize.h / 2.0);
+		TpSize iconSize = pressAppBtn_->iconSize();
+		pressAppBtn_->move(curGlobalPoint.x() - mainAppPanel_->pos().x()() - iconSize.w / 2.0, curGlobalPoint.y() - mainAppPanel_->pos().y()() - iconSize.h / 2.0);
 		mainAppPanel_->update();
-		// pressAppBtn_->move(curGlobalPoint.x, curGlobalPoint.y);
+		// pressAppBtn_->move(curGlobalPoint.x(), curGlobalPoint.y());
 	}
 #endif
 
@@ -343,9 +343,8 @@ void DeskScreen::slotOperateApp(desktopAppButton *operateBtn)
 {
     if (operateBtn)
     {
-        ItpRect btnRect = operateBtn->toScreen();
-        btnRect.w = operateBtn->iconSize().w;
-        btnRect.h = operateBtn->iconSize().h;
+        TpRect btnRect = operateBtn->toScreen();
+        btnRect.setSize(TpSize(operateBtn->iconSize().width(), operateBtn->iconSize().height()));
 
         // 绘制全局遮罩层，只留长按的按钮显示
         maskWindow_->setAppRect(btnRect, operateBtn->roundCorners());
@@ -353,7 +352,7 @@ void DeskScreen::slotOperateApp(desktopAppButton *operateBtn)
 
         // uint32_t delIndex = operateMenu_->addItem("卸载", applicationDirPath() + "/../res/删除.png");
 
-        operateMenu_->exec(btnRect.x, btnRect.y - TpDisplay::dp2Px(11) - operateMenu_->height());
+        operateMenu_->exec(btnRect.x(), btnRect.y() - TpDisplay::dp2Px(11) - operateMenu_->height());
     }
     else
     {
@@ -701,8 +700,8 @@ void DeskScreen::createAppBtn()
     TpString appFileDirPath = appConfigPathStr_ + APP_FILES_SON_PATH;
 
     // APP显示区域的宽度
-    uint32_t mainAppPanelWidth = mainAppPanel_->rect().w;
-    uint32_t mainAppPanelHeight = mainAppPanel_->rect().h;
+    uint32_t mainAppPanelWidth = mainAppPanel_->rect().width();
+    uint32_t mainAppPanelHeight = mainAppPanel_->rect().height();
 
     // APP显示区域是沾满了整个窗口的，要偏移预留空间，让APP图标显示在中间区域，与下部Bar对齐
     uint32_t panelHMargin = (mainAppPanelWidth - BOTTOM_BAR_WIDTH) / 2.0;
@@ -737,7 +736,7 @@ void DeskScreen::createAppBtn()
 
         for (int row = 0; row < globalAppMaxRow; ++row)
         {
-            uint32_t appY = row * (APP_V_INTERVAL + finalBtn->rect().h);
+            uint32_t appY = row * (APP_V_INTERVAL + finalBtn->rect().height());
             rowYList.emplace_back(appY);
 
             if (row == 0)
@@ -745,7 +744,7 @@ void DeskScreen::createAppBtn()
                 for (int column = 0; column < globalAppMaxColumn; ++column)
                 {
                     // pageNum * mainAppPanelWidth + appX
-                    uint32_t appX = panelHMargin + (column % globalAppMaxColumn) * (globalAppHInterval + finalBtn->rect().w);
+                    uint32_t appX = panelHMargin + (column % globalAppMaxColumn) * (globalAppHInterval + finalBtn->rect().width());
                     columnXList.emplace_back(appX);
                 }
             }
@@ -783,7 +782,7 @@ void DeskScreen::refreshMainAppPanel()
     // 减去距离上部Bar和下部bar的距离，在减去bottomBar距离边界距离
     uint32_t mainAppPanelHeight = height() - tHeight - bottomBarHeight - TpDisplay::dp2Px(20) * 2 - TpDisplay::dp2Px(19);
 
-    mainAppPanel_->setWidth(rect().w);
+    mainAppPanel_->setWidth(rect().width());
     mainAppPanel_->setHeight(mainAppPanelHeight);
     mainAppPanel_->move(0, MAIN_PANEL_TOP_DISTANCE + tHeight);
 
@@ -795,7 +794,7 @@ void DeskScreen::refreshMainAppPanel()
     mainAppPanel_->update();
 
     uint32_t carouselButtonX = (width() - carouselButton_->width()) / 2.0;
-    uint32_t carouselButtonY = mainAppPanel_->pos().y + mainAppPanel_->height() - carouselButton_->height();
+    uint32_t carouselButtonY = mainAppPanel_->pos().y() + mainAppPanel_->height() - carouselButton_->height();
 
     // std::cout << "carouselButtonX " << carouselButtonX << "  carouselButtonY" << carouselButtonY << std::endl;
     // std::cout << "carouselButtonW " << carouselButton_->width() << "  carouselButtonH" << carouselButton_->height() << std::endl;
@@ -832,8 +831,8 @@ desktopAppButton *DeskScreen::createDeskAppBtn(ApplicationInfoSPtr appInfo, cons
         return nullptr;
 
     // APP显示区域的宽度
-    uint32_t mainAppPanelWidth = mainAppPanel_->rect().w;
-    uint32_t mainAppPanelHeight = mainAppPanel_->rect().h;
+    uint32_t mainAppPanelWidth = mainAppPanel_->rect().width();
+    uint32_t mainAppPanelHeight = mainAppPanel_->rect().height();
 
     // APP显示区域是沾满了整个窗口的，要偏移预留空间，让APP图标显示在中间区域，与下部Bar对齐
     uint32_t panelHMargin = (mainAppPanelWidth - BOTTOM_BAR_WIDTH) / 2.0;
@@ -841,12 +840,12 @@ desktopAppButton *DeskScreen::createDeskAppBtn(ApplicationInfoSPtr appInfo, cons
     uint32_t appIndex = appInfo->index;
     uint32_t appPage = appInfo->page;
 
-    ItpRect iconButtonRect = appBtn->rect();
+    TpRect iconButtonRect = appBtn->rect();
 
     uint32_t curAppRow = (appIndex / globalAppMaxColumn);
 
-    uint32_t appX = appPage * mainAppPanelWidth + panelHMargin + (appIndex % globalAppMaxColumn) * (globalAppHInterval + iconButtonRect.w);
-    uint32_t appY = curAppRow * (APP_V_INTERVAL + iconButtonRect.h);
+    uint32_t appX = appPage * mainAppPanelWidth + panelHMargin + (appIndex % globalAppMaxColumn) * (globalAppHInterval + iconButtonRect.width());
+    uint32_t appY = curAppRow * (APP_V_INTERVAL + iconButtonRect.height());
 
     appBtn->move(appX, appY);
 

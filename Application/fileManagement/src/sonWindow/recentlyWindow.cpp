@@ -53,9 +53,9 @@ bool recentlyWindow::eventFilter(TpObject *watched, TpEvent *event)
 
 void recentlyWindow::SlotLongPressItem(TpCollapsibleFileWidget *fileWidget)
 {
-    ItpSize popMenuSize = pressPopMenu_->screenSize();
+    TpSize popMenuSize = pressPopMenu_->screenSize();
 
-    pressPopMenu_->setRect(0, popMenuSize.h - 75, popMenuSize.w, 75);
+    pressPopMenu_->setRect(0, popMenuSize.height() - 75, popMenuSize.width(), 75);
 
     pressPopMenu_->setVisible(true);
 

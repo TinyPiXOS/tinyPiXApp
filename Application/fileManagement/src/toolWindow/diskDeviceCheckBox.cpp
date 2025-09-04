@@ -69,12 +69,12 @@ bool diskDeviceCheckBox::onPaintEvent(TpObjectPaintEvent *event)
     // TpCanvas *paintCanvas = event->canvas();
 
     // 在name和space中间画一个竖线
-    // std::cout << "spaceLabel_->pos().x " << spaceLabel_->pos().x << std::endl;
-    // std::cout << "deviceNameLabel_->pos().x " << deviceNameLabel_->pos().x << std::endl;
+    // std::cout << "spaceLabel_->pos().x()() " << spaceLabel_->pos().x()() << std::endl;
+    // std::cout << "deviceNameLabel_->pos().x()() " << deviceNameLabel_->pos().x()() << std::endl;
     // std::cout << "deviceNameLabel_->width() " << deviceNameLabel_->width() << std::endl;
 
     // uint32_t deviceNameWidth = deviceNameLabel_->width() > deviceNameLabel_->font()->pixelWidth() ? deviceNameLabel_->font()->pixelWidth() : deviceNameLabel_->width();
-    // uint32_t lineX = deviceNameLabel_->pos().x + deviceNameWidth + (spaceLabel_->pos().x - (deviceNameLabel_->pos().x + deviceNameWidth)) / 2.0;
+    // uint32_t lineX = deviceNameLabel_->pos().x()() + deviceNameWidth + (spaceLabel_->pos().x()() - (deviceNameLabel_->pos().x()() + deviceNameWidth)) / 2.0;
     // paintCanvas->vline(lineX, 25, height() - 25, _RGB(190, 196, 202), 2);
 
     return true;

@@ -125,7 +125,7 @@ void mainWindowService::slotPathChanged(const TpString &path)
 
 void mainWindowService::caculateRect()
 {
-    ItpRect mainWindowRect = rect();
+    TpRect mainWindowRect = rect();
 
     // bottomMenu_->move(0, height() - bottomMenu_->height());
 

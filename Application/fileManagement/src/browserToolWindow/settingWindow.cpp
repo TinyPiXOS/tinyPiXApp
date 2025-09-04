@@ -43,7 +43,7 @@ bool settingWindow::onMouseRleaseEvent(TpMouseEvent *event)
 {
     TpDialog::onMouseRleaseEvent(event);
 
-    if (!mainScrollPanel_->toScreen().contains(event->globalPos().x, event->globalPos().y))
+    if (!mainScrollPanel_->toScreen().contains(event->globalPos().x(), event->globalPos().y()))
     {
         setVisible(false);
         // update();

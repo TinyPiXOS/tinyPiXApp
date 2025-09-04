@@ -142,9 +142,9 @@ bool appSettingBar::onMouseMoveEvent(TpMouseEvent *event)
 
     if (mouseLeftPress_)
     {
-        ItpPoint curMousePos = event->globalPos();
+        TpPoint curMousePos = event->globalPos();
 
-        if ((curMousePos.y - pressPoint_.y) <= -5)
+        if ((curMousePos.y() - pressPoint_.y()) <= -5)
         {
             // 触发一次上拉事件后，不再重复触发
             mouseLeftPress_ = false;
@@ -216,13 +216,13 @@ void appSettingBar::slotChangelight(int32_t value)
 
 void appSettingBar::resizeOperatorBtn()
 {
-    ItpRect settingBarRect = this->rect();
-    uint32_t panelHMargin = (settingBarRect.w - BOTTOM_BAR_WIDTH) / 2.0;
+    TpRect settingBarRect = this->rect();
+    uint32_t panelHMargin = (settingBarRect.width() - BOTTOM_BAR_WIDTH) / 2.0;
 
     uint32_t firstRowY = MAIN_PANEL_TOP_DISTANCE + TOP_BAR_HEIGHT;
     dateTimeLabel_->move(panelHMargin, firstRowY);
 
-    powerOffBtn_->move(settingBarRect.w - panelHMargin - powerOffBtn_->width(), firstRowY);
+    powerOffBtn_->move(settingBarRect.width() - panelHMargin - powerOffBtn_->width(), firstRowY);
 
     uint32_t secondRowY = firstRowY + dateTimeLabel_->height() + globalMainScreen_->screenHeight() * 0.0305;
     lightProgessBar_->move(panelHMargin, secondRowY);
@@ -231,11 +231,11 @@ void appSettingBar::resizeOperatorBtn()
     // std::cout << "lightProgessBar_->width " << lightProgessBar_->width() << " " << lightProgessBar_->height();
     // 按钮宽度161
 
-    sysLockBtn_->move(rect().w - panelHMargin - sysLockBtn_->width(), secondRowY);
+    sysLockBtn_->move(rect().width() - panelHMargin - sysLockBtn_->width(), secondRowY);
 
-    bluetoothBtn_->move(sysLockBtn_->pos().x - bluetoothBtn_->width() - globalMainScreen_->screenHeight() * 0.03472, secondRowY);
+    bluetoothBtn_->move(sysLockBtn_->pos().x() - bluetoothBtn_->width() - globalMainScreen_->screenHeight() * 0.03472, secondRowY);
 
-    wifiBtn_->move(bluetoothBtn_->pos().x - wifiBtn_->width() - globalMainScreen_->screenHeight() * 0.03472, secondRowY);
+    wifiBtn_->move(bluetoothBtn_->pos().x() - wifiBtn_->width() - globalMainScreen_->screenHeight() * 0.03472, secondRowY);
 }
 
 void appSettingBar::slotPowerOff(bool checked)

@@ -71,7 +71,7 @@ private:
     int32_t pid_;
     int32_t winId_;
 
-    ItpPoint mousePressPoint_;
+    TpPoint mousePressPoint_;
 };
 
 #endif
