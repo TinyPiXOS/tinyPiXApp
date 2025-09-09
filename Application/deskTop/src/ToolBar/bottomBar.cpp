@@ -63,12 +63,12 @@ void bottomBar::removeApp(desktopAppButton *removeBtn)
     }
 }
 
-bool bottomBar::onResizeEvent(TpObjectResizeEvent *event)
+bool bottomBar::onResizeEvent(TpResizeEvent *event)
 {
     return true;
 }
 
-bool bottomBar::onMoveEvent(TpObjectMoveEvent *event)
+bool bottomBar::onMoveEvent(TpMoveEvent *event)
 {
     caculateBottomAppPos();
 

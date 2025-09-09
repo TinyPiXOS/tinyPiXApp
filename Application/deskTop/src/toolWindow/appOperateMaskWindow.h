@@ -23,7 +23,7 @@ public:
 
 protected:
 	virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
-    virtual bool onPaintEvent(TpObjectPaintEvent *event) override;
+    virtual bool onPaintEvent(TpPaintEvent *event) override;
 
 private:
     TpRect appRect_;

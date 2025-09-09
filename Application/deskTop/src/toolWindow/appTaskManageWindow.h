@@ -32,9 +32,9 @@ protected:
 
     virtual bool onMouseMoveEvent(TpMouseEvent *event) override;
 
-    virtual bool onResizeEvent(TpObjectResizeEvent *event) override;
+    virtual bool onResizeEvent(TpResizeEvent *event) override;
 
-    virtual bool onLeaveEvent(TpObjectLeaveEvent *event) override;
+    virtual bool onLeaveEvent(TpLeaveEvent *event) override;
 
 private:
     // 清理所有应用

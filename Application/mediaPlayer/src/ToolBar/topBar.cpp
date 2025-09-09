@@ -38,7 +38,7 @@ void topBar::setBackBtnVisible(const bool &visible)
     closeMediaBtn_->setVisible(visible);
 }
 
-bool topBar::onResizeEvent(TpObjectResizeEvent *event)
+bool topBar::onResizeEvent(TpResizeEvent *event)
 {
     TpDialog::onResizeEvent(event);
 

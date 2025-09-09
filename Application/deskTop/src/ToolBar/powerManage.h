@@ -16,7 +16,7 @@ protected:
     virtual bool onMousePressEvent(TpMouseEvent *event) override;
     virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
 
-    virtual bool onResizeEvent(TpObjectResizeEvent *event) override;
+    virtual bool onResizeEvent(TpResizeEvent *event) override;
 
 private:
     // void slotPowerOff(bool checked);

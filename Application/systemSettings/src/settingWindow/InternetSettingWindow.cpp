@@ -31,7 +31,7 @@ void InternetSettingWindow::refreshData()
     }
 }
 
-bool InternetSettingWindow::onResizeEvent(TpObjectResizeEvent *event)
+bool InternetSettingWindow::onResizeEvent(TpResizeEvent *event)
 {
     return true;
 }

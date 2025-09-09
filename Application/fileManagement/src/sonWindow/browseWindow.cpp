@@ -108,7 +108,7 @@ void browseWindow::setVisible(bool visible)
     }
 }
 
-bool browseWindow::onPaintEvent(TpObjectPaintEvent *event)
+bool browseWindow::onPaintEvent(TpPaintEvent *event)
 {
     TpChildWidget::onPaintEvent(event);
 

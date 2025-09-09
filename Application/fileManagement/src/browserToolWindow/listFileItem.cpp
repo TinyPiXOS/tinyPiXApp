@@ -163,7 +163,7 @@ bool listFileItem::onMouseRleaseEvent(TpMouseEvent *event)
     return true;
 }
 
-bool listFileItem::onResizeEvent(TpObjectResizeEvent *event)
+bool listFileItem::onResizeEvent(TpResizeEvent *event)
 {
     TpChildWidget::onResizeEvent(event);
 

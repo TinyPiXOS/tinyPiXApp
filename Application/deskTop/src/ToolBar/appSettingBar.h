@@ -33,9 +33,9 @@ protected:
 
     virtual bool onMouseMoveEvent(TpMouseEvent *event) override;
 
-    // virtual bool onLeaveEvent(TpObjectLeaveEvent *event) override;
+    // virtual bool onLeaveEvent(TpLeaveEvent *event) override;
 
-    virtual bool onResizeEvent(TpObjectResizeEvent *event) override;
+    virtual bool onResizeEvent(TpResizeEvent *event) override;
 
 private:
     // 点击切换蓝牙状态按钮

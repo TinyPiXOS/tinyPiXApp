@@ -158,7 +158,7 @@ bool appSettingBar::onMouseMoveEvent(TpMouseEvent *event)
     return true;
 }
 
-bool appSettingBar::onResizeEvent(TpObjectResizeEvent *event)
+bool appSettingBar::onResizeEvent(TpResizeEvent *event)
 {
     resizeOperatorBtn();
 

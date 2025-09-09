@@ -58,7 +58,7 @@ bool powerManage::onMouseRleaseEvent(TpMouseEvent *event)
     return true;
 }
 
-bool powerManage::onResizeEvent(TpObjectResizeEvent *event)
+bool powerManage::onResizeEvent(TpResizeEvent *event)
 {
     return true;
 }

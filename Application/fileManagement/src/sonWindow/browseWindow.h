@@ -28,7 +28,7 @@ public:
 	virtual void setVisible(bool visible = true) override;
 
 protected:
-    virtual bool onPaintEvent(TpObjectPaintEvent *event) override;
+    virtual bool onPaintEvent(TpPaintEvent *event) override;
 
 private:
     void init();

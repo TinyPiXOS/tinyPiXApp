@@ -25,7 +25,7 @@ bool appOperateMaskWindow::onMouseRleaseEvent(TpMouseEvent *event)
     return true;
 }
 
-bool appOperateMaskWindow::onPaintEvent(TpObjectPaintEvent *event)
+bool appOperateMaskWindow::onPaintEvent(TpPaintEvent *event)
 {
     TpCanvas *painter = event->canvas();
 

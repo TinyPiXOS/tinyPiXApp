@@ -98,7 +98,7 @@ void topBar::setColor(const int32_t &appColor)
 {
 }
 
-bool topBar::onResizeEvent(TpObjectResizeEvent *event)
+bool topBar::onResizeEvent(TpResizeEvent *event)
 {
     caculateTopAppPos();
 
@@ -126,7 +126,7 @@ bool topBar::onMouseMoveEvent(TpMouseEvent *event)
     return true;
 }
 
-bool topBar::onLeaveEvent(TpObjectLeaveEvent *event)
+bool topBar::onLeaveEvent(TpLeaveEvent *event)
 {
     if (event->eventType() == TpEvent::EVENT_OBJECT_LEAVE_TYPE)
     {

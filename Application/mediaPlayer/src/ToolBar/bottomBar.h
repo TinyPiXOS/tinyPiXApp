@@ -39,7 +39,7 @@ signals:
     declare_signal(switchSpeed, int32_t);
 
 protected:
-    virtual bool onResizeEvent(TpObjectResizeEvent *event) override;
+    virtual bool onResizeEvent(TpResizeEvent *event) override;
 
 private:
     // 切换倍速

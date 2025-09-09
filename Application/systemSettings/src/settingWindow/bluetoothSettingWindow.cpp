@@ -10,7 +10,7 @@ bluetoothSettingWindow::~bluetoothSettingWindow()
 {
 }
 
-bool bluetoothSettingWindow::onResizeEvent(TpObjectResizeEvent *event)
+bool bluetoothSettingWindow::onResizeEvent(TpResizeEvent *event)
 {
     return true;
 }

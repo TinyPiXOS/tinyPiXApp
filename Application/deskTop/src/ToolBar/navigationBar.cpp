@@ -35,7 +35,7 @@ void navigationBar::setColor(const int32_t &appColor)
 {
 }
 
-bool navigationBar::onResizeEvent(TpObjectResizeEvent *event)
+bool navigationBar::onResizeEvent(TpResizeEvent *event)
 {
     int32_t lienY = (height() - lineLabel_->height()) / 2.0;
     lineLabel_->move(0, lienY);
@@ -139,12 +139,12 @@ bool navigationBar::onMouseMoveEvent(TpMouseEvent *event)
     return true;
 }
 
-bool navigationBar::onLeaveEvent(TpObjectLeaveEvent *event)
+bool navigationBar::onLeaveEvent(TpLeaveEvent *event)
 {
     return true;
 }
 
-bool navigationBar::onPaintEvent(TpObjectPaintEvent *event)
+bool navigationBar::onPaintEvent(TpPaintEvent *event)
 {
     TpDialog::onPaintEvent(event);
     return true;

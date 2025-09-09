@@ -27,7 +27,7 @@ public:
     void setInstallProgress(const uint32_t &progress);
 
 protected:
-    virtual bool onResizeEvent(TpObjectResizeEvent *event) override;
+    virtual bool onResizeEvent(TpResizeEvent *event) override;
 
 private:
     hollowWidget *hollowWidget_;
@@ -44,7 +44,7 @@ public:
     void setInstallProgress(const uint32_t &progress);
 
 protected:
-    virtual bool onPaintEvent(TpObjectPaintEvent *event) override;
+    virtual bool onPaintEvent(TpPaintEvent *event) override;
 
 private:
     uint32_t installProgress_;

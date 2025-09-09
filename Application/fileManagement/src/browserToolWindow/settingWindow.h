@@ -30,7 +30,7 @@ signals:
     declare_signal(onChangeViewMode, uint32_t);
 
 protected:
-    virtual bool onPaintEvent(TpObjectPaintEvent *event) override;
+    virtual bool onPaintEvent(TpPaintEvent *event) override;
     virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
 
 private:

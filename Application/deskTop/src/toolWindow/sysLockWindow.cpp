@@ -107,7 +107,7 @@ bool sysLockWindow::onMouseMoveEvent(TpMouseEvent *event)
     return true;
 }
 
-bool sysLockWindow::onLeaveEvent(TpObjectLeaveEvent *event)
+bool sysLockWindow::onLeaveEvent(TpLeaveEvent *event)
 {
     // if (event->eventType() == TpEvent::EVENT_OBJECT_LEAVE_TYPE)
     // {

@@ -33,7 +33,7 @@ void settingWindow::setVisible(bool visible)
     }
 }
 
-bool settingWindow::onPaintEvent(TpObjectPaintEvent *event)
+bool settingWindow::onPaintEvent(TpPaintEvent *event)
 {
     TpDialog::onPaintEvent(event);
     return true;

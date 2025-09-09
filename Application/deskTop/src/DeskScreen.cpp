@@ -185,7 +185,7 @@ bool DeskScreen::appChange(int32_t id, int32_t pid, int32_t visible, int32_t act
     return true;
 }
 
-bool DeskScreen::onActiveEvent(TpObjectActiveEvent *event)
+bool DeskScreen::onActiveEvent(TpActiveEvent *event)
 {
     std::cout << "DeskScreen::onActiveEvent " << std::endl;
 
@@ -273,7 +273,7 @@ bool DeskScreen::onMouseMoveEvent(TpMouseEvent *event)
     return false;
 }
 
-bool DeskScreen::onLeaveEvent(TpObjectLeaveEvent *event)
+bool DeskScreen::onLeaveEvent(TpLeaveEvent *event)
 {
     // if (event->eventType() == TpEvent::EVENT_OBJECT_LEAVE_TYPE)
     // {

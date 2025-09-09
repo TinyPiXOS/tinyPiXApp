@@ -56,13 +56,13 @@ public:
 	virtual bool appChange(int32_t id, int32_t pid, int32_t visible, int32_t active, int32_t color, uint8_t alpha, int32_t require);
 
 public:
-	virtual bool onActiveEvent(TpObjectActiveEvent *event) override;
+	virtual bool onActiveEvent(TpActiveEvent *event) override;
 
 	virtual bool onMousePressEvent(TpMouseEvent *event) override;
 	virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
 	
 	virtual bool onMouseMoveEvent(TpMouseEvent *event) override;
-	virtual bool onLeaveEvent(TpObjectLeaveEvent *event) override;
+	virtual bool onLeaveEvent(TpLeaveEvent *event) override;
 
 	virtual bool eventFilter(TpObject *watched, TpEvent *event) override;
 

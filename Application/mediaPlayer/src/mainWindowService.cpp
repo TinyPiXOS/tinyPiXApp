@@ -126,14 +126,14 @@ bool mainWindowService::appChange(int32_t id, int32_t pid, int32_t visible, int3
     return true;
 }
 
-bool mainWindowService::onResizeEvent(TpObjectResizeEvent *event)
+bool mainWindowService::onResizeEvent(TpResizeEvent *event)
 {
     std::cout << "mainWindowService::onResizeEvent" << std::endl;
 
     return true;
 }
 
-bool mainWindowService::onActiveEvent(TpObjectActiveEvent *event)
+bool mainWindowService::onActiveEvent(TpActiveEvent *event)
 {
     std::cout << "mainWindowService::onActiveEvent" << std::endl;
 

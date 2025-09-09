@@ -174,7 +174,7 @@ bool appTaskManageWindow::onMouseMoveEvent(TpMouseEvent *event)
     return true;
 }
 
-bool appTaskManageWindow::onResizeEvent(TpObjectResizeEvent *event)
+bool appTaskManageWindow::onResizeEvent(TpResizeEvent *event)
 {
     taskScrollPanel_->setRect(0, 0, width(), height() - topBottomMargin - clearAllBtn_->height());
 
@@ -188,7 +188,7 @@ bool appTaskManageWindow::onResizeEvent(TpObjectResizeEvent *event)
     return true;
 }
 
-bool appTaskManageWindow::onLeaveEvent(TpObjectLeaveEvent *event)
+bool appTaskManageWindow::onLeaveEvent(TpLeaveEvent *event)
 {
     return true;
 }

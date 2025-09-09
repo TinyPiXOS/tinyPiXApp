@@ -18,7 +18,7 @@ public:
     void setBackBtnVisible(const bool &visible);
 
 protected:
-    virtual bool onResizeEvent(TpObjectResizeEvent *event) override;
+    virtual bool onResizeEvent(TpResizeEvent *event) override;
 
 private:
     // 关闭媒体播放器，返回上一级应用

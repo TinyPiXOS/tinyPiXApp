@@ -47,13 +47,13 @@ bool diskDeviceCheckBox::onMouseRleaseEvent(TpMouseEvent *event)
     return true;
 }
 
-bool diskDeviceCheckBox::onResizeEvent(TpObjectResizeEvent *event)
+bool diskDeviceCheckBox::onResizeEvent(TpResizeEvent *event)
 {
     TpChildWidget::onResizeEvent(event);
     return true;
 }
 
-bool diskDeviceCheckBox::onPaintEvent(TpObjectPaintEvent *event)
+bool diskDeviceCheckBox::onPaintEvent(TpPaintEvent *event)
 {
     TpChildWidget::onPaintEvent(event);
 

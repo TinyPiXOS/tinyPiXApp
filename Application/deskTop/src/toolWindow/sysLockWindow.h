@@ -27,7 +27,7 @@ protected:
 
     virtual bool onMouseMoveEvent(TpMouseEvent *event) override;
 
-    virtual bool onLeaveEvent(TpObjectLeaveEvent *event) override;
+    virtual bool onLeaveEvent(TpLeaveEvent *event) override;
 
 private:
     void initUi();

@@ -19,7 +19,7 @@ public:
     virtual void refreshData() override;
 
 protected:
-    virtual bool onResizeEvent(TpObjectResizeEvent *event) override;
+    virtual bool onResizeEvent(TpResizeEvent *event) override;
 
 private:
     // 点击保存IPV4配置数据

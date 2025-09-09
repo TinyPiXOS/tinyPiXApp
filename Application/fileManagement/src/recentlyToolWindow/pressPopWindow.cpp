@@ -62,7 +62,7 @@ void pressPopWindow::init()
     buttonList_.emplace_back(moreSelectBtn_);
 }
 
-bool pressPopWindow::onResizeEvent(TpObjectResizeEvent *event)
+bool pressPopWindow::onResizeEvent(TpResizeEvent *event)
 {
     TpDialog::onResizeEvent(event);
 

@@ -212,7 +212,7 @@ bool mainAppScrollPanel::onMouseMoveEvent(TpMouseEvent *event)
     return true;
 }
 
-bool mainAppScrollPanel::onLeaveEvent(TpObjectLeaveEvent *event)
+bool mainAppScrollPanel::onLeaveEvent(TpLeaveEvent *event)
 {
     if (!event->leave())
     {

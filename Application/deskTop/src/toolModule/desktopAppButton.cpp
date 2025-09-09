@@ -36,7 +36,7 @@ void desktopAppButton::setInstallProgress(const uint32_t &progress)
         hollowWidget_->setVisible(true);
 }
 
-bool desktopAppButton::onResizeEvent(TpObjectResizeEvent *event)
+bool desktopAppButton::onResizeEvent(TpResizeEvent *event)
 {
     TpIconTopButton::onResizeEvent(event);
 
@@ -59,7 +59,7 @@ void hollowWidget::setInstallProgress(const uint32_t &progress)
     installProgress_ = progress;
 }
 
-bool hollowWidget::onPaintEvent(TpObjectPaintEvent *event)
+bool hollowWidget::onPaintEvent(TpPaintEvent *event)
 {
     TpChildWidget::onPaintEvent(event);
 

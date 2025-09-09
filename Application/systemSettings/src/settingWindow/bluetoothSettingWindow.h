@@ -14,7 +14,7 @@ public:
     virtual ~bluetoothSettingWindow();
 
 protected:
-    virtual bool onResizeEvent(TpObjectResizeEvent *event) override;
+    virtual bool onResizeEvent(TpResizeEvent *event) override;
 
 private:
     void initUi();

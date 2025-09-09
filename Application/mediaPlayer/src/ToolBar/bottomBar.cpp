@@ -35,7 +35,7 @@ bottomBar::~bottomBar()
 {
 }
 
-bool bottomBar::onResizeEvent(TpObjectResizeEvent *event)
+bool bottomBar::onResizeEvent(TpResizeEvent *event)
 {
     TpDialog::onResizeEvent(event);
 

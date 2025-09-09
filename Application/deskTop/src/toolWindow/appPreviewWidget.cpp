@@ -121,7 +121,7 @@ bool appPreviewWidget::onMouseMoveEvent(TpMouseEvent *event)
     return true;
 }
 
-bool appPreviewWidget::onLeaveEvent(TpObjectLeaveEvent *event)
+bool appPreviewWidget::onLeaveEvent(TpLeaveEvent *event)
 {
     return true;
 }
