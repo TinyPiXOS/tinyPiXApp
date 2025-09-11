@@ -2,7 +2,7 @@
 #include "TpHBoxLayout.h"
 #include "TpVBoxLayout.h"
 #include "TpDisplay.h"
-#include "TpCanvas.h"
+#include "TpPainter.h"
 #include "fileManagementGlobal.h"
 
 static const TpString ITEM_PATH_TYPE = "FastPath";
@@ -113,10 +113,12 @@ bool browseWindow::onPaintEvent(TpPaintEvent *event)
     TpChildWidget::onPaintEvent(event);
 
     // 绘制左侧菜单滚动区域的底色
-    TpCanvas *paintCanvas = event->canvas();
+    TpPainter *paintCanvas = event->canvas();
 
-    // paintCanvas->box(mainScrollPanel_->width(), 0, mainScrollPanel_->width(), height(), _RGB(255, 255, 255));
-    paintCanvas->box(0, 0, fileListWindow_->pos().x(), height(), _RGB(248, 248, 248));
+    paintCanvas->setPen( _RGB(248, 248, 248));
+    paintCanvas->setBrush(TpBrush( _RGB(248, 248, 248)));
+
+    paintCanvas->drawRect(0, 0, fileListWindow_->pos().x(), height());
     // paintCanvas->box(0, 0, fileListWindow_->pos().x()(), height(), _RGB(0, 0, 248));
 
     // 绘制分割线

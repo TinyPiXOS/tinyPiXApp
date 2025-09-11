@@ -1,5 +1,5 @@
 #include "desktopAppButton.h"
-#include "TpCanvas.h"
+#include "TpPainter.h"
 
 desktopAppButton::desktopAppButton(TpChildWidget *parent)
     : TpIconTopButton(parent)
@@ -64,17 +64,21 @@ bool hollowWidget::onPaintEvent(TpPaintEvent *event)
     TpChildWidget::onPaintEvent(event);
 
     // 应用正在安装中；根据安装进度绘制遮罩层
-    TpCanvas *painter = event->canvas();
+    TpPainter *painter = event->canvas();
 
-    HollowMask hollowMaskData;
-    HollowMask::PieHollow pieHollowData;
+    TpHollowMask hollowMaskData;
+    TpHollowMask::PieHollow pieHollowData;
     pieHollowData.x = width() / 2.0;
     pieHollowData.y = height() / 2.0;
     pieHollowData.start = 0;
     pieHollowData.end = 360.0 * installProgress_ / 100;
     pieHollowData.radius = (width() / 2.0) - 3;
     hollowMaskData.addPieHollow(pieHollowData);
-    painter->roundedBox(0, 0, width(), width(), roundCorners(), _RGBA(0, 0, 0, 125), hollowMaskData);
+
+    painter->setPen(_RGBA(0, 0, 0, 125));
+    painter->setBrush(TpBrush(_RGBA(0, 0, 0, 125)));
+
+    painter->drawRect(0, 0, width(), width(), roundCorners(), hollowMaskData);
 
     return true;
 }

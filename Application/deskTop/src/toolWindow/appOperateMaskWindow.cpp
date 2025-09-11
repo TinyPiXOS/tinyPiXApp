@@ -1,5 +1,5 @@
 #include "appOperateMaskWindow.h"
-#include "TpCanvas.h"
+#include "TpPainter.h"
 
 appOperateMaskWindow::appOperateMaskWindow()
     : TpDialog()
@@ -27,12 +27,15 @@ bool appOperateMaskWindow::onMouseRleaseEvent(TpMouseEvent *event)
 
 bool appOperateMaskWindow::onPaintEvent(TpPaintEvent *event)
 {
-    TpCanvas *painter = event->canvas();
+    TpPainter *painter = event->canvas();
 
-    HollowMask hollowData;
+    TpHollowMask hollowData;
     hollowData.addRectHollow(appRect_, roundCorners_);
     // painter->hollowBox(0, 0, width(), height(), _RGBA(255, 255, 255, 204), hollowData);
-    painter->box(0, 0, width(), height(), _RGB(255, 255, 255), hollowData);
+
+    painter->setPen(_RGB(255, 255, 255));
+    painter->setBrush(TpBrush(_RGB(255, 255, 255)));
+    painter->drawRect(0, 0, width(), height(), 0, hollowData);
 
     return true;
 }
