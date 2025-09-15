@@ -27,7 +27,7 @@ bool appOperateMaskWindow::onMouseRleaseEvent(TpMouseEvent *event)
 
 bool appOperateMaskWindow::onPaintEvent(TpPaintEvent *event)
 {
-    TpPainter *painter = event->canvas();
+    TpPainter *painter = event->painter();
 
     TpHollowMask hollowData;
     hollowData.addRectHollow(appRect_, roundCorners_);

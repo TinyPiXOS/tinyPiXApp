@@ -64,7 +64,7 @@ bool hollowWidget::onPaintEvent(TpPaintEvent *event)
     TpChildWidget::onPaintEvent(event);
 
     // 应用正在安装中；根据安装进度绘制遮罩层
-    TpPainter *painter = event->canvas();
+    TpPainter *painter = event->painter();
 
     TpHollowMask hollowMaskData;
     TpHollowMask::PieHollow pieHollowData;

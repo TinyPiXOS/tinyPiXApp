@@ -66,7 +66,7 @@ bool diskDeviceCheckBox::onPaintEvent(TpPaintEvent *event)
         iconLabel_->setBackGroundImage(normalIcon_);
     }
 
-    // TpPainter *paintCanvas = event->canvas();
+    // TpPainter *paintCanvas = event->painter();
 
     // 在name和space中间画一个竖线
     // std::cout << "spaceLabel_->pos().x()() " << spaceLabel_->pos().x()() << std::endl;

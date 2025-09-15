@@ -113,7 +113,7 @@ bool browseWindow::onPaintEvent(TpPaintEvent *event)
     TpChildWidget::onPaintEvent(event);
 
     // 绘制左侧菜单滚动区域的底色
-    TpPainter *paintCanvas = event->canvas();
+    TpPainter *paintCanvas = event->painter();
 
     paintCanvas->setPen( _RGB(248, 248, 248));
     paintCanvas->setBrush(TpBrush( _RGB(248, 248, 248)));
