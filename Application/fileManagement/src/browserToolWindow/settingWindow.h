@@ -10,7 +10,7 @@
 #include "TpScrollPanel.h"
 #include "TpEvent.h"
 #include "TpButton.h"
-#include "TpListCheckBoxGroup.h"
+#include "TpListWidget.h"
 #include "TpComBox.h"
 #include "TpLabel.h"
 
@@ -48,10 +48,10 @@ private:
     TpComBox *viewCbx_;
 
     // 筛选条件单选组
-    TpListCheckBoxGroup *filterCbxGroup_;
+    TpListWidget *filterCbxGroup_;
 
     // 排序条件单选组
-    TpListCheckBoxGroup *sortCbxGroup_;
+    TpListWidget *sortCbxGroup_;
 };
 
 #endif

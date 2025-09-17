@@ -1,5 +1,5 @@
 #include "mainWindowService.h"
-#include "TpListCheckBoxGroup.h"
+#include "TpListWidget.h"
 
 mainWindowService::mainWindowService()
     : TpFixScreen()
@@ -8,14 +8,14 @@ mainWindowService::mainWindowService()
 
     setBackGroundColor(_RGB(128, 128, 128));
 
-    TpListCheckBoxGroup *checkBoxGroup = new TpListCheckBoxGroup(this);
+    TpListWidget *checkBoxGroup = new TpListWidget(this);
 
     checkBoxGroup->addItem("测试1");
     checkBoxGroup->addItem("测试2");
     checkBoxGroup->addItem("测试3");
 
-    checkBoxGroup->addItem(new TpListCheckBoxGroupItem("测试4"));
-    checkBoxGroup->addItem(new TpListCheckBoxGroupItem("测试5"));
+    checkBoxGroup->addItem(new TpListWidgetItem("测试4"));
+    checkBoxGroup->addItem(new TpListWidgetItem("测试5"));
 
     checkBoxGroup->move(15, 20);
     checkBoxGroup->update();

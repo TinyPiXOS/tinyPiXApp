@@ -86,14 +86,14 @@ void settingWindow::init()
     viewCbx_->addItem("列表模式");
 
     TpLabel *filterLabel = createContentLabel("筛选");
-    filterCbxGroup_ = new TpListCheckBoxGroup();
+    filterCbxGroup_ = new TpListWidget();
     filterCbxGroup_->addItem("文件名称");
     filterCbxGroup_->addItem("文件大小");
     filterCbxGroup_->addItem("修改时间");
     filterCbxGroup_->addItem("文件类型");
 
     TpLabel *sortLabel = createContentLabel("排序");
-    sortCbxGroup_ = new TpListCheckBoxGroup();
+    sortCbxGroup_ = new TpListWidget();
     sortCbxGroup_->addItem("正序");
     sortCbxGroup_->addItem("倒序");
 

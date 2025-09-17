@@ -21,10 +21,10 @@ void InternetSettingWindow::refreshData()
     for (const auto &internetDevice : internetDeviceList)
     {
         // std::cout << "网卡名称:" << internetDevice.getName() << std::endl;
-        TpListCheckBoxGroupItem *curItem = netDeviceListCbx_->addItem(internetDevice.getName());
+        TpListWidgetItem *curItem = netDeviceListCbx_->addItem(internetDevice.getName());
     }
 
-    TpListCheckBoxGroupItem *curSelectItem = netDeviceListCbx_->currentItem().front();
+    TpListWidgetItem *curSelectItem = netDeviceListCbx_->currentItem().front();
     if (curSelectItem)
     {
         refreshNetDeviceInfo(curSelectItem->text());
@@ -38,14 +38,14 @@ bool InternetSettingWindow::onResizeEvent(TpResizeEvent *event)
 
 void InternetSettingWindow::slotSaveIpv4Config(bool)
 {
-    TpVector<TpListCheckBoxGroupItem *> selectItemList = netDeviceListCbx_->currentItem();
+    TpVector<TpListWidgetItem *> selectItemList = netDeviceListCbx_->currentItem();
     if (selectItemList.size() == 0)
     {
         TpMessageBox::information("未选择网卡!");
         return;
     }
 
-    TpListCheckBoxGroupItem *curSelectItem = selectItemList.front();
+    TpListWidgetItem *curSelectItem = selectItemList.front();
     if (!curSelectItem)
         return;
 
@@ -106,14 +106,14 @@ void InternetSettingWindow::slotSaveIpv4Config(bool)
 
 void InternetSettingWindow::slotSaveDnsConfig(bool)
 {
-    TpVector<TpListCheckBoxGroupItem *> selectItemList = netDeviceListCbx_->currentItem();
+    TpVector<TpListWidgetItem *> selectItemList = netDeviceListCbx_->currentItem();
     if (selectItemList.size() == 0)
     {
         TpMessageBox::information("未选择网卡!");
         return;
     }
 
-    TpListCheckBoxGroupItem *curSelectItem = selectItemList.front();
+    TpListWidgetItem *curSelectItem = selectItemList.front();
     if (!curSelectItem)
         return;
 
@@ -151,7 +151,7 @@ void InternetSettingWindow::slotSaveDnsConfig(bool)
     curNetInterface.setDns(autoDnseBtn_->onOff() ? TP_TRUE : TP_FALSE, dnsList);
 }
 
-void InternetSettingWindow::slotSwitchNetDevice(TpListCheckBoxGroupItem *item)
+void InternetSettingWindow::slotSwitchNetDevice(TpListWidgetItem *item)
 {
     if (!item)
         return;
@@ -171,7 +171,7 @@ void InternetSettingWindow::initUi()
     selectNetDeviceTitle->installEventFilter(this);
 
     // 网卡列表
-    netDeviceListCbx_ = new TpListCheckBoxGroup();
+    netDeviceListCbx_ = new TpListWidget();
     netDeviceListCbx_->installEventFilter(this);
     connect(netDeviceListCbx_, onStatusChanged, this, &InternetSettingWindow::slotSwitchNetDevice);
 

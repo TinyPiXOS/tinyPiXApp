@@ -4,7 +4,7 @@
 #include "settingWindow/settingBase.h"
 #include "TpLineEdit.h"
 #include "systemSettingsGlobal.h"
-#include "TpListCheckBoxGroup.h"
+#include "TpListWidget.h"
 #include "TpMenuPanelWidget.h"
 #include "TpOnOffButton.h"
 
@@ -29,7 +29,7 @@ private:
     void slotSaveDnsConfig(bool);
 
     // 切换网卡选择
-    void slotSwitchNetDevice(TpListCheckBoxGroupItem* item);
+    void slotSwitchNetDevice(TpListWidgetItem* item);
 
 private:
     void initUi();
@@ -45,7 +45,7 @@ private:
 
 private:
     // 网卡列表单选组
-    TpListCheckBoxGroup *netDeviceListCbx_;
+    TpListWidget *netDeviceListCbx_;
 
     // IPV4设置
     TpMenuPanelWidget *ipv4ConfigPanel_;
