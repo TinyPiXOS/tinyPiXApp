@@ -787,8 +787,6 @@ void DeskScreen::refreshMainAppPanel()
     mainAppPanel_->move(0, MAIN_PANEL_TOP_DISTANCE + tHeight);
 
     mainAppPanel_->setScrollMode(!isLandscapeScreen_);
-    mainAppPanel_->setHorizontalScrollBarVisible(false);
-    mainAppPanel_->setVerticalScrollBarVisible(false);
 
     mainAppPanel_->recal(true);
     mainAppPanel_->update();

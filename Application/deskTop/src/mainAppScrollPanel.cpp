@@ -202,11 +202,6 @@ bool mainAppScrollPanel::onMouseMoveEvent(TpMouseEvent *event)
 
         setHorizontalPostion(curScrollValue);
 
-        // scrollMode() ? setVerticalScrollBarValue(curScrollValue) : setHorizontalScrollBarValue(curScrollValue);
-
-        // std::cout << "Move event->globalPos().X: " << event->globalPos().x() << "  event->globalPos().y(): " << event->globalPos().y() << std::endl;
-
-        // return TpScrollPanel::onMouseMoveEvent(event);
     }
 
     return true;
