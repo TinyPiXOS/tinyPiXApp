@@ -59,7 +59,7 @@ include_directories(/usr/include/tinyPiX/TpGui/Widgets)
 add_executable(fileManagement ${SOURCE_FILES})
 
 # 将pthread库链接到可执行目标
-target_link_libraries(fileManagement pthread dl pthread PiXApi TpGui TpUtils TpExtUtils 
+target_link_libraries(fileManagement    PiXApi TpGui TpUtils TpExtUtils 
                 )
 
 # 包含共享模块

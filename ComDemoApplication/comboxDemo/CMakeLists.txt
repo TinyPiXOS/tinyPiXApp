@@ -35,7 +35,7 @@ include_directories(/usr/include/tinyPiX/TpGui/Widgets)
 add_executable(comboxDemo ${SOURCE_FILES})
 
 # 将pthread库链接到可执行目标
-target_link_libraries(comboxDemo pthread dl pthread PiXApi TpGui TpUtils TpExtUtils 
+target_link_libraries(comboxDemo    PiXApi TpGui TpUtils TpExtUtils 
                  )
 
 # 包含共享模块

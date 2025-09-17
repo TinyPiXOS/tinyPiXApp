@@ -41,7 +41,7 @@ include_directories(/usr/include/tinyPiX/TpGui/Widgets)
 add_executable(photoAlbum ${SOURCE_FILES})
 
 # 将pthread库链接到可执行目标
-target_link_libraries(photoAlbum pthread dl pthread PiXApi TpGui TpUtils TpExtUtils )
+target_link_libraries(photoAlbum PiXApi TpGui TpUtils TpExtUtils )
 
 # 包含共享模块
 include(../../cmake/SetupAppInstallation.cmake)

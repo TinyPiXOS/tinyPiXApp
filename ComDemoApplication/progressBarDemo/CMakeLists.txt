@@ -41,7 +41,7 @@ include_directories(/usr/include/tinyPiX/TpGui/Widgets)
 add_executable(progressBarDemo ${SOURCE_FILES})
 
 # 将pthread库链接到可执行目标
-target_link_libraries(progressBarDemo pthread dl pthread PiXApi TpGui TpUtils TpExtUtils 
+target_link_libraries(progressBarDemo    PiXApi TpGui TpUtils TpExtUtils 
                  )
 
 # 包含共享模块
