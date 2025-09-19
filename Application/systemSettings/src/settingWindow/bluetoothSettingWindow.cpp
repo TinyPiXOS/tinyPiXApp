@@ -65,7 +65,7 @@ void bluetoothSettingWindow::configLocalDevicePanel()
     localDeviceNameEdit_->setText("tinyPix OS");
     localDeviceNameEdit_->setPlaceholderText("请输入");
     localDeviceNameEdit_->setFixedSize(200, 30);
-    // localDeviceNameEdit_->setAlign(tinyPiX::AlignRight);
+    // localDeviceNameEdit_->setAlign(Tp::AlignRight);
     deiveNameItem->setCustomizeWidget(localDeviceNameEdit_);
     lovalDevicePanel_->addItem(deiveNameItem);
 

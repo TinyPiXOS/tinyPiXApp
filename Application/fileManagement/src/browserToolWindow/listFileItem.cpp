@@ -36,7 +36,7 @@ TpString parseFileSuffix(const TpString &suffix, const bool &isDir)
 
 TpString parseIconPath(const TpString &suffix, const bool &isDir)
 {
-    TpString resPath = "/usr/res/tinyPiX/fileIcon/";
+    TpString resPath = "/usr/res/TinyPiX/fileIcon/";
 
     // return resPath + "pdf.png";
 

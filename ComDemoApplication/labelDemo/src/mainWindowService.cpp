@@ -23,7 +23,7 @@ mainWindowService::mainWindowService()
 	label2->font()->setFontColor(_RGBA(0, 255, 0, 255), 0);
 	label2->font()->setAntialias(TpFont::TINY_FONT_ANTIALIAS_GOOD);
 	label1->font()->setFontWeight(TpFont::TINY_FONT_WEIGHT_ULTRALIGHT);
-	label2->setAlign(tinyPiX::AlignCenter);
+	label2->setAlign(Tp::AlignCenter);
 	label2->setText("TINY_FONT_WEIGHT_ULTRALIGHT");
 	label2->setRect(0, 30, 250, 30);
 	label2->setVisible(true);
@@ -33,7 +33,7 @@ mainWindowService::mainWindowService()
 	// label3->font()->setFontColor(_RGBA(0, 0, 255, 255), 0);
 	label3->font()->setAntialias(TpFont::TINY_FONT_ANTIALIAS_GOOD);
 	label1->font()->setFontWeight(TpFont::TINY_FONT_WEIGHT_LIGHT);
-	label3->setAlign(tinyPiX::AlignRight);
+	label3->setAlign(Tp::AlignRight);
 	label3->setText("TINY_FONT_WEIGHT_LIGHT");
 	label3->setRect(0, 60, 250, 30);
 	label3->setVisible(true);

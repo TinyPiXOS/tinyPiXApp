@@ -240,7 +240,7 @@ void InternetSettingWindow::configIpv4Panel()
     ipAddrEdit_ = new TpLineEdit();
     ipAddrEdit_->setPlaceholderText("请输入");
     ipAddrEdit_->setFixedSize(200, 30);
-    ipAddrEdit_->setAlign(tinyPiX::AlignRight);
+    ipAddrEdit_->setAlign(Tp::AlignRight);
     ipAddrItem->setCustomizeWidget(ipAddrEdit_);
     ipv4ConfigPanel_->addItem(ipAddrItem);
 
@@ -249,7 +249,7 @@ void InternetSettingWindow::configIpv4Panel()
     maskEdit_ = new TpLineEdit();
     maskEdit_->setPlaceholderText("请输入");
     maskEdit_->setFixedSize(200, 30);
-    maskEdit_->setAlign(tinyPiX::AlignRight);
+    maskEdit_->setAlign(Tp::AlignRight);
     maskItem->setCustomizeWidget(maskEdit_);
     ipv4ConfigPanel_->addItem(maskItem);
 
@@ -258,7 +258,7 @@ void InternetSettingWindow::configIpv4Panel()
     gatewayEdit_ = new TpLineEdit();
     gatewayEdit_->setPlaceholderText("请输入");
     gatewayEdit_->setFixedSize(200, 30);
-    gatewayEdit_->setAlign(tinyPiX::AlignRight);
+    gatewayEdit_->setAlign(Tp::AlignRight);
     gatewayItem->setCustomizeWidget(gatewayEdit_);
     ipv4ConfigPanel_->addItem(gatewayItem);
 }
@@ -279,7 +279,7 @@ void InternetSettingWindow::configDnsPanel()
     firstDnsEdit_ = new TpLineEdit();
     firstDnsEdit_->setPlaceholderText("请输入");
     firstDnsEdit_->setFixedSize(200, 30);
-    firstDnsEdit_->setAlign(tinyPiX::AlignRight);
+    firstDnsEdit_->setAlign(Tp::AlignRight);
     firstDnsAddrItem->setCustomizeWidget(firstDnsEdit_);
     dnsConfigPanel_->addItem(firstDnsAddrItem);
 
@@ -288,7 +288,7 @@ void InternetSettingWindow::configDnsPanel()
     secondDnsEdit_ = new TpLineEdit();
     secondDnsEdit_->setPlaceholderText("请输入");
     secondDnsEdit_->setFixedSize(200, 30);
-    secondDnsEdit_->setAlign(tinyPiX::AlignRight);
+    secondDnsEdit_->setAlign(Tp::AlignRight);
     secondDnsItem->setCustomizeWidget(secondDnsEdit_);
     dnsConfigPanel_->addItem(secondDnsItem);
 }

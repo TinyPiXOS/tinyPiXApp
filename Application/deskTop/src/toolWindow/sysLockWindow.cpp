@@ -149,7 +149,7 @@ void sysLockWindow::initUi()
     systemNameLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
     systemNameLabel_->font()->setFontSize(50);
     systemNameLabel_->font()->setFontStyle(TINY_FONT_BOLD);
-    systemNameLabel_->setText("tinyPiX OS");
+    systemNameLabel_->setText("TinyPiX OS");
 
     welcomeLabel_ = new TpLabel(this);
     welcomeLabel_->font()->setFontForeColor(_RGB(255, 255, 255));

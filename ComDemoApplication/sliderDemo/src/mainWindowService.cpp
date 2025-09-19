@@ -13,7 +13,7 @@ mainWindowService::mainWindowService()
     
     TpLabel *valueText = new TpLabel(this);
 	valueText->setText(TpString::number(50));
-	valueText->setAlign(tinyPiX::AlignCenter);
+	valueText->setAlign(Tp::AlignCenter);
 	valueText->font()->setFontColor(_RGB(255, 255, 255),_RGB(255, 255, 255));
 	valueText->font()->setFontSize(30);
 	valueText->setWidth(600);
