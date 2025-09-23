@@ -11,7 +11,7 @@
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-I/usr/include",
-                "-I/usr/include/PiXWM",
+                "-I/usr/include/TpWM",
                 "-I/usr/include/", 
                 "-I/usr/include/TinyPiX", 
                 "-I/usr/include/TinyPiX/TpUtils", 
