@@ -41,7 +41,7 @@ include_directories(/usr/include/TinyPiX/TpGUI/Widgets)
 add_executable(buttonDemo ${SOURCE_FILES})
 
 # 将pthread库链接到可执行目标
-target_link_libraries(buttonDemo    PiXApi TpGUI TpUtils TpExtUtils 
+target_link_libraries(buttonDemo    TpAPI TpGUI TpUtils TpExtUtils 
                  )
 
 # 包含共享模块

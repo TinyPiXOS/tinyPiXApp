@@ -58,7 +58,7 @@
                 "-lPiXUtils",
                 "-lrime", 
                 "-lPiXSingleGUI", 
-                "-lPiXApi",
+                "-lTpAPI",
                 "-lPiXExternUtils"
             ],
             "options": {

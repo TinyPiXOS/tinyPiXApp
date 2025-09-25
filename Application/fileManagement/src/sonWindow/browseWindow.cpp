@@ -220,6 +220,7 @@ void browseWindow::init()
     fastScrollWidget->layout()->addWidget(musicTileBtn_);
     fastScrollWidget->layout()->addWidget(applicationTileBtn_);
     fastScrollWidget->layout()->setContentsMargins(0, 0, 0, 0);
+    // fastScrollWidget->setBackGroundColor(_RGB(255, 0, 0));
     fastPathScroll_->setWidget(fastScrollWidget);
 
     // 来源

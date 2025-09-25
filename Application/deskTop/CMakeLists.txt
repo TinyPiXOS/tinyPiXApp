@@ -56,7 +56,7 @@ add_executable(PiXDesktop ${SOURCE_FILES})
 link_directories("/usr/lib")
 
 # 将pthread库链接到可执行目标
-target_link_libraries(PiXDesktop   PiXApi TpGUI TpUtils TpExtUtils      
+target_link_libraries(PiXDesktop   TpAPI TpGUI TpUtils TpExtUtils      
     
     
     

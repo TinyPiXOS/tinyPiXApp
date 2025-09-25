@@ -44,7 +44,7 @@ include_directories(/usr/include/TinyPiX/TpGUI/Widgets)
 add_executable(systemSettings ${SOURCE_FILES})
 
 # 将pthread库链接到可执行目标
-target_link_libraries(systemSettings    PiXApi TpGUI TpUtils TpExtUtils)
+target_link_libraries(systemSettings    TpAPI TpGUI TpUtils TpExtUtils)
 
 # 包含共享模块
 include(../../cmake/SetupAppInstallation.cmake)
