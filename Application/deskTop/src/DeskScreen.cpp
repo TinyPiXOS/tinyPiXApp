@@ -36,13 +36,8 @@ uint32_t globalAppMaxRow = 4;
 uint32_t globalAppMaxColumn = 6;
 uint32_t globalAppHInterval = 0;
 
-static inline void BAR_SET_ATTRIB(TpChildWidget *vars, int32_t pop, int32_t x, int32_t y, int32_t width, int32_t height)
+static inline void BAR_SET_ATTRIB(TpChildWidget *vars, int32_t x, int32_t y, int32_t width, int32_t height)
 {
-    if (pop)
-    {
-        height = 1;
-    }
-
     vars->setRect(x, y, width, height);
     vars->setVisible(true);
     vars->update();
@@ -472,7 +467,7 @@ void DeskScreen::initData()
     }
     globalTopSettingBar_->setVisible(false);
 
-    topFloatBar_ = new topBar(this);
+    topFloatBar_ = new topBar();
     if (topFloatBar_ == nullptr)
     {
         std::cout << "topbar init error!" << std::endl;
@@ -815,11 +810,11 @@ void DeskScreen::refreshBar()
 
     bottomFloatBar_->setRoundCorners(13);
 
-    BAR_SET_ATTRIB(topFloatBar_, TpFixScreen::ITP_FULL_STYLE, 0, 0, width(), TOP_BAR_HEIGHT);
-    BAR_SET_ATTRIB(bottomFloatBar_, TpFixScreen::ITP_FULL_STYLE, bottomX, bottomY, BOTTOM_BAR_WIDTH, BOTTOM_BAR_HEIGHT);
+    BAR_SET_ATTRIB(topFloatBar_, 0, 0, width(), TOP_BAR_HEIGHT);
+    BAR_SET_ATTRIB(bottomFloatBar_, bottomX, bottomY, BOTTOM_BAR_WIDTH, BOTTOM_BAR_HEIGHT);
 
     uint32_t navigationX = (width() - navigationFloatBar_->width()) / 2.0;
-    BAR_SET_ATTRIB(navigationFloatBar_, TpFixScreen::ITP_FULL_STYLE, navigationX, height() - navigationFloatBar_->height(), navigationFloatBar_->width(), navigationFloatBar_->height());
+    BAR_SET_ATTRIB(navigationFloatBar_, navigationX, height() - navigationFloatBar_->height(), navigationFloatBar_->width(), navigationFloatBar_->height());
 }
 
 desktopAppButton *DeskScreen::createDeskAppBtn(ApplicationInfoSPtr appInfo, const TpString &iconPath, const TpString &appName)

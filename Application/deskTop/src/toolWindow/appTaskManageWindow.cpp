@@ -1,6 +1,7 @@
 #include "appTaskManageWindow.h"
 #include "TpImage.h"
 #include "deskTopGlobal.hpp"
+#include "TpGraphicsBlurEffect.h"
 
 #ifndef TASK_MANAGER_COLOR
 #define TASK_MANAGER_COLOR _RGBA(255, 255, 255, 210)
@@ -15,6 +16,12 @@ appTaskManageWindow::appTaskManageWindow()
     : TpDialog("tinyPiX_SYS_Float_0531acbf04")
 {
     this->setBackGroundColor(TASK_MANAGER_COLOR);
+    // setBackGroundImage(TpImage(applicationDirPath() + "/../res/默认桌面背景1x.png"));
+   
+    TpGraphicsBlurEffect btnBlurEffect;
+    btnBlurEffect.setBlurRadius(15);
+    setGraphicsEffect(btnBlurEffect);
+
     // this->setAlpha(128);
 
     taskScrollPanel_ = new TpScrollPanel(this);
@@ -84,8 +91,7 @@ void appTaskManageWindow::setVisible(bool visible)
 
             // 应用抓图，grabWindow
             IPiWFSurface* surfacePtr = tinyPiX_sys_get_obj_surface(globalAgent, appIdInfo.s_id, appIdInfo.p_id);
-
-            // tpShared<tpSurface> appDisplayImage = tpMakeShared<tpSurface>(surfacePtr);
+            // tpShared<TpSurface> appDisplayImage = tpMakeShared<TpSurface>(surfacePtr);
 
             tinyPiX_surface_free(surfacePtr);
 

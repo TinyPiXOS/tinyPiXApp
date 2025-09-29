@@ -18,23 +18,58 @@ bool globalSystemLockStatus = false;
 #define TOP_BAR_COLOR _RGBA(255, 255, 255, 0)
 #endif
 
-topBar::topBar(TpScreen *topScreen)
-    : TpDialog("tinyPiX_SYS_Float_0531acbf04"), topScreen_(topScreen)
+topBar::topBar()
+// : TpDialog("tinyPiX_SYS_Float_0531acbf04")
 {
-    setEnabledBorderColor(false);
     setBackGroundColor(TOP_BAR_COLOR);
 
-    // setAlpha(50);
-
-    this->construct();
+    initUI();
 }
 
 topBar::~topBar()
 {
-    this->destruction();
 }
 
-void topBar::construct()
+void topBar::setColor(const int32_t &appColor)
+{
+}
+
+bool topBar::onResizeEvent(TpResizeEvent *event)
+{
+    TpDialog::onResizeEvent(event);
+
+    caculateTopAppPos();
+
+    // 刷新应用工具栏尺寸
+    // if (appSettingBar_)
+    //     appSettingBar_->resizeSettingBar(this);
+
+    return true;
+}
+
+bool topBar::onMousePressEvent(TpMouseEvent *event)
+{
+    TpDialog::onMousePressEvent(event);
+
+    std::cout << "TopBar Press Pos ()" << event->globalPos().x() << " , " << event->globalPos().y() << std::endl;
+
+    return true;
+}
+
+bool topBar::onLeaveEvent(TpLeaveEvent *event)
+{
+    if (event->eventType() == TpEvent::EVENT_OBJECT_LEAVE_TYPE)
+    {
+        if (event->leave())
+        {
+            update();
+        }
+    }
+
+    return true;
+}
+
+void topBar::initUI()
 {
     sysTimeLabel_ = new TpLabel(this);
     sysTimeLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
@@ -71,72 +106,6 @@ void topBar::construct()
 
     // 系统启动就要刷新一下时间
     slotUpdateSystemTime();
-}
-
-void topBar::destruction()
-{
-}
-
-void topBar::setVisible(bool visible)
-{
-    // 隐藏topbar内部控件
-    sysDateLabel_->setVisible(visible);
-    sysTimeLabel_->setVisible(visible);
-
-    // 蓝牙和网络连接状态
-    wifiLabel_->setVisible(visible);
-    blueToothLabel_->setVisible(visible);
-
-    // 电量显示窗
-    elecBattery_->setVisible(visible);
-
-    // TpDialog::setVisible(visible);
-    update();
-}
-
-void topBar::setColor(const int32_t &appColor)
-{
-}
-
-bool topBar::onResizeEvent(TpResizeEvent *event)
-{
-    caculateTopAppPos();
-
-    // 刷新应用工具栏尺寸
-    // if (appSettingBar_)
-    //     appSettingBar_->resizeSettingBar(this);
-
-    return true;
-}
-
-bool topBar::onMousePressEvent(TpMouseEvent *event)
-{
-    std::cout << "TopBar Press Pos ()" << event->globalPos().x() << " , " << event->globalPos().y() << std::endl;
-
-    return true;
-}
-
-bool topBar::onMouseRleaseEvent(TpMouseEvent *event)
-{
-    return true;
-}
-
-bool topBar::onMouseMoveEvent(TpMouseEvent *event)
-{
-    return true;
-}
-
-bool topBar::onLeaveEvent(TpLeaveEvent *event)
-{
-    if (event->eventType() == TpEvent::EVENT_OBJECT_LEAVE_TYPE)
-    {
-        if (event->leave())
-        {
-            update();
-        }
-    }
-
-    return true;
 }
 
 void topBar::caculateTopAppPos()
