@@ -7,7 +7,7 @@
 #include "deskTopGlobal.hpp"
 
 appPreviewWidget::appPreviewWidget(TpChildWidget *parent)
-    : TpChildWidget(parent), pid_(0)
+    : TpChildWidget(parent)
 {
     init();
 }
@@ -52,20 +52,14 @@ void appPreviewWidget::setPreviewImg(TpImage image)
     previewImgLabel_->setBackGroundImage(image);
 }
 
-void appPreviewWidget::setId(const int32_t &pid, const int32_t &winId)
+void appPreviewWidget::setAppUuid(const TpString &uuid)
 {
-    pid_ = pid;
-    winId_ = winId;
+    appUuid_ = uuid;
 }
 
-int32_t appPreviewWidget::pid()
+TpString appPreviewWidget::appUuid()
 {
-    return pid_;
-}
-
-int32_t appPreviewWidget::winId()
-{
-    return winId_;
+    return appUuid_;
 }
 
 bool appPreviewWidget::eventFilter(TpObject *watched, TpEvent *event)
@@ -110,7 +104,7 @@ bool appPreviewWidget::onMouseRleaseEvent(TpMouseEvent *event)
     TpPoint curPoint = event->globalPos();
     if (std::abs(curPoint.x() - mousePressPoint_.x()) < 5 && std::abs(curPoint.y() - mousePressPoint_.y()) < 5)
     {
-        signalOpenApp.emit(pid_);
+        signalOpenApp.emit(appUuid_);
     }
 
     return true;
@@ -151,7 +145,7 @@ void appPreviewWidget::init()
     closeBtn_->setButtonStyle(TpButton::IconOnly);
     closeBtn_->setIcon(applicationDirPath() + "/../res/关闭.png");
     connect(closeBtn_, onClicked, [=](bool)
-            { signalKillApp.emit(pid_); });
+            { signalKillApp.emit(appUuid_); });
     closeBtn_->setProperty("Debug", "closeBtn_");
 
     TpHBoxLayout *titleLayout = new TpHBoxLayout();

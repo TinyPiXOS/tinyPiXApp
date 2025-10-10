@@ -9,6 +9,7 @@
 #include "TpProcess.h"
 #include "TpMessageBox.h"
 #include "Service/TpAppConfigIO.h"
+#include "Service/TpSystemApi.h"
 
 #include <iostream>
 
@@ -25,12 +26,6 @@ appTaskManageWindow *globalAppTaskWindow = nullptr;
 appSettingBar *globalTopSettingBar_ = nullptr;
 
 TpScreen *globalMainScreen_ = nullptr;
-IPiSysApiAgent *globalAgent = nullptr;
-
-// <pid, 应用信息>
-TpHash<int32_t, RunAppInfo> globalRunAppMap_ = TpHash<int32_t, RunAppInfo>();
-std::mutex readRunAppMutex_;
-TpHash<TpString, int32_t> globalUuidPidMap_ = TpHash<TpString, int32_t>();
 
 uint32_t globalAppMaxRow = 4;
 uint32_t globalAppMaxColumn = 6;
@@ -384,17 +379,7 @@ void DeskScreen::slotDeleteApp(desktopAppButton *operateBtn)
     }
 
     // 如果应用正在运行，先杀掉进程
-    if (globalUuidPidMap_.contains(removeUuid))
-    {
-        int32_t pid = globalUuidPidMap_.value(removeUuid);
-
-        std::lock_guard<std::mutex> lock_g(readRunAppMutex_);
-        globalUuidPidMap_.erase(removeUuid);
-        globalRunAppMap_.erase(pid);
-
-        std::cout << "结束应用 pid: " << pid << std::endl;
-        tinyPiX_sys_kill_process(globalAgent, pid);
-    }
+    TpSystemApi::Instance()->killApp(removeUuid);
 
     // 重置缓存操作按钮
     pressAppBtn_ = nullptr;
@@ -507,8 +492,6 @@ void DeskScreen::initData()
     }
     // globalAppTaskWindow->setVisible(false);
 
-    globalAgent = tinyPiX_sys_create();
-
     mainAppPanel_ = new mainAppScrollPanel(this);
     if (mainAppPanel_ == nullptr)
     {
@@ -524,7 +507,7 @@ void DeskScreen::initData()
 
     maskWindow_ = new appOperateMaskWindow();
     maskWindow_->installEventFilter(this);
-    // maskWindow_->setVisible(false);
+    maskWindow_->setVisible(false);
 
     operateMenu_ = new TpMenu();
     uint32_t delIndex = operateMenu_->addItem("卸载", applicationDirPath() + "/../res/删除.png");
@@ -815,6 +798,10 @@ void DeskScreen::refreshBar()
 
     uint32_t navigationX = (width() - navigationFloatBar_->width()) / 2.0;
     BAR_SET_ATTRIB(navigationFloatBar_, navigationX, height() - navigationFloatBar_->height(), navigationFloatBar_->width(), navigationFloatBar_->height());
+
+    topFloatBar_->update();
+    navigationFloatBar_->update();
+
 }
 
 desktopAppButton *DeskScreen::createDeskAppBtn(ApplicationInfoSPtr appInfo, const TpString &iconPath, const TpString &appName)
@@ -891,69 +878,7 @@ void DeskScreen::startApp(const TpString &uuid, const TpVector<TpString> &argLis
         return;
     }
 
-    TpString appFileDirPath = appConfigPathStr_ + APP_FILES_SON_PATH + uuid;
-
-    TpDir appFileDir(appFileDirPath);
-    if (!appFileDir.exists())
-    {
-        std::cout << "UUid: " << uuid << " 应用文件夹不存在" << std::endl;
-        return;
-    }
-
-    // 启动对应应用
-    if (globalUuidPidMap_.contains(uuid))
-    {
-        int32_t pid = globalUuidPidMap_.value(uuid);
-
-        // 根据pid查询winid
-        PiShmBytes *appIdList = nullptr;
-        int appSize = 0;
-        tinyPiX_sys_find_win_ids(globalAgent, &appIdList, &appSize, Q_FIXS);
-
-        int32_t winId = 0;
-        for (int i = 0; i < appSize; ++i)
-        {
-            PiShmBytes appIdInfo = appIdList[i];
-            if (appIdInfo.p_id == pid)
-            {
-                winId = appIdInfo.s_id;
-                break;
-            }
-        }
-
-        std::cout << "恢复应用 pid: " << pid << std::endl;
-        tinyPiX_sys_set_visible(globalAgent, winId, true);
-        tinyPiX_sys_set_active(globalAgent, winId, true);
-    }
-    else
-    {
-        // 解析应用图标、名称信息
-        TpAppConfigIO configIO(uuid);
-
-        TpString runnerPath = configIO.runnerPath();
-        TpFileInfo runnerFileInfo(runnerPath);
-        if (!runnerFileInfo.exists())
-        {
-            std::cout << "应用 " << configIO.appName() << " 可执行程序不存在!" << std::endl;
-            return;
-        }
-
-        TpProcess exeProcess;
-        exeProcess.start(runnerPath, argList);
-        // exeProcess.start(exePathStr);
-        int32_t processPID = exeProcess.launchProcessID();
-
-        RunAppInfo runAppInfo;
-        runAppInfo.appName = configIO.appName();
-        runAppInfo.appUuid = uuid;
-        runAppInfo.appIconPath = configIO.iconPath();
-        runAppInfo.pid = processPID;
-
-        std::cout << "processPID " << processPID << std::endl;
-        std::lock_guard<std::mutex> lock_g(readRunAppMutex_);
-        globalRunAppMap_[processPID] = runAppInfo;
-        globalUuidPidMap_[uuid] = processPID;
-    }
+    TpSystemApi::Instance()->startApp(uuid, argList);
 }
 
 void DeskScreen::installApp(const TpString &pkgPath)

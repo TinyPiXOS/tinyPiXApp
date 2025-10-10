@@ -27,26 +27,6 @@ extern appSettingBar *globalTopSettingBar_;
 // 主窗体
 extern TpScreen *globalMainScreen_;
 
-extern IPiSysApiAgent *globalAgent;
-
-// 正在运行的应用信息
-struct RunAppInfo
-{
-    TpString appName;
-    TpString appUuid;
-    TpString appIconPath;
-    int32_t pid;
-
-    RunAppInfo() : appName(""), appUuid(""), appIconPath(""), pid(0)
-    {
-    }
-};
-extern std::mutex readRunAppMutex_;
-// <pid, 应用信息>
-extern TpHash<int32_t, RunAppInfo> globalRunAppMap_;
-// 应用uuid对应的pid
-extern TpHash<TpString, int32_t> globalUuidPidMap_;
-
 // APP页码信息
 struct ApplicationInfo
 {

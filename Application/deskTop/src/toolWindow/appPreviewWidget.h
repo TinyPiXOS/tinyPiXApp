@@ -28,11 +28,9 @@ public:
     void setPreviewImg(TpImage image);
 
     // 设置应用的pid和Id
-    void setId(const int32_t &pid, const int32_t &winId);
+    void setAppUuid(const TpString &uuid);
 
-    int32_t pid();
-
-    int32_t winId();
+    TpString appUuid();
 
     /// @brief 组件类名，子类实现，返回子类类名字符串，用于匹配CSS中对应样式
     /// @return 类名字符串
@@ -41,12 +39,12 @@ public:
 public
 signals:
     /// @brief 清理应用
-    /// @param int32_t pid
-    declare_signal(signalKillApp, int32_t);
+    /// @param const TpString& uuid
+    declare_signal(signalKillApp, const TpString &);
 
     /// @brief 打开指定应用
-    /// @param int32_t pid
-    declare_signal(signalOpenApp, int32_t);
+    /// @param const TpString& uuid
+    declare_signal(signalOpenApp, const TpString &);
 
 protected:
     virtual bool eventFilter(TpObject *watched, TpEvent *event) override;
@@ -68,8 +66,7 @@ private:
     // 关闭按钮
     TpButton *closeBtn_;
 
-    int32_t pid_;
-    int32_t winId_;
+    TpString appUuid_;
 
     TpPoint mousePressPoint_;
 };

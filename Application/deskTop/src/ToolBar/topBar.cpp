@@ -19,7 +19,7 @@ bool globalSystemLockStatus = false;
 #endif
 
 topBar::topBar()
-// : TpDialog("tinyPiX_SYS_Float_0531acbf04")
+    : TpDialog("tinyPiX_SYS_Float_0531acbf04")
 {
     setBackGroundColor(TOP_BAR_COLOR);
 

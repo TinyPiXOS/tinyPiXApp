@@ -22,8 +22,6 @@ public:
 
     virtual void setVisible(bool visible = true) override;
 
-    int32_t getWinIdByPid(const int32_t &pid);
-
 protected:
     virtual bool eventFilter(TpObject *watched, TpEvent *event) override;
 
@@ -41,10 +39,10 @@ private:
     void slotClearAllApp(bool);
 
     // 单个应用点击关闭事件
-    void slotKillApp(int32_t pid);
+    void slotKillApp(const TpString& uuid);
 
     // 打开指定应用
-    void slotOpenApp(int32_t pid);
+    void slotOpenApp(const TpString& uuid);
 
 private:
     TpScrollPanel *taskScrollPanel_;
@@ -56,8 +54,8 @@ private:
 
     TpButton *clearAllBtn_;
 
-    // <pid, 应用预览窗>
-    TpHash<int32_t, appPreviewWidget *> allTaskWidgetMap_;
+    // <uuid, 应用预览窗>
+    TpHash<TpString, appPreviewWidget *> allTaskWidgetMap_;
 };
 
 #endif

@@ -4,6 +4,7 @@
 #include "TpAnimation.h"
 #include "deskTopGlobal.hpp"
 #include "TpApp.h"
+#include "Service/TpSystemApi.h"
 
 navigationBar::navigationBar()
     : TpDialog("tinyPiX_SYS_Float_0531acbf04")
@@ -105,19 +106,7 @@ bool navigationBar::onMouseRleaseEvent(TpMouseEvent *event)
             }
             else
             {
-                tinyPiX_sys_send_home(globalAgent);
-
-                // PiShmBytes *appIdList = nullptr;
-                // int appSize = 0;
-                // tinyPiX_sys_find_win_ids(globalAgent, &appIdList, &appSize, 1);
-
-                // std::cout << "appSizeappSizeappSize" << appSize << std::endl;
-                // for (int i = 0; i < appSize; ++i)
-                // {
-                //     std::cout << "IIIIIIIDDDDDDD" << appIdList[i].id << std::endl;
-                // }
-                // tinyPiX_sys_send_return(globalAgent, 0);
-
+                TpSystemApi::Instance()->home();
                 std::cout << " Return Desktop " << std::endl;
             }
         }

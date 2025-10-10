@@ -2,6 +2,7 @@
 #include "TpImage.h"
 #include "deskTopGlobal.hpp"
 #include "TpGraphicsBlurEffect.h"
+#include "Service/TpSystemApi.h"
 
 #ifndef TASK_MANAGER_COLOR
 #define TASK_MANAGER_COLOR _RGBA(255, 255, 255, 210)
@@ -17,7 +18,7 @@ appTaskManageWindow::appTaskManageWindow()
 {
     this->setBackGroundColor(TASK_MANAGER_COLOR);
     // setBackGroundImage(TpImage(applicationDirPath() + "/../res/默认桌面背景1x.png"));
-   
+
     TpGraphicsBlurEffect btnBlurEffect;
     btnBlurEffect.setBlurRadius(15);
     setGraphicsEffect(btnBlurEffect);
@@ -56,71 +57,46 @@ void appTaskManageWindow::setVisible(bool visible)
 {
     TpDialog::setVisible(visible);
 
-    if (visible)
+    if (!visible)
+        return;
+
+    // 获取所有应用列表
+    TpVector<TpSystemApi::RunAppInfo> runAppList = TpSystemApi::Instance()->runAppList();
+
+    // 清空上一次的任务列表
+    taskScrollPanel_->clearObject();
+    for (const auto &lastTaskWidget : allTaskWidgetMap_)
     {
-        // 获取所有应用列表
-        PiShmBytes *appIdList = nullptr;
-        int appSize = 0;
-        tinyPiX_sys_find_win_ids(globalAgent, &appIdList, &appSize, Q_FIXS);
-
-        // 清空上一次的任务列表
-        taskScrollPanel_->clearObject();
-        for (const auto &lastTaskWidget : allTaskWidgetMap_)
-        {
-            lastTaskWidget.second->deleteLater();
-        }
-        allTaskWidgetMap_.clear();
-
-        for (int i = 0; i < appSize; ++i)
-        {
-            PiShmBytes appIdInfo = appIdList[i];
-
-            std::cout << "App Index " << i << std::endl;
-            std::cout << "App Id " << appIdInfo.s_id << "  Pid " << appIdInfo.p_id << std::endl;
-
-            // 根据pid查询应用的信息
-            if (!globalRunAppMap_.contains(appIdInfo.p_id))
-                continue;
-
-            const auto &curAppInfo = globalRunAppMap_[appIdInfo.p_id];
-            std::cout << "运行应用信息： " << curAppInfo.appName << std::endl;
-
-            appPreviewWidget *previewWidget = new appPreviewWidget(this);
-            previewWidget->setName(curAppInfo.appName);
-            previewWidget->setIcon(curAppInfo.appIconPath);
-
-            // 应用抓图，grabWindow
-            IPiWFSurface* surfacePtr = tinyPiX_sys_get_obj_surface(globalAgent, appIdInfo.s_id, appIdInfo.p_id);
-            // tpShared<TpSurface> appDisplayImage = tpMakeShared<TpSurface>(surfacePtr);
-
-            tinyPiX_surface_free(surfacePtr);
-
-            // previewWidget->setPreviewImg(appDisplayImage);
-            // previewWidget->setPreviewImg("/home/hawk/Public/tinyPiXOS/tinyPiXApp/deskTop/res/测试.png");
-            previewWidget->setId(appIdInfo.p_id, appIdInfo.s_id);
-
-            connect(previewWidget, signalKillApp, this, &appTaskManageWindow::slotKillApp);
-            connect(previewWidget, signalOpenApp, this, &appTaskManageWindow::slotOpenApp);
-
-            allTaskWidgetMap_[appIdInfo.p_id] = previewWidget;
-
-            uint32_t taskBtnXPos = taskHInterval + (i / 2) * (taskWidth_ + taskHInterval);
-            uint32_t taskBtnYPos = taskVInterval + (i % 2) * (taskHeight_ + taskVInterval);
-
-            previewWidget->setRect(taskBtnXPos, taskBtnYPos, taskWidth_, taskHeight_);
-
-            taskScrollPanel_->addObject(previewWidget);
-        }
+        lastTaskWidget.second->deleteLater();
     }
-}
+    allTaskWidgetMap_.clear();
 
-int32_t appTaskManageWindow::getWinIdByPid(const int32_t &pid)
-{
-    if (allTaskWidgetMap_.contains(pid))
+    for (int i = 0; i < runAppList.size(); ++i)
     {
-        return allTaskWidgetMap_.value(pid)->winId();
+        TpSystemApi::RunAppInfo appInfo = runAppList.at(i);
+
+        appPreviewWidget *previewWidget = new appPreviewWidget(this);
+        previewWidget->setName(appInfo.appInfo.appName());
+        previewWidget->setIcon(appInfo.appInfo.iconPath());
+
+        // 应用抓图，grabWindow
+        TpImage appGrapImage = TpSystemApi::Instance()->appImage(appInfo.appInfo.appUuid());
+        previewWidget->setPreviewImg(appGrapImage);
+
+        previewWidget->setAppUuid(appInfo.appInfo.appUuid());
+
+        connect(previewWidget, signalKillApp, this, &appTaskManageWindow::slotKillApp);
+        connect(previewWidget, signalOpenApp, this, &appTaskManageWindow::slotOpenApp);
+
+        allTaskWidgetMap_[appInfo.appInfo.appUuid()] = previewWidget;
+
+        uint32_t taskBtnXPos = taskHInterval + (i / 2) * (taskWidth_ + taskHInterval);
+        uint32_t taskBtnYPos = taskVInterval + (i % 2) * (taskHeight_ + taskVInterval);
+
+        previewWidget->setRect(taskBtnXPos, taskBtnYPos, taskWidth_, taskHeight_);
+
+        taskScrollPanel_->addObject(previewWidget);
     }
-    return 0;
 }
 
 bool appTaskManageWindow::eventFilter(TpObject *watched, TpEvent *event)
@@ -201,25 +177,7 @@ bool appTaskManageWindow::onLeaveEvent(TpLeaveEvent *event)
 
 void appTaskManageWindow::slotClearAllApp(bool)
 {
-    // 获取所有应用列表
-    PiShmBytes *appIdList = nullptr;
-    int appSize = 0;
-    tinyPiX_sys_find_win_ids(globalAgent, &appIdList, &appSize, 1);
-
-    // 杀掉所有应用
-    for (int i = 0; i < appSize; ++i)
-    {
-        PiShmBytes appIdInfo = appIdList[i];
-
-        tinyPiX_sys_kill_process(globalAgent, appIdInfo.p_id);
-    }
-
-    // 清理缓存的应用运行信息
-    {
-        std::lock_guard<std::mutex> lock_g(readRunAppMutex_);
-        globalRunAppMap_.clear();
-        globalUuidPidMap_.clear();
-    }
+    TpSystemApi::Instance()->killAllApp();
 
     // 清除界面
     TpVector<TpChildWidget *> objList = taskScrollPanel_->children();
@@ -231,48 +189,26 @@ void appTaskManageWindow::slotClearAllApp(bool)
     allTaskWidgetMap_.clear();
 }
 
-void appTaskManageWindow::slotKillApp(int32_t pid)
+void appTaskManageWindow::slotKillApp(const TpString &uuid)
 {
-    if (allTaskWidgetMap_.contains(pid))
+    if (allTaskWidgetMap_.contains(uuid))
     {
-        taskScrollPanel_->delObject(allTaskWidgetMap_[pid]);
-        allTaskWidgetMap_[pid]->deleteLater();
-        allTaskWidgetMap_.erase(pid);
+        taskScrollPanel_->delObject(allTaskWidgetMap_[uuid]);
+        allTaskWidgetMap_[uuid]->deleteLater();
+        allTaskWidgetMap_.erase(uuid);
 
-        tinyPiX_sys_kill_process(globalAgent, pid);
-
-        {
-            std::lock_guard<std::mutex> lock_g(readRunAppMutex_);
-            globalUuidPidMap_.erase(globalRunAppMap_.value(pid).appUuid);
-            globalRunAppMap_.erase(pid);
-        }
-
-        std::cout << "移除应用 ： " << pid << std::endl;
+        TpSystemApi::Instance()->killApp(uuid);
+        std::cout << "移除应用 ： " << uuid << std::endl;
 
         update();
     }
     else
     {
-        std::cout << "未找到要移除的应用 ： " << pid << std::endl;
+        std::cout << "未找到要移除的应用 ： " << uuid << std::endl;
     }
 }
 
-void appTaskManageWindow::slotOpenApp(int32_t pid)
+void appTaskManageWindow::slotOpenApp(const TpString &uuid)
 {
-    if (allTaskWidgetMap_.contains(pid))
-    {
-        // 获取应用winId
-        int32_t winId = allTaskWidgetMap_.value(pid)->winId();
-
-        close();
-
-        tinyPiX_sys_set_visible(globalAgent, winId, true);
-        tinyPiX_sys_set_active(globalAgent, winId, true);
-
-        std::cout << "启动应用 WinId ： " << winId << "  Pid : " << pid << std::endl;
-    }
-    else
-    {
-        std::cout << "未找到要启动的应用 ： " << pid << std::endl;
-    }
+    TpSystemApi::Instance()->startApp(uuid);
 }
