@@ -975,7 +975,7 @@ uint32_t DeskScreen::findAppIndex(const TpList<ApplicationInfoSPtr> &pageAppList
         }
         findIndex++;
 
-        // 防止整数溢出（虽然实际场景中几乎不可能）
+        // 防止整数溢出
         if (findIndex == std::numeric_limits<uint32_t>::max())
         {
             break;
