@@ -167,6 +167,7 @@ bool appSettingBar::onResizeEvent(TpResizeEvent *event)
 
 void appSettingBar::slotSwitchBluetooth(bool checked)
 {
+#if 0
     bool blueIsOpen = false;
     TpList<TpBluetoothLocal> blueToothDeviceList = TpBluetoothLocal::getAllDevice();
     if (blueToothDeviceList.size() == 0)
@@ -190,6 +191,7 @@ void appSettingBar::slotSwitchBluetooth(bool checked)
     {
         blueDevice.powerOn();
     }
+#endif
 }
 
 void appSettingBar::slotSwitchWifi(bool checked)

@@ -331,6 +331,8 @@ bool DeskScreen::eventFilter(TpObject *watched, TpEvent *event)
 
 void DeskScreen::slotOperateApp(desktopAppButton *operateBtn)
 {
+    return;
+
     if (operateBtn)
     {
         TpRect btnRect = operateBtn->toScreen();
@@ -490,7 +492,7 @@ void DeskScreen::initData()
         std::cout << "globalAppTaskWindow init error!" << std::endl;
         std::exit(0);
     }
-    // globalAppTaskWindow->setVisible(false);
+    globalAppTaskWindow->setVisible(false);
 
     mainAppPanel_ = new mainAppScrollPanel(this);
     if (mainAppPanel_ == nullptr)
@@ -501,28 +503,28 @@ void DeskScreen::initData()
     mainAppPanel_->installEventFilter(this);
 
     carouselButton_ = new TpCarouselButton(this);
-
+    carouselButton_->setFixedSize(150, 25);
     connect(mainAppPanel_, onPageChanged, [=](uint32_t curPage_)
             { carouselButton_->setCurrentIndex(curPage_); });
 
-    maskWindow_ = new appOperateMaskWindow();
-    maskWindow_->installEventFilter(this);
-    maskWindow_->setVisible(false);
+    // maskWindow_ = new appOperateMaskWindow();
+    // maskWindow_->installEventFilter(this);
+    // maskWindow_->setVisible(false);
 
-    operateMenu_ = new TpMenu();
-    uint32_t delIndex = operateMenu_->addItem("卸载", applicationDirPath() + "/../res/删除.png");
-    connect(operateMenu_, onClicked, [=](uint32_t index)
-            {
-				std::cout << " index " << index << std::endl;
-				std::cout << " delIndex " << delIndex << std::endl;
+    // operateMenu_ = new TpMenu();
+    // uint32_t delIndex = operateMenu_->addItem("卸载", applicationDirPath() + "/../res/删除.png");
+    // connect(operateMenu_, onClicked, [=](uint32_t index)
+    //         {
+	// 			std::cout << " index " << index << std::endl;
+	// 			std::cout << " delIndex " << delIndex << std::endl;
 
-				if (index == delIndex)
-				{
-					slotDeleteApp(pressAppBtn_);
-					// TpMessageBox::information("卸载成功");
-					operateMenu_->close();
-					maskWindow_->close();
-				} });
+	// 			if (index == delIndex)
+	// 			{
+	// 				slotDeleteApp(pressAppBtn_);
+	// 				// TpMessageBox::information("卸载成功");
+	// 				operateMenu_->close();
+	// 				maskWindow_->close();
+	// 			} });
 
     appInstallPtr_ = new TpAppInstall("");
     appInstallTimer_ = new TpTimer(800);

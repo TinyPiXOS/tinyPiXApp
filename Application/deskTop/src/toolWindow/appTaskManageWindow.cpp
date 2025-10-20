@@ -47,6 +47,8 @@ appTaskManageWindow::appTaskManageWindow()
                                     })");
 
     setVisible(false);
+
+    setBackGroundColor(_RGB(0, 255, 0));
 }
 
 appTaskManageWindow::~appTaskManageWindow()
@@ -60,9 +62,6 @@ void appTaskManageWindow::setVisible(bool visible)
     if (!visible)
         return;
 
-    // 获取所有应用列表
-    TpVector<TpSystemApi::RunAppInfo> runAppList = TpSystemApi::Instance()->runAppList();
-
     // 清空上一次的任务列表
     taskScrollPanel_->clearObject();
     for (const auto &lastTaskWidget : allTaskWidgetMap_)
@@ -71,19 +70,20 @@ void appTaskManageWindow::setVisible(bool visible)
     }
     allTaskWidgetMap_.clear();
 
+    // 获取所有应用列表
+    TpVector<TpSystemApi::RunAppInfo> runAppList = TpSystemApi::Instance()->runAppList();
     for (int i = 0; i < runAppList.size(); ++i)
     {
         TpSystemApi::RunAppInfo appInfo = runAppList.at(i);
 
-        appPreviewWidget *previewWidget = new appPreviewWidget(this);
+        appPreviewWidget *previewWidget = new appPreviewWidget();
         previewWidget->setName(appInfo.appInfo.appName());
         previewWidget->setIcon(appInfo.appInfo.iconPath());
+        previewWidget->setAppUuid(appInfo.appInfo.appUuid());
 
         // 应用抓图，grabWindow
         TpImage appGrapImage = TpSystemApi::Instance()->appImage(appInfo.appInfo.appUuid());
         previewWidget->setPreviewImg(appGrapImage);
-
-        previewWidget->setAppUuid(appInfo.appInfo.appUuid());
 
         connect(previewWidget, signalKillApp, this, &appTaskManageWindow::slotKillApp);
         connect(previewWidget, signalOpenApp, this, &appTaskManageWindow::slotOpenApp);

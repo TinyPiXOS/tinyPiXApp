@@ -138,6 +138,7 @@ void appPreviewWidget::init()
     previewImgLabel_ = new TpLabel(this);
     previewImgLabel_->setProperty("Debug", "previewImgLabel_");
     previewImgLabel_->installEventFilter(this);
+    // previewImgLabel_->setFixedSize(250, 150);
 
     closeBtn_ = new TpButton(this);
     closeBtn_->setEnableBackGroundColor(false);
@@ -157,9 +158,9 @@ void appPreviewWidget::init()
     titleLayout->addWidget(closeBtn_);
 
     TpVBoxLayout *mainLayout = new TpVBoxLayout();
-    mainLayout->setSpacing(8);
+    mainLayout->setSpacing(5);
     mainLayout->addLayout(titleLayout, 1);
-    mainLayout->addWidget(previewImgLabel_, 10);
+    mainLayout->addWidget(previewImgLabel_, 5);
 
     setLayout(mainLayout);
 }
