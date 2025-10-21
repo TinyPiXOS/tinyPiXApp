@@ -47,8 +47,6 @@ appTaskManageWindow::appTaskManageWindow()
                                     })");
 
     setVisible(false);
-
-    setBackGroundColor(_RGB(0, 255, 0));
 }
 
 appTaskManageWindow::~appTaskManageWindow()

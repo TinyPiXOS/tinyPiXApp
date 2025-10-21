@@ -50,11 +50,12 @@ protected:
     virtual bool eventFilter(TpObject *watched, TpEvent *event) override;
     virtual bool onMousePressEvent(TpMouseEvent *event) override;
     virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
-    virtual bool onMouseMoveEvent(TpMouseEvent *event) override;
-    virtual bool onLeaveEvent(TpLeaveEvent *event) override;
+    virtual bool onResizeEvent(TpResizeEvent *event) override;
 
 private:
     void init();
+
+    void refreshUi();
 
 private:
     // 图标

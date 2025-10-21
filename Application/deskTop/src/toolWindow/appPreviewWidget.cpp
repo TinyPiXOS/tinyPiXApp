@@ -110,13 +110,9 @@ bool appPreviewWidget::onMouseRleaseEvent(TpMouseEvent *event)
     return true;
 }
 
-bool appPreviewWidget::onMouseMoveEvent(TpMouseEvent *event)
+bool appPreviewWidget::onResizeEvent(TpResizeEvent *event)
 {
-    return true;
-}
-
-bool appPreviewWidget::onLeaveEvent(TpLeaveEvent *event)
-{
+    refreshUi();
     return true;
 }
 
@@ -138,7 +134,7 @@ void appPreviewWidget::init()
     previewImgLabel_ = new TpLabel(this);
     previewImgLabel_->setProperty("Debug", "previewImgLabel_");
     previewImgLabel_->installEventFilter(this);
-    // previewImgLabel_->setFixedSize(250, 150);
+    // previewImgLabel_->setBackGroundColor(_RGB(255, 255, 255));
 
     closeBtn_ = new TpButton(this);
     closeBtn_->setEnableBackGroundColor(false);
@@ -154,7 +150,7 @@ void appPreviewWidget::init()
     titleLayout->setContentsMargins(8, 0, 8, 0);
     titleLayout->addWidget(iconLabel_);
     titleLayout->addWidget(nameLabel_);
-    titleLayout->addSpacer(new TpSpacerItem(10, 10, TpSpacerItem::Expanding));
+    titleLayout->addSpacer(new TpSpacerItem(10, 5, TpSpacerItem::Expanding));
     titleLayout->addWidget(closeBtn_);
 
     TpVBoxLayout *mainLayout = new TpVBoxLayout();
@@ -163,4 +159,14 @@ void appPreviewWidget::init()
     mainLayout->addWidget(previewImgLabel_, 5);
 
     setLayout(mainLayout);
+}
+
+void appPreviewWidget::refreshUi()
+{
+    // iconLabel_->move(8, 0);
+    // nameLabel_->move(iconLabel_->pos().x() + iconLabel_->width() + 8, 0);
+    // closeBtn_->move(width() - closeBtn_->width(), 0);
+
+    // previewImgLabel_->move(0, iconLabel_->pos().y() + iconLabel_->height() + 5);
+    // previewImgLabel_->setSize(width(), height() - previewImgLabel_->pos().y());
 }
