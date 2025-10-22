@@ -27,7 +27,7 @@ tinyPiXApp 为 TinyPiXOS 提供的所有示例程序，包括桌面、文件管�
 
 Application 目录下为所有示例应用，包括桌面、文件管理器、媒体播放器等应用​。
 
-### 桌面（deskTop）
+### 桌面（DeskTop）
 
 桌面应用核心功能涵盖已安装应用管理、程序启动、交互控制及系统监控四大部分：
 
@@ -61,7 +61,7 @@ Desktop --- NavigationBar
 Desktop --- Taskbar
 ```
 
-### 文件管理器（fileManagement）
+### 文件管理器（FileManagement）
 
 文件管理器功能架构​​
 
@@ -108,7 +108,7 @@ FileBrowse --- FileListWindow
 FileBrowse --- FileSort
 ```
 
-### 媒体播放器（mediaPlayer）
+### 媒体播放器（MediaPlayer）
 
 媒体播放器核心功能：
 
@@ -169,7 +169,7 @@ D2 --> D2b[音量滑块]
 D2 --> D2c[亮度调节]
 ```
 
-### 系统设置（systemSettings）
+### 系统设置（SystemSettings）
 
 设置软件提供系统级配置管理功能，主要分为五大核心模块：
 
@@ -235,11 +235,11 @@ F2 --> F2b[存储清理]
 F2 --> F2c[通知控制]
 ```
 
-### 相册（photoAlbum）
+### 相册（PhotoAlbum）
 
 未来扩展。暂未实现。
 
-### 日历（calendar）
+### 日历（Calendar）
 
 未来扩展。暂未实现。
 
