@@ -803,7 +803,6 @@ void DeskScreen::refreshBar()
 
     topFloatBar_->update();
     navigationFloatBar_->update();
-
 }
 
 DesktopAppButton *DeskScreen::createDeskAppBtn(ApplicationInfoSPtr appInfo, const TpString &iconPath, const TpString &appName)

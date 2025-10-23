@@ -9,7 +9,6 @@
 #include "TpImage.h"
 #include "TpBluetoothLocal.h"
 #include "TpNetworkInterface.h"
-
 #include <cmath>
 
 bool globalSystemLockStatus = false;
@@ -19,19 +18,39 @@ bool globalSystemLockStatus = false;
 #endif
 
 TopBar::TopBar()
-    : TpDialog("tinyPiX_SYS_Float_0531acbf04")
+    : TpDialog("tinyPiX_SYS_Float_0531acbf04"), shareMemory_(nullptr)
 {
     setBackGroundColor(TOP_BAR_COLOR);
 
     initUI();
+
+    shareMemory_ = new TpShareMemory(DeskTopBarInfoTopic, 1024, true);
+    if (!shareMemory_->isMapped())
+    {
+        std::cerr << "共享内存创建失败！" << std::endl;
+        return;
+    }
 }
 
 TopBar::~TopBar()
 {
+    if (shareMemory_)
+    {
+        delete shareMemory_;
+        shareMemory_ = nullptr;
+    }
 }
 
 void TopBar::setColor(const int32_t &appColor)
 {
+}
+
+void TopBar::setVisible(bool visible)
+{
+    TpDialog::setVisible(visible);
+
+    // 将工具栏数据写入共享内存
+    refreshSharedMomery();
 }
 
 bool TopBar::onResizeEvent(TpResizeEvent *event)
@@ -40,9 +59,8 @@ bool TopBar::onResizeEvent(TpResizeEvent *event)
 
     caculateTopAppPos();
 
-    // 刷新应用工具栏尺寸
-    // if (appSettingBar_)
-    //     appSettingBar_->resizeSettingBar(this);
+    // 将工具栏数据写入共享内存
+    refreshSharedMomery();
 
     return true;
 }
@@ -193,5 +211,20 @@ TpString TopBar::transWeekData(const int32_t &dayOfWeek)
         return "周日";
     default:
         return "周一";
+    }
+}
+
+void TopBar::refreshSharedMomery()
+{
+    // 更新工具栏尺寸共享内存
+    DeskTopBarInfo config;
+    config.topBarWidth = width();
+    config.topBarHeight = height();
+    config.topBarisVislble = visible();
+
+    // 写入配置数据
+    if (!shareMemory_->writeData(&config, sizeof(config)))
+    {
+        std::cout << "共享内存写入失败！" << std::endl;
     }
 }

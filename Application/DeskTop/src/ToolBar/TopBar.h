@@ -6,6 +6,7 @@
 #include "TpTimer.h"
 #include "TpEvent.h"
 #include "TpBattery.h"
+#include "TpShareMemory.h"
 
 class TopBar : public TpDialog
 {
@@ -16,6 +17,8 @@ public:
     /// @brief 设置顶部工具栏颜色
     /// @param appColor 应用底部颜色，根据应用颜色，选择设置工具栏是黑色/白色
     void setColor(const int32_t &appColor);
+
+    virtual void setVisible(bool visible = true) override;
 
 protected:
     virtual bool onResizeEvent(TpResizeEvent *event) override;
@@ -32,7 +35,11 @@ private:
     // 将周几的数字转为汉字显示
     TpString transWeekData(const int32_t &dayOfWeek);
 
+    void refreshSharedMomery();
+
 private:
+    TpShareMemory *shareMemory_;
+
     TpLabel *sysDateLabel_;
     TpLabel *sysTimeLabel_;
 

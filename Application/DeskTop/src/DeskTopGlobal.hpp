@@ -8,6 +8,7 @@
 #include "TpDisplay.h"
 #include "tinyPiXUtils.h"
 #include "tinyPiXSys.h"
+#include "InteractionDefine.h"
 
 // 桌面最大页数
 const uint32_t globalDesktopMaxPageNum = 10;
