@@ -10,7 +10,7 @@ class BluetoothSettingWindow
     : public SettingBase
 {
 public:
-    BluetoothSettingWindow(TpChildWidget *parent = nullptr);
+    BluetoothSettingWindow(TpWidget *parent = nullptr);
     virtual ~BluetoothSettingWindow();
 
 protected:

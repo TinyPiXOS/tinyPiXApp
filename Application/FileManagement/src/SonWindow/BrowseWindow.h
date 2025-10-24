@@ -6,7 +6,7 @@
 #ifndef __BROWSE_WINDOW_H
 #define __BROWSE_WINDOW_H
 
-#include "TpChildWidget.h"
+#include "TpWidget.h"
 #include "TpScrollPanel.h"
 #include "TpLineEdit.h"
 #include "TpVector.h"
@@ -19,10 +19,10 @@
 #include "BrowserToolWindow/FileListWindow.h"
 
 class BrowseWindow
-    : public TpChildWidget
+    : public TpWidget
 {
 public:
-    BrowseWindow(TpChildWidget *parent = nullptr);
+    BrowseWindow(TpWidget *parent = nullptr);
     ~BrowseWindow();
 
 	virtual void setVisible(bool visible = true) override;

@@ -1,6 +1,6 @@
 #include "BluetoothSettingWindow.h"
 
-BluetoothSettingWindow::BluetoothSettingWindow(TpChildWidget *parent)
+BluetoothSettingWindow::BluetoothSettingWindow(TpWidget *parent)
     : SettingBase(parent)
 {
     initUi();

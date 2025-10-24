@@ -6,17 +6,17 @@
 #ifndef __DISK_DEVICE_CHECKBOX_H
 #define __DISK_DEVICE_CHECKBOX_H
 
-#include "TpChildWidget.h"
+#include "TpWidget.h"
 #include "TpLabel.h"
 #include "TpImage.h"
 #include "TpEvent.h"
 #include "TpSignalSlot.h"
 
 class DiskDeviceCheckBox
-    : public TpChildWidget
+    : public TpWidget
 {
 public:
-    DiskDeviceCheckBox(TpChildWidget *parent = nullptr);
+    DiskDeviceCheckBox(TpWidget *parent = nullptr);
     ~DiskDeviceCheckBox();
 
     void setIcon(const TpString &normalIcon, const TpString &checkedIcon);

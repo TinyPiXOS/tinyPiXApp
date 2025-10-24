@@ -1,13 +1,13 @@
 #ifndef __MAIN_WINDOW_SERVICE_H
 #define __MAIN_WINDOW_SERVICE_H
 
-#include "TpFixScreen.h"
+#include "TpMainWindow.h"
 #include "TpTabWidget.h"
 #include "SonWindow/RecentlyWindow.h"
 #include "SonWindow/BrowseWindow.h"
 
 class MainWindowService
-    : public TpFixScreen
+    : public TpMainWindow
 {
 public:
     MainWindowService();

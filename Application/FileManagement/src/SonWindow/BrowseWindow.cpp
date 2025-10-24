@@ -7,8 +7,8 @@
 
 static const TpString ITEM_PATH_TYPE = "FastPath";
 
-BrowseWindow::BrowseWindow(TpChildWidget *parent)
-    : TpChildWidget(parent)
+BrowseWindow::BrowseWindow(TpWidget *parent)
+    : TpWidget(parent)
 {
     init();
 
@@ -25,12 +25,12 @@ BrowseWindow::~BrowseWindow()
 
 void BrowseWindow::setVisible(bool visible)
 {
-    TpChildWidget::setVisible(visible);
+    TpWidget::setVisible(visible);
 
     if (!visible)
         return;
 
-    TpChildWidget *scrollWidget = mainScrollPanel_->widget();
+    TpWidget *scrollWidget = mainScrollPanel_->widget();
     TpVBoxLayout *deviceListLayout = dynamic_cast<TpVBoxLayout *>(scrollWidget->layout());
 
     if (!deviceListLayout)
@@ -110,7 +110,7 @@ void BrowseWindow::setVisible(bool visible)
 
 bool BrowseWindow::onPaintEvent(TpPaintEvent *event)
 {
-    TpChildWidget::onPaintEvent(event);
+    TpWidget::onPaintEvent(event);
 
     // 绘制左侧菜单滚动区域的底色
     TpPainter *paintCanvas = event->painter();
@@ -135,7 +135,7 @@ void BrowseWindow::init()
     mainScrollPanel_->setFixedWidth(TpDisplay::dp2Px(440));
     mainScrollPanel_->setBackGroundColor(_RGB(248, 248, 248));
 
-    TpChildWidget *scrollWidget = new TpChildWidget();
+    TpWidget *scrollWidget = new TpWidget();
     scrollWidget->setBackGroundColor(_RGB(248, 248, 248));
 
     fileListWindow_ = new FileListWindow();
@@ -161,7 +161,7 @@ void BrowseWindow::init()
     // fastPathScroll_->setBackGroundColor(_RGB(255, 0, 0));
 
     // 将快捷访问按钮放进中间widget，再放入滚动窗口
-    TpChildWidget *fastScrollWidget = new TpChildWidget();
+    TpWidget *fastScrollWidget = new TpWidget();
 
     pictureTileBtn_ = new TpMediaTileButton(fastPathScroll_);
     pictureTileBtn_->setProperty(ITEM_PATH_TYPE, "/System/data/Pictures");

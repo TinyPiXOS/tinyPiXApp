@@ -6,8 +6,8 @@
 #include "TpLine.h"
 #include "TpEvent.h"
 
-DiskDeviceCheckBox::DiskDeviceCheckBox(TpChildWidget *parent)
-    : TpChildWidget(parent)
+DiskDeviceCheckBox::DiskDeviceCheckBox(TpWidget *parent)
+    : TpWidget(parent)
 {
     refreshBaseCss();
 
@@ -40,7 +40,7 @@ void DiskDeviceCheckBox::setSpace(const float &curSpace, const float &totalSpace
 
 bool DiskDeviceCheckBox::onMouseRleaseEvent(TpMouseEvent *event)
 {
-    TpChildWidget::onMouseRleaseEvent(event);
+    TpWidget::onMouseRleaseEvent(event);
 
     onClicked.emit(this);
 
@@ -49,13 +49,13 @@ bool DiskDeviceCheckBox::onMouseRleaseEvent(TpMouseEvent *event)
 
 bool DiskDeviceCheckBox::onResizeEvent(TpResizeEvent *event)
 {
-    TpChildWidget::onResizeEvent(event);
+    TpWidget::onResizeEvent(event);
     return true;
 }
 
 bool DiskDeviceCheckBox::onPaintEvent(TpPaintEvent *event)
 {
-    TpChildWidget::onPaintEvent(event);
+    TpWidget::onPaintEvent(event);
 
     if (checked())
     {

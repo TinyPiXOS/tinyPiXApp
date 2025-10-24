@@ -2,7 +2,7 @@
 #include "TpListWidget.h"
 
 MainWindowService::MainWindowService()
-    : TpFixScreen()
+    : TpMainWindow()
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 

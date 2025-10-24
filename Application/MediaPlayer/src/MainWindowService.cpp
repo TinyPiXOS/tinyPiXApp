@@ -10,7 +10,7 @@
 #include "TpSurface.h"
 
 MainWindowService::MainWindowService()
-    : TpFixScreen(), topBar_(new TopBar()), bottomBar_(new BottomBar()), fileType_(UnknowFile), videoPlayer_(nullptr)
+    : TpMainWindow(), topBar_(new TopBar()), bottomBar_(new BottomBar()), fileType_(UnknowFile), videoPlayer_(nullptr)
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 

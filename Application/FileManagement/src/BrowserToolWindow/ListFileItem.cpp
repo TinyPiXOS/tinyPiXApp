@@ -65,8 +65,8 @@ TpString parseIconPath(const TpString &suffix, const bool &isDir)
         return resPath + "未知.png";
 }
 
-ListFileItem::ListFileItem(TpChildWidget *parent)
-    : TpChildWidget(parent)
+ListFileItem::ListFileItem(TpWidget *parent)
+    : TpWidget(parent)
 {
     iconLabel_ = new TpLabel(this);
     iconLabel_->setFixedSize(50, 50);
@@ -156,7 +156,7 @@ TpString ListFileItem::path()
 
 bool ListFileItem::onMouseRleaseEvent(TpMouseEvent *event)
 {
-    TpChildWidget::onMouseRleaseEvent(event);
+    TpWidget::onMouseRleaseEvent(event);
 
     onClicked.emit(this);
 
@@ -165,7 +165,7 @@ bool ListFileItem::onMouseRleaseEvent(TpMouseEvent *event)
 
 bool ListFileItem::onResizeEvent(TpResizeEvent *event)
 {
-    TpChildWidget::onResizeEvent(event);
+    TpWidget::onResizeEvent(event);
 
     // iconLabel_->setFixedSize(height() * 0.666, height() * 0.666);
 

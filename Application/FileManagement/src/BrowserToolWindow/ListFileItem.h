@@ -6,15 +6,15 @@
 #ifndef __LIST_FILE_ITEM_H
 #define __LIST_FILE_ITEM_H
 
-#include "TpChildWidget.h"
+#include "TpWidget.h"
 #include "TpLabel.h"
 #include "TpSignalSlot.h"
 
 class ListFileItem
-    : public TpChildWidget
+    : public TpWidget
 {
 public:
-    ListFileItem(TpChildWidget *parent = nullptr);
+    ListFileItem(TpWidget *parent = nullptr);
     ~ListFileItem();
 
     /// @brief 设置文件名称

@@ -1,14 +1,14 @@
 #include "DesktopAppButton.h"
 #include "TpPainter.h"
 
-DesktopAppButton::DesktopAppButton(TpChildWidget *parent)
+DesktopAppButton::DesktopAppButton(TpWidget *parent)
     : TpIconTopButton(parent)
 {
     hollowWidget_ = new HollowWidget(this);
     hollowWidget_->setVisible(false);
 }
 
-DesktopAppButton::DesktopAppButton(const TpString &iconPath, const TpString &text, TpChildWidget *parent)
+DesktopAppButton::DesktopAppButton(const TpString &iconPath, const TpString &text, TpWidget *parent)
     : TpIconTopButton(iconPath, text, parent)
 {
     hollowWidget_ = new HollowWidget(this);
@@ -45,8 +45,8 @@ bool DesktopAppButton::onResizeEvent(TpResizeEvent *event)
     return true;
 }
 
-HollowWidget::HollowWidget(TpChildWidget *parent)
-    : TpChildWidget(parent), installProgress_(100)
+HollowWidget::HollowWidget(TpWidget *parent)
+    : TpWidget(parent), installProgress_(100)
 {
 }
 
@@ -61,7 +61,7 @@ void HollowWidget::setInstallProgress(const uint32_t &progress)
 
 bool HollowWidget::onPaintEvent(TpPaintEvent *event)
 {
-    TpChildWidget::onPaintEvent(event);
+    TpWidget::onPaintEvent(event);
 
     // 应用正在安装中；根据安装进度绘制遮罩层
     TpPainter *painter = event->painter();

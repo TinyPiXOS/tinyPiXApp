@@ -12,9 +12,9 @@ class HollowWidget;
 class DesktopAppButton : public TpIconTopButton
 {
 public:
-    DesktopAppButton(TpChildWidget *parent = nullptr);
+    DesktopAppButton(TpWidget *parent = nullptr);
 
-    DesktopAppButton(const TpString &iconPath, const TpString &text, TpChildWidget *parent);
+    DesktopAppButton(const TpString &iconPath, const TpString &text, TpWidget *parent);
 
     virtual ~DesktopAppButton();
 
@@ -33,10 +33,10 @@ private:
     HollowWidget *hollowWidget_;
 };
 
-class HollowWidget : public TpChildWidget
+class HollowWidget : public TpWidget
 {
 public:
-    HollowWidget(TpChildWidget *parent = nullptr);
+    HollowWidget(TpWidget *parent = nullptr);
     ~HollowWidget();
 
     /// @brief 设置安装进度

@@ -26,10 +26,10 @@ private:
     void init();
 
     // 构建本地空间子窗口
-    TpChildWidget *genLocalSpaceWidget();
+    TpWidget *genLocalSpaceWidget();
 
     // 生成清理空间子窗口
-    TpChildWidget *genClearFileWidget();
+    TpWidget *genClearFileWidget();
 
 private:
     // 返回上层按钮

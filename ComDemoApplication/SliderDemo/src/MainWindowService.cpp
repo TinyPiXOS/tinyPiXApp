@@ -5,7 +5,7 @@
 #include "TpSignalSlot.h"
 
 MainWindowService::MainWindowService()
-    : TpFixScreen()
+    : TpMainWindow()
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 

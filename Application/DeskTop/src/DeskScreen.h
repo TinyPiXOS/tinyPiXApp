@@ -1,7 +1,7 @@
 #ifndef __TP_VDESK_SCREEN_H
 #define __TP_VDESK_SCREEN_H
 
-#include "TpFixScreen.h"
+#include "TpMainWindow.h"
 #include "TpJsonObject.h"
 #include "TpGateway.h"
 #include "TpScrollPanel.h"
@@ -38,7 +38,7 @@
 TP_DEF_VOID_TYPE_VAR(ItpScreenPrivData);
 
 class DeskScreen
-	: public TpFixScreen,
+	: public TpMainWindow,
 	  public TpGateway
 {
 public:

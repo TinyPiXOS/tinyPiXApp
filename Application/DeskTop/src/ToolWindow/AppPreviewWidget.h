@@ -5,16 +5,16 @@
     应用任务缩略展示窗体
 */
 
-#include "TpChildWidget.h"
+#include "TpWidget.h"
 #include "TpButton.h"
 #include "TpEvent.h"
 #include "TpLabel.h"
 
 class AppPreviewWidget
-    : public TpChildWidget
+    : public TpWidget
 {
 public:
-    AppPreviewWidget(TpChildWidget *parent = nullptr);
+    AppPreviewWidget(TpWidget *parent = nullptr);
     virtual ~AppPreviewWidget();
 
     // 设置应用图标

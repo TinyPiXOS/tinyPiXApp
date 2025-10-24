@@ -14,7 +14,7 @@ class UsbPopButton
     : public TpButton
 {
 public:
-    UsbPopButton(TpChildWidget *parent = nullptr);
+    UsbPopButton(TpWidget *parent = nullptr);
     ~UsbPopButton();
 
 protected:

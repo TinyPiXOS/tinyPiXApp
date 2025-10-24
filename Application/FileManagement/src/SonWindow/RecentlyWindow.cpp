@@ -6,8 +6,8 @@
 #include "TpDisplay.h"
 #include "TpButton.h"
 
-RecentlyWindow::RecentlyWindow(TpChildWidget *parent)
-    : TpChildWidget(parent)
+RecentlyWindow::RecentlyWindow(TpWidget *parent)
+    : TpWidget(parent)
 {
     init();
 
@@ -21,7 +21,7 @@ RecentlyWindow::~RecentlyWindow()
 
 bool RecentlyWindow::onMousePressEvent(TpMouseEvent *event)
 {
-    TpChildWidget::onMousePressEvent(event);
+    TpWidget::onMousePressEvent(event);
 
     pressPopMenu_->setVisible(false);
 
@@ -35,7 +35,7 @@ bool RecentlyWindow::onMousePressEvent(TpMouseEvent *event)
 
 bool RecentlyWindow::onMouseRleaseEvent(TpMouseEvent *event)
 {
-    TpChildWidget::onMouseRleaseEvent(event);
+    TpWidget::onMouseRleaseEvent(event);
 
     return true;
 }
@@ -102,7 +102,7 @@ void RecentlyWindow::init()
     mainScrollPanel_->installEventFilter(this);
     // mainScrollPanel_->setBackGroundColor(_RGB(0, 0, 255));
 
-    TpChildWidget *scrollWidget = new TpChildWidget(mainScrollPanel_);
+    TpWidget *scrollWidget = new TpWidget(mainScrollPanel_);
     TpVBoxLayout *scrollLayout = new TpVBoxLayout();
     scrollWidget->setSize(600, 1500);
     scrollWidget->installEventFilter(this);

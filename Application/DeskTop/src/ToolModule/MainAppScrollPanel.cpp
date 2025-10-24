@@ -2,7 +2,7 @@
 #include "DeskTopGlobal.hpp"
 #include "math.h"
 
-MainAppScrollPanel::MainAppScrollPanel(TpChildWidget *parent)
+MainAppScrollPanel::MainAppScrollPanel(TpWidget *parent)
     : TpScrollPanel(parent), maxPageCount_(globalDesktopMaxPageNum), mouseLeftPress_(false), isSwitchPage_(false)
 {
     this->setEnableBackGroundColor(false);

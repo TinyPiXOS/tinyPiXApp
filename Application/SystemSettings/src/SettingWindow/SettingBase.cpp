@@ -1,7 +1,7 @@
 #include "SettingBase.h"
 
-SettingBase::SettingBase(TpChildWidget *parent)
-    : TpChildWidget(parent), titleLabel_(nullptr), backBtn_(nullptr)
+SettingBase::SettingBase(TpWidget *parent)
+    : TpWidget(parent), titleLabel_(nullptr), backBtn_(nullptr)
 {
     mainLayout_ = new TpVBoxLayout();
     mainLayout_->setSpacing(10);

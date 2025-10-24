@@ -12,7 +12,7 @@
 #endif
 
 BottomBar::BottomBar(TpScreen *topScreen)
-    : TpChildWidget(topScreen), topScreen_(topScreen)
+    : TpWidget(topScreen), topScreen_(topScreen)
 {
     setEnabledBorderColor(false);
     setBackGroundColor(BOTTOM_BAR_COLOR);
@@ -25,7 +25,7 @@ BottomBar::~BottomBar()
 void BottomBar::setVisible(bool visible)
 {
     // std::cout << "BottomBar::setVisible " << visible << std::endl;
-    TpChildWidget::setVisible(visible);
+    TpWidget::setVisible(visible);
 }
 
 void BottomBar::setBottomAppBtn(const TpList<DesktopAppButton *> &appList)

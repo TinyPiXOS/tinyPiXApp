@@ -57,9 +57,9 @@ void ClearSpaceWindow::init()
     titleLayout->addWidget(backBtn_);
     titleLayout->addWidget(titleLabel);
 
-    TpChildWidget *localSpaceWidget = genLocalSpaceWidget();
+    TpWidget *localSpaceWidget = genLocalSpaceWidget();
 
-    TpChildWidget *clearWidget = genClearFileWidget();
+    TpWidget *clearWidget = genClearFileWidget();
 
     mainLayout->addLayout(titleLayout);
     mainLayout->addWidget(localSpaceWidget);
@@ -69,7 +69,7 @@ void ClearSpaceWindow::init()
     setLayout(mainLayout);
 }
 
-TpChildWidget *ClearSpaceWindow::genLocalSpaceWidget()
+TpWidget *ClearSpaceWindow::genLocalSpaceWidget()
 {
     TpHBoxLayout *titleLayout = new TpHBoxLayout();
     titleLayout->setContentsMargins(0, 0, 0, 0);
@@ -77,7 +77,7 @@ TpChildWidget *ClearSpaceWindow::genLocalSpaceWidget()
     TpVBoxLayout *spaceWidgetLayout = new TpVBoxLayout();
     spaceWidgetLayout->setContentsMargins(18, 35, 18, 35);
 
-    TpChildWidget *localSpaceWidget = new TpChildWidget();
+    TpWidget *localSpaceWidget = new TpWidget();
     localSpaceWidget->setBackGroundColor(_RGB(255, 255, 255));
     localSpaceWidget->setRoundCorners(20);
 
@@ -113,12 +113,12 @@ TpChildWidget *ClearSpaceWindow::genLocalSpaceWidget()
     return localSpaceWidget;
 }
 
-TpChildWidget *ClearSpaceWindow::genClearFileWidget()
+TpWidget *ClearSpaceWindow::genClearFileWidget()
 {
     TpHBoxLayout *titleLayout = new TpHBoxLayout();
     titleLayout->setContentsMargins(18, 35, 18, 35);
 
-    TpChildWidget *clearWidget = new TpChildWidget();
+    TpWidget *clearWidget = new TpWidget();
     clearWidget->setBackGroundColor(_RGB(255, 255, 255));
     clearWidget->setRoundCorners(20);
 

@@ -6,8 +6,8 @@
 #include "TpImage.h"
 #include "DeskTopGlobal.hpp"
 
-AppPreviewWidget::AppPreviewWidget(TpChildWidget *parent)
-    : TpChildWidget(parent)
+AppPreviewWidget::AppPreviewWidget(TpWidget *parent)
+    : TpWidget(parent)
 {
     init();
 }

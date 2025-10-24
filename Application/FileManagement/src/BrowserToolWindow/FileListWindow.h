@@ -6,7 +6,7 @@
 #ifndef __FILE_LIST_WINDOW_H
 #define __FILE_LIST_WINDOW_H
 
-#include "TpChildWidget.h"
+#include "TpWidget.h"
 #include "TpScrollPanel.h"
 #include "TpVector.h"
 #include "TpCollapsibleFileItem.h"
@@ -36,7 +36,7 @@ public:
     };
 
 public:
-    FileListWindow(TpChildWidget *parent = nullptr);
+    FileListWindow(TpWidget *parent = nullptr);
     ~FileListWindow();
 
     // 设置显示模式

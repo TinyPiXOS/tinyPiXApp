@@ -9,7 +9,7 @@ class MainAppScrollPanel
     : public TpScrollPanel
 {
 public:
-    MainAppScrollPanel(TpChildWidget *parent = nullptr);
+    MainAppScrollPanel(TpWidget *parent = nullptr);
     ~MainAppScrollPanel();
 
     void setMaxPage(const uint32_t &maxPage);

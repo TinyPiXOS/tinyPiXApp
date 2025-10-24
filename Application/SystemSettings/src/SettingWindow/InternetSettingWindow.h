@@ -12,7 +12,7 @@ class InternetSettingWindow
     : public SettingBase
 {
 public:
-    InternetSettingWindow(TpChildWidget *parent = nullptr);
+    InternetSettingWindow(TpWidget *parent = nullptr);
     virtual ~InternetSettingWindow();
 
     // 界面刷新数据

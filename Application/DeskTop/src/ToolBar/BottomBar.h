@@ -7,7 +7,7 @@
 #include "DesktopAppButton.h"
 
 class BottomBar
-	: public TpChildWidget
+	: public TpWidget
 {
 public:
 	// 顶层窗口指针

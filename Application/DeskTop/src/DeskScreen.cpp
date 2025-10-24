@@ -31,7 +31,7 @@ uint32_t globalAppMaxRow = 4;
 uint32_t globalAppMaxColumn = 6;
 uint32_t globalAppHInterval = 0;
 
-static inline void BAR_SET_ATTRIB(TpChildWidget *vars, int32_t x, int32_t y, int32_t width, int32_t height)
+static inline void BAR_SET_ATTRIB(TpWidget *vars, int32_t x, int32_t y, int32_t width, int32_t height)
 {
     vars->setRect(x, y, width, height);
     vars->setVisible(true);

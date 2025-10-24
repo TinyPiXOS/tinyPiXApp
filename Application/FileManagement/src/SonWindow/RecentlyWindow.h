@@ -6,7 +6,7 @@
 #ifndef __RECENTLY_WINDOW_H
 #define __RECENTLY_WINDOW_H
 
-#include "TpChildWidget.h"
+#include "TpWidget.h"
 #include "TpScrollPanel.h"
 #include "TpLineEdit.h"
 #include "TpVector.h"
@@ -20,10 +20,10 @@
 #include "TpCollapsibleFileWidget.h"
 
 class RecentlyWindow
-    : public TpChildWidget
+    : public TpWidget
 {
 public:
-    RecentlyWindow(TpChildWidget *parent = nullptr);
+    RecentlyWindow(TpWidget *parent = nullptr);
     ~RecentlyWindow();
 
 protected:

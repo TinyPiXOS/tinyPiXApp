@@ -5,7 +5,7 @@
 #include "TpSignalSlot.h"
 
 MainWindowService::MainWindowService()
-    : TpFixScreen()
+    : TpMainWindow()
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
@@ -14,7 +14,7 @@ MainWindowService::MainWindowService()
 
     // 效果展示窗体
     TpDialog *exampleWidget = new TpDialog();
-    // TpChildWidget *exampleWidget = new TpChildWidget(this);
+    // TpWidget *exampleWidget = new TpWidget(this);
     exampleWidget->setBackGroundColor(_RGB(255, 255, 255));
     exampleWidget->setRect(350, 20, 100, 100);
 

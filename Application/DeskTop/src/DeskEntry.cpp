@@ -4,7 +4,7 @@
 #include "ToolBar/TopBar.h"
 #include "ToolBar/BottomBar.h"
 
-DeskScreen::DeskScreen() : TpFixScreen("tinyPiX_DeskTop_0x43ef3dc14"), pressAppBtn_(nullptr)
+DeskScreen::DeskScreen() : TpMainWindow("tinyPiX_DeskTop_0x43ef3dc14"), pressAppBtn_(nullptr)
 	, isMoveMode_(false), installingApp_(nullptr)
 {
 	this->construct();

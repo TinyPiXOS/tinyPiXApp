@@ -15,7 +15,7 @@
 const TpString SettingTypeStr = "settingType";
 
 MainWindowService::MainWindowService()
-    : TpFixScreen(), curSelectItem_(nullptr)
+    : TpMainWindow(), curSelectItem_(nullptr)
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
@@ -85,7 +85,7 @@ void MainWindowService::initUi()
     mainScrollPanel_->setFixedWidth(TpScreen::screenWidth() * 0.375);
     mainScrollPanel_->setBackGroundColor(_RGB(248, 248, 248));
 
-    TpChildWidget *scrollWidget = new TpChildWidget(mainScrollPanel_);
+    TpWidget *scrollWidget = new TpWidget(mainScrollPanel_);
     scrollWidget->setBackGroundColor(_RGB(248, 248, 248));
 
     TpLabel *titleLabel = new TpLabel("设置");
@@ -248,7 +248,7 @@ void MainWindowService::createAllSettingTopMenu(TpVBoxLayout *menuLayout)
             menuPanelItem->setTitle(menuItemName);
             menuPanelItem->setProperty(SettingTypeStr, (int32_t)menuType);
 
-            TpChildWidget *customWidget = generalCustomWidget(menuType);
+            TpWidget *customWidget = generalCustomWidget(menuType);
             if (customWidget)
             {
                 menuPanelItem->setCustomizeWidget(customWidget);
@@ -294,7 +294,7 @@ TpString MainWindowService::generalSettingNames(const SettingType &type)
     return "未命名设置";
 }
 
-TpChildWidget *MainWindowService::generalCustomWidget(const SettingType &type)
+TpWidget *MainWindowService::generalCustomWidget(const SettingType &type)
 {
     if (type == BlueToothSetting)
     {

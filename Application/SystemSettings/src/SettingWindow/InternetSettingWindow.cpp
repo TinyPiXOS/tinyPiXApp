@@ -3,7 +3,7 @@
 #include "TpVBoxLayout.h"
 #include "TpMessageBox.h"
 
-InternetSettingWindow::InternetSettingWindow(TpChildWidget *parent)
+InternetSettingWindow::InternetSettingWindow(TpWidget *parent)
     : SettingBase(parent), netDeviceListCbx_(nullptr), ipv4ConfigPanel_(nullptr)
 {
     initUi();

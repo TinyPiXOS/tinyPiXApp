@@ -1,7 +1,7 @@
 #ifndef __MAIN_WINDOW_SERVICE_H
 #define __MAIN_WINDOW_SERVICE_H
 
-#include "TpFixScreen.h"
+#include "TpMainWindow.h"
 #include "TpScrollPanel.h"
 #include "TpLineEdit.h"
 #include "TpMenuPanelWidget.h"
@@ -12,7 +12,7 @@
 #include "SettingWindow/SettingBase.h"
 
 class MainWindowService
-    : public TpFixScreen
+    : public TpMainWindow
 {
 public:
     MainWindowService();
@@ -42,7 +42,7 @@ private:
     TpString generalSettingNames(const SettingType &type);
 
     // 根据设置类型生成item的自定义widget；如果类型对应的不需要widget返回空指针
-    TpChildWidget *generalCustomWidget(const SettingType &type);
+    TpWidget *generalCustomWidget(const SettingType &type);
 
     // 创建所有功能子窗体；放入allMenuWidgetMapper_容器
     void createAllSettingWindow();

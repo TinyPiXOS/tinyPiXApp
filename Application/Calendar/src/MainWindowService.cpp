@@ -2,7 +2,7 @@
 #include "CalendarGlobal.h"
 
 MainWindowService::MainWindowService()
-    : TpFixScreen()
+    : TpMainWindow()
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 

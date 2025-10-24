@@ -178,7 +178,7 @@ void AppTaskManageWindow::slotClearAllApp(bool)
     TpSystemApi::Instance()->killAllApp();
 
     // 清除界面
-    TpVector<TpChildWidget *> objList = taskScrollPanel_->children();
+    TpVector<TpWidget *> objList = taskScrollPanel_->children();
     taskScrollPanel_->clearObject();
     for (auto &childAppObj : objList)
     {

@@ -1,17 +1,17 @@
 #ifndef __SETTING_BASE_H
 #define __SETTING_BASE_H
 
-#include "TpChildWidget.h"
+#include "TpWidget.h"
 #include "SystemSettingsGlobal.h"
 #include "TpLabel.h"
 #include "TpButton.h"
 #include "TpVBoxLayout.h"
 
 class SettingBase
-    : public TpChildWidget
+    : public TpWidget
 {
 public:
-    SettingBase(TpChildWidget *parent = nullptr);
+    SettingBase(TpWidget *parent = nullptr);
     virtual ~SettingBase();
 
     // 顶层窗口设置功能窗口标题和后退指针

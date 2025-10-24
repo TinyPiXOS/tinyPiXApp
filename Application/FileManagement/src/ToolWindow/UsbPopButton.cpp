@@ -5,7 +5,7 @@
 #include "TpDisplay.h"
 #include "TpImage.h"
 
-UsbPopButton::UsbPopButton(TpChildWidget *parent)
+UsbPopButton::UsbPopButton(TpWidget *parent)
     : TpButton(parent)
 {
     init();

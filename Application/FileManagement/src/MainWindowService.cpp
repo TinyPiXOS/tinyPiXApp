@@ -18,7 +18,7 @@ enum TreeNodeType
 static const uint32_t TreeNodeDataTypeRole = 0;
 
 MainWindowService::MainWindowService()
-    : TpFixScreen()
+    : TpMainWindow()
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 

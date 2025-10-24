@@ -57,7 +57,7 @@ void SettingWindow::init()
     mainScrollPanel_ = new TpScrollPanel(this);
     mainScrollPanel_->setBackGroundColor(_RGB(248, 248, 248));
 
-    TpChildWidget *scrollWidget = new TpChildWidget(mainScrollPanel_);
+    TpWidget *scrollWidget = new TpWidget(mainScrollPanel_);
     scrollWidget->setBackGroundColor(_RGB(248, 248, 248));
 
     TpLabel *titleLabel = new TpLabel("功能设置");

@@ -14,7 +14,7 @@
 #include "TpGateway.h"
 #include "Service/TpSystemApi.h"
 
-FileListWindow::FileListWindow(TpChildWidget *parent)
+FileListWindow::FileListWindow(TpWidget *parent)
     : TpScrollPanel(parent), rootPath_(""), curShowPath_(""), mode_(FileListWindow::Grid)
 {
     init();
@@ -151,8 +151,8 @@ void FileListWindow::refreshPath(const TpString &path)
         }
     }
 
-    TpChildWidget *gridWidget = dynamic_cast<TpChildWidget *>(gridFileLayout_->parent());
-    TpChildWidget *listWidget = dynamic_cast<TpChildWidget *>(listFileLayout_->parent());
+    TpWidget *gridWidget = dynamic_cast<TpWidget *>(gridFileLayout_->parent());
+    TpWidget *listWidget = dynamic_cast<TpWidget *>(listFileLayout_->parent());
 
     if (gridWidget)
         gridWidget->update();
@@ -184,7 +184,7 @@ void FileListWindow::SlotPopUsb(bool)
 
 void FileListWindow::init()
 {
-    TpChildWidget *scrollWidget = new TpChildWidget();
+    TpWidget *scrollWidget = new TpWidget();
     // scrollWidget->installEventFilter(this);
 
     imagePreviewWidget_ = new TpImageWidget();
