@@ -424,8 +424,12 @@ TinyPiXOS开发者服务邮箱
 - 我们围绕TinyPiXOS项目技术栈，搭建了“从零构建桌面操作系统”课程，包括“TinyPiXCore系统学习”. “TinyPiXApp应用开发实战”和“TpWM高级用法实战”三大板块和若干个子专栏，**通过阶梯式能力进阶，赋能开发者​体系化掌握嵌入式OS全栈开发能力**。
 - 为使开发者深度掌握TinyPiXOS技术栈的同时突破领域局限，我们特邀**嵌入式软件开发、硬件开发、人工智能、国产化**等跨领域专家驻场指导，助你构建多维度能力矩阵，实现**领域纵深+技能广度的双重提升**。
 
-![星球社区](https://file.tinypixos.com/tinypixos/其他公开网站.png)
+<div align="center">
+<img src="https://file.tinypixos.com/tinypixos/其他公开网站.png" alt="知识星球">
+</div>
 
 ## 核心团队
 
-![alt text](image.png)
+<div align="center">
+<img src="https://file.tinypixos.com/tinypixos/团队.png" width="500" height="280" alt="核心团队">
+</div>
