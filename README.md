@@ -1,4 +1,4 @@
-# tinyPiXApp 🚀
+# TinyPiXApp 🚀
 
 <div align="center">
 
@@ -8,7 +8,7 @@
 
 </div>
 
-tinyPiXApp 为 TinyPiXOS 提供的所有示例程序，包括桌面、文件管理器、媒体播放器等应用以及部分组件使用示例应用。
+TinyPiXApp 为 TinyPiXOS 提供的所有示例程序，包括桌面、文件管理器、媒体播放器等应用以及部分组件使用示例应用。
 
 - Application: 示例应用
 - ComDemoApplication: 组件效果演示应用
@@ -257,7 +257,7 @@ ComDemoApplication 目录下为部分组件演示的示例应用，用于展示�
 
 **TinyPiXOS** 的诞生标志着我们从零起步，完成了基础技术栈的完整构建与自主掌控。其核心定位在于**提供一个独立可控、架构轻量且高度定制化的嵌入式桌面操作系统开发平台**。
 
-**自主可控：** 自主研发窗口管理器PiXWM与GUI框架，不依赖X11/Wayland。
+**自主可控：** 自主研发窗口管理器TpWM与GUI框架，不依赖X11/Wayland。
 
 **轻量灵活：** 模块化架构按需裁剪，内存与进程调度优化，资源极致利用，从微型嵌入式设备到高性能移动终端均可灵活部署。
 
@@ -267,7 +267,7 @@ ComDemoApplication 目录下为部分组件演示的示例应用，用于展示�
 
 **长期维护：** 技术团队长期维护，不用担心遇到问题导致项目无法推动。
 
-**中文支持：** 目前技术文档仅有中文文档，系统内文字中文支持友好。
+**中文支持：** 系统内文字中文支持友好。
 
 **免费商用：** 免费商用（需保留版权标识），企业可低成本构建定制化系统，支撑产品快速落地。
 
@@ -291,7 +291,7 @@ TinyPiXOS整体架构图
 
 **TinyPiXOS** 作为一款面向轻量化硬件平台的桌面操作系统，其架构设计复杂、功能模块众多。目前现有版本虽已实现基础能力，仍需要开发者社区的力量共同完善。我们选择将核心框架开源，旨在汇聚开发者智慧，共同打造国产嵌入式操作系统生态基座。
 
-🛠️共建国产基座：以PiXSingleGUI等三大模块为基座，联合打造自主可控的嵌入式开发生态
+🛠️共建国产基座：以TpGUI等三大模块为基座，联合打造自主可控的嵌入式开发生态
 
 🤝包容共创：现有版本难免存在不足，请以开发者视角包容反馈，共同优化
 
@@ -319,25 +319,25 @@ TinyPiXOS整体架构图
 拉取代码，可以使用Github地址直接下拉，或者使用Gitee同步仓库拉取
 
 ```bash
-git clone https://github.com/TinyPiXOS/tinyPiXApp.git
-# git clone https://gitee.com/tinypixos/tinyPiXApp.git
+git clone https://github.com/TinyPiXOS/TinyPiXApp.git
+# git clone https://gitee.com/tinypixos/TinyPiXApp.git
 ```
 
 ### 构建安装
 
-- ​**安装 PiXWM 基础库**
+- ​**安装 TpWM 基础库**
 
 ```bash
-# 需要先安装完成 PiXWM 相关依赖；参考官网 PiXWM 安装教程
+# 需要先安装完成 TpWM 相关依赖；参考官网 TpWM 安装教程
 ```
 
-- ​**安装 tinyPiXCore 基础库**
+- ​**安装 TinyPiXCore 基础库**
 
 ```bash
-# 需要先安装完成 tinyPiXCore 相关依赖；参考官网 tinyPiXCore 安装教程
+# 需要先安装完成 TinyPiXCore 相关依赖；参考官网 TinyPiXCore 安装教程
 ```
 
-- ​**构建 tinyPiXApp Debug版本**
+- ​**构建 TinyPiXApp Debug版本**
 
 ```bash
 cmake .
@@ -353,67 +353,13 @@ make
 make install
 ```
 
-- ​**构建 tinyPiXApp Release版本**
+- ​**构建 TinyPiXApp Release版本**
 
 ```bash
 cmake --preset=release
 make
 make install
 ```
-
-- ​**交叉编译构建 tinyPiXApp Arm Debug版本**
-
--使用默认编译器：
-
-```bash
-/usr/bin/arm-linux-gnueabihf-gcc
-/usr/bin/arm-linux-gnueabihf-g++
-```
-
-```bash
-cmake --preset=arm-debug
-make
-make install
-```
-
-手动指定编译器（配置时覆盖编译器路径）
-
-```bash
-cmake --preset=arm-debug \
-  -DCMAKE_C_COMPILER=/your/custom/path/arm-linux-gnueabihf-gcc \
-  -DCMAKE_CXX_COMPILER=/your/custom/path/arm-linux-gnueabihf-g++
-make
-make install
-```
-
-根据/usr下安装目录，或者 tinyPiXApp/install/arm 目录，移植对应文件至ARM即可。
-
-- ​**交叉编译构建 tinyPiXApp Arm Release版本**
-
-使用默认编译器：
-
-```bash
-/usr/bin/arm-linux-gnueabihf-gcc
-/usr/bin/arm-linux-gnueabihf-g++
-```
-
-```bash
-cmake --preset=arm-release
-make
-make install
-```
-
-手动指定编译器（配置时覆盖编译器路径）
-
-```bash
-cmake --preset=arm-release \
-  -DCMAKE_C_COMPILER=/your/custom/path/arm-linux-gnueabihf-gcc \
-  -DCMAKE_CXX_COMPILER=/your/custom/path/arm-linux-gnueabihf-g++
-make
-make install
-```
-
-根据/usr下安装目录，或者 tinyPiXApp/install/arm 目录，移植对应文件至ARM即可。
 
 ### 使用说明
 
@@ -431,7 +377,7 @@ make install
 ### 📝 提交前自查
 
 > [!TIP]
-✅ 已在 [tinyPiXCore Issues](https://github.com/TinyPiXOS/tinyPiXCore/issues)和[tinyPiXApp Issues](https://github.com/TinyPiXOS/tinyPiXApp/issues)搜索过同类问题。  
+✅ 已在 [TinyPiXCore Issues](https://github.com/TinyPiXOS/TinyPiXCore/issues)和[TinyPiXApp Issues](https://github.com/TinyPiXOS/TinyPiXApp/issues)搜索过同类问题。  
 ✅ 使用最新版本进行验证后，问题仍然存在。  
 ✅ 在[知识星球](https://t.zsxq.com/JzbkN)当中检索，但是未找到同类问题。  
 
@@ -475,7 +421,11 @@ TinyPiXOS开发者服务邮箱
 
 ## 如何系统学习TinyPiXOS
 
-- 我们围绕TinyPiXOS项目技术栈，搭建了“从零构建桌面操作系统”课程，包括“TinyPiXCore系统学习”. “TinyPiXApp应用开发实战”和“PiXWM高级用法实战”三大板块和若干个子专栏，**通过阶梯式能力进阶，赋能开发者​体系化掌握嵌入式OS全栈开发能力**。
+- 我们围绕TinyPiXOS项目技术栈，搭建了“从零构建桌面操作系统”课程，包括“TinyPiXCore系统学习”. “TinyPiXApp应用开发实战”和“TpWM高级用法实战”三大板块和若干个子专栏，**通过阶梯式能力进阶，赋能开发者​体系化掌握嵌入式OS全栈开发能力**。
 - 为使开发者深度掌握TinyPiXOS技术栈的同时突破领域局限，我们特邀**嵌入式软件开发、硬件开发、人工智能、国产化**等跨领域专家驻场指导，助你构建多维度能力矩阵，实现**领域纵深+技能广度的双重提升**。
 
 ![星球社区](https://file.tinypixos.com/tinypixos/其他公开网站.png)
+
+## 核心团队
+
+![alt text](image.png)
