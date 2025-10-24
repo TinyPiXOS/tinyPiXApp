@@ -36,7 +36,7 @@ include_directories(/usr/include/TinyPiX/TpGUI/Widgets)
 add_executable(FlexLayoutDemo ${SOURCE_FILES})
 
 # 将pthread库链接到可执行目标
-target_link_libraries(FlexLayoutDemo    TpAPI TpGUI TpUtils TpExtUtils 
+target_link_libraries(FlexLayoutDemo    TpWMEngine TpGUI TpUtils TpExtUtils 
                  )
 
 # 包含共享模块

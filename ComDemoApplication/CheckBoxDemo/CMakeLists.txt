@@ -41,7 +41,7 @@ include_directories(/usr/include/TinyPiX/TpGUI/Widgets)
 add_executable(CheckBoxDemo ${SOURCE_FILES})
 
 # 将pthread库链接到可执行目标
-target_link_libraries(CheckBoxDemo    TpAPI TpGUI TpUtils TpExtUtils 
+target_link_libraries(CheckBoxDemo    TpWMEngine TpGUI TpUtils TpExtUtils 
                  )
 
 # 包含共享模块
