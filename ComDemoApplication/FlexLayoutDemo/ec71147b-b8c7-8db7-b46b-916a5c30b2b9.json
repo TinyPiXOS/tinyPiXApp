@@ -1,0 +1,22 @@
+{
+    "appID": "ec71147b-b8c7-8db7-b46b-916a5c30b2b9",
+    "appName": "弹性布局",
+    "organization": "",
+    "Version": "1.0.0",
+    "appexecName": "FlexLayoutDemo",
+    "Architecture": "amd64",
+    "Section": "",
+    "Priority": "",
+    "Essential": "",
+    "Author": {
+        "name": "Chingan",
+        "email": "2111956539@qq.com"
+    },
+    "Provides": "",
+    "icon": "./res/icon.png",
+    "depend": [],
+    "lib": [
+        "./lib"
+    ],
+    "start": "./start.sh"
+}
