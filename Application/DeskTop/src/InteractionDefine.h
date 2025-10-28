@@ -8,6 +8,8 @@
 #include <cstdlib>
 #include "TpString.h"
 
+// 应用上线标识
+const static TpString ApplicationRunTopic = "ApplicationRunTopicConfig";
 /// @brief 桌面工具栏信息
 const static TpString DeskTopBarInfoTopic = "DeskTopBarConfig";
 struct DeskTopBarInfo

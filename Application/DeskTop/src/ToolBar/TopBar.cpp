@@ -18,27 +18,17 @@ bool globalSystemLockStatus = false;
 #endif
 
 TopBar::TopBar()
-    : TpDialog("tinyPiX_SYS_Float_0531acbf04"), shareMemory_(nullptr)
+    : TpDialog("tinyPiX_SYS_Float_0531acbf04")
 {
+    subscribeGatewayData(ApplicationRunTopic.c_str(), this);
+
     setBackGroundColor(TOP_BAR_COLOR);
 
     initUI();
-
-    shareMemory_ = new TpShareMemory(DeskTopBarInfoTopic, 1024, true);
-    if (!shareMemory_->isMapped())
-    {
-        std::cerr << "共享内存创建失败！" << std::endl;
-        return;
-    }
 }
 
 TopBar::~TopBar()
 {
-    if (shareMemory_)
-    {
-        delete shareMemory_;
-        shareMemory_ = nullptr;
-    }
 }
 
 void TopBar::setColor(const int32_t &appColor)
@@ -50,7 +40,20 @@ void TopBar::setVisible(bool visible)
     TpDialog::setVisible(visible);
 
     // 将工具栏数据写入共享内存
-    refreshSharedMomery();
+    refreshDeskBarInfo();
+}
+
+void TopBar::recvData(const char *topic, const void *data, const uint32_t &size)
+{
+    std::cout << "*********************收到应用上线数据 ：***************** " << topic << std::endl;
+    std::cout << "*********************收到应用上线数据 ：***************** " << topic << std::endl;
+    std::cout << "*********************收到应用上线数据 ：***************** " << topic << std::endl;
+
+    // 收到应用上线数据，发布数据
+    if (ApplicationRunTopic.compare(topic) == 0)
+    {
+        refreshDeskBarInfo();
+    }
 }
 
 bool TopBar::onResizeEvent(TpResizeEvent *event)
@@ -59,8 +62,9 @@ bool TopBar::onResizeEvent(TpResizeEvent *event)
 
     caculateTopAppPos();
 
-    // 将工具栏数据写入共享内存
-    refreshSharedMomery();
+    // 将工具栏数据通知应用
+    if (visible())
+        refreshDeskBarInfo();
 
     return true;
 }
@@ -214,17 +218,13 @@ TpString TopBar::transWeekData(const int32_t &dayOfWeek)
     }
 }
 
-void TopBar::refreshSharedMomery()
+void TopBar::refreshDeskBarInfo()
 {
-    // 更新工具栏尺寸共享内存
+    // 更新工具栏尺寸
     DeskTopBarInfo config;
     config.topBarWidth = width();
     config.topBarHeight = height();
     config.topBarisVislble = visible();
 
-    // 写入配置数据
-    if (!shareMemory_->writeData(&config, sizeof(config)))
-    {
-        std::cout << "共享内存写入失败！" << std::endl;
-    }
+    publishGatewayData(DeskTopBarInfoTopic.c_str(), &config, sizeof(config));
 }
