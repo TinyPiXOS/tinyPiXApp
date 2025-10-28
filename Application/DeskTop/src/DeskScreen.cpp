@@ -38,7 +38,8 @@ static inline void BAR_SET_ATTRIB(TpWidget *vars, int32_t x, int32_t y, int32_t 
     vars->update();
 }
 
-void DeskScreen::construct()
+DeskScreen::DeskScreen()
+    : TpMainWindow(), pressAppBtn_(nullptr), isMoveMode_(false), installingApp_(nullptr)
 {
     globalMainScreen_ = this;
 
@@ -96,9 +97,11 @@ void DeskScreen::construct()
     // globalAppMaxColumn = 6;
 
     intDeskAppConfig();
+
+    setVisible(true);
 }
 
-void DeskScreen::destruction()
+DeskScreen::~DeskScreen()
 {
     if (topFloatBar_)
     {
@@ -515,16 +518,16 @@ void DeskScreen::initData()
     // uint32_t delIndex = operateMenu_->addItem("卸载", applicationDirPath() + "/../res/删除.png");
     // connect(operateMenu_, onClicked, [=](uint32_t index)
     //         {
-	// 			std::cout << " index " << index << std::endl;
-	// 			std::cout << " delIndex " << delIndex << std::endl;
+    // 			std::cout << " index " << index << std::endl;
+    // 			std::cout << " delIndex " << delIndex << std::endl;
 
-	// 			if (index == delIndex)
-	// 			{
-	// 				slotDeleteApp(pressAppBtn_);
-	// 				// TpMessageBox::information("卸载成功");
-	// 				operateMenu_->close();
-	// 				maskWindow_->close();
-	// 			} });
+    // 			if (index == delIndex)
+    // 			{
+    // 				slotDeleteApp(pressAppBtn_);
+    // 				// TpMessageBox::information("卸载成功");
+    // 				operateMenu_->close();
+    // 				maskWindow_->close();
+    // 			} });
 
     appInstallPtr_ = new TpAppInstall("");
     appInstallTimer_ = new TpTimer(800);
