@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20.0)
-project(PiXDesktop VERSION 1.0.0 LANGUAGES C CXX)
+project(TpDesktop VERSION 1.0.0 LANGUAGES C CXX)
 
 # 指定C++标准
 set(CMAKE_CXX_STANDARD 11)
@@ -49,17 +49,17 @@ include_directories(/usr/include/TinyPiX/TpGUI/Screen)
 include_directories(/usr/include/TinyPiX/TpGUI/Widgets)
 
 # 添加动态库目标
-# add_library(PiXDesktop SHARED ${SOURCE_FILES})
-add_executable(PiXDesktop ${SOURCE_FILES})
+# add_library(TpDesktop SHARED ${SOURCE_FILES})
+add_executable(TpDesktop ${SOURCE_FILES})
 
 # 设置动态库版本 VERSION 是库的当前版本号，而 SOVERSION 是API的兼容性版本号。
-# set_target_properties(PiXDesktop PROPERTIES VERSION 1.0 SOVERSION 1)
+# set_target_properties(TpDesktop PROPERTIES VERSION 1.0 SOVERSION 1)
 
 # 指定依赖动态库目录
 link_directories("/usr/lib")
 
 # 将pthread库链接到可执行目标
-target_link_libraries(PiXDesktop TpWMEngine TpGUI TpUtils TpExtUtils)
+target_link_libraries(TpDesktop TpWMEngine TpGUI TpUtils TpExtUtils)
 
 # 包含共享模块
 include(../../cmake/SetupAppInstallation.cmake)
