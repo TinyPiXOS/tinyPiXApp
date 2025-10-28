@@ -427,3 +427,9 @@ TinyPiXOS开发者服务邮箱
 <div align="center">
 <img src="https://file.tinypixos.com/tinypixos/团队.png" width="500" height="280" alt="核心团队">
 </div>
+
+## 支持作者
+
+<div align="center">
+<img src="https://file.tinypixos.com/tinypixos/微信赞赏二维码.png" width="300" height="300" alt="核心团队">
+</div>
