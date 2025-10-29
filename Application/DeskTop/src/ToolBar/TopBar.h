@@ -10,7 +10,7 @@
 
 class TopBar
     : public TpDialog,
-      public TpGateway
+      public ITpGatewayHander
 {
 public:
     TopBar();
