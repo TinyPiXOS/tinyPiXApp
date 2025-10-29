@@ -39,7 +39,7 @@ TP_DEF_VOID_TYPE_VAR(ItpScreenPrivData);
 
 class DeskScreen
     : public TpMainWindow,
-      public TpGateway
+      public ITpGatewayHander
 {
 public:
     DeskScreen();
