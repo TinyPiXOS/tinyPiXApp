@@ -20,7 +20,7 @@ bool globalSystemLockStatus = false;
 TopBar::TopBar()
     : TpDialog("tinyPiX_SYS_Float_0531acbf04")
 {
-    subscribeGatewayData(ApplicationRunTopic.c_str(), this);
+    subscribeGatewayData(DeskApplicationRunTopic.c_str(), this);
 
     setBackGroundColor(TOP_BAR_COLOR);
 
@@ -45,9 +45,11 @@ void TopBar::setVisible(bool visible)
 
 void TopBar::recvData(const char *topic, const void *data, const uint32_t &size)
 {
+    // std::cout << "收到上线数据，topic: " << topic <<std::endl;
     // 收到应用上线数据，发布数据
-    if (ApplicationRunTopic.compare(topic) == 0)
+    if (DeskApplicationRunTopic.compare(topic) == 0)
     {
+        // std::cout << "发布状态栏信息" <<std::endl;
         refreshDeskBarInfo();
     }
 }
@@ -217,10 +219,11 @@ TpString TopBar::transWeekData(const int32_t &dayOfWeek)
 void TopBar::refreshDeskBarInfo()
 {
     // 更新工具栏尺寸
-    DeskTopBarInfo config;
-    config.topBarWidth = width();
-    config.topBarHeight = height();
-    config.topBarisVislble = visible();
+    DeskStatusBarInfo config;
+    config.statusBarLocation = 0;
+    config.statusBarWidth = width();
+    config.statusBarHeight = height();
+    config.statusBarVislble = visible();
 
-    publishGatewayData(DeskTopBarInfoTopic.c_str(), &config, sizeof(config));
+    publishGatewayData(DeskStatusBarInfoTopic.c_str(), &config, sizeof(config));
 }
