@@ -8,10 +8,11 @@
 #include <cstdlib>
 #include "TpString.h"
 
-// 应用上线标识
+// 应用上线标识;应用启动时发送该主题；桌面会通知应用工具栏信息
 const static TpString ApplicationRunTopic = "ApplicationRunTopicConfig";
 /// @brief 桌面工具栏信息
 const static TpString DeskTopBarInfoTopic = "DeskTopBarConfig";
+/// @brief 读取桌面信息;慎重修改，需和桌面保持协议一致
 struct DeskTopBarInfo
 {
     /// @brief 顶部工具栏宽度值
@@ -23,6 +24,13 @@ struct DeskTopBarInfo
 
     DeskTopBarInfo() : topBarWidth(0), topBarHeight(0), topBarisVislble(false)
     {
+    }
+
+    bool operator==(const DeskTopBarInfo &others)
+    {
+        return (topBarWidth == others.topBarWidth) &&
+               (topBarHeight == others.topBarHeight) &&
+               (topBarisVislble == others.topBarisVislble);
     }
 
     virtual ~DeskTopBarInfo() {}
