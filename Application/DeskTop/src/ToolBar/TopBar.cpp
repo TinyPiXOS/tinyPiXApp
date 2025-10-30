@@ -45,7 +45,7 @@ void TopBar::setVisible(bool visible)
 
 void TopBar::recvData(const char *topic, const void *data, const uint32_t &size)
 {
-    // std::cout << "收到上线数据，topic: " << topic <<std::endl;
+    std::cout << "********************收到上线数据，topic: " << topic <<std::endl;
     // 收到应用上线数据，发布数据
     if (DeskApplicationRunTopic.compare(topic) == 0)
     {
@@ -116,9 +116,9 @@ void TopBar::initUI()
     blueToothLabel_->setVisible(false);
 
     elecBattery_ = new TpBattery(this);
-    elecBattery_->setWidth(TpDisplay::dp2Px(25));
-    elecBattery_->setHeight(TpDisplay::dp2Px(16));
-    elecBattery_->setValue(100);
+    elecBattery_->setWidth(TpDisplay::dp2Px(30));
+    elecBattery_->setHeight(TpDisplay::dp2Px(18));
+    elecBattery_->setValue(80);
 
     updateTimetimer_ = new TpTimer(50000);
     connect(updateTimetimer_, timeout, this, &TopBar::slotUpdateSystemTime);
