@@ -23,7 +23,6 @@ NavigationBar::NavigationBar()
     // 导航线上下各10像素
     setSize(navigationLineWidth, TpDisplay::dp2Px(20));
     setBackGroundColor(_RGBA(255, 255, 255, 0));
-    // setAlpha(0);
 
     lastAnimationTime_ = TpTime::currentTime();
 }

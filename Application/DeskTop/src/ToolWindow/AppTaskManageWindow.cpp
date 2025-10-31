@@ -23,8 +23,6 @@ AppTaskManageWindow::AppTaskManageWindow()
     btnBlurEffect.setBlurRadius(15);
     setGraphicsEffect(btnBlurEffect);
 
-    // this->setAlpha(128);
-
     taskScrollPanel_ = new TpScrollPanel(this);
     taskScrollPanel_->installEventFilter(this);
     taskScrollPanel_->setScrollMode(false);

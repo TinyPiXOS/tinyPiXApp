@@ -8,7 +8,6 @@ PowerManage::PowerManage()
     : TpDialog("tinyPiX_SYS_Float_0531acbf04")
 {
     setBackGroundColor(POWER_MANAGE_BG_COLOR);
-    // setAlpha(102);
 
     powerRestartBtn_ = new TpButton("重新启动", this);
     powerRestartBtn_->setProperty("type", "ControlPanelPowerButton");
