@@ -17,8 +17,6 @@ AppSettingBar::AppSettingBar()
 {
     this->setEnabledBorderColor(false);
     this->setBackGroundColor(SETTING_BAR_COLOR);
-    // this->setAlpha(51);
-    // setVisible(false);
 
     dateTimeLabel_ = new TpLabel(this);
     dateTimeLabel_->setProperty("type", "controlPanelDateTimeLabel");

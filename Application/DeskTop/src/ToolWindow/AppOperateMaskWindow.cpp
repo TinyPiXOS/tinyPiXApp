@@ -4,7 +4,7 @@
 AppOperateMaskWindow::AppOperateMaskWindow()
     : TpDialog()
 {
-    setAlpha(204);
+    setWindowOpacity(0.8);
     setVisible(false);
 }
 
