@@ -5,6 +5,8 @@ SettingBase::SettingBase(TpWidget *parent)
 {
     mainLayout_ = new TpVBoxLayout();
     mainLayout_->setSpacing(10);
+
+    infoMsgWin_ = new TpMessageBox();
 }
 
 SettingBase::~SettingBase()

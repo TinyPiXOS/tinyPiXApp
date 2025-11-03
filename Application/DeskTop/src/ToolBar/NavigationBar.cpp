@@ -9,7 +9,7 @@
 NavigationBar::NavigationBar()
     : TpDialog("tinyPiX_SYS_Float_0531acbf04")
 {
-    const uint32_t navigationLineWidth = globalMainScreen_->screenWidth() * 0.3;
+    const uint32_t navigationLineWidth = globalMainScreen_->width() * 0.3;
     const uint32_t navigationLineHeight = TpDisplay::dp2Px(6);
 
     lineLabel_ = new TpLabel(this);

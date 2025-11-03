@@ -20,15 +20,19 @@ ClearSpaceWindow::ClearSpaceWindow() : TpDialog()
 
 ClearSpaceWindow::~ClearSpaceWindow()
 {
+    infoMsgWin_->deleteLater();
 }
 
 void ClearSpaceWindow::SlotClearSpaceFile(bool)
 {
-    TpMessageBox::information("已清理垃圾文件");
+    infoMsgWin_->setMessageType(TpMessageBox::Information);
+    infoMsgWin_->setText("已清理垃圾文件");
 }
 
 void ClearSpaceWindow::init()
 {
+    infoMsgWin_ = new TpMessageBox();
+
     // 标题布局
     TpHBoxLayout *titleLayout = new TpHBoxLayout();
     titleLayout->setContentsMargins(0, 0, 0, 12);

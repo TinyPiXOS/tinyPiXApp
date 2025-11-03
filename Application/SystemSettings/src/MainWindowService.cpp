@@ -75,7 +75,7 @@ void MainWindowService::initUi()
 
     mainScrollPanel_ = new TpScrollPanel(this);
     // mainScrollPanel_->setFixedWidth(TpDisplay::dp2Px(405));
-    mainScrollPanel_->setFixedWidth(TpScreen::screenWidth() * 0.375);
+    mainScrollPanel_->setFixedWidth(width() * 0.375);
     mainScrollPanel_->setBackGroundColor(_RGB(248, 248, 248));
 
     TpWidget *scrollWidget = new TpWidget(mainScrollPanel_);

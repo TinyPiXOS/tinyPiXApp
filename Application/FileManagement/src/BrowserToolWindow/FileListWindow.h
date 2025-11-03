@@ -18,6 +18,7 @@
 #include "ToolWindow/UsbPopButton.h"
 #include "TpVBoxLayout.h"
 #include "TpImageWidget.h"
+#include "TpMessageBox.h"
 
 class FileListWindow
     : public TpScrollPanel
@@ -76,6 +77,8 @@ private:
 private:
     // 主布局
     TpVBoxLayout *mainLayout_;
+
+    TpMessageBox* infoMsgWindow_;
 
     FileListMode mode_;
     DeviceType deviceType_;

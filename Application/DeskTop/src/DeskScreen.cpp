@@ -84,7 +84,7 @@ DeskScreen::DeskScreen()
     int32_t btnWidth = testBtn->rect().width();
     int32_t btnHeight = testBtn->rect().height();
 
-    globalAppHInterval = globalMainScreen_->screenWidth() * 0.06666;
+    globalAppHInterval = globalMainScreen_->width() * 0.06666;
 
     globalAppMaxRow = 1.0 * (mainAppPanelHeight + APP_V_INTERVAL) / (APP_V_INTERVAL + btnHeight);
     globalAppMaxColumn = 1.0 * (BOTTOM_BAR_WIDTH + globalAppHInterval) / (globalAppHInterval + btnWidth);
@@ -895,7 +895,7 @@ void DeskScreen::installApp(const TpString &pkgPath)
     TpVector<TpString> instasllAppIDList = TpAppConfigIO::installAppUuidList();
     if (instasllAppIDList.contains(installAppUuid))
     {
-        TpMessageBox::information("应用已安装!");
+        // TpMessageBox::information("应用已安装!");
         return;
     }
 
