@@ -97,8 +97,6 @@ DeskScreen::DeskScreen()
     // globalAppMaxColumn = 6;
 
     intDeskAppConfig();
-
-    setVisible(true);
 }
 
 DeskScreen::~DeskScreen()
