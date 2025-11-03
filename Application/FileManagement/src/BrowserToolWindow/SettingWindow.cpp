@@ -20,9 +20,9 @@ SettingWindow::~SettingWindow()
 
 void SettingWindow::setVisible(bool visible)
 {
-    setSize(TpScreen::screenWidth(), TpScreen::screenHeight());
-    mainScrollPanel_->setFixedSize(TpDisplay::dp2Px(429), TpScreen::screenHeight());
-    mainScrollPanel_->move(TpScreen::screenWidth() - mainScrollPanel_->width(), 0);
+    setSize(TpScreen::width(), TpScreen::height());
+    mainScrollPanel_->setFixedSize(TpDisplay::dp2Px(429), TpScreen::height());
+    mainScrollPanel_->move(TpScreen::width() - mainScrollPanel_->width(), 0);
 
     TpDialog::setVisible(visible);
 

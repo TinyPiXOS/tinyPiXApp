@@ -10,6 +10,7 @@
 #include "TpVBoxLayout.h"
 #include "TpButton.h"
 #include "TpPercentProgressBar.h"
+#include "TpMessageBox.h"
 
 class ClearSpaceWindow
     : public TpDialog
@@ -32,6 +33,7 @@ private:
     TpWidget *genClearFileWidget();
 
 private:
+    TpMessageBox *infoMsgWin_;
     // 返回上层按钮
     TpButton *backBtn_;
 

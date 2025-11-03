@@ -22,11 +22,11 @@ AppSettingBar::AppSettingBar()
     dateTimeLabel_->setProperty("type", "controlPanelDateTimeLabel");
     dateTimeLabel_->setText("2025年12月12日 周六");
     dateTimeLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
-    dateTimeLabel_->font()->setFontSize(globalMainScreen_->screenWidth() * 0.016); // TpDisplay::sp2Px(16)
+    dateTimeLabel_->font()->setFontSize(globalMainScreen_->width() * 0.016); // TpDisplay::sp2Px(16)
     dateTimeLabel_->setSize(dateTimeLabel_->font()->pixelWidth(), dateTimeLabel_->font()->pixelHeight());
 
     powerOffBtn_ = new TpIconTopButton(applicationDirPath() + "/../res/controlPanel/控制面板-电源.png", "", this);
-    powerOffBtn_->setIconSize(globalMainScreen_->screenWidth() * 0.032, globalMainScreen_->screenWidth() * 0.032);
+    powerOffBtn_->setIconSize(globalMainScreen_->width() * 0.032, globalMainScreen_->width() * 0.032);
     powerOffBtn_->setTextVisible(false);
     powerOffBtn_->setEnableBackGroundColor(false);
     powerOffBtn_->setEnabledBorderColor(false);
@@ -37,7 +37,7 @@ AppSettingBar::AppSettingBar()
     voiceProgessBar_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-音量.png");
     voiceProgessBar_->setRange(0, 100);
     voiceProgessBar_->setValue(50);
-    voiceProgessBar_->setFixedSize(globalMainScreen_->screenWidth() * 0.2824, globalMainScreen_->screenHeight() * 0.0888);
+    voiceProgessBar_->setFixedSize(globalMainScreen_->width() * 0.2824, globalMainScreen_->height() * 0.0888);
     connect(voiceProgessBar_, onValueChanged, this, &AppSettingBar::slotChangeVoice);
 
     // // 亮度进度条
@@ -46,27 +46,27 @@ AppSettingBar::AppSettingBar()
     lightProgessBar_->setRange(0, 100);
     lightProgessBar_->setValue(100);
     lightProgessBar_->setEnabled(false);
-    lightProgessBar_->setFixedSize(globalMainScreen_->screenWidth() * 0.2824, globalMainScreen_->screenHeight() * 0.0888);
+    lightProgessBar_->setFixedSize(globalMainScreen_->width() * 0.2824, globalMainScreen_->height() * 0.0888);
     connect(lightProgessBar_, onValueChanged, this, &AppSettingBar::slotChangelight);
 
     wifiBtn_ = new TpPanelSwitchButton(this);
     wifiBtn_->setCheckable(true);
     wifiBtn_->setText("WIFI");
     wifiBtn_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-WIFI.png");
-    wifiBtn_->setFixedSize(globalMainScreen_->screenWidth() * 0.14166, globalMainScreen_->screenWidth() * 0.14166);
+    wifiBtn_->setFixedSize(globalMainScreen_->width() * 0.14166, globalMainScreen_->width() * 0.14166);
     connect(wifiBtn_, onClicked, this, &AppSettingBar::slotSwitchWifi);
 
     bluetoothBtn_ = new TpPanelSwitchButton(this);
     bluetoothBtn_->setCheckable(true);
     bluetoothBtn_->setText("蓝牙");
     bluetoothBtn_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-蓝牙.png");
-    bluetoothBtn_->setFixedSize(globalMainScreen_->screenWidth() * 0.14166, globalMainScreen_->screenWidth() * 0.14166);
+    bluetoothBtn_->setFixedSize(globalMainScreen_->width() * 0.14166, globalMainScreen_->width() * 0.14166);
     connect(bluetoothBtn_, onClicked, this, &AppSettingBar::slotSwitchBluetooth);
 
     sysLockBtn_ = new TpPanelSwitchButton(this);
     sysLockBtn_->setCheckable(true);
     sysLockBtn_->setText("锁定");
-    sysLockBtn_->setFixedSize(globalMainScreen_->screenWidth() * 0.14166, globalMainScreen_->screenWidth() * 0.14166);
+    sysLockBtn_->setFixedSize(globalMainScreen_->width() * 0.14166, globalMainScreen_->width() * 0.14166);
     sysLockBtn_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-锁定.png");
 
     powerManageWindow_ = new PowerManage();
@@ -224,18 +224,18 @@ void AppSettingBar::resizeOperatorBtn()
 
     powerOffBtn_->move(settingBarRect.width() - panelHMargin - powerOffBtn_->width(), firstRowY);
 
-    uint32_t secondRowY = firstRowY + dateTimeLabel_->height() + globalMainScreen_->screenHeight() * 0.0305;
+    uint32_t secondRowY = firstRowY + dateTimeLabel_->height() + globalMainScreen_->height() * 0.0305;
     lightProgessBar_->move(panelHMargin, secondRowY);
-    voiceProgessBar_->move(panelHMargin, secondRowY + lightProgessBar_->height() + globalMainScreen_->screenHeight() * 0.03472);
+    voiceProgessBar_->move(panelHMargin, secondRowY + lightProgessBar_->height() + globalMainScreen_->height() * 0.03472);
 
     // std::cout << "lightProgessBar_->width " << lightProgessBar_->width() << " " << lightProgessBar_->height();
     // 按钮宽度161
 
     sysLockBtn_->move(rect().width() - panelHMargin - sysLockBtn_->width(), secondRowY);
 
-    bluetoothBtn_->move(sysLockBtn_->pos().x() - bluetoothBtn_->width() - globalMainScreen_->screenHeight() * 0.03472, secondRowY);
+    bluetoothBtn_->move(sysLockBtn_->pos().x() - bluetoothBtn_->width() - globalMainScreen_->height() * 0.03472, secondRowY);
 
-    wifiBtn_->move(bluetoothBtn_->pos().x() - wifiBtn_->width() - globalMainScreen_->screenHeight() * 0.03472, secondRowY);
+    wifiBtn_->move(bluetoothBtn_->pos().x() - wifiBtn_->width() - globalMainScreen_->height() * 0.03472, secondRowY);
 }
 
 void AppSettingBar::slotPowerOff(bool checked)

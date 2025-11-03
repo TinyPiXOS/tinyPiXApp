@@ -6,6 +6,7 @@
 #include "TpLabel.h"
 #include "TpButton.h"
 #include "TpVBoxLayout.h"
+#include "TpMessageBox.h"
 
 class SettingBase
     : public TpWidget
@@ -33,6 +34,7 @@ public:
 protected:
     // 所有子类使用此布局进行界面构建；确保使用统一的Margin
     TpVBoxLayout *mainLayout_;
+    TpMessageBox *infoMsgWin_;
 
 private:
     // 使用函数设置；不要直接访问这两个指针
