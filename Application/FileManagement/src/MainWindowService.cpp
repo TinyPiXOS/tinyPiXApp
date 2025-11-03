@@ -25,7 +25,6 @@ MainWindowService::MainWindowService()
     initUi();
 
     setBackGroundColor(_RGB(248, 248, 248));
-    setVisible(true);
 }
 
 MainWindowService::~MainWindowService()

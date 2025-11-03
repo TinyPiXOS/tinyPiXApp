@@ -9,7 +9,6 @@ MainWindowService::MainWindowService()
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(128, 128, 128));
-    setVisible(true);
 
     TpBattery *battertWidget = new TpBattery(this);
     battertWidget->setValue(50);

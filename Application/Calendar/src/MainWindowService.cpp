@@ -7,7 +7,6 @@ MainWindowService::MainWindowService()
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(248, 248, 248));
-    setVisible(true);
 }
 
 MainWindowService::~MainWindowService()

@@ -10,7 +10,6 @@ MainWindowService::MainWindowService()
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(128, 128, 128));
-    setVisible(true);
 
     // 效果展示窗体
     TpDialog *exampleWidget = new TpDialog();
