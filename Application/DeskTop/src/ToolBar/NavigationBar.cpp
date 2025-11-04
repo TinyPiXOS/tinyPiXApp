@@ -101,7 +101,7 @@ bool NavigationBar::onMouseRleaseEvent(TpMouseEvent *event)
                     globalAppTaskWindow->showMaximum();
                 }
 
-                std::cout << " Show Task Manage " << std::endl;
+                // std::cout << " Show Task Manage " << std::endl;
             }
             else
             {

@@ -45,7 +45,7 @@ void TopBar::setVisible(bool visible)
 
 void TopBar::recvData(const char *topic, const void *data, const uint32_t &size)
 {
-    std::cout << "********************收到上线数据，topic: " << topic <<std::endl;
+    // std::cout << "********************收到上线数据，topic: " << topic <<std::endl;
     // 收到应用上线数据，发布数据
     if (DeskApplicationRunTopic.compare(topic) == 0)
     {
