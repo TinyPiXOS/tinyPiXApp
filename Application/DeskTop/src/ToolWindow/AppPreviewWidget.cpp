@@ -35,21 +35,25 @@ AppPreviewWidget::~AppPreviewWidget()
 void AppPreviewWidget::setIcon(const TpString &iconPath)
 {
     iconLabel_->setBackGroundImage(TpImage(iconPath));
+    update();
 }
 
 void AppPreviewWidget::setName(const TpString &name)
 {
     nameLabel_->setText(name);
+    update();
 }
 
 void AppPreviewWidget::setPreviewImg(const TpString &path)
 {
     previewImgLabel_->setBackGroundImage(TpImage(path));
+    update();
 }
 
 void AppPreviewWidget::setPreviewImg(TpImage image)
 {
     previewImgLabel_->setBackGroundImage(image);
+    update();
 }
 
 void AppPreviewWidget::setAppUuid(const TpString &uuid)

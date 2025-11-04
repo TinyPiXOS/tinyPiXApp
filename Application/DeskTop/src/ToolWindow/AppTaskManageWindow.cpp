@@ -76,7 +76,7 @@ void AppTaskManageWindow::setVisible(bool visible)
         previewWidget->setName(appInfo.appInfo.appName());
         previewWidget->setIcon(appInfo.appInfo.iconPath());
         previewWidget->setAppUuid(appInfo.appInfo.appUuid());
-
+        
         // 应用抓图，grabWindow
         TpImage appGrapImage = TpSystemApi::Instance()->appImage(appInfo.appInfo.appUuid());
         previewWidget->setPreviewImg(appGrapImage);
