@@ -23,8 +23,6 @@ AppTaskManageWindow::AppTaskManageWindow()
     btnBlurEffect.setBlurRadius(15);
     setGraphicsEffect(btnBlurEffect);
 
-    // this->setAlpha(128);
-
     taskScrollPanel_ = new TpScrollPanel(this);
     taskScrollPanel_->installEventFilter(this);
     taskScrollPanel_->setScrollMode(false);
@@ -78,7 +76,7 @@ void AppTaskManageWindow::setVisible(bool visible)
         previewWidget->setName(appInfo.appInfo.appName());
         previewWidget->setIcon(appInfo.appInfo.iconPath());
         previewWidget->setAppUuid(appInfo.appInfo.appUuid());
-
+        
         // 应用抓图，grabWindow
         TpImage appGrapImage = TpSystemApi::Instance()->appImage(appInfo.appInfo.appUuid());
         previewWidget->setPreviewImg(appGrapImage);

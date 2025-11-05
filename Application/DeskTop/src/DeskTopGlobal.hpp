@@ -43,22 +43,22 @@ typedef std::shared_ptr<ApplicationInfo> ApplicationInfoSPtr;
 #endif
 
 #ifndef BOTTOM_BAR_WIDTH
-#define BOTTOM_BAR_WIDTH globalMainScreen_->screenWidth() * 0.7777
+#define BOTTOM_BAR_WIDTH globalMainScreen_->width() * 0.7777
 #endif
 
 #ifndef BOTTOM_BAR_HEIGHT
-#define BOTTOM_BAR_HEIGHT globalMainScreen_->screenHeight() * 0.16
+#define BOTTOM_BAR_HEIGHT globalMainScreen_->height() * 0.16
 #endif
 
 // 顶部工具栏高度
 #ifndef TOP_BAR_HEIGHT
 // #define TOP_BAR_HEIGHT TpScreen::screenHeight() * 0.04166
-#define TOP_BAR_HEIGHT globalMainScreen_->screenHeight() * 0.05
+#define TOP_BAR_HEIGHT globalMainScreen_->height() * 0.05
 #endif
 
 // APP显示主窗口距离topbar距离
 #ifndef MAIN_PANEL_TOP_DISTANCE
-#define MAIN_PANEL_TOP_DISTANCE globalMainScreen_->screenHeight() * 0.027777
+#define MAIN_PANEL_TOP_DISTANCE globalMainScreen_->height() * 0.027777
 #endif
 
 // APP之间水平间隔
@@ -69,7 +69,7 @@ extern uint32_t globalAppHInterval;
 
 // APP之间垂直间隔
 #ifndef APP_V_INTERVAL
-#define APP_V_INTERVAL globalMainScreen_->screenHeight() * 0.0527777
+#define APP_V_INTERVAL globalMainScreen_->height() * 0.0527777
 #endif
 
 // APP一页最大行列数
@@ -91,5 +91,5 @@ extern uint32_t globalAppMaxColumn;
 
 // APPIcon的宽高
 #ifndef APP_WIDTH_HEIGHT
-#define APP_WIDTH_HEIGHT globalMainScreen_->screenHeight() * 0.1275
+#define APP_WIDTH_HEIGHT globalMainScreen_->height() * 0.1275
 #endif

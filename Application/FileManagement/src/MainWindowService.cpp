@@ -25,7 +25,6 @@ MainWindowService::MainWindowService()
     initUi();
 
     setBackGroundColor(_RGB(248, 248, 248));
-    setVisible(true);
 }
 
 MainWindowService::~MainWindowService()
@@ -37,15 +36,6 @@ bool MainWindowService::appChange(int32_t id, int32_t pid, int32_t visible, int3
     std::cout << "MainWindowService::appChange" << std::endl;
 
     // caculateRect();
-
-    return true;
-}
-
-bool MainWindowService::onResizeEvent(TpResizeEvent *event)
-{
-    std::cout << "MainWindowService::onResizeEvent" << std::endl;
-
-    caculateRect();
 
     return true;
 }

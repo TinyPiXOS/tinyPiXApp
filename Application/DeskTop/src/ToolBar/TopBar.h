@@ -6,9 +6,11 @@
 #include "TpTimer.h"
 #include "TpEvent.h"
 #include "TpBattery.h"
-#include "TpShareMemory.h"
+#include "TpGateway.h"
 
-class TopBar : public TpDialog
+class TopBar
+    : public TpDialog,
+      public ITpGatewayHander
 {
 public:
     TopBar();
@@ -19,6 +21,9 @@ public:
     void setColor(const int32_t &appColor);
 
     virtual void setVisible(bool visible = true) override;
+
+public:
+    virtual void recvData(const char *topic, const void *data, const uint32_t &size) override;
 
 protected:
     virtual bool onResizeEvent(TpResizeEvent *event) override;
@@ -35,11 +40,10 @@ private:
     // 将周几的数字转为汉字显示
     TpString transWeekData(const int32_t &dayOfWeek);
 
-    void refreshSharedMomery();
+    // 通知应用topbar数据发生变化
+    void refreshDeskBarInfo();
 
 private:
-    TpShareMemory *shareMemory_;
-
     TpLabel *sysDateLabel_;
     TpLabel *sysTimeLabel_;
 

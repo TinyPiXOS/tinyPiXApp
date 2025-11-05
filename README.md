@@ -316,25 +316,19 @@ TinyPiXOS整体架构图
 
 ### 源码下载
 
-拉取代码，可以使用Github地址直接下拉，或者使用Gitee同步仓库拉取
+拉取代码，可以使用Gitee地址直接下拉，或者使用同步仓库Github拉取
 
 ```bash
-git clone https://github.com/TinyPiXOS/TinyPiXApp.git
-# git clone https://gitee.com/tinypixos/TinyPiXApp.git
+# git clone https://github.com/TinyPiXOS/TinyPiXApp.git
+git clone https://gitee.com/tinypixos/TinyPiXApp.git
 ```
 
 ### 构建安装
 
-- ​**安装 TpWM 基础库**
+- ​**安装 TinyPiXOS 基础库**
 
 ```bash
-# 需要先安装完成 TpWM 相关依赖；参考官网 TpWM 安装教程
-```
-
-- ​**安装 TinyPiXCore 基础库**
-
-```bash
-# 需要先安装完成 TinyPiXCore 相关依赖；参考官网 TinyPiXCore 安装教程
+# 需要先安装完成 TinyPiXOS 相关依赖；参考官网 TinyPiXOS 安装教程
 ```
 
 - ​**构建 TinyPiXApp Debug版本**
@@ -377,7 +371,7 @@ make install
 ### 📝 提交前自查
 
 > [!TIP]
-✅ 已在 [TinyPiXCore Issues](https://github.com/TinyPiXOS/TinyPiXCore/issues)和[TinyPiXApp Issues](https://github.com/TinyPiXOS/TinyPiXApp/issues)搜索过同类问题。  
+✅ 已在 [TinyPiXOS Issues](https://github.com/TinyPiXOS/TinyPiXCore/issues)和[TinyPiXApp Issues](https://github.com/TinyPiXOS/TinyPiXApp/issues)搜索过同类问题。  
 ✅ 使用最新版本进行验证后，问题仍然存在。  
 ✅ 在[知识星球](https://t.zsxq.com/JzbkN)当中检索，但是未找到同类问题。  
 
@@ -432,4 +426,10 @@ TinyPiXOS开发者服务邮箱
 
 <div align="center">
 <img src="https://file.tinypixos.com/tinypixos/团队.png" width="500" height="280" alt="核心团队">
+</div>
+
+## 支持作者
+
+<div align="center">
+<img src="https://file.tinypixos.com/tinypixos/微信赞赏二维码.png" width="300" height="300" alt="核心团队">
 </div>

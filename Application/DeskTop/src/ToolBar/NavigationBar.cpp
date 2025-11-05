@@ -9,7 +9,7 @@
 NavigationBar::NavigationBar()
     : TpDialog("tinyPiX_SYS_Float_0531acbf04")
 {
-    const uint32_t navigationLineWidth = globalMainScreen_->screenWidth() * 0.3;
+    const uint32_t navigationLineWidth = globalMainScreen_->width() * 0.3;
     const uint32_t navigationLineHeight = TpDisplay::dp2Px(6);
 
     lineLabel_ = new TpLabel(this);
@@ -23,7 +23,6 @@ NavigationBar::NavigationBar()
     // 导航线上下各10像素
     setSize(navigationLineWidth, TpDisplay::dp2Px(20));
     setBackGroundColor(_RGBA(255, 255, 255, 0));
-    // setAlpha(0);
 
     lastAnimationTime_ = TpTime::currentTime();
 }
@@ -102,7 +101,7 @@ bool NavigationBar::onMouseRleaseEvent(TpMouseEvent *event)
                     globalAppTaskWindow->showMaximum();
                 }
 
-                std::cout << " Show Task Manage " << std::endl;
+                // std::cout << " Show Task Manage " << std::endl;
             }
             else
             {

@@ -8,21 +8,20 @@ PowerManage::PowerManage()
     : TpDialog("tinyPiX_SYS_Float_0531acbf04")
 {
     setBackGroundColor(POWER_MANAGE_BG_COLOR);
-    // setAlpha(102);
 
     powerRestartBtn_ = new TpButton("重新启动", this);
     powerRestartBtn_->setProperty("type", "ControlPanelPowerButton");
-    powerRestartBtn_->setFixedSize(globalMainScreen_->screenWidth() * 0.2824, globalMainScreen_->screenHeight() * 0.0888);
+    powerRestartBtn_->setFixedSize(globalMainScreen_->width() * 0.2824, globalMainScreen_->height() * 0.0888);
 
     powerOffBtn_ = new TpButton("关机", this);
     powerOffBtn_->setProperty("type", "ControlPanelPowerButton");
-    powerOffBtn_->setFixedSize(globalMainScreen_->screenWidth() * 0.2824, globalMainScreen_->screenHeight() * 0.0888);
+    powerOffBtn_->setFixedSize(globalMainScreen_->width() * 0.2824, globalMainScreen_->height() * 0.0888);
 
     closeBtn_ = new TpButton(this);
     closeBtn_->setButtonStyle(TpButton::IconOnly);
     closeBtn_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-关闭.png");
     closeBtn_->setEnableBackGroundColor(false);
-    closeBtn_->setSize(globalMainScreen_->screenWidth() * 0.055555, globalMainScreen_->screenWidth() * 0.055555);
+    closeBtn_->setSize(globalMainScreen_->width() * 0.055555, globalMainScreen_->width() * 0.055555);
     closeBtn_->setProperty("type", "ControlPanelPowerCloseButton");
 
     connect(closeBtn_, onClicked, [=](bool)
@@ -32,12 +31,12 @@ PowerManage::PowerManage()
 
     uint32_t btnX = (rect().width() - powerOffBtn_->width()) / 2.0;
 
-    powerRestartBtn_->move(btnX, globalMainScreen_->screenHeight() * 0.33333);
-    powerOffBtn_->move(btnX, powerRestartBtn_->pos().y() + powerRestartBtn_->height() + globalMainScreen_->screenHeight() * 0.051388);
+    powerRestartBtn_->move(btnX, globalMainScreen_->height() * 0.33333);
+    powerOffBtn_->move(btnX, powerRestartBtn_->pos().y() + powerRestartBtn_->height() + globalMainScreen_->height() * 0.051388);
 
     uint32_t closeBtnX = (rect().width() - closeBtn_->width()) / 2.0;
 
-    closeBtn_->move(closeBtnX, powerOffBtn_->pos().y() + powerOffBtn_->height() + globalMainScreen_->screenHeight() * 0.298611);
+    closeBtn_->move(closeBtnX, powerOffBtn_->pos().y() + powerOffBtn_->height() + globalMainScreen_->height() * 0.298611);
 
     setVisible(false);
 }

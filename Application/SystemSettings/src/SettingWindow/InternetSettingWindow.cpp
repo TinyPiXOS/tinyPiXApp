@@ -41,7 +41,9 @@ void InternetSettingWindow::slotSaveIpv4Config(bool)
     TpVector<TpListWidgetItem *> selectItemList = netDeviceListCbx_->currentItem();
     if (selectItemList.size() == 0)
     {
-        TpMessageBox::information("未选择网卡!");
+        infoMsgWin_->setMessageType(TpMessageBox::Information);
+        infoMsgWin_->setText("未选择网卡!");
+        infoMsgWin_->exec();
         return;
     }
 
@@ -58,34 +60,41 @@ void InternetSettingWindow::slotSaveIpv4Config(bool)
     }
     else
     {
+        infoMsgWin_->setMessageType(TpMessageBox::Information);
+
         if (ipAddrEdit_->text().empty())
         {
-            TpMessageBox::information("IP地址为空!");
+            infoMsgWin_->setText("IP地址为空!");
+            infoMsgWin_->exec();
             return;
         }
 
         if (maskEdit_->text().empty())
         {
-            TpMessageBox::information("子网掩码为空!");
+            infoMsgWin_->setText("子网掩码为空!");
+            infoMsgWin_->exec();
             return;
         }
 
         if (gatewayEdit_->text().empty())
         {
-            TpMessageBox::information("网关为空!");
+            infoMsgWin_->setText("网关为空!");
+            infoMsgWin_->exec();
             return;
         }
 
         // 静态IP必须要设置DNS
         if (autoDnseBtn_->onOff())
         {
-            TpMessageBox::information("DHCP模式下必须手动设置DNS!");
+            infoMsgWin_->setText("DHCP模式下必须手动设置DNS!");
+            infoMsgWin_->exec();
             return;
         }
 
         if (firstDnsEdit_->text().empty())
         {
-            TpMessageBox::information("DNS为空!");
+            infoMsgWin_->setText("DNS为空!");
+            infoMsgWin_->exec();
             return;
         }
 
@@ -101,7 +110,8 @@ void InternetSettingWindow::slotSaveIpv4Config(bool)
         curNetInterface.setStatic(ipAddrEdit_->text(), gatewayEdit_->text(), maskEdit_->text(), dnsList);
     }
 
-    TpMessageBox::information("设置完成!");
+    infoMsgWin_->setText("设置完成!");
+    infoMsgWin_->exec();
 }
 
 void InternetSettingWindow::slotSaveDnsConfig(bool)
@@ -109,7 +119,8 @@ void InternetSettingWindow::slotSaveDnsConfig(bool)
     TpVector<TpListWidgetItem *> selectItemList = netDeviceListCbx_->currentItem();
     if (selectItemList.size() == 0)
     {
-        TpMessageBox::information("未选择网卡!");
+        infoMsgWin_->setText("未选择网卡!");
+        infoMsgWin_->exec();
         return;
     }
 
@@ -125,7 +136,8 @@ void InternetSettingWindow::slotSaveDnsConfig(bool)
     {
         if (firstDnsEdit_->text().empty())
         {
-            TpMessageBox::information("DNS为空!");
+            infoMsgWin_->setText("DNS为空!");
+            infoMsgWin_->exec();
             return;
         }
     }
@@ -133,7 +145,8 @@ void InternetSettingWindow::slotSaveDnsConfig(bool)
     {
         if (autoDnseBtn_->onOff())
         {
-            TpMessageBox::information("静态IP模式下必须手动设置DNS!");
+            infoMsgWin_->setText("静态IP模式下必须手动设置DNS!");
+            infoMsgWin_->exec();
             return;
         }
     }

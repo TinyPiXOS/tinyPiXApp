@@ -5,7 +5,7 @@ install/arm_64
 CMakeFiles/
 .cmake/
 Application/Calendar/bin/Calendar
-Application/DeskTop/bin/PiXDesktop
+Application/DeskTop/bin/TpDesktop
 Application/FileManagement/bin/FileManagement
 Application/MediaPlayer/bin/MediaPlayer
 Application/PhotoAlbum/bin/PhotoAlbum

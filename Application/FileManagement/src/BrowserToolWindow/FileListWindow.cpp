@@ -179,7 +179,9 @@ void FileListWindow::SlotShowSetting(bool)
 
 void FileListWindow::SlotPopUsb(bool)
 {
-    TpMessageBox::information("设备已退出");
+    infoMsgWindow_->setMessageType(TpMessageBox::Information);
+    infoMsgWindow_->setText("设备已退出");
+    infoMsgWindow_->exec();
 }
 
 void FileListWindow::init()
@@ -265,6 +267,8 @@ void FileListWindow::init()
     // setLayout(titleLayout);
     // setLayout(mainLayout_);
     setWidget(scrollWidget);
+
+    infoMsgWindow_ = new TpMessageBox();
 }
 
 void FileListWindow::SlotClickFileItem(TpCollapsibleFileItem *item)
@@ -335,19 +339,23 @@ void FileListWindow::openFile(const TpString &filePath)
 
     TpSystemApi::OpenFileError openRes = TpSystemApi::Instance()->openFile(filePath);
 
+    infoMsgWindow_->setMessageType(TpMessageBox::Error);
     if (openRes == TpSystemApi::FileNotExist)
     {
-        TpMessageBox::information("文件不存在!");
+        infoMsgWindow_->setText("文件不存在!");
+        infoMsgWindow_->exec();
         return;
     }
     else if (openRes == TpSystemApi::NotSupport)
     {
-        TpMessageBox::information("文件类型不支持!");
+        infoMsgWindow_->setText("文件类型不支持!");
+        infoMsgWindow_->exec();
         return;
     }
     else if (openRes == TpSystemApi::SystemFileDamage)
     {
-        TpMessageBox::information("系统文件损坏!");
+        infoMsgWindow_->setText("系统文件损坏!");
+        infoMsgWindow_->exec();
         return;
     }
     else

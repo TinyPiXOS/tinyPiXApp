@@ -38,7 +38,8 @@ static inline void BAR_SET_ATTRIB(TpWidget *vars, int32_t x, int32_t y, int32_t 
     vars->update();
 }
 
-void DeskScreen::construct()
+DeskScreen::DeskScreen()
+    : TpMainWindow(), pressAppBtn_(nullptr), isMoveMode_(false), installingApp_(nullptr)
 {
     globalMainScreen_ = this;
 
@@ -83,7 +84,7 @@ void DeskScreen::construct()
     int32_t btnWidth = testBtn->rect().width();
     int32_t btnHeight = testBtn->rect().height();
 
-    globalAppHInterval = globalMainScreen_->screenWidth() * 0.06666;
+    globalAppHInterval = globalMainScreen_->width() * 0.06666;
 
     globalAppMaxRow = 1.0 * (mainAppPanelHeight + APP_V_INTERVAL) / (APP_V_INTERVAL + btnHeight);
     globalAppMaxColumn = 1.0 * (BOTTOM_BAR_WIDTH + globalAppHInterval) / (globalAppHInterval + btnWidth);
@@ -98,7 +99,7 @@ void DeskScreen::construct()
     intDeskAppConfig();
 }
 
-void DeskScreen::destruction()
+DeskScreen::~DeskScreen()
 {
     if (topFloatBar_)
     {
@@ -515,16 +516,16 @@ void DeskScreen::initData()
     // uint32_t delIndex = operateMenu_->addItem("卸载", applicationDirPath() + "/../res/删除.png");
     // connect(operateMenu_, onClicked, [=](uint32_t index)
     //         {
-	// 			std::cout << " index " << index << std::endl;
-	// 			std::cout << " delIndex " << delIndex << std::endl;
+    // 			std::cout << " index " << index << std::endl;
+    // 			std::cout << " delIndex " << delIndex << std::endl;
 
-	// 			if (index == delIndex)
-	// 			{
-	// 				slotDeleteApp(pressAppBtn_);
-	// 				// TpMessageBox::information("卸载成功");
-	// 				operateMenu_->close();
-	// 				maskWindow_->close();
-	// 			} });
+    // 			if (index == delIndex)
+    // 			{
+    // 				slotDeleteApp(pressAppBtn_);
+    // 				// TpMessageBox::information("卸载成功");
+    // 				operateMenu_->close();
+    // 				maskWindow_->close();
+    // 			} });
 
     appInstallPtr_ = new TpAppInstall("");
     appInstallTimer_ = new TpTimer(800);
@@ -892,7 +893,7 @@ void DeskScreen::installApp(const TpString &pkgPath)
     TpVector<TpString> instasllAppIDList = TpAppConfigIO::installAppUuidList();
     if (instasllAppIDList.contains(installAppUuid))
     {
-        TpMessageBox::information("应用已安装!");
+        // TpMessageBox::information("应用已安装!");
         return;
     }
 
