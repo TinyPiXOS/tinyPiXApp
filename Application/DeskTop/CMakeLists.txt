@@ -40,6 +40,7 @@ include_directories(${SOURCE_PATH}/ToolModule)
 include_directories(${SOURCE_PATH}/ToolWindow)
 include_directories(/usr/include)
 include_directories(/usr/include/TinyPiX)
+include_directories(/usr/include/TinyPiX/TpCore)
 include_directories(/usr/include/TinyPiX/TpWM)
 include_directories(/usr/include/TinyPiX/TpUtils)
 include_directories(/usr/include/TinyPiX/TpExtUtils)
@@ -58,8 +59,12 @@ add_executable(TpDesktop ${SOURCE_FILES})
 # 指定依赖动态库目录
 link_directories("/usr/lib")
 
+target_link_directories(TpDesktop PRIVATE
+    /usr/lib/TinyPiX
+)
+
 # 将pthread库链接到可执行目标
-target_link_libraries(TpDesktop TpWMEngine TpGUI TpUtils TpExtUtils)
+target_link_libraries(TpDesktop TpWMEngine TpCore TpGUI TpUtils TpExtUtils)
 
 # 包含共享模块
 include(../../cmake/SetupAppInstallation.cmake)

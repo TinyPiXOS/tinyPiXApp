@@ -1,5 +1,6 @@
 #include "DesktopAppButton.h"
 #include "TpPainter.h"
+#include <TpEvent.h>
 
 DesktopAppButton::DesktopAppButton(TpWidget *parent)
     : TpIconTopButton(parent)

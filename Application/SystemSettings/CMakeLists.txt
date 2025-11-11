@@ -20,6 +20,8 @@ set(SOURCE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 # 指定动态库目录
 link_directories("/usr/lib")
+link_directories("/usr/lib/TinyPiX")
+
 
 # 定义源码路径宏
 set(SOURCE_FILES
@@ -34,6 +36,7 @@ include_directories(${SOURCE_PATH})
 include_directories(/usr/include)
 include_directories(/usr/include/TinyPiX/TpWM)
 include_directories(/usr/include/TinyPiX)
+include_directories(/usr/include/TinyPiX/TpCore)
 include_directories(/usr/include/TinyPiX/TpUtils)
 include_directories(/usr/include/TinyPiX/TpExtUtils)
 include_directories(/usr/include/TinyPiX/TpGUI)
@@ -44,7 +47,7 @@ include_directories(/usr/include/TinyPiX/TpGUI/Widgets)
 add_executable(SystemSettings ${SOURCE_FILES})
 
 # 将pthread库链接到可执行目标
-target_link_libraries(SystemSettings    TpWMEngine TpGUI TpUtils TpExtUtils)
+target_link_libraries(SystemSettings    TpWMEngine TpCore TpGUI TpUtils TpExtUtils)
 
 # 包含共享模块
 include(../../cmake/SetupAppInstallation.cmake)
