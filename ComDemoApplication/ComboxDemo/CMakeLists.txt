@@ -29,16 +29,15 @@ include_directories(/usr/include/TinyPiX/TpWM)
 include_directories(/usr/include/TinyPiX)
 include_directories(/usr/include/TinyPiX/TpCore)
 include_directories(/usr/include/TinyPiX/TpUtils)
-include_directories(/usr/include/TinyPiX/TpExtUtils)
+
 include_directories(/usr/include/TinyPiX/TpGUI)
-include_directories(/usr/include/TinyPiX/TpGUI/Core)
-include_directories(/usr/include/TinyPiX/TpGUI/Screen)
+include_directories(/usr/include/TinyPiX/TpGUI/GUI)
 include_directories(/usr/include/TinyPiX/TpGUI/Widgets)
 
 add_executable(ComboxDemo ${SOURCE_FILES})
 
 # 将pthread库链接到可执行目标
-target_link_libraries(ComboxDemo    TpWMEngine TpCore TpGUI TpUtils TpExtUtils 
+target_link_libraries(ComboxDemo    TpWMEngine TpCore TpGUI TpUtils  
                  )
 
 # 包含共享模块

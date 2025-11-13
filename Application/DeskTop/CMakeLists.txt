@@ -43,10 +43,11 @@ include_directories(/usr/include/TinyPiX)
 include_directories(/usr/include/TinyPiX/TpCore)
 include_directories(/usr/include/TinyPiX/TpWM)
 include_directories(/usr/include/TinyPiX/TpUtils)
-include_directories(/usr/include/TinyPiX/TpExtUtils)
+include_directories(/usr/include/TinyPiX/TpUtils/Bluetooth)
+include_directories(/usr/include/TinyPiX/TpUtils/Network)
+include_directories(/usr/include/TinyPiX/TpUtils/Media)
 include_directories(/usr/include/TinyPiX/TpGUI)
-include_directories(/usr/include/TinyPiX/TpGUI/Core)
-include_directories(/usr/include/TinyPiX/TpGUI/Screen)
+include_directories(/usr/include/TinyPiX/TpGUI/GUI)
 include_directories(/usr/include/TinyPiX/TpGUI/Widgets)
 
 # 添加动态库目标
@@ -64,7 +65,7 @@ target_link_directories(TpDesktop PRIVATE
 )
 
 # 将pthread库链接到可执行目标
-target_link_libraries(TpDesktop TpWMEngine TpCore TpGUI TpUtils TpExtUtils)
+target_link_libraries(TpDesktop TpWMEngine TpCore TpGUI TpUtils)
 
 # 包含共享模块
 include(../../cmake/SetupAppInstallation.cmake)
