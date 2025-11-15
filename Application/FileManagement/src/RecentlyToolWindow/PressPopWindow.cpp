@@ -1,6 +1,6 @@
 #include "PressPopWindow.h"
 #include "TpHBoxLayout.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpFont.h"
 
 PressPopWindow::PressPopWindow()

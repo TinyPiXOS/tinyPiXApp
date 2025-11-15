@@ -1,7 +1,7 @@
 #include "SettingWindow.h"
 #include "TpVBoxLayout.h"
 #include "TpHBoxLayout.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpEvent.h"
 #include "TpFont.h"
 

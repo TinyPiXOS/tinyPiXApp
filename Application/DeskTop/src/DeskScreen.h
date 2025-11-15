@@ -5,7 +5,7 @@
 #include "TpJsonObject.h"
 #include "TpGateway.h"
 #include "TpScrollPanel.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpGridLayout.h"
 #include "MainAppScrollPanel.h"
 #include "TpMenu.h"
@@ -13,7 +13,7 @@
 #include "DeskTopGlobal.hpp"
 #include "TpNetDataGlobal.h"
 #include "TpGateway.h"
-#include "TpAppInstall.h"
+#include "AppManage/TpAppInstall.h"
 #include "TpTimer.h"
 
 #include "SysLockWindow.h"

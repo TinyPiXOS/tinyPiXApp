@@ -1,5 +1,5 @@
 #include "BottomBar.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 
 #ifndef BOTTOM_CONTENT_MARGIN
 #define BOTTOM_CONTENT_MARGIN TpDisplay::dp2Px(24)

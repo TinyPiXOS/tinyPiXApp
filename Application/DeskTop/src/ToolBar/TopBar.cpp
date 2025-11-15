@@ -2,7 +2,7 @@
 #include "TpFont.h"
 #include "TpString.h"
 #include "DeskTopGlobal.hpp"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpTime.h"
 #include "TpDate.h"
 #include "TpEvent.h"

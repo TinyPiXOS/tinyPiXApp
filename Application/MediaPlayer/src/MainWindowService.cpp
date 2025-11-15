@@ -1,7 +1,7 @@
 #include "MainWindowService.h"
 #include "TpSignalSlot.h"
 #include "TpHBoxLayout.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpLabel.h"
 #include "TpLine.h"
 #include "TpFont.h"

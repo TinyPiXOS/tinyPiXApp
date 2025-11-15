@@ -2,7 +2,7 @@
 #include "TpEvent.h"
 #include "TpHBoxLayout.h"
 #include "TpFont.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpImage.h"
 
 UsbPopButton::UsbPopButton(TpWidget *parent)

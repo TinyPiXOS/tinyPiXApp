@@ -3,7 +3,7 @@
 #include "TpHBoxLayout.h"
 #include "TpLabel.h"
 #include "TpFont.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpButton.h"
 
 RecentlyWindow::RecentlyWindow(TpWidget *parent)

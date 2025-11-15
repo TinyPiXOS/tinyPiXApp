@@ -2,7 +2,7 @@
 #include "TpSignalSlot.h"
 #include "SystemSettingsGlobal.h"
 #include "TpHBoxLayout.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpLabel.h"
 #include "TpFont.h"
 #include "TpOnOffButton.h"

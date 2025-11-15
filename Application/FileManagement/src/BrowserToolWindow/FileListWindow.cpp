@@ -1,5 +1,5 @@
 #include "FileListWindow.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpVBoxLayout.h"
 #include "TpHBoxLayout.h"
 #include "TpLabel.h"

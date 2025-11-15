@@ -13,7 +13,7 @@
 #include "TpMediaTileButton.h"
 #include "TpMenuPanelWidget.h"
 #include "TpEvent.h"
-#include "TpDiskManage.h"
+#include "SystemInfo/TpDiskManage.h"
 
 #include "ToolWindow/DiskDeviceCheckBox.h"
 #include "BrowserToolWindow/FileListWindow.h"

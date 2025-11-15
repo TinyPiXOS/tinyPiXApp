@@ -1,7 +1,7 @@
 #include "BottomBar.h"
 #include "TpFont.h"
 #include "TpString.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpTime.h"
 #include "TpDate.h"
 

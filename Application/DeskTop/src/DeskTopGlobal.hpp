@@ -5,7 +5,7 @@
 #include "SysLockWindow.h"
 #include "AppTaskManageWindow.h"
 #include "ToolBar/AppSettingBar.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "tinyPiXUtils.h"
 #include "tinyPiXSys.h"
 #include "InteractionDefine.h"

@@ -1,6 +1,6 @@
 #include "DiskDeviceCheckBox.h"
 #include "TpHBoxLayout.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpFont.h"
 #include "TpPainter.h"
 #include "TpLine.h"

@@ -1,7 +1,7 @@
 #include "BrowseWindow.h"
 #include "TpHBoxLayout.h"
 #include "TpVBoxLayout.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpPainter.h"
 #include "FileManagementGlobal.h"
 

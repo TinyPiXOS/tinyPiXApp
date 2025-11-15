@@ -1,6 +1,6 @@
 #include "NavigationBar.h"
 #include "TpPainter.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpAnimation.h"
 #include "DeskTopGlobal.hpp"
 #include "TpApp.h"
