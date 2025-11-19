@@ -60,7 +60,7 @@ DeskScreen::DeskScreen()
 
     // 此处应该读取配置文件中的设置文件，可以保留上次设置的背景图片
 
-    this->setBackGroundImage(TpImage(applicationDirPath() + "/../res/默认桌面背景1x.png"), true);
+    this->setBackGroundImage(TpImage(applicationDirPath() + "/../res/默认桌面背景1x.png"), false);
 
     // 此处应该读取配置文件中的设置文件，加载配置参数
 
