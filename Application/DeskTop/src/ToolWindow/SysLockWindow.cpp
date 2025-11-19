@@ -127,7 +127,7 @@ void SysLockWindow::initUi()
     systemDateTimeLabel_ = new TpLabel(this);
     systemDateTimeLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
     systemDateTimeLabel_->font()->setFontSize(50);
-    systemDateTimeLabel_->font()->setFontStyle(TINY_FONT_BOLD);
+    systemDateTimeLabel_->font()->setBold(true);
     systemDateTimeLabel_->setText("15 : 30");
 
     unlockDirectLabel_ = new TpLabel(this);
@@ -136,7 +136,7 @@ void SysLockWindow::initUi()
     unlockPromptLabel_ = new TpLabel(this);
     unlockPromptLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
     unlockPromptLabel_->font()->setFontSize(20);
-    unlockPromptLabel_->font()->setFontStyle(TINY_FONT_BOLD);
+    unlockPromptLabel_->font()->setBold(true);
     unlockPromptLabel_->setText("向上滑动或按任意键解锁");
 
     updateTimetimer_ = new TpTimer(60000);
@@ -148,13 +148,13 @@ void SysLockWindow::initUi()
     systemNameLabel_ = new TpLabel(this);
     systemNameLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
     systemNameLabel_->font()->setFontSize(50);
-    systemNameLabel_->font()->setFontStyle(TINY_FONT_BOLD);
+    systemNameLabel_->font()->setBold(true);
     systemNameLabel_->setText("TinyPiX OS");
 
     welcomeLabel_ = new TpLabel(this);
     welcomeLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
     welcomeLabel_->font()->setFontSize(20);
-    welcomeLabel_->font()->setFontStyle(TINY_FONT_BOLD);
+    welcomeLabel_->font()->setBold(true);
     welcomeLabel_->setText("欢迎使用");
 
     userIconLabel_ = new TpLabel(this);

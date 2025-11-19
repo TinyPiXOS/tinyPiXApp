@@ -94,24 +94,26 @@ void TopBar::initUI()
     sysTimeLabel_ = new TpLabel(this);
     sysTimeLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
     sysTimeLabel_->font()->setFontSize(TpDisplay::sp2Px(11));
-    sysTimeLabel_->setText("09:43");
+    sysTimeLabel_->font()->setBold(true);
+    sysTimeLabel_->setText("122:22");
     sysTimeLabel_->setWidth(sysTimeLabel_->font()->pixelWidth());
-    sysTimeLabel_->setHeight(TpDisplay::dp2Px(17));
+    sysTimeLabel_->setHeight(TpDisplay::dp2Px(18));
 
     sysDateLabel_ = new TpLabel(this);
     sysDateLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
     sysDateLabel_->font()->setFontSize(TpDisplay::sp2Px(11));
-    sysDateLabel_->setText("2月22日 周二");
+    sysDateLabel_->font()->setBold(true);
+    sysDateLabel_->setText("12月22日 周二");
     sysDateLabel_->setWidth(sysDateLabel_->font()->pixelWidth());
-    sysDateLabel_->setHeight(TpDisplay::dp2Px(17));
+    sysDateLabel_->setHeight(TpDisplay::dp2Px(18));
 
     wifiLabel_ = new TpLabel(this);
-    wifiLabel_->setSize(TpDisplay::dp2Px(17), TpDisplay::dp2Px(17));
+    wifiLabel_->setSize(TpDisplay::dp2Px(18), TpDisplay::dp2Px(18));
     wifiLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/TopBar/WIFI.png"));
     wifiLabel_->setVisible(false);
 
     blueToothLabel_ = new TpLabel(this);
-    blueToothLabel_->setSize(TpDisplay::dp2Px(17), TpDisplay::dp2Px(17));
+    blueToothLabel_->setSize(TpDisplay::dp2Px(18), TpDisplay::dp2Px(17));
     blueToothLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/TopBar/蓝牙.png"));
     blueToothLabel_->setVisible(false);
 
@@ -138,7 +140,7 @@ void TopBar::caculateTopAppPos()
     // 添加系统时间和系统日期
     sysTimeLabel_->move(TpDisplay::dp2Px(16), (topBarRect.height() - sysTimeLabel_->height()) / 2.0);
 
-    uint32_t sysDateXPos = sysTimeLabel_->rect().x() + sysTimeLabel_->width() + TpDisplay::dp2Px(12);
+    uint32_t sysDateXPos = sysTimeLabel_->rect().x() + sysTimeLabel_->width() + TpDisplay::dp2Px(10);
     sysDateLabel_->move(sysDateXPos, (topBarRect.height() - sysDateLabel_->height()) / 2.0);
 
     elecBattery_->move(width() - elecBattery_->width() - TpDisplay::dp2Px(16), (topBarRect.height() - elecBattery_->height()) / 2.0);

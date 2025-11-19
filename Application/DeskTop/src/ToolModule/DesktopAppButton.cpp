@@ -18,7 +18,6 @@ DesktopAppButton::DesktopAppButton(const TpString &iconPath, const TpString &tex
 
 DesktopAppButton::~DesktopAppButton()
 {
-    hollowWidget_->deleteLater();
 }
 
 void DesktopAppButton::setRoundCorners(const uint32_t &round)
