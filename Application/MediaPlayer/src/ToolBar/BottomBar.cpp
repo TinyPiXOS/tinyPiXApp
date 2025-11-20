@@ -145,7 +145,7 @@ void BottomBar::init()
     progressLabel_ = new TpLabel(this);
     progressLabel_->setText("0:0 / 0:0");
     progressLabel_->setEnableBackGroundColor(false);
-    progressLabel_->font()->setFontColor(_RGB(255, 255, 255), _RGB(255, 255, 255));
+    progressLabel_->font()->setFontColor(_RGB(255, 255, 255));
     progressLabel_->font()->setFontSize(15);
 
     progressSlider_ = new TpSlider(this);

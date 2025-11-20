@@ -63,7 +63,7 @@ void SettingWindow::init()
     TpLabel *titleLabel = new TpLabel("功能设置");
     titleLabel->font()->setFontSize(19);
     titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
-    titleLabel->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
+    titleLabel->font()->setFontColor(_RGB(38, 38, 38));
 
     closeBtn_ = new TpButton();
     closeBtn_->setButtonStyle(TpButton::IconOnly);
@@ -122,7 +122,7 @@ TpLabel *SettingWindow::createContentLabel(const TpString &text)
     // viewLabel->setAlign(TpLabel::TP_ALIGN_RIGHT);
     viewLabel->font()->setFontSize(12);
     viewLabel->setFixedHeight(viewLabel->font()->pixelHeight());
-    viewLabel->font()->setFontColor(_RGB(89, 89, 89), _RGB(89, 89, 89));
+    viewLabel->font()->setFontColor(_RGB(89, 89, 89));
     viewLabel->installEventFilter(mainScrollPanel_);
 
     return viewLabel;

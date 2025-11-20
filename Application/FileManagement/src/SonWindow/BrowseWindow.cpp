@@ -145,7 +145,7 @@ void BrowseWindow::init()
     TpLabel *titleLabel = new TpLabel("浏览");
     titleLabel->font()->setFontSize(19);
     titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
-    titleLabel->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
+    titleLabel->font()->setFontColor(_RGB(38, 38, 38));
     titleLabel->installEventFilter(scrollWidget);
     // titleLabel->setBackGroundColor(_RGB(255, 0, 0));
 
@@ -227,7 +227,7 @@ void BrowseWindow::init()
     TpLabel *sourceLabel = new TpLabel("来源");
     sourceLabel->font()->setFontSize(11);
     sourceLabel->setFixedHeight(sourceLabel->font()->pixelHeight());
-    sourceLabel->font()->setFontColor(_RGB(89, 89, 89), _RGB(89, 89, 89));
+    sourceLabel->font()->setFontColor(_RGB(89, 89, 89));
     sourceLabel->installEventFilter(scrollWidget);
 
     menuPanelWidget_ = new TpMenuPanelWidget();

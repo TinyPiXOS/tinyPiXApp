@@ -18,7 +18,7 @@ UsbPopButton::~UsbPopButton()
 void UsbPopButton::init()
 {
     nameLabel_ = new TpLabel();
-    nameLabel_->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
+    nameLabel_->font()->setFontColor(_RGB(38, 38, 38));
     nameLabel_->font()->setFontSize(12);
     nameLabel_->setText("安全弹出");
     nameLabel_->installEventFilter(this);

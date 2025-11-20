@@ -857,7 +857,7 @@ DesktopAppButton *DeskScreen::configAppBtn(const TpString &appUuid, const TpStri
     appBtn->setVisible(true);
     appBtn->setRoundCorners(13);
 
-    appBtn->font()->setFontColor(_RGB(255, 255, 255), _RGB(255, 255, 255));
+    appBtn->font()->setFontColor(_RGB(255, 255, 255));
     appBtn->font()->setFontSize(APP_FONT_SIZE);
 
     appBtn->setIconSize(APP_WIDTH_HEIGHT, APP_WIDTH_HEIGHT);

@@ -68,7 +68,7 @@ void TopBar::slotCloseMedia(bool)
 void TopBar::init()
 {
     fileNameLabel_ = new TpLabel(this);
-    fileNameLabel_->font()->setFontColor(_RGB(255, 255, 255), _RGB(255, 255, 255));
+    fileNameLabel_->font()->setFontColor(_RGB(255, 255, 255));
     fileNameLabel_->font()->setFontSize(18);
     fileNameLabel_->setText("");
 

@@ -211,7 +211,7 @@ void FileListWindow::init()
     // titleLabel->setBackGroundColor(_RGB(255, 0, 0));
     titleLabel->font()->setFontSize(19);
     titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
-    titleLabel->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
+    titleLabel->font()->setFontColor(_RGB(38, 38, 38));
     titleLabel->setText("内部存储");
     titleLabel->installEventFilter(scrollWidget);
 

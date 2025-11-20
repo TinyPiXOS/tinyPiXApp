@@ -55,7 +55,7 @@ void ClearSpaceWindow::init()
     // titleLabel->setBackGroundColor(_RGB(255, 0, 0));
     titleLabel->font()->setFontSize(19);
     // titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
-    titleLabel->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
+    titleLabel->font()->setFontColor(_RGB(38, 38, 38));
     titleLabel->setText("空间清理");
 
     titleLayout->addWidget(backBtn_);
@@ -86,12 +86,12 @@ TpWidget *ClearSpaceWindow::genLocalSpaceWidget()
     localSpaceWidget->setRoundCorners(20);
 
     TpLabel *nameLabel = new TpLabel();
-    nameLabel->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
+    nameLabel->font()->setFontColor(_RGB(38, 38, 38));
     nameLabel->font()->setFontSize(12);
     nameLabel->setText("本地空间");
 
     TpLabel *spaceLabel = new TpLabel();
-    spaceLabel->font()->setFontColor(_RGB(89, 89, 89), _RGB(89, 89, 89));
+    spaceLabel->font()->setFontColor(_RGB(89, 89, 89));
     spaceLabel->font()->setFontSize(12);
     spaceLabel->setText("已使用 136 GB/256 GB");
 
@@ -127,7 +127,7 @@ TpWidget *ClearSpaceWindow::genClearFileWidget()
     clearWidget->setRoundCorners(20);
 
     TpLabel *nameLabel = new TpLabel();
-    nameLabel->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
+    nameLabel->font()->setFontColor(_RGB(38, 38, 38));
     nameLabel->font()->setFontSize(12);
     nameLabel->setText("垃圾文件");
 
@@ -138,7 +138,7 @@ TpWidget *ClearSpaceWindow::genClearFileWidget()
     subLine->setLineWidth(2);
 
     TpLabel *spaceLabel = new TpLabel();
-    spaceLabel->font()->setFontColor(_RGB(140, 140, 140), _RGB(140, 140, 140));
+    spaceLabel->font()->setFontColor(_RGB(140, 140, 140));
     spaceLabel->font()->setFontSize(12);
     spaceLabel->setText("416MB");
 

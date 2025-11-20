@@ -76,7 +76,7 @@ void RecentlyWindow::init()
     TpLabel *titleLabel = new TpLabel("最近", this);
     titleLabel->font()->setFontSize(19);
     titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
-    titleLabel->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
+    titleLabel->font()->setFontColor(_RGB(38, 38, 38));
     // titleLabel->setBackGroundColor(_RGB(0, 255, 0));
     titleLabel->installEventFilter(this);
 

@@ -34,7 +34,7 @@ void PressPopWindow::init()
     // 选中item后的操作按钮
     delSelectBtn_ = new TpIconTopButton(this);
     // delSelectBtn_->font()->setFontSize(10);
-    // delSelectBtn_->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
+    // delSelectBtn_->font()->setFontColor(_RGB(38, 38, 38));
     // delSelectBtn_->setIconSize(TpDisplay::dp2Px(34), TpDisplay::dp2Px(34));
     delSelectBtn_->setText("删除");
     delSelectBtn_->setIcon(applicationDirPath() + "/../res/删除.png");
@@ -42,7 +42,7 @@ void PressPopWindow::init()
 
     moveSelectBtn_ = new TpIconTopButton(this);
     // moveSelectBtn_->font()->setFontSize(10);
-    // moveSelectBtn_->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
+    // moveSelectBtn_->font()->setFontColor(_RGB(38, 38, 38));
     // moveSelectBtn_->setIconSize(TpDisplay::dp2Px(34), TpDisplay::dp2Px(34));
     moveSelectBtn_->setText("移动");
     moveSelectBtn_->setIcon(applicationDirPath() + "/../res/移动.png");
@@ -50,7 +50,7 @@ void PressPopWindow::init()
 
     moreSelectBtn_ = new TpIconTopButton(this);
     // moreSelectBtn_->font()->setFontSize(10);
-    // moreSelectBtn_->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
+    // moreSelectBtn_->font()->setFontColor(_RGB(38, 38, 38));
     // moreSelectBtn_->setIconSize(TpDisplay::dp2Px(34), TpDisplay::dp2Px(34));
     moreSelectBtn_->setText("更多");
     moreSelectBtn_->setIcon(applicationDirPath() + "/../res/更多.png");

@@ -83,7 +83,7 @@ void MainWindowService::initUi()
     TpLabel *titleLabel = new TpLabel("设置");
     titleLabel->font()->setFontSize(19);
     titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
-    titleLabel->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
+    titleLabel->font()->setFontColor(_RGB(38, 38, 38));
     titleLabel->installEventFilter(scrollWidget);
     // titleLabel->setBackGroundColor(_RGB(255, 0, 0));
 
@@ -105,7 +105,7 @@ void MainWindowService::initUi()
     // titleLabel->setBackGroundColor(_RGB(255, 0, 0));
     subTitleLabel_->font()->setFontSize(19);
     subTitleLabel_->setFixedHeight(titleLabel->font()->pixelHeight());
-    subTitleLabel_->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
+    subTitleLabel_->font()->setFontColor(_RGB(38, 38, 38));
     subTitleLabel_->setText("");
     subTitleLabel_->installEventFilter(settingWindow_);
 
@@ -124,6 +124,7 @@ void MainWindowService::initUi()
     int32_t layoutMargin = TpDisplay::dp2Px(20);
 
     TpVBoxLayout *rightWindowLayout = new TpVBoxLayout();
+    rightWindowLayout->setSpacing(18);
     rightWindowLayout->setContentsMargins(layoutMargin, 0, layoutMargin, 0);
     rightWindowLayout->addLayout(subTitleLayout);
     rightWindowLayout->addWidget(settingWindow_);

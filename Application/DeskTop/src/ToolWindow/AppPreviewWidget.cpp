@@ -129,7 +129,7 @@ void AppPreviewWidget::init()
     iconLabel_->installEventFilter(this);
 
     nameLabel_ = new TpLabel(this);
-    nameLabel_->font()->setFontColor(_RGB(255, 255, 255), _RGB(255, 255, 255));
+    nameLabel_->font()->setFontColor(_RGB(255, 255, 255));
     nameLabel_->font()->setFontSize(13);
     nameLabel_->setText("默认应用");
     nameLabel_->setProperty("Debug", "nameLabel_");

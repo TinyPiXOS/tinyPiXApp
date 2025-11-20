@@ -25,7 +25,7 @@ static TpLabel* createGroupNameLabel(const TpString& text)
     TpLabel *sourceLabel = new TpLabel(text);
     sourceLabel->font()->setFontSize(11);
     sourceLabel->setFixedHeight(sourceLabel->font()->pixelHeight());
-    sourceLabel->font()->setFontColor(_RGB(89, 89, 89), _RGB(89, 89, 89));
+    sourceLabel->font()->setFontColor(_RGB(89, 89, 89));
     return sourceLabel;
 }
 #endif
