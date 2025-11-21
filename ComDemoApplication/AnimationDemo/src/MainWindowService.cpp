@@ -85,8 +85,8 @@ MainWindowService::MainWindowService()
     connect(hideBtn, onClicked, [=](bool)
             {
 		TpAnimation* widgetAnimation = new TpAnimation(exampleWidget, TpAnimation::WindowOpacity);
-		widgetAnimation->setStartValue(255);
-		widgetAnimation->setEndValue(50);
+		widgetAnimation->setStartValue(1.0);
+		widgetAnimation->setEndValue(0.5);
 		widgetAnimation->setDuration(1000);
 		widgetAnimation->start(); });
 
@@ -98,8 +98,8 @@ MainWindowService::MainWindowService()
     connect(showBtn, onClicked, [=](bool)
             {
 		TpAnimation* widgetAnimation = new TpAnimation(exampleWidget, TpAnimation::WindowOpacity);
-		widgetAnimation->setStartValue(0);
-		widgetAnimation->setEndValue(255);
+		widgetAnimation->setStartValue(0.5);
+		widgetAnimation->setEndValue(1.0);
 		widgetAnimation->setDuration(1000);
 		widgetAnimation->start(); });
 

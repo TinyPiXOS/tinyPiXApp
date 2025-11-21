@@ -164,7 +164,7 @@ void FileListWindow::refreshPath(const TpString &path)
 
     update();
 
-    std::cout << "FileListWindow 最小高度 " << mainLayout_->minumumSize().height() << std::endl;
+    // std::cout << "FileListWindow 最小高度 " << mainLayout_->minumumSize().height() << std::endl;
 
     widget()->setMinumumHeight(mainLayout_->minumumSize().height());
 }
@@ -196,11 +196,12 @@ void FileListWindow::init()
     mainLayout_->setContentsMargins(TpDisplay::dp2Px(20), 0, 0, 0);
 
     TpHBoxLayout *titleLayout = new TpHBoxLayout();
-    titleLayout->setSpacing(20);
+    titleLayout->setSpacing(15);
     titleLayout->setContentsMargins(0, 0, 0, 0);
 
     gridFileLayout_ = new TpFlexLayout();
     gridFileLayout_->setContentsMargins(0, 0, 0, 0);
+    gridFileLayout_->setSpacing(25);
     gridFileLayout_->installEventFilter(scrollWidget);
 
     listFileLayout_ = new TpVBoxLayout();
@@ -208,19 +209,20 @@ void FileListWindow::init()
     listFileLayout_->installEventFilter(scrollWidget);
 
     TpLabel *titleLabel = new TpLabel("内部存储");
-    // titleLabel->setBackGroundColor(_RGB(255, 0, 0));
+    titleLabel->setAlign(Tp::AlignCenter);
     titleLabel->font()->setFontSize(19);
-    titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
+    titleLabel->setFixedHeight(TpDisplay::dp2Px(30)); //titleLabel->font()->pixelHeight()
     titleLabel->font()->setFontColor(_RGB(38, 38, 38));
     titleLabel->setText("内部存储");
     titleLabel->installEventFilter(scrollWidget);
 
     pathBackBtn_ = new TpButton();
-    pathBackBtn_->setButtonStyle(TpButton::IconOnly);
     pathBackBtn_->setEnableBackGroundColor(false);
-    pathBackBtn_->setFixedSize(TpDisplay::dp2Px(34), TpDisplay::dp2Px(34));
+    pathBackBtn_->setButtonStyle(TpButton::IconOnly);
+    pathBackBtn_->setFixedSize(TpDisplay::dp2Px(30), TpDisplay::dp2Px(30));
+    // pathBackBtn_->setFixedSize(titleLabel->font()->pixelHeight(), titleLabel->font()->pixelHeight());
     pathBackBtn_->setIcon(applicationDirPath() + "/../res/路径后退.png");
-    pathBackBtn_->setVisible(false);
+    // pathBackBtn_->setVisible(false);
     connect(pathBackBtn_, onClicked, [=](bool)
             { SlotBackPath(); });
 
@@ -235,7 +237,7 @@ void FileListWindow::init()
     settingBtn_ = new TpButton();
     settingBtn_->setButtonStyle(TpButton::IconOnly);
     settingBtn_->setEnableBackGroundColor(false);
-    settingBtn_->setFixedSize(TpDisplay::dp2Px(34), TpDisplay::dp2Px(34));
+    settingBtn_->setFixedSize(TpDisplay::dp2Px(30), TpDisplay::dp2Px(30));
     settingBtn_->setIcon(applicationDirPath() + "/../res/功能设置.png");
     connect(settingBtn_, onClicked, this, &FileListWindow::SlotShowSetting);
 
@@ -247,7 +249,7 @@ void FileListWindow::init()
     titleLayout->addWidget(pathBackBtn_);
     titleLayout->addWidget(titleLabel);
     titleLayout->addWidget(popBtn_);
-    titleLayout->addSpacer(new TpSpacerItem(20, 20, TpSpacerItem::Expanding, TpSpacerItem::Minimum));
+    titleLayout->addSpacer(new TpSpacerItem(20, 10, TpSpacerItem::Expanding, TpSpacerItem::Minimum));
     titleLayout->addWidget(settingBtn_);
     titleLayout->installEventFilter(scrollWidget);
 
