@@ -71,11 +71,6 @@ void MainWindowService::setPlayFile(const TpString &filePath)
 
         std::cout << "播放文件： " << filePath << std::endl;
 
-        // 获取总时长
-        // double audioAllTimeS = audioPlayer_->getDuration();
-        // bottomBar_->setDurationTimeS(audioAllTimeS);
-        // std::cout << "audioAllTimeS " << audioAllTimeS << std::endl;
-
         updateProgressTimer_->start();
     }
     else if (fileType_ == VideoFile)
@@ -97,7 +92,7 @@ void MainWindowService::setPlayFile(const TpString &filePath)
         }
 
         videoPlayer_->setVolume(100);
-        // videoPlayer_->playStart();
+        videoPlayer_->playStart();
 
         updateProgressTimer_->start();
     }
@@ -152,6 +147,7 @@ void MainWindowService::initUi()
 
     TpVideoInterface::UserCallback videoCallback = std::bind(&MainWindowService::videoRbgDataCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
     videoPlayer_->setDisplayFunction(videoCallback);
+    // videoPlayer_->setDisplayFunction(videoCallback, nullptr, TpVideoInterface::TP_VIDEO_DECODE_RGBA8888);
     videoPlayer_->setScalingMode(TpVideoInterface::TP_VIDEO_SCALING_FIT); // 推荐格式
 
     updateProgressTimer_ = new TpTimer();
@@ -183,6 +179,12 @@ void MainWindowService::slotUpdatePlayerProgress()
             updateProgressTimer_->stop();
             return;
         }
+
+        int curTimeS = videoPlayer_->getPosition();
+        bottomBar_->setCurTimeS(curTimeS);
+
+        double audioAllTimeS = videoPlayer_->getDuration();
+        bottomBar_->setDurationTimeS(audioAllTimeS);
     }
     else
     {
@@ -201,6 +203,11 @@ void MainWindowService::slotOperateMedia(PlayerOperate status)
             audioPlayer_->playPause();
             updateProgressTimer_->stop();
         }
+        else if (fileType_ == VideoFile)
+        {
+            videoPlayer_->playPause();
+            updateProgressTimer_->stop();
+        }
         else
         {
         }
@@ -210,6 +217,11 @@ void MainWindowService::slotOperateMedia(PlayerOperate status)
         if (fileType_ == AudioFile)
         {
             audioPlayer_->playContinue();
+            updateProgressTimer_->start();
+        }
+        else if (fileType_ == VideoFile)
+        {
+            videoPlayer_->playContinue();
             updateProgressTimer_->start();
         }
         else
@@ -223,6 +235,10 @@ void MainWindowService::slotOperateMedia(PlayerOperate status)
             std::cout << "audioPlayer_->getPosition() + 5 " << audioPlayer_->getPosition() + 5 << std::endl;
             audioPlayer_->setPosition(audioPlayer_->getPosition() + 5);
         }
+        else if (fileType_ == VideoFile)
+        {
+            videoPlayer_->setPosition(audioPlayer_->getPosition() + 5);
+        }
         else
         {
         }
@@ -233,6 +249,10 @@ void MainWindowService::slotOperateMedia(PlayerOperate status)
         {
             std::cout << "audioPlayer_->getPosition() - 5 " << audioPlayer_->getPosition() - 5 << std::endl;
             audioPlayer_->setPosition(audioPlayer_->getPosition() - 5);
+        }
+        else if (fileType_ == VideoFile)
+        {
+            videoPlayer_->setPosition(audioPlayer_->getPosition() - 5);
         }
         else
         {
@@ -258,6 +278,11 @@ void MainWindowService::slotSwitchPos(int32_t curTimeS)
     {
         std::cout << "CurPosTime " << curTimeS << std::endl;
         audioPlayer_->setPosition(curTimeS);
+    }
+    else if (fileType_ == VideoFile)
+    {
+        std::cout << "CurPosTime " << curTimeS << std::endl;
+        videoPlayer_->setPosition(curTimeS);
     }
     else
     {
@@ -296,7 +321,7 @@ void MainWindowService::refreshBarSize()
         topBar_->setSize(width(), 70);
         topBar_->move(0, 0);
 
-        topBar_->update();
+        topBar_->show();
     }
 
     if (bottomBar_)
@@ -304,7 +329,7 @@ void MainWindowService::refreshBarSize()
         bottomBar_->setSize(width(), 84);
         bottomBar_->move(0, height() - bottomBar_->height());
 
-        bottomBar_->update();
+        bottomBar_->show();
     }
 }
 
@@ -324,68 +349,145 @@ MainWindowService::PlayerFileType MainWindowService::checkFileType(const TpStrin
         return MainWindowService::UnknowFile;
     }
 }
+#include <png.h>
+void savePng(uint32_t *inputBuffer, uint32_t width, uint32_t height)
+{
+    static int fileIndex = 0;
+    TpString saveFilePath = applicationDirPath() + "/" + TpString::number(fileIndex++).c_str() + ".png";
+
+#if 1
+    FILE *fp = fopen(saveFilePath.c_str(), "wb");
+    // 处理文件打开失败
+    if (!fp)
+        return;
+
+    png_structp png = png_create_write_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
+    if (!png)
+    {
+        fclose(fp);
+        return;
+    }
+
+    png_infop info = png_create_info_struct(png);
+    if (!info)
+    {
+        png_destroy_write_struct(&png, nullptr);
+        fclose(fp);
+        return;
+    }
+
+    // 设置错误处理
+    if (setjmp(png_jmpbuf(png)))
+    {
+        png_destroy_write_struct(&png, &info);
+        fclose(fp);
+        return;
+    }
+
+    png_init_io(png, fp);
+
+    // 设置图像信息
+    png_set_IHDR(png, info,
+                 width, height,
+                 8,
+                 //  PNG_COLOR_TYPE_RGBA,
+                 PNG_COLOR_TYPE_RGB,
+                 PNG_INTERLACE_NONE,
+                 PNG_COMPRESSION_TYPE_DEFAULT,
+                 PNG_FILTER_TYPE_DEFAULT);
+
+    // 添加关键：设置字节顺序（RGBA）
+    // png_set_swap(png); // 如果您的系统是小端序，可能需要这个
+
+    png_write_info(png, info);
+
+    // 写入像素数据
+    int32_t *buffer = reinterpret_cast<int32_t *>(inputBuffer);
+    // const int width = imageData->actualWidth;
+    // const int height = imageData->actualHeight;
+    const int rowbytes = width * 3; // 每个像素4字节 (RGBA)
+
+    // 分配行缓冲区
+    png_bytep row_buffer = new png_byte[rowbytes];
+
+    for (int y = 0; y < height; y++)
+    {
+        // 获取当前行数据
+        int32_t *src_row = buffer + y * width;
+
+        // 转换为字节数组
+        for (int x = 0; x < width; x++)
+        {
+            uint32_t pixel = static_cast<uint32_t>(src_row[x]);
+#if 1                                                     // ARGB
+            row_buffer[x * 3 + 0] = (pixel >> 16) & 0xFF; // R
+            row_buffer[x * 3 + 1] = (pixel >> 8) & 0xFF;  // G
+            row_buffer[x * 3 + 2] = pixel & 0xFF;         // B
+            // row_buffer[x * 4 + 3] = (pixel >> 24) & 0xFF; // A
+                                                          // row_buffer[x * 4 + 3] = 0xFF;                 // A
+
+#else // RGBA
+            row_buffer[x * 4 + 0] = (pixel >> 16) & 0xFF; // R
+            row_buffer[x * 4 + 1] = (pixel >> 8) & 0xFF;  // G
+            row_buffer[x * 4 + 2] = pixel & 0xFF;         // B
+            row_buffer[x * 4 + 3] = (pixel >> 24) & 0xFF; // A
+#endif
+        }
+
+        png_write_row(png, row_buffer);
+    }
+
+    delete[] row_buffer;
+    png_write_end(png, nullptr);
+    png_destroy_write_struct(&png, &info);
+    fclose(fp);
+#endif
+}
 
 int MainWindowService::videoRbgDataCallback(uint8_t **data, int *linesize, uint32_t format, void *userdata)
 {
-    std::cout << " MainWindowService::videoRbgDataCallback " << std::endl;
+    return 0;
+    // 修正后的转换代码
+    int width = this->width();
+    int height = this->height();
+    uint32_t *argbBuffer = new uint32_t[width * height];
+
+    std::cout << "linesize " << linesize[0] << std::endl;
+
+    // for (int y = 0; y < height; y++)
+    // {
+    //     uint8_t *srcRow = data[0] + y * linesize[0]; // 使用linesize处理行对齐
+
+    //     for (int x = 0; x < width; x++)
+    //     {
+    //         uint8_t r = srcRow[x * 3 + 0];
+    //         uint8_t g = srcRow[x * 3 + 1];
+    //         uint8_t b = srcRow[x * 3 + 2];
+
+    //         // ARGB格式：0xAARRGGBB
+    //         argbBuffer[y * width + x] = (0xFF << 24) | (r << 16) | (g << 8) | b;
+    //     }
+    // }
+
+    savePng((uint32_t *)data[0], width, height);
+
+    // savePng(argbBuffer, width, height);
+    delete[] argbBuffer;
+
+
+    // TpImage curPoImage;
+    // curPoImage.load(argbBuffer, TpSize(width, height));
+
+    // picture->load(argbBuffer, width, height, tvg::ColorSpace::ARGB8888, true);
+
+    // setBackGroundImage(curPoImage);
+
     // for (int i = 0; i < linesize[0]; i = i + 3)
     // {
     //     uint8_t r = data[0][i];
     //     uint8_t g = data[0][i + 1];
     //     uint8_t b = data[0][i + 2];
     // }
-
-    uint32_t width = this->width();
-    uint32_t height = this->height();
-
-    // 2. 创建临时tpSurface对象
-    auto surface = tpMakeShared<TpSurface>();
-
-    // 3. 创建与视频帧尺寸匹配的Surface（ARGB32格式）
-    if (!surface->create(
-            nullptr,    // 内部分配内存
-            width,      // 视频宽度
-            height,     // 视频高度
-            TP_RGB_32,  // 32位ARGB格式
-            width * 4,  // stride（每行字节数：宽度*4）
-            0x00FF0000, // R掩码（RGBA顺序）
-            0x0000FF00, // G掩码
-            0x000000FF, // B掩码
-            0xFF000000, // A掩码
-            0xFF,       // alpha值
-            false,      // 不启用colorKey
-            0          // colorKey值
-            ))
-    {
-        // 创建失败处理
-        return -1;
-    }
-
-    // 4. 获取surface内存指针
-    uint32_t *surfaceData = static_cast<uint32_t *>(surface->matrix());
-    if (!surfaceData)
-    {
-        return -1;
-    }
-
-    // 5. 转换RGB24到ARGB32并复制数据
-    uint8_t *srcPtr = data[0];
-    int srcStride = linesize[0];
-
-    for (int i = 0; i < linesize[0]; i = i + 3)
-    {
-        // 读取RGB分量
-        uint8_t r = srcPtr[i];
-        uint8_t g = srcPtr[i + 1];
-        uint8_t b = srcPtr[i + 2];
-
-        // 转换为ARGB32：0xAARRGGBB格式
-        *surfaceData++ = (0xFF << 24) | (r << 16) | (g << 8) | b;
-    }
-
-    // 6. 将surface传递到渲染线程
-    // setBackGroundImage(surface);
-    update();
 
     return 0;
 }

@@ -6,7 +6,7 @@
 #include "TpDate.h"
 
 // 按钮之间间距
-const int32_t buttonMargin = 31;
+const int32_t buttonMargin = 16;
 
 BottomBar::BottomBar()
     : TpDialog(), allTimeS_(0), curTimeS_(0), isPause_(false)
@@ -147,6 +147,8 @@ void BottomBar::init()
     progressLabel_->setEnableBackGroundColor(false);
     progressLabel_->font()->setFontColor(_RGB(255, 255, 255));
     progressLabel_->font()->setFontSize(15);
+    progressLabel_->setFixedHeight(progressLabel_->font()->pixelHeight());
+    progressLabel_->setMinumumWidth(progressLabel_->font()->pixelWidth());
 
     progressSlider_ = new TpSlider(this);
     progressSlider_->setValue(0);

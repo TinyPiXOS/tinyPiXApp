@@ -80,7 +80,6 @@ private:
 
     // 音频播放
     TpAudioInterface *audioPlayer_;
-
     // 视频播放
     TpVideoInterface* videoPlayer_;
 };
