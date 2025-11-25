@@ -67,10 +67,10 @@ void AppTaskManageWindow::setVisible(bool visible)
     allTaskWidgetMap_.clear();
 
     // 获取所有应用列表
-    TpVector<TpSystemApi::RunAppInfo> runAppList = TpSystemApi::Instance()->runAppList();
-    for (int i = 0; i < runAppList.size(); ++i)
+    TpVector<TpSystemApi::RunAppInfo> TpRunAppList = TpSystemApi::Instance()->runAppInfoList();
+    for (int i = 0; i < TpRunAppList.size(); ++i)
     {
-        TpSystemApi::RunAppInfo appInfo = runAppList.at(i);
+        TpSystemApi::RunAppInfo appInfo = TpRunAppList.at(i);
 
         AppPreviewWidget *previewWidget = new AppPreviewWidget();
         previewWidget->setName(appInfo.appInfo.appName());

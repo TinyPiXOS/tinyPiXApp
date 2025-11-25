@@ -390,8 +390,7 @@ void savePng(uint32_t *inputBuffer, uint32_t width, uint32_t height)
     png_set_IHDR(png, info,
                  width, height,
                  8,
-                 //  PNG_COLOR_TYPE_RGBA,
-                 PNG_COLOR_TYPE_RGB,
+                 PNG_COLOR_TYPE_RGBA,
                  PNG_INTERLACE_NONE,
                  PNG_COMPRESSION_TYPE_DEFAULT,
                  PNG_FILTER_TYPE_DEFAULT);
@@ -405,7 +404,7 @@ void savePng(uint32_t *inputBuffer, uint32_t width, uint32_t height)
     int32_t *buffer = reinterpret_cast<int32_t *>(inputBuffer);
     // const int width = imageData->actualWidth;
     // const int height = imageData->actualHeight;
-    const int rowbytes = width * 3; // 每个像素4字节 (RGBA)
+    const int rowbytes = width * 4; // 每个像素4字节 (RGBA)
 
     // 分配行缓冲区
     png_bytep row_buffer = new png_byte[rowbytes];
@@ -420,11 +419,11 @@ void savePng(uint32_t *inputBuffer, uint32_t width, uint32_t height)
         {
             uint32_t pixel = static_cast<uint32_t>(src_row[x]);
 #if 1                                                     // ARGB
-            row_buffer[x * 3 + 0] = (pixel >> 16) & 0xFF; // R
-            row_buffer[x * 3 + 1] = (pixel >> 8) & 0xFF;  // G
-            row_buffer[x * 3 + 2] = pixel & 0xFF;         // B
-            // row_buffer[x * 4 + 3] = (pixel >> 24) & 0xFF; // A
-                                                          // row_buffer[x * 4 + 3] = 0xFF;                 // A
+            row_buffer[x * 4 + 0] = (pixel >> 16) & 0xFF; // R
+            row_buffer[x * 4 + 1] = (pixel >> 8) & 0xFF;  // G
+            row_buffer[x * 4 + 2] = pixel & 0xFF;         // B
+            row_buffer[x * 4 + 3] = 0xFF;                 // A
+                                                          // row_buffer[x * 4 + 3] = (pixel >> 24) & 0xFF; // A
 
 #else // RGBA
             row_buffer[x * 4 + 0] = (pixel >> 16) & 0xFF; // R
@@ -444,50 +443,108 @@ void savePng(uint32_t *inputBuffer, uint32_t width, uint32_t height)
 #endif
 }
 
+int write_frame_to_png(const char *filename, const uint8_t *rgb_data, int width, int height, int pitch)
+{
+    static int fileIndex = 0;
+    TpString saveFilePath = applicationDirPath() + "/" + TpString::number(fileIndex++).c_str() + ".png";
+
+    FILE *fp = fopen(saveFilePath.c_str(), "wb");
+    if (!fp)
+    {
+        perror("Error opening PNG file for writing");
+        return -1;
+    }
+
+    png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    if (!png_ptr)
+    {
+        fclose(fp);
+        return -1;
+    }
+
+    png_infop info_ptr = png_create_info_struct(png_ptr);
+    if (!info_ptr)
+    {
+        png_destroy_write_struct(&png_ptr, NULL);
+        fclose(fp);
+        return -1;
+    }
+
+    // 设置错误处理
+    if (setjmp(png_jmpbuf(png_ptr)))
+    {
+        png_destroy_write_struct(&png_ptr, &info_ptr);
+        fclose(fp);
+        return -1;
+    }
+
+    png_init_io(png_ptr, fp);
+
+    // 设置PNG图像头信息
+    png_set_IHDR(png_ptr, info_ptr, width, height, 8,
+                 PNG_COLOR_TYPE_RGB, // 使用RGB格式
+                 PNG_INTERLACE_NONE,
+                 PNG_COMPRESSION_TYPE_DEFAULT,
+                 PNG_FILTER_TYPE_DEFAULT);
+    png_write_info(png_ptr, info_ptr);
+
+    // 准备行指针
+    png_bytep *row_pointers = (png_bytep *)png_malloc(png_ptr, height * sizeof(png_bytep));
+    for (int y = 0; y < height; y++)
+    {
+        // 注意：SDL纹理的pitch可能不等于width*3，这里直接使用传入的pitch值
+        row_pointers[y] = (png_byte *)(rgb_data + y * pitch);
+    }
+
+    png_write_image(png_ptr, row_pointers);
+    png_write_end(png_ptr, NULL);
+
+    // 清理资源
+    png_free(png_ptr, row_pointers);
+    png_destroy_write_struct(&png_ptr, &info_ptr);
+    fclose(fp);
+
+    return 0;
+}
+
 int MainWindowService::videoRbgDataCallback(uint8_t **data, int *linesize, uint32_t format, void *userdata)
 {
-    return 0;
-    // 修正后的转换代码
+    // return 0;
+
+    // 转换代码
     int width = this->width();
-    int height = this->height();
+    // int height = this->height();
+    int height = 576;
     uint32_t *argbBuffer = new uint32_t[width * height];
 
     std::cout << "linesize " << linesize[0] << std::endl;
+    std::cout << "width  " << width << "  " << height << std::endl;
 
-    // for (int y = 0; y < height; y++)
-    // {
-    //     uint8_t *srcRow = data[0] + y * linesize[0]; // 使用linesize处理行对齐
+    for (int y = 0; y < height; y++)
+    {
+        uint8_t *srcRow = data[0] + y * linesize[0]; // 使用linesize处理行对齐
 
-    //     for (int x = 0; x < width; x++)
-    //     {
-    //         uint8_t r = srcRow[x * 3 + 0];
-    //         uint8_t g = srcRow[x * 3 + 1];
-    //         uint8_t b = srcRow[x * 3 + 2];
+        for (int x = 0; x < width; x++)
+        {
+            uint8_t r = srcRow[x * 3 + 0];
+            uint8_t g = srcRow[x * 3 + 1];
+            uint8_t b = srcRow[x * 3 + 2];
 
-    //         // ARGB格式：0xAARRGGBB
-    //         argbBuffer[y * width + x] = (0xFF << 24) | (r << 16) | (g << 8) | b;
-    //     }
-    // }
+            // ARGB格式：0xAARRGGBB
+            argbBuffer[y * width + x] = (0xFF << 24) | (r << 16) | (g << 8) | b;
+        }
+    }
 
-    savePng((uint32_t *)data[0], width, height);
+    // write_frame_to_png("123", (uint8_t *)data[0], width, height, linesize[0]);
+    // savePng((uint32_t *)data[0], width, height);
+
+    TpImage curPoImage;
+    curPoImage.load(argbBuffer, TpSize(width, height));
 
     // savePng(argbBuffer, width, height);
     delete[] argbBuffer;
 
-
-    // TpImage curPoImage;
-    // curPoImage.load(argbBuffer, TpSize(width, height));
-
-    // picture->load(argbBuffer, width, height, tvg::ColorSpace::ARGB8888, true);
-
-    // setBackGroundImage(curPoImage);
-
-    // for (int i = 0; i < linesize[0]; i = i + 3)
-    // {
-    //     uint8_t r = data[0][i];
-    //     uint8_t g = data[0][i + 1];
-    //     uint8_t b = data[0][i + 2];
-    // }
+    setBackGroundImage(curPoImage);
 
     return 0;
 }

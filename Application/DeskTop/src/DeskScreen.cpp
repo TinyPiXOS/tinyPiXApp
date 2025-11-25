@@ -45,7 +45,7 @@ DeskScreen::DeskScreen()
 
     // 订阅数据
     initializeGateway();
-    subscribeGatewayData(RunAppTopic, this);
+    subscribeGatewayData(TpRunAppKey, this);
 
     setEnableBackGroundColor(false);
     setEnabledBorderColor(false);
@@ -121,9 +121,9 @@ DeskScreen::~DeskScreen()
 void DeskScreen::recvData(const char *topic, const void *data, const uint32_t &size)
 {
     TpString topicString(topic);
-    if (topicString.compare(RunAppTopic) == 0)
+    if (topicString.compare(TpRunAppKey) == 0)
     {
-        RunApp recvRunData;
+        TpRunApp recvRunData;
         recvRunData.StructDeserialize(data, size);
 
         std::cout << "RecvStartApp UUID : " << recvRunData.appUuid << std::endl;

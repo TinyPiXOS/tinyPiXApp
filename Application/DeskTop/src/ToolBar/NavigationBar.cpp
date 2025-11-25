@@ -117,6 +117,9 @@ bool NavigationBar::onMouseRleaseEvent(TpMouseEvent *event)
 bool NavigationBar::onMouseMoveEvent(TpMouseEvent *event)
 {
     static int aaa = 0;
+
+    // std::cout << "Move Status " << event->state() << std::endl;
+
     // std::cout << "NavigationBar::onMouseMoveEvent" << aaa++ << std::endl;
 
     // if (event->state())
