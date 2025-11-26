@@ -10,6 +10,7 @@
 #include "TpMessageBox.h"
 #include "Service/TpAppConfigIO.h"
 #include "Service/TpSystemApi.h"
+#include <TpInteractDataDef/TpDesktopData.h>
 
 #include <iostream>
 
@@ -136,6 +137,9 @@ void DeskScreen::recvData(const char *topic, const void *data, const uint32_t &s
             argList.emplace_back(recvArg);
         }
         startApp(recvRunData.appUuid, argList);
+    }
+    else
+    {
     }
 }
 
@@ -455,7 +459,7 @@ void DeskScreen::initData()
     }
     globalTopSettingBar_->setVisible(false);
 
-    topFloatBar_ = new TopBar();
+    topFloatBar_ = new StatusBar();
     if (topFloatBar_ == nullptr)
     {
         std::cout << "topbar init error!" << std::endl;

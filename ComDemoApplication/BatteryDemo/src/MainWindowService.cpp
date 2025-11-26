@@ -28,11 +28,11 @@ MainWindowService::MainWindowService()
     vSlider->move(650, 20);
 
     connect(slider, valueChanged, [=](int32_t value)
-            { battertWidget->setValue(value);
+            { battertWidget->setValueAnimated(value);
 				vSlider->setValue(value); });
 
     connect(vSlider, valueChanged, [=](int32_t value)
-            { battertWidget->setValue(value);
+            { battertWidget->setValueAnimated(value);
 				slider->setValue(value); });
 }
 

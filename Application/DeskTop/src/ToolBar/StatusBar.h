@@ -8,13 +8,13 @@
 #include "TpBattery.h"
 #include "TpGateway.h"
 
-class TopBar
+class StatusBar
     : public TpDialog,
       public ITpGatewayHander
 {
 public:
-    TopBar();
-    virtual ~TopBar();
+    StatusBar();
+    virtual ~StatusBar();
 
     /// @brief 设置顶部工具栏颜色
     /// @param appColor 应用底部颜色，根据应用颜色，选择设置工具栏是黑色/白色

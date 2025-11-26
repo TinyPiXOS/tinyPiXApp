@@ -1,4 +1,4 @@
-#include "TopBar.h"
+#include "StatusBar.h"
 #include "TpFont.h"
 #include "TpString.h"
 #include "DeskTopGlobal.hpp"
@@ -10,6 +10,7 @@
 #include "TpBluetoothLocal.h"
 #include "TpNetworkInterface.h"
 #include <cmath>
+#include <TpInteractDataDef/TpDesktopData.h>
 
 bool globalSystemLockStatus = false;
 
@@ -17,25 +18,27 @@ bool globalSystemLockStatus = false;
 #define TOP_BAR_COLOR _RGBA(255, 255, 255, 0)
 #endif
 
-TopBar::TopBar()
+StatusBar::StatusBar()
     : TpDialog("tinyPiX_SYS_Float_0531acbf04")
 {
-    subscribeGatewayData(DeskApplicationRunTopic.c_str(), this);
+    subscribeGatewayData(TpDeskAppStartKey, this);
+    subscribeGatewayData(TpChangeDeskStatusBarVisibleKey, this);
+    subscribeGatewayData(TpChangeDeskStatusBarStyleKey, this);
 
     setBackGroundColor(TOP_BAR_COLOR);
 
     initUI();
 }
 
-TopBar::~TopBar()
+StatusBar::~StatusBar()
 {
 }
 
-void TopBar::setColor(const int32_t &appColor)
+void StatusBar::setColor(const int32_t &appColor)
 {
 }
 
-void TopBar::setVisible(bool visible)
+void StatusBar::setVisible(bool visible)
 {
     TpDialog::setVisible(visible);
 
@@ -43,18 +46,37 @@ void TopBar::setVisible(bool visible)
     refreshDeskBarInfo();
 }
 
-void TopBar::recvData(const char *topic, const void *data, const uint32_t &size)
+void StatusBar::recvData(const char *topic, const void *data, const uint32_t &size)
 {
     // std::cout << "********************收到上线数据，topic: " << topic <<std::endl;
+
     // 收到应用上线数据，发布数据
-    if (DeskApplicationRunTopic.compare(topic) == 0)
+    TpString topicStr(topic);
+    if (topicStr.compare(TpDeskAppStartKey) == 0)
     {
         // std::cout << "发布状态栏信息" <<std::endl;
         refreshDeskBarInfo();
     }
+    else if (topicStr.compare(TpChangeDeskStatusBarVisibleKey) == 0)
+    {
+        TpChangeDeskStatusBarVisible recvData;
+        recvData.StructDeserialize(data, size);
+        setVisible(recvData.visible);
+    }
+    else if (topicStr.compare(TpChangeDeskStatusBarStyleKey) == 0)
+    {
+        TpChangeDeskStatusBarStyle recvData;
+        recvData.StructDeserialize(data, size);
+        setBackGroundColor(recvData.bgRgba);
+
+        // TODO 调整状态栏组件显示颜色
+    }
+    else
+    {
+    }
 }
 
-bool TopBar::onResizeEvent(TpResizeEvent *event)
+bool StatusBar::onResizeEvent(TpResizeEvent *event)
 {
     TpDialog::onResizeEvent(event);
 
@@ -67,7 +89,7 @@ bool TopBar::onResizeEvent(TpResizeEvent *event)
     return true;
 }
 
-bool TopBar::onMousePressEvent(TpMouseEvent *event)
+bool StatusBar::onMousePressEvent(TpMouseEvent *event)
 {
     TpDialog::onMousePressEvent(event);
 
@@ -76,7 +98,7 @@ bool TopBar::onMousePressEvent(TpMouseEvent *event)
     return true;
 }
 
-bool TopBar::onLeaveEvent(TpLeaveEvent *event)
+bool StatusBar::onLeaveEvent(TpLeaveEvent *event)
 {
     if (event->eventType() == TpEvent::EVENT_OBJECT_LEAVE_TYPE)
     {
@@ -89,7 +111,7 @@ bool TopBar::onLeaveEvent(TpLeaveEvent *event)
     return true;
 }
 
-void TopBar::initUI()
+void StatusBar::initUI()
 {
     sysTimeLabel_ = new TpLabel(this);
     sysTimeLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
@@ -123,14 +145,14 @@ void TopBar::initUI()
     elecBattery_->setValue(80);
 
     updateTimetimer_ = new TpTimer(50000);
-    connect(updateTimetimer_, timeout, this, &TopBar::slotUpdateSystemTime);
+    connect(updateTimetimer_, timeout, this, &StatusBar::slotUpdateSystemTime);
     updateTimetimer_->start();
 
     // 系统启动就要刷新一下时间
     slotUpdateSystemTime();
 }
 
-void TopBar::caculateTopAppPos()
+void StatusBar::caculateTopAppPos()
 {
     TpRect topBarRect = rect();
 
@@ -150,7 +172,7 @@ void TopBar::caculateTopAppPos()
     blueToothLabel_->move(wifiLabel_->pos().x() - blueToothLabel_->width() - TpDisplay::dp2Px(5), (topBarRect.height() - blueToothLabel_->height()) / 2.0);
 }
 
-void TopBar::slotUpdateSystemTime()
+void StatusBar::slotUpdateSystemTime()
 {
     // 更新时间
     TpTime currentTime = TpTime::currentTime();
@@ -195,7 +217,7 @@ void TopBar::slotUpdateSystemTime()
     }
 }
 
-TpString TopBar::transWeekData(const int32_t &dayOfWeek)
+TpString StatusBar::transWeekData(const int32_t &dayOfWeek)
 {
     switch (dayOfWeek)
     {
@@ -218,14 +240,17 @@ TpString TopBar::transWeekData(const int32_t &dayOfWeek)
     }
 }
 
-void TopBar::refreshDeskBarInfo()
+void StatusBar::refreshDeskBarInfo()
 {
     // 更新工具栏尺寸
-    DeskStatusBarInfo config;
+    TpDeskStatusBarInfo config;
     config.statusBarLocation = 0;
     config.statusBarWidth = width();
     config.statusBarHeight = height();
     config.statusBarVislble = visible();
 
-    publishGatewayData(DeskStatusBarInfoTopic.c_str(), &config, sizeof(config));
+    TpStructPackager packa;
+    config.StructSerialize(packa);
+
+    publishGatewayData(config.dataHead_.type_.c_str(), packa.data(), packa.size());
 }

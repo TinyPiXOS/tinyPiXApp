@@ -5,11 +5,11 @@
 #include "TpButton.h"
 #include "TpLabel.h"
 
-class TopBar : public TpDialog
+class StatusBar : public TpDialog
 {
 public:
-    TopBar();
-    virtual ~TopBar();
+    StatusBar();
+    virtual ~StatusBar();
 
     // 设置文件名称
     void setFileName(const TpString &fileName);

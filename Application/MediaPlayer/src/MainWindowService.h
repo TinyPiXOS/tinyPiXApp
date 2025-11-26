@@ -64,7 +64,7 @@ private:
     int videoRbgDataCallback(uint8_t **data, int *linesize, uint32_t format, void *userdata);
 
 private:
-    TopBar *topBar_;
+    StatusBar *topBar_;
     BottomBar *bottomBar_;
 
     PlayerFileType fileType_;

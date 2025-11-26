@@ -18,7 +18,7 @@
 
 #include "SysLockWindow.h"
 #include "AppOperateMaskWindow.h"
-#include "ToolBar/TopBar.h"
+#include "ToolBar/StatusBar.h"
 #include "ToolBar/BottomBar.h"
 #include "ToolBar/NavigationBar.h"
 #include "CaculateAppPos.h"
@@ -108,7 +108,7 @@ private:
 
 private:
     // 顶部和底部工具栏
-    TopBar *topFloatBar_ = nullptr;
+    StatusBar *topFloatBar_ = nullptr;
     BottomBar *bottomFloatBar_ = nullptr;
     NavigationBar *navigationFloatBar_ = nullptr;
 

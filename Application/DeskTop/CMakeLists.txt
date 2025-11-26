@@ -20,7 +20,7 @@ set(SOURCE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(SOURCE_FILES
     ${SOURCE_PATH}/DeskEntry.cpp
     ${SOURCE_PATH}/DeskScreen.cpp
-    ${SOURCE_PATH}/ToolBar/TopBar.cpp
+    ${SOURCE_PATH}/ToolBar/StatusBar.cpp
     ${SOURCE_PATH}/ToolBar/BottomBar.cpp
     ${SOURCE_PATH}/ToolBar/AppSettingBar.cpp
     ${SOURCE_PATH}/ToolBar/PowerManage.cpp
