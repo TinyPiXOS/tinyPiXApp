@@ -8,6 +8,7 @@
 #include "TpImage.h"
 #include "TpFileInfo.h"
 #include "TpSurface.h"
+#include <Service/TpSystemApi.h>
 
 MainWindowService::MainWindowService()
     : TpMainWindow(), topBar_(new StatusBar()), bottomBar_(new BottomBar()), fileType_(UnknowFile), videoPlayer_(nullptr)
@@ -20,6 +21,7 @@ MainWindowService::MainWindowService()
     isMusicIconLabel_->setVisible(true);
     isMusicIconLabel_->move((width() - isMusicIconLabel_->width()) / 2.0, (height() - isMusicIconLabel_->height()) / 2.0);
     setBackGroundColor(_RGB(78, 78, 78));
+    TpSystemApi::Instance()->setStatusBarStyle(_RGB(78, 78, 78));
 
     topBar_->setFileName("");
 

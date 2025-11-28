@@ -3,6 +3,7 @@
 #include "FileManagementGlobal.h"
 #include "TpVBoxLayout.h"
 #include "TpTabBar.h"
+#include <Service/TpSystemApi.h>
 
 enum TreeNodeType
 {
@@ -25,6 +26,7 @@ MainWindowService::MainWindowService()
     initUi();
 
     setBackGroundColor(_RGB(248, 248, 248));
+    TpSystemApi::Instance()->setStatusBarStyle(_RGB(248, 248, 248));
 }
 
 MainWindowService::~MainWindowService()

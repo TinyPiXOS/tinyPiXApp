@@ -1,5 +1,6 @@
 #include "MainWindowService.h"
 #include "CalendarGlobal.h"
+#include <Service/TpSystemApi.h>
 
 MainWindowService::MainWindowService()
     : TpMainWindow()
@@ -7,6 +8,7 @@ MainWindowService::MainWindowService()
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(248, 248, 248));
+    TpSystemApi::Instance()->setStatusBarStyle(_RGB(248, 248, 248));
 }
 
 MainWindowService::~MainWindowService()

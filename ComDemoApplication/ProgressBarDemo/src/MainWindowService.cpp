@@ -1,5 +1,6 @@
 #include "MainWindowService.h"
 #include "TpPercentProgressBar.h"
+#include <Service/TpSystemApi.h>
 
 MainWindowService::MainWindowService()
     : TpMainWindow()
@@ -7,6 +8,7 @@ MainWindowService::MainWindowService()
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(128, 128, 128));
+    TpSystemApi::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
 
     TpPercentProgressBar *progress = new TpPercentProgressBar(this);
     progress->setWidth(700);

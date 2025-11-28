@@ -2,6 +2,7 @@
 #include "TpLabel.h"
 #include "TpFont.h"
 #include "TpImage.h"
+#include <Service/TpSystemApi.h>
 
 MainWindowService::MainWindowService()
     : TpMainWindow()
@@ -9,6 +10,7 @@ MainWindowService::MainWindowService()
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(226, 226, 226));
+    TpSystemApi::Instance()->setStatusBarStyle(_RGB(226, 226, 226));
 
     TpLabel *label1 = new TpLabel(this);
     label1->font()->setFontColor(_RGB(255, 0, 0));

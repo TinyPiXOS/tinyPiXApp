@@ -3,6 +3,7 @@
 #include "TpButton.h"
 #include "TpAnimation.h"
 #include "TpSignalSlot.h"
+#include <Service/TpSystemApi.h>
 
 MainWindowService::MainWindowService()
     : TpMainWindow()
@@ -10,6 +11,7 @@ MainWindowService::MainWindowService()
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(128, 128, 128));
+    TpSystemApi::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
 
     // 效果展示窗体
     TpDialog *exampleWidget = new TpDialog();

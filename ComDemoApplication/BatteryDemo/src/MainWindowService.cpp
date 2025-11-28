@@ -2,6 +2,7 @@
 #include "TpBattery.h"
 #include "TpSignalSlot.h"
 #include "TpSlider.h"
+#include <Service/TpSystemApi.h>
 
 MainWindowService::MainWindowService()
     : TpMainWindow()
@@ -9,6 +10,7 @@ MainWindowService::MainWindowService()
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(128, 128, 128));
+    TpSystemApi::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
 
     TpBattery *battertWidget = new TpBattery(this);
     battertWidget->setValue(50);

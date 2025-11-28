@@ -12,6 +12,12 @@ class StatusBar
     : public TpDialog,
       public ITpGatewayHander
 {
+    enum StatusBarStyle
+    {
+        White,  // 白色文本
+        Black   // 黑色文本
+    };
+
 public:
     StatusBar();
     virtual ~StatusBar();
@@ -30,6 +36,8 @@ protected:
     virtual bool onMousePressEvent(TpMouseEvent *event) override;
     virtual bool onLeaveEvent(TpLeaveEvent *event) override;
 
+    virtual bool onPaintEvent(TpPaintEvent *event) override;
+
 private:
     void initUI();
 
@@ -43,6 +51,8 @@ private:
     // 通知应用topbar数据发生变化
     void refreshDeskBarInfo();
 
+    void changeStyle(StatusBarStyle style);
+    
 private:
     TpLabel *sysDateLabel_;
     TpLabel *sysTimeLabel_;

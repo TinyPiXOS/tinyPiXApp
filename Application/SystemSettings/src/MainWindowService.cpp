@@ -8,6 +8,7 @@
 #include "TpOnOffButton.h"
 #include "TpLine.h"
 #include "TpBluetoothLocal.h"
+#include "Service/TpSystemApi.h"
 
 #include "SettingWindow/InternetSettingWindow.h"
 #include "SettingWindow/BluetoothSettingWindow.h"
@@ -22,6 +23,7 @@ MainWindowService::MainWindowService()
     initUi();
 
     setBackGroundColor(_RGB(248, 248, 248));
+    TpSystemApi::Instance()->setStatusBarStyle(_RGB(248, 248, 248));
 }
 
 MainWindowService::~MainWindowService()
@@ -55,7 +57,7 @@ bool MainWindowService::onActiveEvent(TpActiveEvent *event)
             TpList<TpBluetoothLocal> blueToothDeviceList = TpBluetoothLocal::getAllDevice();
             if (blueToothDeviceList.size() > 0)
             {
-                TpBluetoothLocal& firstBlueDevice = blueToothDeviceList.front();
+                TpBluetoothLocal &firstBlueDevice = blueToothDeviceList.front();
                 blueIsOpen = firstBlueDevice.isPowerOn();
             }
 

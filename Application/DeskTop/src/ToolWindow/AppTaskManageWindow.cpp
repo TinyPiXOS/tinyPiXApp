@@ -67,7 +67,10 @@ void AppTaskManageWindow::setVisible(bool visible)
     allTaskWidgetMap_.clear();
 
     // 获取所有应用列表
+    // std::cout << "查询APP信息前++++++++" << std::endl;
     TpVector<TpSystemApi::RunAppInfo> TpRunAppList = TpSystemApi::Instance()->runAppInfoList();
+    // std::cout << "查询APP信息后-------------" << std::endl;
+
     for (int i = 0; i < TpRunAppList.size(); ++i)
     {
         TpSystemApi::RunAppInfo appInfo = TpRunAppList.at(i);
@@ -76,7 +79,7 @@ void AppTaskManageWindow::setVisible(bool visible)
         previewWidget->setName(appInfo.appInfo.appName());
         previewWidget->setIcon(appInfo.appInfo.iconPath());
         previewWidget->setAppUuid(appInfo.appInfo.appUuid());
-        
+
         // 应用抓图，grabWindow
         TpImage appGrapImage = TpSystemApi::Instance()->appImage(appInfo.appInfo.appUuid());
         previewWidget->setPreviewImg(appGrapImage);

@@ -13,7 +13,7 @@
 #endif
 
 AppSettingBar::AppSettingBar()
-    : TpDialog("tinyPiX_SYS_Float_0531acbf04")
+    : TpDialog("tinyPiX_SYS_Float_0531acbf04"), mouseLeftPress_(false)
 {
     this->setEnabledBorderColor(false);
     this->setBackGroundColor(SETTING_BAR_COLOR);
@@ -84,29 +84,23 @@ void AppSettingBar::setVisible(bool visible)
 {
     TpDialog::setVisible(visible);
 
-    // 刷新音量
-    TpList<TpString> soundList = TpSound::getDevices();
-    if (soundList.size() > 0)
+    if (visible)
     {
-        voiceProgessBar_->setEnabled(true);
+        // 刷新音量
+        TpList<TpString> soundList = TpSound::getDevices();
+        if (soundList.size() > 0)
+        {
+            voiceProgessBar_->setEnabled(true);
 
-        TpSound sound(soundList.front());
-        voiceProgessBar_->setValue(sound.getSystemVolume());
+            TpSound sound(soundList.front());
+            voiceProgessBar_->setValue(sound.getSystemVolume());
+        }
+        else
+        {
+            voiceProgessBar_->setValue(0);
+            voiceProgessBar_->setEnabled(false);
+        }
     }
-    else
-    {
-        voiceProgessBar_->setValue(0);
-        voiceProgessBar_->setEnabled(false);
-    }
-
-    // 所有子组件的显隐
-    // dateTimeLabel_->setVisible(visible);
-    // powerOffBtn_->setVisible(visible);
-    // voiceProgessBar_->setVisible(visible);
-    // lightProgessBar_->setVisible(visible);
-    // wifiBtn_->setVisible(visible);
-    // bluetoothBtn_->setVisible(visible);
-    // sysLockBtn_->setVisible(visible);
 }
 
 void AppSettingBar::updateTime(const int32_t &year, const int32_t &month, const int32_t &day, const TpString &weekDay)

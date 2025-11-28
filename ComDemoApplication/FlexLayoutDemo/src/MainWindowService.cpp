@@ -1,6 +1,7 @@
 #include "MainWindowService.h"
 #include "TpFlexLayout.h"
 #include "TpButton.h"
+#include <Service/TpSystemApi.h>
 
 MainWindowService::MainWindowService()
     : TpMainWindow()
@@ -8,6 +9,7 @@ MainWindowService::MainWindowService()
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(128, 128, 128));
+    TpSystemApi::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
     
     TpFlexLayout *flexLayout = new TpFlexLayout();
 

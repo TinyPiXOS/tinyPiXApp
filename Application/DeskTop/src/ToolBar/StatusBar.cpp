@@ -15,8 +15,22 @@
 bool globalSystemLockStatus = false;
 
 #ifndef TOP_BAR_COLOR
-#define TOP_BAR_COLOR _RGBA(255, 255, 255, 0)
+#define TOP_BAR_COLOR _RGBA(0, 0, 0, 255)
 #endif
+
+// 计算相对亮度（WCAG标准）
+static double calculateLuminance(int r, int g, int b)
+{
+    double rsRGB = r / 255.0;
+    double gsRGB = g / 255.0;
+    double bsRGB = b / 255.0;
+
+    double rLinear = (rsRGB <= 0.03928) ? rsRGB / 12.92 : pow((rsRGB + 0.055) / 1.055, 2.4);
+    double gLinear = (gsRGB <= 0.03928) ? gsRGB / 12.92 : pow((gsRGB + 0.055) / 1.055, 2.4);
+    double bLinear = (bsRGB <= 0.03928) ? bsRGB / 12.92 : pow((bsRGB + 0.055) / 1.055, 2.4);
+
+    return 0.2126 * rLinear + 0.7152 * gLinear + 0.0722 * bLinear;
+}
 
 StatusBar::StatusBar()
     : TpDialog("tinyPiX_SYS_Float_0531acbf04")
@@ -48,8 +62,6 @@ void StatusBar::setVisible(bool visible)
 
 void StatusBar::recvData(const char *topic, const void *data, const uint32_t &size)
 {
-    // std::cout << "********************收到上线数据，topic: " << topic <<std::endl;
-
     // 收到应用上线数据，发布数据
     TpString topicStr(topic);
     if (topicStr.compare(TpDeskAppStartKey) == 0)
@@ -65,11 +77,15 @@ void StatusBar::recvData(const char *topic, const void *data, const uint32_t &si
     }
     else if (topicStr.compare(TpChangeDeskStatusBarStyleKey) == 0)
     {
+        // std::cout << "********************收到状态栏样式变化: " << topic << std::endl;
+
         TpChangeDeskStatusBarStyle recvData;
         recvData.StructDeserialize(data, size);
         setBackGroundColor(recvData.bgRgba);
 
         // TODO 调整状态栏组件显示颜色
+        double luminance = calculateLuminance(_R(recvData.bgRgba), _G(recvData.bgRgba), _B(recvData.bgRgba));
+        changeStyle((luminance > 0.5) ? StatusBar::Black : StatusBar::White);
     }
     else
     {
@@ -94,7 +110,9 @@ bool StatusBar::onMousePressEvent(TpMouseEvent *event)
     TpDialog::onMousePressEvent(event);
 
     std::cout << "TopBar Press Pos ()" << event->globalPos().x() << " , " << event->globalPos().y() << std::endl;
+    // int32_t bgColor = backGroundColor();
 
+    // std::cout << "BG RGBA : " << _R(bgColor) << " , " << _G(bgColor) << " , " << _B(bgColor) << std::endl;
     return true;
 }
 
@@ -108,6 +126,12 @@ bool StatusBar::onLeaveEvent(TpLeaveEvent *event)
         }
     }
 
+    return true;
+}
+
+bool StatusBar::onPaintEvent(TpPaintEvent *event)
+{
+    TpDialog::onPaintEvent(event);
     return true;
 }
 
@@ -253,4 +277,23 @@ void StatusBar::refreshDeskBarInfo()
     config.StructSerialize(packa);
 
     publishGatewayData(config.dataHead_.type_.c_str(), packa.data(), packa.size());
+}
+
+void StatusBar::changeStyle(StatusBarStyle style)
+{
+    // wifiLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/TopBar/WIFI.png"));
+    // blueToothLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/TopBar/蓝牙.png"));
+
+    if (style == StatusBar::White)
+    {
+        sysTimeLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
+        sysDateLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
+        elecBattery_->setStyle(TpBattery::White);
+    }
+    else
+    {
+        sysTimeLabel_->font()->setFontForeColor(_RGB(0, 0, 0));
+        sysDateLabel_->font()->setFontForeColor(_RGB(0, 0, 0));
+        elecBattery_->setStyle(TpBattery::Black);
+    }
 }

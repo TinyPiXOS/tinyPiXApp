@@ -3,6 +3,7 @@
 #include "TpSlider.h"
 #include "TpFont.h"
 #include "TpSignalSlot.h"
+#include <Service/TpSystemApi.h>
 
 MainWindowService::MainWindowService()
     : TpMainWindow()
@@ -10,33 +11,34 @@ MainWindowService::MainWindowService()
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(128, 128, 128));
-    
+    TpSystemApi::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
+
     TpLabel *valueText = new TpLabel(this);
-	valueText->setText(TpString::number(50));
-	valueText->setAlign(Tp::AlignCenter);
-	valueText->font()->setFontColor(_RGB(255, 255, 255));
-	valueText->font()->setFontSize(30);
-	valueText->setWidth(600);
-	valueText->setHeight(400);
-	valueText->move(20, 200);
+    valueText->setText(TpString::number(50));
+    valueText->setAlign(Tp::AlignCenter);
+    valueText->font()->setFontColor(_RGB(255, 255, 255));
+    valueText->font()->setFontSize(30);
+    valueText->setWidth(600);
+    valueText->setHeight(400);
+    valueText->move(20, 200);
 
-	TpSlider *slider = new TpSlider(this);
-	slider->setValue(50);
-	slider->setSize(500, 10);
-	slider->move(20, 60);
+    TpSlider *slider = new TpSlider(this);
+    slider->setValue(50);
+    slider->setSize(500, 10);
+    slider->move(20, 60);
 
-	TpSlider *vSlider = new TpSlider(this);
-	vSlider->setDirection(TpSlider::Vertical);
-	vSlider->setValue(50);
-	vSlider->setSize(10, 500);
-	vSlider->move(650, 20);
+    TpSlider *vSlider = new TpSlider(this);
+    vSlider->setDirection(TpSlider::Vertical);
+    vSlider->setValue(50);
+    vSlider->setSize(10, 500);
+    vSlider->move(650, 20);
 
-	connect(slider, valueChanged, [=](int32_t value)
-			{ valueText->setText(TpString::number(value));
+    connect(slider, valueChanged, [=](int32_t value)
+            { valueText->setText(TpString::number(value));
 				vSlider->setValue(value); });
 
-	connect(vSlider, valueChanged, [=](int32_t value)
-			{ valueText->setText(TpString::number(value));
+    connect(vSlider, valueChanged, [=](int32_t value)
+            { valueText->setText(TpString::number(value));
 				slider->setValue(value); });
 }
 
