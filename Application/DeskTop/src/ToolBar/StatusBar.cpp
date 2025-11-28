@@ -15,7 +15,7 @@
 bool globalSystemLockStatus = false;
 
 #ifndef TOP_BAR_COLOR
-#define TOP_BAR_COLOR _RGBA(0, 0, 0, 255)
+#define TOP_BAR_COLOR _RGBA(0, 0, 0, 0)
 #endif
 
 // 计算相对亮度（WCAG标准）
@@ -48,8 +48,11 @@ StatusBar::~StatusBar()
 {
 }
 
-void StatusBar::setColor(const int32_t &appColor)
+void StatusBar::setColor(const int32_t &color)
 {
+    setBackGroundColor(color);
+    double luminance = calculateLuminance(_R(color), _G(color), _B(color));
+    changeStyle((luminance > 0.5) ? StatusBar::Black : StatusBar::White);
 }
 
 void StatusBar::setVisible(bool visible)
@@ -77,15 +80,13 @@ void StatusBar::recvData(const char *topic, const void *data, const uint32_t &si
     }
     else if (topicStr.compare(TpChangeDeskStatusBarStyleKey) == 0)
     {
-        // std::cout << "********************收到状态栏样式变化: " << topic << std::endl;
+        std::cout << "********************收到状态栏样式变化: " << topic << std::endl;
 
         TpChangeDeskStatusBarStyle recvData;
         recvData.StructDeserialize(data, size);
-        setBackGroundColor(recvData.bgRgba);
 
-        // TODO 调整状态栏组件显示颜色
-        double luminance = calculateLuminance(_R(recvData.bgRgba), _G(recvData.bgRgba), _B(recvData.bgRgba));
-        changeStyle((luminance > 0.5) ? StatusBar::Black : StatusBar::White);
+        // 调整状态栏组件显示颜色
+        setColor(recvData.bgRgba);
     }
     else
     {

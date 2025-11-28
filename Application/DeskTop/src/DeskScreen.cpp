@@ -27,6 +27,7 @@ AppTaskManageWindow *globalAppTaskWindow = nullptr;
 AppSettingBar *globalTopSettingBar_ = nullptr;
 
 TpScreen *globalMainScreen_ = nullptr;
+StatusBar* globalStatusBar_ = nullptr;
 
 uint32_t globalAppMaxRow = 4;
 uint32_t globalAppMaxColumn = 6;
@@ -102,10 +103,10 @@ DeskScreen::DeskScreen()
 
 DeskScreen::~DeskScreen()
 {
-    if (topFloatBar_)
+    if (globalStatusBar_)
     {
-        delete topFloatBar_;
-        topFloatBar_ = nullptr;
+        delete globalStatusBar_;
+        globalStatusBar_ = nullptr;
     }
     if (bottomFloatBar_)
     {
@@ -158,14 +159,14 @@ bool DeskScreen::appChange(int32_t id, int32_t pid, int32_t visible, int32_t act
     {
         if (bottomFloatBar_)
             bottomFloatBar_->setVisible(true);
-        if (topFloatBar_)
-            topFloatBar_->setVisible(true);
+        if (globalStatusBar_)
+            globalStatusBar_->setVisible(true);
         return false;
     }
 
     // 应用启动，不显示上下工具栏
     // bottomFloatBar_->setVisible(false);
-    topFloatBar_->setVisible(false);
+    globalStatusBar_->setVisible(false);
 
     if (active == false)
     {
@@ -459,13 +460,13 @@ void DeskScreen::initData()
     }
     globalTopSettingBar_->setVisible(false);
 
-    topFloatBar_ = new StatusBar();
-    if (topFloatBar_ == nullptr)
+    globalStatusBar_ = new StatusBar();
+    if (globalStatusBar_ == nullptr)
     {
         std::cout << "topbar init error!" << std::endl;
         std::exit(0);
     }
-    topFloatBar_->installEventFilter(this);
+    globalStatusBar_->installEventFilter(this);
 
     bottomFloatBar_ = new BottomBar(this);
     if (bottomFloatBar_ == nullptr)
@@ -756,7 +757,7 @@ void DeskScreen::createAppBtn()
 
 void DeskScreen::refreshMainAppPanel()
 {
-    uint32_t tHeight = topFloatBar_->height();
+    uint32_t tHeight = globalStatusBar_->height();
     uint32_t bottomBarHeight = bottomFloatBar_->height();
 
     // 计算APP显示区域大小位置
@@ -791,7 +792,7 @@ void DeskScreen::refreshAppPage(const uint32_t &pageNum)
 
 void DeskScreen::refreshBar()
 {
-    if (!topFloatBar_ || !bottomFloatBar_)
+    if (!globalStatusBar_ || !bottomFloatBar_)
         return;
 
     // 计算底部bar的X坐标
@@ -800,13 +801,13 @@ void DeskScreen::refreshBar()
 
     bottomFloatBar_->setRoundCorners(13);
 
-    BAR_SET_ATTRIB(topFloatBar_, 0, 0, width(), TOP_BAR_HEIGHT);
+    BAR_SET_ATTRIB(globalStatusBar_, 0, 0, width(), TOP_BAR_HEIGHT);
     BAR_SET_ATTRIB(bottomFloatBar_, bottomX, bottomY, BOTTOM_BAR_WIDTH, BOTTOM_BAR_HEIGHT);
 
     uint32_t navigationX = (width() - navigationFloatBar_->width()) / 2.0;
     BAR_SET_ATTRIB(navigationFloatBar_, navigationX, height() - navigationFloatBar_->height(), navigationFloatBar_->width(), navigationFloatBar_->height());
 
-    topFloatBar_->update();
+    globalStatusBar_->update();
     navigationFloatBar_->update();
 }
 

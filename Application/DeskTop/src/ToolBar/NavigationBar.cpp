@@ -5,6 +5,7 @@
 #include "DeskTopGlobal.hpp"
 #include "TpApp.h"
 #include "Service/TpSystemApi.h"
+#include "StatusBar.h"
 
 NavigationBar::NavigationBar()
     : TpDialog("tinyPiX_SYS_Float_0531acbf04")
@@ -106,6 +107,7 @@ bool NavigationBar::onMouseRleaseEvent(TpMouseEvent *event)
             else
             {
                 TpSystemApi::Instance()->home();
+                globalStatusBar_->setColor(_RGBA(0, 0, 0, 0));
                 std::cout << " Return Desktop " << std::endl;
             }
         }

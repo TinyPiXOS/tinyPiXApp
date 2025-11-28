@@ -28,6 +28,9 @@ extern AppSettingBar *globalTopSettingBar_;
 // 主窗体
 extern TpScreen *globalMainScreen_;
 
+class StatusBar;
+extern StatusBar* globalStatusBar_;
+
 // APP页码信息
 struct ApplicationInfo
 {

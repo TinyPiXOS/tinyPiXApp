@@ -108,7 +108,6 @@ private:
 
 private:
     // 顶部和底部工具栏
-    StatusBar *topFloatBar_ = nullptr;
     BottomBar *bottomFloatBar_ = nullptr;
     NavigationBar *navigationFloatBar_ = nullptr;
 

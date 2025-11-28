@@ -22,9 +22,9 @@ public:
     StatusBar();
     virtual ~StatusBar();
 
-    /// @brief 设置顶部工具栏颜色
-    /// @param appColor 应用底部颜色，根据应用颜色，选择设置工具栏是黑色/白色
-    void setColor(const int32_t &appColor);
+    /// @brief 设置状态栏背景颜色；会根据状态栏颜色调整内容颜色
+    /// @param appColor 工具栏颜色
+    void setColor(const int32_t &color);
 
     virtual void setVisible(bool visible = true) override;
 
