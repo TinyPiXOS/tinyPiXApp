@@ -140,19 +140,21 @@ void StatusBar::initUI()
 {
     sysTimeLabel_ = new TpLabel(this);
     sysTimeLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
-    sysTimeLabel_->font()->setFontSize(TpDisplay::sp2Px(11));
+    sysTimeLabel_->font()->setFontSize(TpDisplay::sp2Px(12));
     sysTimeLabel_->font()->setBold(true);
     sysTimeLabel_->setText("122:22");
     sysTimeLabel_->setWidth(sysTimeLabel_->font()->pixelWidth());
     sysTimeLabel_->setHeight(TpDisplay::dp2Px(18));
+    // sysTimeLabel_->setBackGroundColor(_RGB(255, 0, 0));
 
     sysDateLabel_ = new TpLabel(this);
     sysDateLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
-    sysDateLabel_->font()->setFontSize(TpDisplay::sp2Px(11));
+    sysDateLabel_->font()->setFontSize(TpDisplay::sp2Px(10));
     sysDateLabel_->font()->setBold(true);
     sysDateLabel_->setText("12月22日 周二");
     sysDateLabel_->setWidth(sysDateLabel_->font()->pixelWidth());
     sysDateLabel_->setHeight(TpDisplay::dp2Px(18));
+    // sysDateLabel_->setBackGroundColor(_RGB(255, 0,0));
 
     wifiLabel_ = new TpLabel(this);
     wifiLabel_->setSize(TpDisplay::dp2Px(18), TpDisplay::dp2Px(18));

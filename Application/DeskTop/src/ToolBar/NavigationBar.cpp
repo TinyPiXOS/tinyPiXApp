@@ -94,9 +94,9 @@ bool NavigationBar::onMouseRleaseEvent(TpMouseEvent *event)
 
         if (offsetY > 4)
         {
-            if (msTime > 800)
+            if (msTime > 650)
             {
-                // 如果滑动间隔在 800 ms内，则为返回桌面，否则为打开任务管理器
+                // 如果滑动间隔在 650 ms内，则为返回桌面，否则为打开任务管理器
                 if (!globalAppTaskWindow->visible())
                 {
                     globalAppTaskWindow->showMaximum();
@@ -118,16 +118,11 @@ bool NavigationBar::onMouseRleaseEvent(TpMouseEvent *event)
 
 bool NavigationBar::onMouseMoveEvent(TpMouseEvent *event)
 {
-    static int aaa = 0;
+    if (!event->state())
+        return true;
 
-    // std::cout << "Move Status " << event->state() << std::endl;
-
-    // std::cout << "NavigationBar::onMouseMoveEvent" << aaa++ << std::endl;
-
-    // if (event->state())
-    // {
-
-    // }
+    // TpPoint curPos = event->globalPos();
+    // int32_t offsetY = mousePressPoint_.y() - curPos.y();
 
     return true;
 }

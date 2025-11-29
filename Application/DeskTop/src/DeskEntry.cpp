@@ -1,10 +1,21 @@
 #include "DeskEntry.h"
 #include "TpApp.h"
 #include "DeskScreen.h"
+#include <csignal>
+#include <Service/TpSystemApi.h>
+
+void signalHandler(int signal)
+{
+    TpSystemApi::Instance()->killAllApp();
+}
 
 // int deskEntry_Start(int argc, char *argv[])
 int main(int argc, char *argv[])
 {
+    // 注册信号处理
+    // signal(SIGINT, signalHandler);
+    // signal(SIGTERM, signalHandler);
+
     TpApp app(argc, argv, "tinyPiX_DeskTop_0x43ef3dc14");
     DeskScreen *deskTopMainWindow = new DeskScreen();
     deskTopMainWindow->update();
