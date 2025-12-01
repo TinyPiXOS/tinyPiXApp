@@ -5,23 +5,11 @@ project(FileManagement VERSION 1.0.0 LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# include(CTest)
-# enable_testing()
-
 # 设置构建生成的根目录
 set(CMAKE_BINARY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/build")
 
-# 设置不同类型的目标文件的输出目录
-# set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib")
-# set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib")
-# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
-
 # 设置可执行文件的输出目录
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
-
-# 为 Debug 和 Release 设置不同的输出目录
-# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_CURRENT_SOURCE_DIR}/bin/debug")
-# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}/bin/release")
 
 # 添加源码目录
 set(SOURCE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/src")
@@ -61,7 +49,7 @@ include_directories(/usr/include/TinyPiX/TpGUI/Widgets)
 add_executable(FileManagement ${SOURCE_FILES})
 
 # 将pthread库链接到可执行目标
-target_link_libraries(FileManagement    TpWMEngine TpCore TpGUI TpUtils  
+target_link_libraries(FileManagement TpWMEngine TpCore TpGUI TpUtils  
                 )
 
 # 包含共享模块

@@ -27,5 +27,3 @@ add_subdirectory(ComDemoApplication/ProgressBarDemo)
 add_subdirectory(ComDemoApplication/ButtonDemo)
 add_subdirectory(ComDemoApplication/FlexLayoutDemo)
 add_subdirectory(ComDemoApplication/LabelDemo)
-
-

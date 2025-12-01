@@ -6,6 +6,7 @@
 
 void signalHandler(int signal)
 {
+    std::cout << "signal: " << signal << std::endl;
     TpSystemApi::Instance()->killAllApp();
 }
 
