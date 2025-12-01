@@ -15,6 +15,8 @@
 
 const TpString SettingTypeStr = "settingType";
 
+#define BACKGROUND_COLOR _RGB(248, 248, 248)
+
 MainWindowService::MainWindowService()
     : TpMainWindow(), curSelectItem_(nullptr)
 {
@@ -22,8 +24,8 @@ MainWindowService::MainWindowService()
 
     initUi();
 
-    setBackGroundColor(_RGB(248, 248, 248));
-    TpSystemApi::Instance()->setStatusBarStyle(_RGB(248, 248, 248));
+    setBackGroundColor(BACKGROUND_COLOR);
+    TpSystemApi::Instance()->setStatusBarStyle(BACKGROUND_COLOR);
 }
 
 MainWindowService::~MainWindowService()
@@ -170,6 +172,16 @@ void MainWindowService::initUi()
 
     // 创建子窗口
     createAllSettingWindow();
+}
+
+bool MainWindowService::onVisibleEvent(TpVisibleEvent *event)
+{
+    if (event->visible())
+    {
+        TpSystemApi::Instance()->setStatusBarStyle(BACKGROUND_COLOR);
+    }
+
+    return true;
 }
 
 void MainWindowService::slotClickMenuItem(TpMenuPanelItem *deviceBtn)

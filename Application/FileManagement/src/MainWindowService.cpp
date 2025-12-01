@@ -42,6 +42,16 @@ bool MainWindowService::appChange(int32_t id, int32_t pid, int32_t visible, int3
     return true;
 }
 
+bool MainWindowService::onVisibleEvent(TpVisibleEvent *event)
+{
+    if (event->visible())
+    {
+        TpSystemApi::Instance()->setStatusBarStyle(_RGB(248, 248, 248));
+    }
+
+    return true;
+}
+
 bool MainWindowService::onActiveEvent(TpActiveEvent *event)
 {
     std::cout << "MainWindowService::onActiveEvent" << std::endl;

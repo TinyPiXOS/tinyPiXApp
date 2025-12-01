@@ -9,6 +9,7 @@
 #include "TpFileInfo.h"
 #include "TpSurface.h"
 #include <Service/TpSystemApi.h>
+#include "TpEvent.h"
 
 MainWindowService::MainWindowService()
     : TpMainWindow(), topBar_(new StatusBar()), bottomBar_(new BottomBar()), fileType_(UnknowFile), videoPlayer_(nullptr)
@@ -119,6 +120,16 @@ bool MainWindowService::appChange(int32_t id, int32_t pid, int32_t visible, int3
     std::cout << "MainWindowService::appChange" << std::endl;
 
     refreshBarSize();
+
+    return true;
+}
+
+bool MainWindowService::onVisibleEvent(TpVisibleEvent *event)
+{
+    if (event->visible())
+    {
+        TpSystemApi::Instance()->setStatusBarStyle(_RGB(78, 78, 78));
+    }
 
     return true;
 }

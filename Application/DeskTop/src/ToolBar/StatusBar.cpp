@@ -80,7 +80,7 @@ void StatusBar::recvData(const char *topic, const void *data, const uint32_t &si
     }
     else if (topicStr.compare(TpChangeDeskStatusBarStyleKey) == 0)
     {
-        std::cout << "********************收到状态栏样式变化: " << topic << std::endl;
+        // std::cout << "********************收到状态栏样式变化: " << topic << std::endl;
 
         TpChangeDeskStatusBarStyle recvData;
         recvData.StructDeserialize(data, size);
