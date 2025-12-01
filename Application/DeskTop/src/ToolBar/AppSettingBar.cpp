@@ -73,6 +73,8 @@ AppSettingBar::AppSettingBar()
 
     setRect(0, 0, globalMainScreen_->width(), globalMainScreen_->height());
 
+    // 默认完全透明
+    setWindowOpacity(0);
     resizeOperatorBtn();
 }
 

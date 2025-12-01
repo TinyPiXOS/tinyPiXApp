@@ -111,9 +111,43 @@ bool StatusBar::onMousePressEvent(TpMouseEvent *event)
     TpDialog::onMousePressEvent(event);
 
     std::cout << "TopBar Press Pos ()" << event->globalPos().x() << " , " << event->globalPos().y() << std::endl;
-    // int32_t bgColor = backGroundColor();
+    pressPoint_ = event->globalPos();
 
-    // std::cout << "BG RGBA : " << _R(bgColor) << " , " << _G(bgColor) << " , " << _B(bgColor) << std::endl;
+    return true;
+}
+
+bool StatusBar::onMouseRleaseEvent(TpMouseEvent *event)
+{
+    if (globalTopSettingBar_)
+    {
+        if (globalTopSettingBar_->windowOpacity() < 0.5)
+        {
+            globalTopSettingBar_->setVisible(false);
+        }
+        else
+        {
+            globalTopSettingBar_->setWindowOpacity(1);
+            globalTopSettingBar_->setVisible(true);
+        }
+    }
+    return true;
+}
+
+bool StatusBar::onMouseMoveEvent(TpMouseEvent *event)
+{
+    if (globalTopSettingBar_ && !globalTopSettingBar_->visible() && event->state())
+    {
+        TpPoint curMousePos = event->globalPos();
+
+        int32_t moveY = curMousePos.y() - pressPoint_.y();
+        if (moveY > 0)
+        {
+            globalTopSettingBar_->setWindowOpacity(moveY * 0.1);
+            globalTopSettingBar_->setVisible(true);
+            std::cout << "topSettingBar_ Show " << std::endl;
+        }
+    }
+
     return true;
 }
 

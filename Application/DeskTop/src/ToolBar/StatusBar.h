@@ -14,8 +14,8 @@ class StatusBar
 {
     enum StatusBarStyle
     {
-        White,  // 白色文本
-        Black   // 黑色文本
+        White, // 白色文本
+        Black  // 黑色文本
     };
 
 public:
@@ -34,6 +34,9 @@ public:
 protected:
     virtual bool onResizeEvent(TpResizeEvent *event) override;
     virtual bool onMousePressEvent(TpMouseEvent *event) override;
+    virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
+    virtual bool onMouseMoveEvent(TpMouseEvent *event) override;
+
     virtual bool onLeaveEvent(TpLeaveEvent *event) override;
 
     virtual bool onPaintEvent(TpPaintEvent *event) override;
@@ -52,8 +55,10 @@ private:
     void refreshDeskBarInfo();
 
     void changeStyle(StatusBarStyle style);
-    
+
 private:
+    TpPoint pressPoint_;
+
     TpLabel *sysDateLabel_;
     TpLabel *sysTimeLabel_;
 

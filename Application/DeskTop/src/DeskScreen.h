@@ -56,7 +56,6 @@ public:
 
     virtual bool onMousePressEvent(TpMouseEvent *event) override;
     virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
-
     virtual bool onMouseMoveEvent(TpMouseEvent *event) override;
     virtual bool onLeaveEvent(TpLeaveEvent *event) override;
 
@@ -134,10 +133,6 @@ private:
 
     // 底部工具栏的应用信息
     TpList<ApplicationInfoSPtr> bottomBarAppList_;
-
-    // 鼠标点击topBar坐标
-    TpPoint pressTopBarPoint_;
-    bool pressTopBar_ = false;
 
     // 应用长按操作菜单
     TpMenu *operateMenu_;

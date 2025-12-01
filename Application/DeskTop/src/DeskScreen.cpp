@@ -201,23 +201,13 @@ bool DeskScreen::onActiveEvent(TpActiveEvent *event)
 bool DeskScreen::onMousePressEvent(TpMouseEvent *event)
 {
     // 记录鼠标点击坐标
-    uint32_t pressY = event->globalPos().y();
+    // uint32_t pressY = event->globalPos().y();
 
-    // std::cout << "pressY " << pressY << std::endl;
-    // std::cout << "TOP_BAR_HEIGHT " << TOP_BAR_HEIGHT << std::endl;
-
-    if (pressY < TOP_BAR_HEIGHT)
-    {
-        pressTopBar_ = true;
-        pressTopBarPoint_ = event->globalPos();
-    }
-
-    return false;
+    return true;
 }
 
 bool DeskScreen::onMouseRleaseEvent(TpMouseEvent *event)
 {
-    pressTopBar_ = false;
     pressAppBtn_ = nullptr;
     isMoveMode_ = false;
 
@@ -226,24 +216,6 @@ bool DeskScreen::onMouseRleaseEvent(TpMouseEvent *event)
 
 bool DeskScreen::onMouseMoveEvent(TpMouseEvent *event)
 {
-    if (pressTopBar_)
-    {
-        TpPoint curMousePos = event->globalPos();
-
-        if ((curMousePos.y() - pressTopBarPoint_.y()) >= 2)
-        {
-            // 触发一次下拉事件后，不再重复触发
-            pressTopBar_ = false;
-
-            if (globalTopSettingBar_)
-            {
-                std::cout << "topSettingBar_ Show " << std::endl;
-                globalTopSettingBar_->setVisible(true);
-                globalTopSettingBar_->update();
-            }
-        }
-    }
-
 #if 0 // 暂时屏蔽长按移动图标功能
 	if (isMoveMode_ && pressAppBtn_)
 	{
