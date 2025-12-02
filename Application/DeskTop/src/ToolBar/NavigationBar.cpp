@@ -17,7 +17,7 @@ NavigationBar::NavigationBar()
     lineLabel_->setFixedSize(navigationLineWidth, navigationLineHeight);
     lineLabel_->setEnabledBorderColor(false);
     lineLabel_->setEnableBackGroundColor(true);
-    lineLabel_->setBackGroundColor(_RGB(88, 88, 88));
+    lineLabel_->setBackGroundColor(_RGB(255, 255, 255));
     lineLabel_->setRoundCorners(navigationLineHeight / 2.0);
     lineLabel_->installEventFilter(this);
 
@@ -30,6 +30,21 @@ NavigationBar::NavigationBar()
 
 NavigationBar::~NavigationBar()
 {
+}
+
+void NavigationBar::setStyle(StatusBarStyle style)
+{
+    if (style == StatusBarStyle::Black)
+    {
+        lineLabel_->setBackGroundColor(_RGB(88, 88, 88));
+    }
+    else if (style == StatusBarStyle::White)
+    {
+        lineLabel_->setBackGroundColor(_RGB(255, 255, 255));
+    }
+    else
+    {
+    }
 }
 
 void NavigationBar::setColor(const int32_t &appColor)

@@ -9,6 +9,7 @@
 #include "TpLabel.h"
 #include "TpEvent.h"
 #include "TpTime.h"
+#include "DeskTopGlobal.hpp"
 
 class NavigationBar
     : public TpDialog
@@ -16,6 +17,10 @@ class NavigationBar
 public:
     NavigationBar();
     virtual ~NavigationBar();
+
+    /// @brief 设置导航条样式；根据样式决定导航条颜色
+    /// @param style 
+    void setStyle(StatusBarStyle style);
 
     /// @brief 设置导航条颜色
     /// @param appColor 应用底部颜色，根据应用颜色，选择设置导航条是黑色/白色

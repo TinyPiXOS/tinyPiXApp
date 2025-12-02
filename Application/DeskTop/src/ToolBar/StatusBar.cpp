@@ -11,6 +11,7 @@
 #include "TpNetworkInterface.h"
 #include <cmath>
 #include <TpInteractDataDef/TpDesktopData.h>
+#include "NavigationBar.h"
 
 bool globalSystemLockStatus = false;
 
@@ -52,7 +53,10 @@ void StatusBar::setColor(const int32_t &color)
 {
     setBackGroundColor(color);
     double luminance = calculateLuminance(_R(color), _G(color), _B(color));
-    changeStyle((luminance > 0.5) ? StatusBar::Black : StatusBar::White);
+    changeStyle((luminance > 0.5) ? Black : White);
+
+    // 同步更新导航条样式
+    globalNavigationBar_->setStyle((luminance > 0.5) ? Black : White);
 }
 
 void StatusBar::setVisible(bool visible)
@@ -321,7 +325,7 @@ void StatusBar::changeStyle(StatusBarStyle style)
     // wifiLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/TopBar/WIFI.png"));
     // blueToothLabel_->setBackGroundImage(TpImage(applicationDirPath() + "/../res/TopBar/蓝牙.png"));
 
-    if (style == StatusBar::White)
+    if (style == StatusBarStyle::White)
     {
         sysTimeLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
         sysDateLabel_->font()->setFontForeColor(_RGB(255, 255, 255));

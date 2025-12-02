@@ -29,7 +29,10 @@ extern AppSettingBar *globalTopSettingBar_;
 extern TpScreen *globalMainScreen_;
 
 class StatusBar;
-extern StatusBar* globalStatusBar_;
+extern StatusBar *globalStatusBar_;
+
+class NavigationBar;
+extern NavigationBar *globalNavigationBar_;
 
 // APP页码信息
 struct ApplicationInfo
@@ -43,6 +46,14 @@ struct ApplicationInfo
     }
 };
 typedef std::shared_ptr<ApplicationInfo> ApplicationInfoSPtr;
+
+// 状态栏和导航栏文本样式
+enum StatusBarStyle
+{
+    White, // 白色文本
+    Black  // 黑色文本
+};
+
 #endif
 
 #ifndef BOTTOM_BAR_WIDTH

@@ -7,17 +7,12 @@
 #include "TpEvent.h"
 #include "TpBattery.h"
 #include "TpGateway.h"
+#include "DeskTopGlobal.hpp"
 
 class StatusBar
     : public TpDialog,
       public ITpGatewayHander
 {
-    enum StatusBarStyle
-    {
-        White, // 白色文本
-        Black  // 黑色文本
-    };
-
 public:
     StatusBar();
     virtual ~StatusBar();

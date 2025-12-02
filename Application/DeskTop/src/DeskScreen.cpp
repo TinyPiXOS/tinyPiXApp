@@ -27,7 +27,8 @@ AppTaskManageWindow *globalAppTaskWindow = nullptr;
 AppSettingBar *globalTopSettingBar_ = nullptr;
 
 TpScreen *globalMainScreen_ = nullptr;
-StatusBar* globalStatusBar_ = nullptr;
+StatusBar *globalStatusBar_ = nullptr;
+NavigationBar *globalNavigationBar_ = nullptr;
 
 uint32_t globalAppMaxRow = 4;
 uint32_t globalAppMaxColumn = 6;
@@ -113,10 +114,10 @@ DeskScreen::~DeskScreen()
         delete bottomFloatBar_;
         bottomFloatBar_ = nullptr;
     }
-    if (navigationFloatBar_)
+    if (globalNavigationBar_)
     {
-        delete navigationFloatBar_;
-        navigationFloatBar_ = nullptr;
+        delete globalNavigationBar_;
+        globalNavigationBar_ = nullptr;
     }
 }
 
@@ -448,13 +449,13 @@ void DeskScreen::initData()
     }
     bottomFloatBar_->installEventFilter(this);
 
-    navigationFloatBar_ = new NavigationBar();
-    if (navigationFloatBar_ == nullptr)
+    globalNavigationBar_ = new NavigationBar();
+    if (globalNavigationBar_ == nullptr)
     {
-        std::cout << "navigationFloatBar_ init error!" << std::endl;
+        std::cout << "navigationBar_ init error!" << std::endl;
         std::exit(0);
     }
-    navigationFloatBar_->installEventFilter(this);
+    globalNavigationBar_->installEventFilter(this);
 
     // globalSysLockWindow = new SysLockWindow();
     // if (globalSysLockWindow == nullptr)
@@ -776,11 +777,11 @@ void DeskScreen::refreshBar()
     BAR_SET_ATTRIB(globalStatusBar_, 0, 0, width(), TOP_BAR_HEIGHT);
     BAR_SET_ATTRIB(bottomFloatBar_, bottomX, bottomY, BOTTOM_BAR_WIDTH, BOTTOM_BAR_HEIGHT);
 
-    uint32_t navigationX = (width() - navigationFloatBar_->width()) / 2.0;
-    BAR_SET_ATTRIB(navigationFloatBar_, navigationX, height() - navigationFloatBar_->height(), navigationFloatBar_->width(), navigationFloatBar_->height());
+    uint32_t navigationX = (width() - globalNavigationBar_->width()) / 2.0;
+    BAR_SET_ATTRIB(globalNavigationBar_, navigationX, height() - globalNavigationBar_->height(), globalNavigationBar_->width(), globalNavigationBar_->height());
 
     globalStatusBar_->update();
-    navigationFloatBar_->update();
+    globalNavigationBar_->update();
 }
 
 DesktopAppButton *DeskScreen::createDeskAppBtn(ApplicationInfoSPtr appInfo, const TpString &iconPath, const TpString &appName)

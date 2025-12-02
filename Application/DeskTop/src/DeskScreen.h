@@ -108,7 +108,6 @@ private:
 private:
     // 顶部和底部工具栏
     BottomBar *bottomFloatBar_ = nullptr;
-    NavigationBar *navigationFloatBar_ = nullptr;
 
     TpAppInstall *appInstallPtr_;
     TpTimer *appInstallTimer_;
