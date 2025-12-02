@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024px" height="1024px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <rect id="path-1" x="0" y="0" width="1024" height="1024"></rect>
+        <linearGradient x1="50%" y1="2.62152329%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#1394F0" offset="0%"></stop>
+            <stop stop-color="#4F61F9" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#DFE1EF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="LOGO" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="日历" transform="translate(-187.000000, -200.000000)">
+            <g id="编组" transform="translate(187.000000, 200.000000)">
+                <g id="编组-7">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="蒙版" fill="#D8D8D8" xlink:href="#path-1"></use>
+                    <g mask="url(#mask-2)" fill="url(#linearGradient-3)" id="矩形">
+                        <rect x="0" y="0" width="1024" height="1024"></rect>
+                    </g>
+                </g>
+                <rect id="矩形" fill="url(#linearGradient-4)" x="137" y="137" width="750" height="750" rx="200"></rect>
+                <text id="17" font-family="PingFangSC-Semibold, PingFang SC" font-size="400" font-weight="500" line-spacing="400" fill="#4F8CF7">
+                    <tspan x="319" y="659">17</tspan>
+                </text>
+                <text id="星期一" font-family="PingFangSC-Regular, PingFang SC" font-size="120" font-weight="normal" fill="#8C8C8C">
+                    <tspan x="332" y="762">星期一</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

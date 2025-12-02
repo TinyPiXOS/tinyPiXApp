@@ -75,7 +75,7 @@ private:
     void initData();
 
     /// @brief 初始化桌面安装应用的所有配置文件信息
-    void intDeskAppConfig();
+    void initDeskAppConfig();
 
     // 构建所有APP图标；包括工具栏和桌面的
     void createAppBtn();

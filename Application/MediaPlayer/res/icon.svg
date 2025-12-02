@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024px" height="1024px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient x1="14.4622246%" y1="90.8870951%" x2="87.6175391%" y2="11.9782511%" id="linearGradient-1">
+            <stop stop-color="#68DFFF" offset="0%"></stop>
+            <stop stop-color="#00CFFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="14.4609289%" y1="90.8870951%" x2="87.6189107%" y2="11.9782511%" id="linearGradient-2">
+            <stop stop-color="#7249FF" offset="0%"></stop>
+            <stop stop-color="#9874FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="LOGO" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="媒体播放" transform="translate(-200.000000, -200.000000)">
+            <g id="编组" transform="translate(200.000000, 200.000000)">
+                <rect id="矩形" fill="#FFFFFF" x="0" y="0" width="1024" height="1024"></rect>
+                <g id="编组-4" transform="translate(137.006563, 164.993437)">
+                    <path d="M658.21628,587.438532 C791.478271,409.877344 638.608753,-13 358.764342,-13 C78.9199303,-13 -67.9867464,417.670403 59.2152309,587.308998 C185.808818,756.136234 545.711914,737.341805 658.21628,587.438532 Z" id="椭圆形" fill-opacity="0.8" fill="url(#linearGradient-1)" opacity="0.800000012" transform="translate(360.000000, 347.000000) rotate(-90.000000) translate(-360.000000, -347.000000) "></path>
+                    <path d="M688.209717,587.434149 C821.471708,409.876197 668.602191,-12.9934375 388.757779,-12.9934375 C108.913368,-12.9934375 -37.9933089,417.669115 89.2086684,587.304618 C215.802255,756.128776 575.705352,737.33469 688.209717,587.434149 Z" id="椭圆形" fill-opacity="0.8" fill="url(#linearGradient-2)" transform="translate(389.993437, 347.000000) rotate(-270.000000) translate(-389.993437, -347.000000) "></path>
+                    <path d="M487.925239,442.015844 C517.22437,403.129243 450.115586,247.821211 374.874237,247.821211 C299.632888,247.821211 227.042429,395.812464 261.786551,441.967133 C300.76953,493.752769 458.330492,481.294793 487.925239,442.015844 Z" id="椭圆形" fill="#FFFFFF" transform="translate(373.897914, 362.059500) rotate(-270.000000) translate(-373.897914, -362.059500) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

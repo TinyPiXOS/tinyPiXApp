@@ -10,6 +10,9 @@
 #include "tinyPiXSys.h"
 #include "InteractionDefine.h"
 
+// TPWM 全局agent
+extern IPiSysApiAgent *globalAgent;
+
 // 桌面最大页数
 const uint32_t globalDesktopMaxPageNum = 10;
 

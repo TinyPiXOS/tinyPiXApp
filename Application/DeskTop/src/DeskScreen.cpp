@@ -22,6 +22,8 @@
 #define APP_FILES_SON_PATH "app/"
 #endif
 
+IPiSysApiAgent *globalAgent = tinyPiX_sys_create();
+
 SysLockWindow *globalSysLockWindow = nullptr;
 AppTaskManageWindow *globalAppTaskWindow = nullptr;
 AppSettingBar *globalTopSettingBar_ = nullptr;
@@ -99,7 +101,7 @@ DeskScreen::DeskScreen()
     // globalAppMaxRow = 4;
     // globalAppMaxColumn = 6;
 
-    intDeskAppConfig();
+    initDeskAppConfig();
 }
 
 DeskScreen::~DeskScreen()
@@ -510,7 +512,7 @@ void DeskScreen::initData()
     connect(appInstallTimer_, timeout, this, &DeskScreen::slotTimeoutInstallApp);
 }
 
-void DeskScreen::intDeskAppConfig()
+void DeskScreen::initDeskAppConfig()
 {
     // 获取所有已安装的APP的UUID列表
     TpVector<TpString> installAppUuidList = TpAppConfigIO::installAppUuidList();

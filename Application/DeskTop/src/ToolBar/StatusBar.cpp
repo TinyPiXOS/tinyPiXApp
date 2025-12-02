@@ -12,6 +12,7 @@
 #include <cmath>
 #include <TpInteractDataDef/TpDesktopData.h>
 #include "NavigationBar.h"
+#include "TpGraphicsBlurEffect.h"
 
 bool globalSystemLockStatus = false;
 
@@ -117,6 +118,21 @@ bool StatusBar::onMousePressEvent(TpMouseEvent *event)
     std::cout << "TopBar Press Pos ()" << event->globalPos().x() << " , " << event->globalPos().y() << std::endl;
     pressPoint_ = event->globalPos();
 
+    // 获取桌面抓图作为背景
+    if (globalTopSettingBar_ && !tpFuzzyCompare(globalTopSettingBar_->windowOpacity(), 1.0f))
+    {
+        // IPiWFSurface *deskSurface = tinyPiX_sys_get_process_surface(globalAgent, getpid());
+        // TpImage newBgImage;
+        // newBgImage.load(deskSurface);
+
+        // globalTopSettingBar_->setBackGroundImage(newBgImage);
+
+        // TpGraphicsBlurEffect btnBlurEffect;
+        // btnBlurEffect.setBlurRadius(100);
+        // globalTopSettingBar_->setGraphicsEffect(btnBlurEffect);
+        // globalTopSettingBar_->setEnableGraphicsEffect(true);
+    }
+
     return true;
 }
 
@@ -139,7 +155,7 @@ bool StatusBar::onMouseRleaseEvent(TpMouseEvent *event)
 
 bool StatusBar::onMouseMoveEvent(TpMouseEvent *event)
 {
-    if (globalTopSettingBar_ && !globalTopSettingBar_->visible() && event->state())
+    if (globalTopSettingBar_ /*&& !tpFuzzyCompare(globalTopSettingBar_->windowOpacity(), 1.0f)*/ && event->state())
     {
         TpPoint curMousePos = event->globalPos();
 

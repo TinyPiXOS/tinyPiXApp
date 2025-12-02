@@ -5,6 +5,7 @@
 #include "TpButton.h"
 #include "TpEvent.h"
 
+/// @brief 电源管理界面
 class PowerManage
     : public TpDialog
 {
