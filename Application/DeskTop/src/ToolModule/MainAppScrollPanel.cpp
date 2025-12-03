@@ -5,12 +5,19 @@
 MainAppScrollPanel::MainAppScrollPanel(TpWidget *parent)
     : TpScrollPanel(parent), maxPageCount_(globalDesktopMaxPageNum), mouseLeftPress_(false), isSwitchPage_(false)
 {
-    this->setEnableBackGroundColor(false);
-    // this->setBackGroundColor(tpColors::Gold);
+    setEnableBackGroundColor(false);
+
+    TP_PROPERTY(int32_t, horizontalPostion, horizontalPostion, setHorizontalPostion);
+
+    valueAnimation_ = new TpAnimation(this, "horizontalPostion");
+    valueAnimation_->setDuration(200);
 }
 
 MainAppScrollPanel::~MainAppScrollPanel()
 {
+    valueAnimation_->stop();
+    delete valueAnimation_;
+    valueAnimation_ = nullptr;
 }
 
 void MainAppScrollPanel::setMaxPage(const uint32_t &maxPage)
@@ -24,6 +31,14 @@ void MainAppScrollPanel::setPage(const uint32_t &page)
 
 void MainAppScrollPanel::setMoveAppRect(const TpRect &rect, const int32_t &round)
 {
+}
+
+void MainAppScrollPanel::setAnimalHorizontalPostion(int32_t value)
+{
+    valueAnimation_->stop();
+    valueAnimation_->setStartValue(horizontalPostion());
+    valueAnimation_->setEndValue(value);
+    valueAnimation_->start(TpAnimation::KeepWhenStopped);
 }
 
 bool MainAppScrollPanel::eventFilter(TpObject *watched, TpEvent *event)
@@ -117,13 +132,13 @@ bool MainAppScrollPanel::onMouseRleaseEvent(TpMouseEvent *event)
 
         int32_t curPostion = isLeftRoll_ ? nextPageValue : prePageValue;
 
-        setHorizontalPostion(curPostion);
+        setAnimalHorizontalPostion(curPostion);
 
         onPageChanged.emit(std::fabs(curPostion) / rect().width());
     }
     else
     {
-        setHorizontalPostion(originPressPos_);
+        setAnimalHorizontalPostion(originPressPos_);
     }
 
     return true;
@@ -147,7 +162,7 @@ bool MainAppScrollPanel::onWheelEvent(TpWheelEvent *event)
         if (curScrollValue > 0)
             curScrollValue = 0;
 
-        setHorizontalPostion(curScrollValue);
+        setAnimalHorizontalPostion(curScrollValue);
 
         onPageChanged.emit(std::fabs(curScrollValue) / rect().width());
     }
@@ -161,7 +176,7 @@ bool MainAppScrollPanel::onWheelEvent(TpWheelEvent *event)
         if (curScrollValue < minValue)
             curScrollValue = minValue;
 
-        setHorizontalPostion(curScrollValue);
+        setAnimalHorizontalPostion(curScrollValue);
 
         onPageChanged.emit(std::fabs(curScrollValue) / rect().width());
     }
@@ -201,7 +216,6 @@ bool MainAppScrollPanel::onMouseMoveEvent(TpMouseEvent *event)
             curScrollValue = minValue;
 
         setHorizontalPostion(curScrollValue);
-
     }
 
     return true;

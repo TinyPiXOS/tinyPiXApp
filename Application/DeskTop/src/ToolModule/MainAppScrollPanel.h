@@ -3,6 +3,7 @@
 
 #include "TpScrollPanel.h"
 #include "TpEvent.h"
+#include "TpAnimation.h"
 
 /// @brief 应用显示滚动窗
 class MainAppScrollPanel
@@ -18,6 +19,9 @@ public:
 
     // APP移动时，绘制原本位置的圆角框
     void setMoveAppRect(const TpRect &rect, const int32_t &round);
+
+    // 注册属性；动画切换水平坐标
+    void setAnimalHorizontalPostion(int32_t value);
 
 public
 signals:
@@ -39,6 +43,8 @@ protected:
 	virtual bool onLeaveEvent(TpLeaveEvent *event) override;
 
 private:
+    TpAnimation *valueAnimation_;
+
     bool mouseLeftPress_;
 
     // 鼠标点击坐标

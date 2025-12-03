@@ -6,6 +6,7 @@
 #include "TpApp.h"
 #include "Service/TpSystemApi.h"
 #include "StatusBar.h"
+#include "TpGraphicsBlurEffect.h"
 
 NavigationBar::NavigationBar()
     : TpDialog("tinyPiX_SYS_Float_0531acbf04")
@@ -64,6 +65,20 @@ bool NavigationBar::onMousePressEvent(TpMouseEvent *event)
     mousePressPoint_ = event->globalPos();
     mousePressTime_ = TpTime::currentTime();
 
+    if (globalAppTaskWindow)
+    {
+        IPiWFSurface *deskSurface = tinyPiX_sys_get_process_surface(globalAgent, getpid());
+        TpImage newBgImage;
+        newBgImage.load(deskSurface);
+
+        globalAppTaskWindow->setBackGroundImage(newBgImage);
+
+        TpGraphicsBlurEffect btnBlurEffect;
+        btnBlurEffect.setBlurRadius(150);
+        globalAppTaskWindow->setGraphicsEffect(btnBlurEffect);
+        globalAppTaskWindow->setEnableGraphicsEffect(true);
+    }
+
     return true;
 }
 
@@ -109,18 +124,21 @@ bool NavigationBar::onMouseRleaseEvent(TpMouseEvent *event)
 
         if (offsetY > 4)
         {
-            if (msTime > 650)
+            if (msTime > 500)
             {
                 // 如果滑动间隔在 650 ms内，则为返回桌面，否则为打开任务管理器
-                if (!globalAppTaskWindow->visible())
+                // if (!globalAppTaskWindow->visible())
                 {
+                    globalAppTaskWindow->setWindowOpacity(1);
                     globalAppTaskWindow->showMaximum();
                 }
 
-                // std::cout << " Show Task Manage " << std::endl;
+                std::cout << " Show Task Manage " << std::endl;
             }
             else
             {
+                globalAppTaskWindow->setWindowOpacity(0);
+                globalAppTaskWindow->setVisible(false);
                 TpSystemApi::Instance()->home();
                 globalStatusBar_->setColor(_RGBA(0, 0, 0, 0));
                 std::cout << " Return Desktop " << std::endl;
@@ -135,6 +153,20 @@ bool NavigationBar::onMouseMoveEvent(TpMouseEvent *event)
 {
     if (!event->state())
         return true;
+
+    TpPoint curPos = event->globalPos();
+    int32_t offsetY = mousePressPoint_.y() - curPos.y();
+
+    if (globalAppTaskWindow /*&& !tpFuzzyCompare(globalTopSettingBar_->windowOpacity(), 1.0f)*/ && event->state())
+    {
+        TpPoint curMousePos = event->globalPos();
+
+        if (offsetY > 0)
+        {
+            // globalAppTaskWindow->setWindowOpacity(offsetY * 0.1);
+            // globalAppTaskWindow->showMaximum();
+        }
+    }
 
     // TpPoint curPos = event->globalPos();
     // int32_t offsetY = mousePressPoint_.y() - curPos.y();

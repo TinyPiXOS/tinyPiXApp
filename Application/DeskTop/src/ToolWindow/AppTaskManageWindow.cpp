@@ -5,7 +5,7 @@
 #include "Service/TpSystemApi.h"
 
 #ifndef TASK_MANAGER_COLOR
-#define TASK_MANAGER_COLOR _RGBA(255, 255, 255, 210)
+#define TASK_MANAGER_COLOR _RGBA(255, 255, 255, 255)
 #endif
 
 // 上下边界距离和任务水平/垂直间距
@@ -19,9 +19,9 @@ AppTaskManageWindow::AppTaskManageWindow()
     this->setBackGroundColor(TASK_MANAGER_COLOR);
     // setBackGroundImage(TpImage(applicationDirPath() + "/../res/默认桌面背景1x.png"));
 
-    TpGraphicsBlurEffect btnBlurEffect;
-    btnBlurEffect.setBlurRadius(15);
-    setGraphicsEffect(btnBlurEffect);
+    // TpGraphicsBlurEffect btnBlurEffect;
+    // btnBlurEffect.setBlurRadius(15);
+    // setGraphicsEffect(btnBlurEffect);
 
     taskScrollPanel_ = new TpScrollPanel(this);
     taskScrollPanel_->installEventFilter(this);
