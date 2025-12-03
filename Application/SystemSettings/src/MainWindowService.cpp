@@ -251,7 +251,7 @@ void MainWindowService::createAllSettingTopMenu(TpVBoxLayout *menuLayout)
             TpString menuItemName = generalSettingNames(menuType);
 
             TpMenuPanelItem *menuPanelItem = new TpMenuPanelItem();
-            menuPanelItem->setIcon(applicationDirPath() + "/../res/menuItem/" + menuItemName + ".png");
+            menuPanelItem->setIcon(applicationDirPath() + "/../res/menuItem/" + menuItemName + ".svg");
             menuPanelItem->setTitle(menuItemName);
             menuPanelItem->setProperty(SettingTypeStr, (int32_t)menuType);
 

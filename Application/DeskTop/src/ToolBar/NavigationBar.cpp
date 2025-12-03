@@ -21,6 +21,7 @@ NavigationBar::NavigationBar()
     lineLabel_->setBackGroundColor(_RGB(255, 255, 255));
     lineLabel_->setRoundCorners(navigationLineHeight / 2.0);
     lineLabel_->installEventFilter(this);
+    lineLabel_->setWindowOpacity(0.6);
 
     // 导航线上下各10像素
     setSize(navigationLineWidth, TpDisplay::dp2Px(20));
@@ -176,12 +177,14 @@ bool NavigationBar::onMouseMoveEvent(TpMouseEvent *event)
 
 bool NavigationBar::onLeaveEvent(TpLeaveEvent *event)
 {
-    return true;
-}
-
-bool NavigationBar::onPaintEvent(TpPaintEvent *event)
-{
-    TpDialog::onPaintEvent(event);
+    if (event->leave())
+    {
+        lineLabel_->setWindowOpacity(1);
+    }
+    else
+    {
+        lineLabel_->setWindowOpacity(0.6);
+    }
     return true;
 }
 
