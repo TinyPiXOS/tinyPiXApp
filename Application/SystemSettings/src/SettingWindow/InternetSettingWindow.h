@@ -6,7 +6,7 @@
 #include "SystemSettingsGlobal.h"
 #include "TpListWidget.h"
 #include "TpMenuPanelWidget.h"
-#include "TpOnOffButton.h"
+#include "TpSwitchButton.h"
 
 class InternetSettingWindow
     : public SettingBase
@@ -49,7 +49,7 @@ private:
 
     // IPV4设置
     TpMenuPanelWidget *ipv4ConfigPanel_;
-    TpOnOffButton* isDhcpBtn_;
+    TpSwitchButton* isDhcpBtn_;
     TpLineEdit *ipAddrEdit_;
     TpLineEdit *maskEdit_;
     TpLineEdit *gatewayEdit_;
@@ -59,7 +59,7 @@ private:
 
     // DNS设置
     TpMenuPanelWidget *dnsConfigPanel_;
-    TpOnOffButton* autoDnseBtn_;
+    TpSwitchButton* autoDnseBtn_;
     TpLineEdit *firstDnsEdit_;
     TpLineEdit *secondDnsEdit_;
     TpButton *applyDnsBtn_;

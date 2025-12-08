@@ -243,7 +243,7 @@ void InternetSettingWindow::configIpv4Panel()
 
     TpMenuPanelItem *menuPanelItem = new TpMenuPanelItem();
     menuPanelItem->setTitle("DHCP");
-    isDhcpBtn_ = new TpOnOffButton();
+    isDhcpBtn_ = new TpSwitchButton();
     isDhcpBtn_->setFixedSize(45, 24);
     menuPanelItem->setCustomizeWidget(isDhcpBtn_);
     ipv4ConfigPanel_->addItem(menuPanelItem);
@@ -282,7 +282,7 @@ void InternetSettingWindow::configDnsPanel()
 
     TpMenuPanelItem *menuPanelItem = new TpMenuPanelItem();
     menuPanelItem->setTitle("自动获取");
-    autoDnseBtn_ = new TpOnOffButton();
+    autoDnseBtn_ = new TpSwitchButton();
     autoDnseBtn_->setFixedSize(45, 24);
     menuPanelItem->setCustomizeWidget(autoDnseBtn_);
     dnsConfigPanel_->addItem(menuPanelItem);

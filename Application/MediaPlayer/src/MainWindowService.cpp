@@ -64,13 +64,13 @@ void MainWindowService::setPlayFile(const TpString &filePath)
         setBackGroundColor(_RGB(78, 78, 78));
 
         // 启动音频设备
-        audioPlayer_->addFile(filePath.c_str());
+        // audioPlayer_->addFile(filePath.c_str());
 
-        if (!audioPlayer_->isOpen())
-            audioPlayer_->openDevice();
+        // if (!audioPlayer_->isOpen())
+            // audioPlayer_->openDevice();
 
         audioPlayer_->setVolume(100);
-        audioPlayer_->playStart();
+        // audioPlayer_->playStart();
 
         std::cout << "播放文件： " << filePath << std::endl;
 
@@ -86,16 +86,16 @@ void MainWindowService::setPlayFile(const TpString &filePath)
         // 启动视频设备
         videoPlayer_->setWindowSize(width(), height());
 
-        videoPlayer_->addFile(filePath.c_str());
+        // videoPlayer_->addFile(filePath.c_str());
 
-        if (!videoPlayer_->isOpen())
-        {
-            std::cout << "Video Open Device" << std::endl;
-            videoPlayer_->openDevice();
-        }
+        // if (!videoPlayer_->isOpen())
+        // {
+        //     std::cout << "Video Open Device" << std::endl;
+        //     videoPlayer_->openDevice();
+        // }
 
-        videoPlayer_->setVolume(100);
-        videoPlayer_->playStart();
+        // videoPlayer_->setVolume(100);
+        // videoPlayer_->playStart();
 
         updateProgressTimer_->start();
     }
@@ -172,32 +172,32 @@ void MainWindowService::slotUpdatePlayerProgress()
     // 获取当前时长
     if (fileType_ == AudioFile)
     {
-        if (audioPlayer_->isPlayEnd())
-        {
-            updateProgressTimer_->stop();
-            return;
-        }
-        int curTimeS = audioPlayer_->getPosition();
-        bottomBar_->setCurTimeS(curTimeS);
+        // if (audioPlayer_->isPlayEnd())
+        // {
+        //     updateProgressTimer_->stop();
+        //     return;
+        // }
+        // int curTimeS = audioPlayer_->getPosition();
+        // bottomBar_->setCurTimeS(curTimeS);
 
-        double audioAllTimeS = audioPlayer_->getDuration();
-        bottomBar_->setDurationTimeS(audioAllTimeS);
+        // double audioAllTimeS = audioPlayer_->getDuration();
+        // bottomBar_->setDurationTimeS(audioAllTimeS);
 
         // std::cout << "audioAllTimeS " << audioAllTimeS << std::endl;
     }
     else if (fileType_ == VideoFile)
     {
-        if (videoPlayer_->isPlayEnd())
+        // if (videoPlayer_->isPlayEnd())
         {
             updateProgressTimer_->stop();
             return;
         }
 
-        int curTimeS = videoPlayer_->getPosition();
-        bottomBar_->setCurTimeS(curTimeS);
+        // int curTimeS = videoPlayer_->getPosition();
+        // bottomBar_->setCurTimeS(curTimeS);
 
-        double audioAllTimeS = videoPlayer_->getDuration();
-        bottomBar_->setDurationTimeS(audioAllTimeS);
+        // double audioAllTimeS = videoPlayer_->getDuration();
+        // bottomBar_->setDurationTimeS(audioAllTimeS);
     }
     else
     {
@@ -213,12 +213,12 @@ void MainWindowService::slotOperateMedia(PlayerOperate status)
     {
         if (fileType_ == AudioFile)
         {
-            audioPlayer_->playPause();
+            // audioPlayer_->playPause();
             updateProgressTimer_->stop();
         }
         else if (fileType_ == VideoFile)
         {
-            videoPlayer_->playPause();
+            // videoPlayer_->playPause();
             updateProgressTimer_->stop();
         }
         else
@@ -229,12 +229,12 @@ void MainWindowService::slotOperateMedia(PlayerOperate status)
     {
         if (fileType_ == AudioFile)
         {
-            audioPlayer_->playContinue();
+            // audioPlayer_->playContinue();
             updateProgressTimer_->start();
         }
         else if (fileType_ == VideoFile)
         {
-            videoPlayer_->playContinue();
+            // videoPlayer_->playContinue();
             updateProgressTimer_->start();
         }
         else
@@ -245,12 +245,12 @@ void MainWindowService::slotOperateMedia(PlayerOperate status)
     {
         if (fileType_ == AudioFile)
         {
-            std::cout << "audioPlayer_->getPosition() + 5 " << audioPlayer_->getPosition() + 5 << std::endl;
-            audioPlayer_->setPosition(audioPlayer_->getPosition() + 5);
+            // std::cout << "audioPlayer_->getPosition() + 5 " << audioPlayer_->getPosition() + 5 << std::endl;
+            // audioPlayer_->setPosition(audioPlayer_->getPosition() + 5);
         }
         else if (fileType_ == VideoFile)
         {
-            videoPlayer_->setPosition(audioPlayer_->getPosition() + 5);
+            // videoPlayer_->setPosition(audioPlayer_->getPosition() + 5);
         }
         else
         {
@@ -260,12 +260,12 @@ void MainWindowService::slotOperateMedia(PlayerOperate status)
     {
         if (fileType_ == AudioFile)
         {
-            std::cout << "audioPlayer_->getPosition() - 5 " << audioPlayer_->getPosition() - 5 << std::endl;
-            audioPlayer_->setPosition(audioPlayer_->getPosition() - 5);
+            // std::cout << "audioPlayer_->getPosition() - 5 " << audioPlayer_->getPosition() - 5 << std::endl;
+            // audioPlayer_->setPosition(audioPlayer_->getPosition() - 5);
         }
         else if (fileType_ == VideoFile)
         {
-            videoPlayer_->setPosition(audioPlayer_->getPosition() - 5);
+            // videoPlayer_->setPosition(audioPlayer_->getPosition() - 5);
         }
         else
         {
@@ -290,12 +290,12 @@ void MainWindowService::slotSwitchPos(int32_t curTimeS)
     if (fileType_ == AudioFile)
     {
         std::cout << "CurPosTime " << curTimeS << std::endl;
-        audioPlayer_->setPosition(curTimeS);
+        // audioPlayer_->setPosition(curTimeS);
     }
     else if (fileType_ == VideoFile)
     {
         std::cout << "CurPosTime " << curTimeS << std::endl;
-        videoPlayer_->setPosition(curTimeS);
+        // videoPlayer_->setPosition(curTimeS);
     }
     else
     {
@@ -320,7 +320,7 @@ void MainWindowService::slotSwitchSpeed(int32_t speedIndex)
     if (fileType_ == AudioFile)
     {
         std::cout << "CurSpeed " << speed << std::endl;
-        audioPlayer_->setSpeed(speed);
+        // audioPlayer_->setSpeed(speed);
     }
     else
     {

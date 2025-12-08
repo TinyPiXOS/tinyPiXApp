@@ -92,6 +92,8 @@ bool MainAppScrollPanel::eventFilter(TpObject *watched, TpEvent *event)
 
 bool MainAppScrollPanel::onMousePressEvent(TpMouseEvent *event)
 {
+    TpScrollPanel::onMousePressEvent(event);
+
     // 鼠标左键点击，记录点击坐标
     mouseLeftPress_ = true;
     originPressPoint_ = event->globalPos();
@@ -104,6 +106,8 @@ bool MainAppScrollPanel::onMousePressEvent(TpMouseEvent *event)
 
 bool MainAppScrollPanel::onMouseRleaseEvent(TpMouseEvent *event)
 {
+    TpScrollPanel::onMouseRleaseEvent(event);
+
     mouseLeftPress_ = false;
 
     if (isSwitchPage_)
@@ -146,6 +150,8 @@ bool MainAppScrollPanel::onMouseRleaseEvent(TpMouseEvent *event)
 
 bool MainAppScrollPanel::onMouseLongPressEvent(TpMouseEvent *event)
 {
+    TpScrollPanel::onMouseLongPressEvent(event);
+
     onLongPress.emit();
 
     return false;
@@ -153,6 +159,8 @@ bool MainAppScrollPanel::onMouseLongPressEvent(TpMouseEvent *event)
 
 bool MainAppScrollPanel::onWheelEvent(TpWheelEvent *event)
 {
+    TpScrollPanel::onWheelEvent(event);
+
     if (event->angleDelta() > 0)
     {
         int32_t curScrollValue = horizontalPostion();
@@ -186,6 +194,8 @@ bool MainAppScrollPanel::onWheelEvent(TpWheelEvent *event)
 
 bool MainAppScrollPanel::onMouseMoveEvent(TpMouseEvent *event)
 {
+    TpScrollPanel::onMouseMoveEvent(event);
+
     if (mouseLeftPress_)
     {
         TpPoint curPoint = event->globalPos();
@@ -223,6 +233,8 @@ bool MainAppScrollPanel::onMouseMoveEvent(TpMouseEvent *event)
 
 bool MainAppScrollPanel::onLeaveEvent(TpLeaveEvent *event)
 {
+    TpScrollPanel::onLeaveEvent(event);
+
     if (!event->leave())
     {
     }

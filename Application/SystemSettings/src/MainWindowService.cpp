@@ -5,7 +5,7 @@
 #include "SystemInfo/TpDisplay.h"
 #include "TpLabel.h"
 #include "TpFont.h"
-#include "TpOnOffButton.h"
+#include "TpSwitchButton.h"
 #include "TpLine.h"
 #include "TpBluetoothLocal.h"
 #include "Service/TpSystemApi.h"
@@ -52,7 +52,7 @@ bool MainWindowService::onActiveEvent(TpActiveEvent *event)
     // 获取蓝牙设备状态;取第一个蓝牙设备的状态
     if (allMenuItemMapper_.contains(BlueToothSetting))
     {
-        TpOnOffButton *bluetoothOnOffBtn = dynamic_cast<TpOnOffButton *>(allMenuItemMapper_.value(BlueToothSetting)->customizeWidget());
+        TpSwitchButton *bluetoothOnOffBtn = dynamic_cast<TpSwitchButton *>(allMenuItemMapper_.value(BlueToothSetting)->customizeWidget());
         if (bluetoothOnOffBtn)
         {
             bool blueIsOpen = false;
@@ -305,7 +305,7 @@ TpWidget *MainWindowService::generalCustomWidget(const SettingType &type)
 {
     if (type == BlueToothSetting)
     {
-        TpOnOffButton *onOffBnt = new TpOnOffButton();
+        TpSwitchButton *onOffBnt = new TpSwitchButton();
         onOffBnt->setFixedSize(45, 24);
         return onOffBnt;
     }
@@ -328,7 +328,7 @@ void MainWindowService::refreshTopMenuStatus()
     allMenuItemMapper_[WLANSetting]->setSubTitle("关闭");
     allMenuItemMapper_[HotspotSetting]->setSubTitle("关闭");
 
-    TpOnOffButton *bluetoothOnOffBtn = dynamic_cast<TpOnOffButton *>(allMenuItemMapper_[BlueToothSetting]->customizeWidget());
+    TpSwitchButton *bluetoothOnOffBtn = dynamic_cast<TpSwitchButton *>(allMenuItemMapper_[BlueToothSetting]->customizeWidget());
     if (bluetoothOnOffBtn)
     {
         bluetoothOnOffBtn->setOnOff(false);
