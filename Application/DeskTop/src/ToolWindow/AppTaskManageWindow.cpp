@@ -157,6 +157,8 @@ bool AppTaskManageWindow::onMouseMoveEvent(TpMouseEvent *event)
 
 bool AppTaskManageWindow::onResizeEvent(TpResizeEvent *event)
 {
+    TpDialog::onResizeEvent(event);
+
     taskScrollPanel_->setRect(0, 0, width(), height() - topBottomMargin - clearAllBtn_->height());
 
     // 根据屏幕大小，计算每个任务缩略图大小；减去上下边界，以及三行缩略中间的间隔

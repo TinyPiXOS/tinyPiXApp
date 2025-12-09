@@ -19,7 +19,7 @@ public:
     virtual ~NavigationBar();
 
     /// @brief 设置导航条样式；根据样式决定导航条颜色
-    /// @param style 
+    /// @param style
     void setStyle(StatusBarStyle style);
 
     /// @brief 设置导航条颜色

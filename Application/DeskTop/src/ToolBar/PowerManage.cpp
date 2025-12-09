@@ -59,5 +59,6 @@ bool PowerManage::onMouseRleaseEvent(TpMouseEvent *event)
 
 bool PowerManage::onResizeEvent(TpResizeEvent *event)
 {
+    TpDialog::onResizeEvent(event);
     return true;
 }

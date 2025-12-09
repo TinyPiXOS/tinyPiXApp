@@ -26,6 +26,7 @@ NavigationBar::NavigationBar()
     // 导航线上下各10像素
     setSize(navigationLineWidth, TpDisplay::dp2Px(20));
     setBackGroundColor(_RGBA(255, 255, 255, 0));
+    // setBackGroundColor(_RGB(255, 255, 255));
 
     lastAnimationTime_ = TpTime::currentTime();
 }
@@ -55,6 +56,8 @@ void NavigationBar::setColor(const int32_t &appColor)
 
 bool NavigationBar::onResizeEvent(TpResizeEvent *event)
 {
+    TpDialog::onResizeEvent(event);
+
     int32_t lienY = (height() - lineLabel_->height()) / 2.0;
     lineLabel_->move(0, lienY);
 
@@ -63,6 +66,8 @@ bool NavigationBar::onResizeEvent(TpResizeEvent *event)
 
 bool NavigationBar::onMousePressEvent(TpMouseEvent *event)
 {
+    TpDialog::onMousePressEvent(event);
+
     mousePressPoint_ = event->globalPos();
     mousePressTime_ = TpTime::currentTime();
 
@@ -85,6 +90,8 @@ bool NavigationBar::onMousePressEvent(TpMouseEvent *event)
 
 bool NavigationBar::onMouseRleaseEvent(TpMouseEvent *event)
 {
+    TpDialog::onMouseRleaseEvent(event);
+
     // std::cout << "NavigationBar::onMouseRleaseEvent " << std::endl;
     TpPoint curPos = event->globalPos();
     if (std::abs(curPos.x() - mousePressPoint_.x()) < 5 && std::abs(curPos.y() - mousePressPoint_.y()) < 5)
@@ -152,6 +159,8 @@ bool NavigationBar::onMouseRleaseEvent(TpMouseEvent *event)
 
 bool NavigationBar::onMouseMoveEvent(TpMouseEvent *event)
 {
+    TpDialog::onMouseMoveEvent(event);
+
     if (!event->state())
         return true;
 
@@ -177,6 +186,8 @@ bool NavigationBar::onMouseMoveEvent(TpMouseEvent *event)
 
 bool NavigationBar::onLeaveEvent(TpLeaveEvent *event)
 {
+    TpDialog::onLeaveEvent(event);
+
     if (event->leave())
     {
         lineLabel_->setWindowOpacity(1);

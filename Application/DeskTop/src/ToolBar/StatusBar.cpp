@@ -115,7 +115,6 @@ bool StatusBar::onMousePressEvent(TpMouseEvent *event)
 {
     TpDialog::onMousePressEvent(event);
 
-    std::cout << "TopBar Press Pos ()" << event->globalPos().x() << " , " << event->globalPos().y() << std::endl;
     pressPoint_ = event->globalPos();
 
     // 获取桌面抓图作为背景
@@ -164,7 +163,6 @@ bool StatusBar::onMouseMoveEvent(TpMouseEvent *event)
         {
             globalTopSettingBar_->setWindowOpacity(moveY * 0.1);
             globalTopSettingBar_->setVisible(true);
-            std::cout << "topSettingBar_ Show " << std::endl;
         }
     }
 

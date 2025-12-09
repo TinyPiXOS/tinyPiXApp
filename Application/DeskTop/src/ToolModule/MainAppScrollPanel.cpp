@@ -35,6 +35,9 @@ void MainAppScrollPanel::setMoveAppRect(const TpRect &rect, const int32_t &round
 
 void MainAppScrollPanel::setAnimalHorizontalPostion(int32_t value)
 {
+    if (horizontalPostion() == value)
+        return;
+
     valueAnimation_->stop();
     valueAnimation_->setStartValue(horizontalPostion());
     valueAnimation_->setEndValue(value);
@@ -106,7 +109,7 @@ bool MainAppScrollPanel::onMousePressEvent(TpMouseEvent *event)
 
 bool MainAppScrollPanel::onMouseRleaseEvent(TpMouseEvent *event)
 {
-    TpScrollPanel::onMouseRleaseEvent(event);
+    // TpScrollPanel::onMouseRleaseEvent(event);
 
     mouseLeftPress_ = false;
 
@@ -159,8 +162,6 @@ bool MainAppScrollPanel::onMouseLongPressEvent(TpMouseEvent *event)
 
 bool MainAppScrollPanel::onWheelEvent(TpWheelEvent *event)
 {
-    TpScrollPanel::onWheelEvent(event);
-
     if (event->angleDelta() > 0)
     {
         int32_t curScrollValue = horizontalPostion();
@@ -194,7 +195,7 @@ bool MainAppScrollPanel::onWheelEvent(TpWheelEvent *event)
 
 bool MainAppScrollPanel::onMouseMoveEvent(TpMouseEvent *event)
 {
-    TpScrollPanel::onMouseMoveEvent(event);
+    // TpScrollPanel::onMouseMoveEvent(event);
 
     if (mouseLeftPress_)
     {
@@ -233,11 +234,7 @@ bool MainAppScrollPanel::onMouseMoveEvent(TpMouseEvent *event)
 
 bool MainAppScrollPanel::onLeaveEvent(TpLeaveEvent *event)
 {
-    TpScrollPanel::onLeaveEvent(event);
-
-    if (!event->leave())
-    {
-    }
+    // TpScrollPanel::onLeaveEvent(event);
 
     return true;
 }

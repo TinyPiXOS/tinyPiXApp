@@ -40,6 +40,7 @@ static inline void BAR_SET_ATTRIB(TpWidget *vars, int32_t x, int32_t y, int32_t 
 {
     vars->setRect(x, y, width, height);
     vars->setVisible(true);
+    vars->show();
     vars->update();
 }
 

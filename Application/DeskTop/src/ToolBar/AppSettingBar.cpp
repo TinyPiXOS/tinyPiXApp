@@ -89,19 +89,19 @@ void AppSettingBar::setVisible(bool visible)
     if (visible)
     {
         // 刷新音量
-        TpList<TpString> soundList = TpSound::getDevices();
-        if (soundList.size() > 0)
-        {
-            voiceProgessBar_->setEnabled(true);
+        // TpList<TpString> soundList = TpSound::getDevices();
+        // if (soundList.size() > 0)
+        // {
+        //     voiceProgessBar_->setEnabled(true);
 
-            TpSound sound(soundList.front());
-            voiceProgessBar_->setValue(sound.getSystemVolume());
-        }
-        else
-        {
-            voiceProgessBar_->setValue(0);
-            voiceProgessBar_->setEnabled(false);
-        }
+        //     TpSound sound(soundList.front());
+        //     voiceProgessBar_->setValue(sound.getSystemVolume());
+        // }
+        // else
+        // {
+        //     voiceProgessBar_->setValue(0);
+        //     voiceProgessBar_->setEnabled(false);
+        // }
     }
 }
 
@@ -143,6 +143,7 @@ bool AppSettingBar::onMouseMoveEvent(TpMouseEvent *event)
             // 触发一次上拉事件后，不再重复触发
             mouseLeftPress_ = false;
 
+            setWindowOpacity(0);
             this->setVisible(false);
 
             // std::cout << "AppSettingBar visible false " << std::endl;
@@ -154,6 +155,7 @@ bool AppSettingBar::onMouseMoveEvent(TpMouseEvent *event)
 
 bool AppSettingBar::onResizeEvent(TpResizeEvent *event)
 {
+    TpDialog::onResizeEvent(event);
     resizeOperatorBtn();
 
     return true;
