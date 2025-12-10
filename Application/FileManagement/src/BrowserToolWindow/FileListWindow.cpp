@@ -164,9 +164,8 @@ void FileListWindow::refreshPath(const TpString &path)
 
     update();
 
-    // std::cout << "FileListWindow 最小高度 " << mainLayout_->minumumSize().height() << std::endl;
-
     widget()->setMinumumHeight(mainLayout_->minumumSize().height());
+    widget()->setHeight(mainLayout_->minumumSize().height());
 }
 
 void FileListWindow::SlotShowSetting(bool)
@@ -211,7 +210,7 @@ void FileListWindow::init()
     TpLabel *titleLabel = new TpLabel("内部存储");
     titleLabel->setAlign(Tp::AlignCenter);
     titleLabel->font()->setFontSize(19);
-    titleLabel->setFixedHeight(TpDisplay::dp2Px(30)); //titleLabel->font()->pixelHeight()
+    titleLabel->setFixedHeight(TpDisplay::dp2Px(30)); // titleLabel->font()->pixelHeight()
     titleLabel->font()->setFontColor(_RGB(38, 38, 38));
     titleLabel->setText("内部存储");
     titleLabel->installEventFilter(scrollWidget);

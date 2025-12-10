@@ -129,7 +129,9 @@ TpWidget *ClearSpaceWindow::genClearFileWidget()
     TpLabel *nameLabel = new TpLabel();
     nameLabel->font()->setFontColor(_RGB(38, 38, 38));
     nameLabel->font()->setFontSize(12);
+    nameLabel->setAlign(Tp::AlignCenter);
     nameLabel->setText("垃圾文件");
+    nameLabel->setMinumumWidth(nameLabel->font()->pixelWidth() + 10);
 
     TpLine *subLine = new TpLine();
     subLine->setLineType(TpLine::VLine);
@@ -140,7 +142,9 @@ TpWidget *ClearSpaceWindow::genClearFileWidget()
     TpLabel *spaceLabel = new TpLabel();
     spaceLabel->font()->setFontColor(_RGB(140, 140, 140));
     spaceLabel->font()->setFontSize(12);
-    spaceLabel->setText("416MB");
+    spaceLabel->setAlign(Tp::AlignCenter);
+    spaceLabel->setText("456MB");
+    spaceLabel->setMinumumWidth(nameLabel->font()->pixelWidth() + 10);
 
     releaseSpaceBtn_ = new TpButton();
     releaseSpaceBtn_->setProperty("type", "FunctionButton");

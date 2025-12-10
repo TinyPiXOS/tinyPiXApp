@@ -238,7 +238,7 @@ void BrowseWindow::init()
 #if 1 // 临时数据，TODO，要修改为从配置文件读取
     TpMenuPanelItem *downloadPanelItem = new TpMenuPanelItem();
     downloadPanelItem->setProperty(ITEM_PATH_TYPE, "/System/data/Downloads");
-    downloadPanelItem->setIcon(applicationDirPath() + "/../res/fileSource/下载与接收.png");
+    downloadPanelItem->setIcon(applicationDirPath() + "/../res/fileSource/下载与接收.svg");
     downloadPanelItem->setTitle("下载与接收");
     menuPanelWidget_->addItem(downloadPanelItem);
 #endif
