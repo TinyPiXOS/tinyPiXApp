@@ -1,6 +1,6 @@
 #include "MainWindowService.h"
 #include "TpListWidget.h"
-#include <Service/TpSystemApi.h>
+#include <Service/TpAppManager.h>
 #include <TpEvent.h>
 
 MainWindowService::MainWindowService()
@@ -9,7 +9,7 @@ MainWindowService::MainWindowService()
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(128, 128, 128));
-    TpSystemApi::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
+    TpAppManager::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
 
     TpListWidget *checkBoxGroup = new TpListWidget(this);
 
@@ -39,7 +39,7 @@ bool MainWindowService::onVisibleEvent(TpVisibleEvent *event)
 {
     if (event->visible())
     {
-        TpSystemApi::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
+        TpAppManager::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
     }
 
     return true;

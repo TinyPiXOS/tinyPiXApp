@@ -9,7 +9,7 @@
 #include "TpProcess.h"
 #include "TpMessageBox.h"
 #include "Service/TpAppConfigIO.h"
-#include "Service/TpSystemApi.h"
+#include "Service/TpAppManager.h"
 #include <TpInteractDataDef/TpDesktopData.h>
 
 #include <iostream>
@@ -363,7 +363,7 @@ void DeskScreen::slotDeleteApp(DesktopAppButton *operateBtn)
     }
 
     // 如果应用正在运行，先杀掉进程
-    TpSystemApi::Instance()->killApp(removeUuid);
+    TpAppManager::Instance()->killApp(removeUuid);
 
     // 重置缓存操作按钮
     pressAppBtn_ = nullptr;
@@ -511,6 +511,8 @@ void DeskScreen::initData()
     appInstallPtr_ = new TpAppInstall("");
     appInstallTimer_ = new TpTimer(800);
     connect(appInstallTimer_, timeout, this, &DeskScreen::slotTimeoutInstallApp);
+
+    splashScreenWin_ = new SplashScreen();
 }
 
 void DeskScreen::initDeskAppConfig()
@@ -824,6 +826,8 @@ DesktopAppButton *DeskScreen::configAppBtn(const TpString &appUuid, const TpStri
     DesktopAppButton *appBtn = new DesktopAppButton(iconPath, appName, nullptr);
     appBtn->setProperty("UUID", appUuid);
 
+    appBtnMap_[appUuid] = appBtn;
+
     connect(appBtn, onClicked, [=](bool)
             { startApp(appUuid); });
 
@@ -861,7 +865,20 @@ void DeskScreen::startApp(const TpString &uuid, const TpVector<TpString> &argLis
         return;
     }
 
-    TpSystemApi::Instance()->startApp(uuid, argList);
+    // 启动开屏动画
+    splashScreenWin_->showSplashScreen(appBtnMap_.value(uuid)->rect());
+
+    // 在RecvData中接收应用启动完成的消息，然后关闭开屏动画
+
+    // 启动应用
+    bool startRes = TpAppManager::Instance()->startApp(uuid, argList);
+    if (!startRes)
+    {
+        // 启动失败，终止开屏界面
+        splashScreenWin_->close();
+    }
+
+    // splashScreenWin_->close();
 }
 
 void DeskScreen::installApp(const TpString &pkgPath)

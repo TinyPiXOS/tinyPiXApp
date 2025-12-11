@@ -12,7 +12,7 @@
 #include "TpFile.h"
 #include "TpNetDataGlobal.h"
 #include "TpGateway.h"
-#include "Service/TpSystemApi.h"
+#include "Service/TpAppManager.h"
 
 FileListWindow::FileListWindow(TpWidget *parent)
     : TpScrollPanel(parent), rootPath_(""), curShowPath_(""), mode_(FileListWindow::Grid)
@@ -338,22 +338,22 @@ void FileListWindow::openFile(const TpString &filePath)
         return;
     }
 
-    TpSystemApi::OpenFileError openRes = TpSystemApi::Instance()->openFile(filePath);
+    TpAppManager::OpenFileError openRes = TpAppManager::Instance()->openFile(filePath);
 
     infoMsgWindow_->setMessageType(TpMessageBox::Error);
-    if (openRes == TpSystemApi::FileNotExist)
+    if (openRes == TpAppManager::FileNotExist)
     {
         infoMsgWindow_->setText("文件不存在!");
         infoMsgWindow_->exec();
         return;
     }
-    else if (openRes == TpSystemApi::NotSupport)
+    else if (openRes == TpAppManager::NotSupport)
     {
         infoMsgWindow_->setText("文件类型不支持!");
         infoMsgWindow_->exec();
         return;
     }
-    else if (openRes == TpSystemApi::SystemFileDamage)
+    else if (openRes == TpAppManager::SystemFileDamage)
     {
         infoMsgWindow_->setText("系统文件损坏!");
         infoMsgWindow_->exec();

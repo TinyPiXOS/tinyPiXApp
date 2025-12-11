@@ -4,7 +4,7 @@
 #include "TpAnimation.h"
 #include "DeskTopGlobal.hpp"
 #include "TpApp.h"
-#include "Service/TpSystemApi.h"
+#include "Service/TpAppManager.h"
 #include "StatusBar.h"
 #include "TpGraphicsBlurEffect.h"
 
@@ -71,19 +71,20 @@ bool NavigationBar::onMousePressEvent(TpMouseEvent *event)
     mousePressPoint_ = event->globalPos();
     mousePressTime_ = TpTime::currentTime();
 
-    if (globalAppTaskWindow)
-    {
-        IPiWFSurface *deskSurface = tinyPiX_sys_get_process_surface(globalAgent, getpid());
-        TpImage newBgImage;
-        newBgImage.load(deskSurface);
+    // 抓取当前显示应用截图，设置为多任务窗口背景图
+    // if (globalAppTaskWindow)
+    // {
+    //     IPiWFSurface *deskSurface = tinyPiX_sys_get_process_surface(globalAgent, getpid());
+    //     TpImage newBgImage;
+    //     newBgImage.load(deskSurface);
 
-        globalAppTaskWindow->setBackGroundImage(newBgImage);
+    //     globalAppTaskWindow->setBackGroundImage(newBgImage);
 
-        TpGraphicsBlurEffect btnBlurEffect;
-        btnBlurEffect.setBlurRadius(150);
-        globalAppTaskWindow->setGraphicsEffect(btnBlurEffect);
-        globalAppTaskWindow->setEnableGraphicsEffect(true);
-    }
+    //     TpGraphicsBlurEffect btnBlurEffect;
+    //     btnBlurEffect.setBlurRadius(150);
+    //     globalAppTaskWindow->setGraphicsEffect(btnBlurEffect);
+    //     globalAppTaskWindow->setEnableGraphicsEffect(true);
+    // }
 
     return true;
 }
@@ -147,7 +148,7 @@ bool NavigationBar::onMouseRleaseEvent(TpMouseEvent *event)
             {
                 globalAppTaskWindow->setWindowOpacity(0);
                 globalAppTaskWindow->setVisible(false);
-                TpSystemApi::Instance()->home();
+                TpAppManager::Instance()->home();
                 globalStatusBar_->setColor(_RGBA(0, 0, 0, 0));
                 std::cout << " Return Desktop " << std::endl;
             }

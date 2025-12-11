@@ -29,6 +29,7 @@ set(SOURCE_FILES
     ${SOURCE_PATH}/ToolWindow/AppTaskManageWindow.cpp
     ${SOURCE_PATH}/ToolWindow/AppOperateMaskWindow.cpp
     ${SOURCE_PATH}/ToolWindow/AppPreviewWidget.cpp
+    ${SOURCE_PATH}/ToolWindow/SplashScreen.cpp
     ${SOURCE_PATH}/ToolModule/MainAppScrollPanel.cpp
     ${SOURCE_PATH}/ToolModule/CaculateAppPos.cpp
     ${SOURCE_PATH}/ToolModule/DesktopAppButton.cpp

@@ -23,6 +23,7 @@
 #include "ToolBar/NavigationBar.h"
 #include "CaculateAppPos.h"
 #include "DesktopAppButton.h"
+#include "ToolWindow/SplashScreen.h"
 
 /*
 该类就是桌面类，在桌面中增加各种组件可以使用该类完成，需要注意的事：
@@ -112,6 +113,8 @@ private:
     TpAppInstall *appInstallPtr_;
     TpTimer *appInstallTimer_;
 
+    SplashScreen* splashScreenWin_;
+
     // APP显示主区域
     MainAppScrollPanel *mainAppPanel_;
 
@@ -129,6 +132,9 @@ private:
 
     // 页码，该页的APP信息
     TpMap<uint32_t, TpList<ApplicationInfoSPtr>> allAppInfoMap_;
+
+    // APP按钮map，key为APP uuid，value为按钮指针
+    TpMap<TpString, DesktopAppButton *> appBtnMap_;
 
     // 底部工具栏的应用信息
     TpList<ApplicationInfoSPtr> bottomBarAppList_;

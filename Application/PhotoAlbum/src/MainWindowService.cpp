@@ -1,6 +1,6 @@
 #include "MainWindowService.h"
 #include "PhotoAlbumGlobal.h"
-#include <Service/TpSystemApi.h>
+#include <Service/TpAppManager.h>
 
 MainWindowService::MainWindowService()
     : TpMainWindow()
@@ -8,7 +8,7 @@ MainWindowService::MainWindowService()
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(248, 248, 248));
-    TpSystemApi::Instance()->setStatusBarStyle(_RGB(248, 248, 248));
+    TpAppManager::Instance()->setStatusBarStyle(_RGB(248, 248, 248));
 }
 
 MainWindowService::~MainWindowService()

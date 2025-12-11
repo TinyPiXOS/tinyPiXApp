@@ -1,6 +1,6 @@
 #include "MainWindowService.h"
 #include "CalendarGlobal.h"
-#include <Service/TpSystemApi.h>
+#include <Service/TpAppManager.h>
 #include "TpEvent.h"
 
 MainWindowService::MainWindowService()
@@ -9,7 +9,7 @@ MainWindowService::MainWindowService()
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(248, 248, 248));
-    TpSystemApi::Instance()->setStatusBarStyle(_RGB(248, 248, 248));
+    TpAppManager::Instance()->setStatusBarStyle(_RGB(248, 248, 248));
 }
 
 MainWindowService::~MainWindowService()
@@ -27,7 +27,7 @@ bool MainWindowService::onVisibleEvent(TpVisibleEvent *event)
 {
     if (event->visible())
     {
-        TpSystemApi::Instance()->setStatusBarStyle(_RGB(248, 248, 248));
+        TpAppManager::Instance()->setStatusBarStyle(_RGB(248, 248, 248));
     }
 
     return true;

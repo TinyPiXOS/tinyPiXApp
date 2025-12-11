@@ -8,7 +8,7 @@
 #include "TpSwitchButton.h"
 #include "TpLine.h"
 #include "TpBluetoothLocal.h"
-#include "Service/TpSystemApi.h"
+#include "Service/TpAppManager.h"
 
 #include "SettingWindow/InternetSettingWindow.h"
 #include "SettingWindow/BluetoothSettingWindow.h"
@@ -25,7 +25,7 @@ MainWindowService::MainWindowService()
     initUi();
 
     setBackGroundColor(BACKGROUND_COLOR);
-    TpSystemApi::Instance()->setStatusBarStyle(BACKGROUND_COLOR);
+    TpAppManager::Instance()->setStatusBarStyle(BACKGROUND_COLOR);
 }
 
 MainWindowService::~MainWindowService()
@@ -178,7 +178,7 @@ bool MainWindowService::onVisibleEvent(TpVisibleEvent *event)
 {
     if (event->visible())
     {
-        TpSystemApi::Instance()->setStatusBarStyle(BACKGROUND_COLOR);
+        TpAppManager::Instance()->setStatusBarStyle(BACKGROUND_COLOR);
     }
 
     return true;

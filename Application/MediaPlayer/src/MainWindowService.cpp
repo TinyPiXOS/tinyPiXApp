@@ -7,7 +7,7 @@
 #include "TpFont.h"
 #include "TpImage.h"
 #include "TpFileInfo.h"
-#include <Service/TpSystemApi.h>
+#include <Service/TpAppManager.h>
 #include "TpEvent.h"
 
 MainWindowService::MainWindowService()
@@ -21,7 +21,7 @@ MainWindowService::MainWindowService()
     isMusicIconLabel_->setVisible(true);
     isMusicIconLabel_->move((width() - isMusicIconLabel_->width()) / 2.0, (height() - isMusicIconLabel_->height()) / 2.0);
     setBackGroundColor(_RGB(78, 78, 78));
-    TpSystemApi::Instance()->setStatusBarStyle(_RGB(78, 78, 78));
+    TpAppManager::Instance()->setStatusBarStyle(_RGB(78, 78, 78));
 
     topBar_->setFileName("");
 
@@ -127,7 +127,7 @@ bool MainWindowService::onVisibleEvent(TpVisibleEvent *event)
 {
     if (event->visible())
     {
-        TpSystemApi::Instance()->setStatusBarStyle(_RGB(78, 78, 78));
+        TpAppManager::Instance()->setStatusBarStyle(_RGB(78, 78, 78));
     }
 
     return true;
