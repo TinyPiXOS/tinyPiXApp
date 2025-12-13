@@ -1,6 +1,6 @@
 #include "MainWindowService.h"
 #include "PhotoAlbumGlobal.h"
-#include <Service/TpAppManager.h>
+#include <TpAppManager.h>
 
 MainWindowService::MainWindowService()
     : TpMainWindow()

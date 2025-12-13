@@ -4,7 +4,7 @@
 #include "TpAnimation.h"
 #include "DeskTopGlobal.hpp"
 #include "TpApp.h"
-#include "Service/TpAppManager.h"
+#include "TpAppManager.h"
 #include "StatusBar.h"
 #include "TpGraphicsBlurEffect.h"
 

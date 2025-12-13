@@ -2,7 +2,7 @@
 #include "TpImage.h"
 #include "DeskTopGlobal.hpp"
 #include "TpGraphicsBlurEffect.h"
-#include "Service/TpAppManager.h"
+#include "TpAppManager.h"
 
 #ifndef TASK_MANAGER_COLOR
 #define TASK_MANAGER_COLOR _RGBA(255, 255, 255, 255)

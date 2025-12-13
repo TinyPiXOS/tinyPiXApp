@@ -3,7 +3,7 @@
 #include "FileManagementGlobal.h"
 #include "TpVBoxLayout.h"
 #include "TpTabBar.h"
-#include <Service/TpAppManager.h>
+#include <TpAppManager.h>
 
 enum TreeNodeType
 {

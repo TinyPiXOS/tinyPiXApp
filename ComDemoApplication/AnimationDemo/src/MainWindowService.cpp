@@ -3,7 +3,7 @@
 #include "TpButton.h"
 #include "TpAnimation.h"
 #include "TpSignalSlot.h"
-#include <Service/TpAppManager.h>
+#include <TpAppManager.h>
 #include "TpEvent.h"
 
 MainWindowService::MainWindowService()

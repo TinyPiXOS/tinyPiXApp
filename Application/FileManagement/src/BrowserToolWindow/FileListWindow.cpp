@@ -12,7 +12,7 @@
 #include "TpFile.h"
 #include "TpNetDataGlobal.h"
 #include "TpGateway.h"
-#include "Service/TpAppManager.h"
+#include "TpAppManager.h"
 
 FileListWindow::FileListWindow(TpWidget *parent)
     : TpScrollPanel(parent), rootPath_(""), curShowPath_(""), mode_(FileListWindow::Grid)

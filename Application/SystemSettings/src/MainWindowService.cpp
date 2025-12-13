@@ -8,7 +8,8 @@
 #include "TpSwitchButton.h"
 #include "TpLine.h"
 #include "TpBluetoothLocal.h"
-#include "Service/TpAppManager.h"
+#include "TpAppManager.h"
+#include "TpSplashScreen.h"
 
 #include "SettingWindow/InternetSettingWindow.h"
 #include "SettingWindow/BluetoothSettingWindow.h"
@@ -179,6 +180,7 @@ bool MainWindowService::onVisibleEvent(TpVisibleEvent *event)
     if (event->visible())
     {
         TpAppManager::Instance()->setStatusBarStyle(BACKGROUND_COLOR);
+        TpSplashScreen::Instance()->closeSplashScreen();
     }
 
     return true;

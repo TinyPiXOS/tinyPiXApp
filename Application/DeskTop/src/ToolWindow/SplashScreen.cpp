@@ -1,5 +1,4 @@
 #include "SplashScreen.h"
-#include "TpAnimation.h"
 #include "DeskTopGlobal.hpp"
 #include "StatusBar.h"
 #include "NavigationBar.h"
@@ -8,6 +7,8 @@ SplashScreen::SplashScreen()
     : TpDialog("tinyPiX_SYS_Float_0531acbf04")
 {
     setBackGroundColor(_RGB(245, 245, 245));
+
+    scaleAnim_ = new TpAnimation(this, TpAnimation::Geometry);
 
     waitTimer_ = new TpTimer();
     waitTimer_->setInterval(1000);
@@ -25,6 +26,8 @@ SplashScreen::SplashScreen()
 
 SplashScreen::~SplashScreen()
 {
+    scaleAnim_->deleteLater();
+
     waitTimer_->stop();
     delete waitTimer_;
     waitTimer_ = nullptr;
@@ -34,15 +37,14 @@ void SplashScreen::showSplashScreen(const TpRect &appRect)
 {
     waitTimer_->start();
 
-    TpAnimation *scaleAnim = new TpAnimation(this, TpAnimation::Geometry);
-    scaleAnim->setStartValue(appRect);
-    scaleAnim->setEndValue(TpRect(TpPoint(0, globalStatusBar_->height()), globalMainScreen_->screenSize()));
-    scaleAnim->setDuration(100);
+    scaleAnim_->setStartValue(appRect);
+    scaleAnim_->setEndValue(TpRect(TpPoint(0, globalStatusBar_->height()), globalMainScreen_->screenSize()));
+    scaleAnim_->setDuration(100);
 
     // 导航条置顶
     show();
     globalNavigationBar_->bringToTop();
-    scaleAnim->start();
+    scaleAnim_->start(TpAnimation::KeepWhenStopped);
 }
 
 void SplashScreen::setScreenImage(const TpImage &image)
@@ -57,8 +59,10 @@ void SplashScreen::setVisible(bool visible)
 {
     if (!visible)
     {
+        scaleAnim_->stop();
         waitTimer_->stop();
     }
 
     TpDialog::setVisible(visible);
+    update();
 }

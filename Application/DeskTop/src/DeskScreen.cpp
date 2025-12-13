@@ -8,8 +8,8 @@
 #include "TpFont.h"
 #include "TpProcess.h"
 #include "TpMessageBox.h"
-#include "Service/TpAppConfigIO.h"
-#include "Service/TpAppManager.h"
+#include "TpAppConfigIO.h"
+#include "TpAppManager.h"
 #include <TpInteractDataDef/TpDesktopData.h>
 
 #include <iostream>
@@ -142,6 +142,11 @@ void DeskScreen::recvData(const char *topic, const void *data, const uint32_t &s
             argList.emplace_back(recvArg);
         }
         startApp(recvRunData.appUuid, argList);
+    }
+    else if (topicString.compare(TpAppInitFinishKey) == 0)
+    {
+        std::cout << "应用初始化完毕 : " << std::endl;
+        splashScreenWin_->close();
     }
     else
     {
@@ -866,12 +871,13 @@ void DeskScreen::startApp(const TpString &uuid, const TpVector<TpString> &argLis
     }
 
     // 启动开屏动画
-    splashScreenWin_->showSplashScreen(appBtnMap_.value(uuid)->rect());
+    // splashScreenWin_->showSplashScreen(appBtnMap_.value(uuid)->rect());
 
     // 在RecvData中接收应用启动完成的消息，然后关闭开屏动画
 
     // 启动应用
     bool startRes = TpAppManager::Instance()->startApp(uuid, argList);
+    std::cout << "应用启动结果： " << startRes << std::endl;
     if (!startRes)
     {
         // 启动失败，终止开屏界面

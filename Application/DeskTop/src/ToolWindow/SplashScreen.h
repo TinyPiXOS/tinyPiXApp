@@ -4,6 +4,7 @@
 #include "TpDialog.h"
 #include "TpDateTime.h"
 #include "TpTimer.h"
+#include "TpAnimation.h"
 
 class SplashScreen : public TpDialog
 {
@@ -25,6 +26,7 @@ public:
     virtual void setVisible(bool visible = true) override;
 
 private:
+    TpAnimation *scaleAnim_;
     TpTimer *waitTimer_;
 
     // 开屏窗口显示时间

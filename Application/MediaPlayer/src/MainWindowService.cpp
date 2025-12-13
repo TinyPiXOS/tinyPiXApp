@@ -7,7 +7,7 @@
 #include "TpFont.h"
 #include "TpImage.h"
 #include "TpFileInfo.h"
-#include <Service/TpAppManager.h>
+#include <TpAppManager.h>
 #include "TpEvent.h"
 
 MainWindowService::MainWindowService()

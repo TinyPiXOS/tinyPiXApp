@@ -36,8 +36,9 @@ set(SOURCE_FILES
 include_directories(${SOURCE_PATH})
 include_directories(${SOURCE_PATH}/sonWindow)
 include_directories(/usr/include)
-include_directories(/usr/include/TinyPiX/TpWM)
 include_directories(/usr/include/TinyPiX)
+include_directories(/usr/include/TinyPiX/TpWM)
+include_directories(/usr/include/TinyPiX/TpService)
 include_directories(/usr/include/TinyPiX/TpCore)
 include_directories(/usr/include/TinyPiX/TpUtils)
 include_directories(/usr/include/TinyPiX/TpUtils/SystemDevice)
@@ -49,7 +50,7 @@ include_directories(/usr/include/TinyPiX/TpGUI/Widgets)
 add_executable(FileManagement ${SOURCE_FILES})
 
 # 将pthread库链接到可执行目标
-target_link_libraries(FileManagement TpWMEngine TpCore TpGUI TpUtils  
+target_link_libraries(FileManagement TpWMEngine TpCore TpGUI TpUtils TpService 
                 )
 
 # 包含共享模块

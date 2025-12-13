@@ -2,7 +2,7 @@
 #include "TpBattery.h"
 #include "TpSignalSlot.h"
 #include "TpSlider.h"
-#include <Service/TpAppManager.h>
+#include <TpAppManager.h>
 #include <TpEvent.h>
 
 MainWindowService::MainWindowService()

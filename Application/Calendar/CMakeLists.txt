@@ -28,6 +28,7 @@ include_directories(${SOURCE_PATH})
 include_directories(/usr/include)
 include_directories(/usr/include/TinyPiX/TpWM)
 include_directories(/usr/include/TinyPiX)
+include_directories(/usr/include/TinyPiX/TpService)
 include_directories(/usr/include/TinyPiX/TpCore)
 include_directories(/usr/include/TinyPiX/TpUtils)
 
@@ -39,7 +40,7 @@ add_executable(Calendar ${SOURCE_FILES})
 
 # 将pthread库链接到可执行目标
 target_link_libraries(Calendar
-    TpWMEngine TpCore TpGUI TpUtils
+    TpWMEngine TpCore TpGUI TpUtils TpService
 )
 
 # 包含共享模块

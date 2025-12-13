@@ -1,7 +1,7 @@
 #include "MainWindowService.h"
 #include "TpFlexLayout.h"
 #include "TpButton.h"
-#include <Service/TpAppManager.h>
+#include <TpAppManager.h>
 #include <TpEvent.h>
 
 MainWindowService::MainWindowService()

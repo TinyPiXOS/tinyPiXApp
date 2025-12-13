@@ -1,6 +1,6 @@
 #include "MainWindowService.h"
 #include "CalendarGlobal.h"
-#include <Service/TpAppManager.h>
+#include <TpAppManager.h>
 #include "TpEvent.h"
 
 MainWindowService::MainWindowService()

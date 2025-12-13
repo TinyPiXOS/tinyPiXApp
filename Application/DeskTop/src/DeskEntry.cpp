@@ -2,7 +2,7 @@
 #include "TpApp.h"
 #include "DeskScreen.h"
 #include <csignal>
-#include <Service/TpAppManager.h>
+#include <TpAppManager.h>
 
 void signalHandler(int signal)
 {

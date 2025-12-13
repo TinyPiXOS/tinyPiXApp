@@ -41,9 +41,11 @@ include_directories(${SOURCE_PATH}/ToolModule)
 include_directories(${SOURCE_PATH}/ToolWindow)
 include_directories(/usr/include)
 include_directories(/usr/include/TinyPiX)
+include_directories(/usr/include/TinyPiX/TpService)
 include_directories(/usr/include/TinyPiX/TpCore)
 include_directories(/usr/include/TinyPiX/TpWM)
 include_directories(/usr/include/TinyPiX/TpUtils)
+include_directories(/usr/include/TinyPiX/TpUtils/AppManage)
 include_directories(/usr/include/TinyPiX/TpUtils/Bluetooth)
 include_directories(/usr/include/TinyPiX/TpUtils/Network)
 include_directories(/usr/include/TinyPiX/TpUtils/Media)
@@ -66,7 +68,7 @@ target_link_directories(TpDesktop PRIVATE
 )
 
 # 将pthread库链接到可执行目标
-target_link_libraries(TpDesktop TpWMEngine TpCore TpGUI TpUtils)
+target_link_libraries(TpDesktop TpWMEngine TpCore TpGUI TpUtils TpService)
 
 # 包含共享模块
 include(../../cmake/SetupAppInstallation.cmake)
