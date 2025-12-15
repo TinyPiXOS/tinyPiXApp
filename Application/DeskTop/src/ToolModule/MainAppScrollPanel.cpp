@@ -8,16 +8,10 @@ MainAppScrollPanel::MainAppScrollPanel(TpWidget *parent)
     setEnableBackGroundColor(false);
 
     TP_PROPERTY(int32_t, horizontalPostion, horizontalPostion, setHorizontalPostion);
-
-    valueAnimation_ = new TpAnimation(this, "horizontalPostion");
-    valueAnimation_->setDuration(200);
 }
 
 MainAppScrollPanel::~MainAppScrollPanel()
 {
-    valueAnimation_->stop();
-    delete valueAnimation_;
-    valueAnimation_ = nullptr;
 }
 
 void MainAppScrollPanel::setMaxPage(const uint32_t &maxPage)
@@ -38,10 +32,12 @@ void MainAppScrollPanel::setAnimalHorizontalPostion(int32_t value)
     if (horizontalPostion() == value)
         return;
 
-    valueAnimation_->stop();
-    valueAnimation_->setStartValue(horizontalPostion());
-    valueAnimation_->setEndValue(value);
-    valueAnimation_->start(TpAnimation::KeepWhenStopped);
+    TpAnimation *valueAnimation = new TpAnimation(this, "horizontalPostion");
+    valueAnimation->setDuration(200);
+    valueAnimation->stop();
+    valueAnimation->setStartValue(horizontalPostion());
+    valueAnimation->setEndValue(value);
+    valueAnimation->start();
 }
 
 bool MainAppScrollPanel::eventFilter(TpObject *watched, TpEvent *event)
