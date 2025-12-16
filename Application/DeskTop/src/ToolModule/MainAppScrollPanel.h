@@ -40,9 +40,11 @@ protected:
     virtual bool onWheelEvent(TpWheelEvent *event) override;
 
     virtual bool onMouseMoveEvent(TpMouseEvent *event) override;
-	virtual bool onLeaveEvent(TpLeaveEvent *event) override;
+    virtual bool onLeaveEvent(TpLeaveEvent *event) override;
 
 private:
+    TpAnimation *valueAnimation_;
+
     bool mouseLeftPress_;
 
     // 鼠标点击坐标

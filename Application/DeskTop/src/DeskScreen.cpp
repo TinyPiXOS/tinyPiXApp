@@ -141,6 +141,7 @@ void DeskScreen::recvData(const char *topic, const void *data, const uint32_t &s
             std::cout << " recvArg : " << recvArg << std::endl;
             argList.emplace_back(recvArg);
         }
+        TpAppManager::Instance()->killApp(recvRunData.appUuid);
         startApp(recvRunData.appUuid, argList);
     }
     else if (topicString.compare(TpAppInitFinishKey) == 0)

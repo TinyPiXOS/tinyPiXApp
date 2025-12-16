@@ -18,6 +18,10 @@ set(SOURCE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 # 定义源码路径宏
 set(SOURCE_FILES
+    # ${SOURCE_PATH}/rpc/DeskService_server.cpp
+    # ${SOURCE_PATH}/rpc/DeskService_interface.cpp
+    # ${SOURCE_PATH}/rpc/DeskService_server.cpp
+
     ${SOURCE_PATH}/DeskEntry.cpp
     ${SOURCE_PATH}/DeskScreen.cpp
     ${SOURCE_PATH}/ToolBar/StatusBar.cpp

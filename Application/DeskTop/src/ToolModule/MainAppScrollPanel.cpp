@@ -8,6 +8,9 @@ MainAppScrollPanel::MainAppScrollPanel(TpWidget *parent)
     setEnableBackGroundColor(false);
 
     TP_PROPERTY(int32_t, horizontalPostion, horizontalPostion, setHorizontalPostion);
+
+    valueAnimation_ = new TpAnimation(this, "horizontalPostion");
+    valueAnimation_->setDuration(200);
 }
 
 MainAppScrollPanel::~MainAppScrollPanel()
@@ -32,12 +35,10 @@ void MainAppScrollPanel::setAnimalHorizontalPostion(int32_t value)
     if (horizontalPostion() == value)
         return;
 
-    TpAnimation *valueAnimation = new TpAnimation(this, "horizontalPostion");
-    valueAnimation->setDuration(200);
-    valueAnimation->stop();
-    valueAnimation->setStartValue(horizontalPostion());
-    valueAnimation->setEndValue(value);
-    valueAnimation->start();
+    valueAnimation_->stop();
+    valueAnimation_->setStartValue(horizontalPostion());
+    valueAnimation_->setEndValue(value);
+    valueAnimation_->start(TpAnimation::KeepWhenStopped);
 }
 
 bool MainAppScrollPanel::eventFilter(TpObject *watched, TpEvent *event)
