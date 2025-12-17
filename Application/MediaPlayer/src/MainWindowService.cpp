@@ -11,7 +11,8 @@
 #include "TpEvent.h"
 
 MainWindowService::MainWindowService()
-    : TpMainWindow(), topBar_(new StatusBar()), bottomBar_(new BottomBar()), fileType_(UnknowFile), videoPlayer_(nullptr)
+    : TpMainWindow(), topBar_(new StatusBar()), bottomBar_(new BottomBar()), fileType_(UnknowFile)
+    // , videoPlayer_(nullptr)
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
@@ -68,7 +69,7 @@ void MainWindowService::setPlayFile(const TpString &filePath)
         // if (!audioPlayer_->isOpen())
             // audioPlayer_->openDevice();
 
-        audioPlayer_->setVolume(100);
+        // audioPlayer_->setVolume(100);
         // audioPlayer_->playStart();
 
         std::cout << "播放文件： " << filePath << std::endl;
@@ -83,7 +84,7 @@ void MainWindowService::setPlayFile(const TpString &filePath)
         setBackGroundImage(TpImage(applicationDirPath() + "/../res/测试视频封面.jpg"));
 
         // 启动视频设备
-        videoPlayer_->setWindowSize(width(), height());
+        // videoPlayer_->setWindowSize(width(), height());
 
         // videoPlayer_->addFile(filePath.c_str());
 
@@ -154,13 +155,13 @@ void MainWindowService::initUi()
     connect(bottomBar_, alterPostion, this, &MainWindowService::slotSwitchPos);
     connect(bottomBar_, switchSpeed, this, &MainWindowService::slotSwitchSpeed);
 
-    audioPlayer_ = new TpAudioInterface("hw:1,0");
-    videoPlayer_ = new TpVideoInterface();
+    // audioPlayer_ = new TpAudioInterface("hw:1,0");
+    // videoPlayer_ = new TpVideoInterface();
 
-    TpVideoInterface::UserCallback videoCallback = std::bind(&MainWindowService::videoRbgDataCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
-    videoPlayer_->setDisplayFunction(videoCallback);
+    // TpVideoInterface::UserCallback videoCallback = std::bind(&MainWindowService::videoRbgDataCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
+    // videoPlayer_->setDisplayFunction(videoCallback);
     // videoPlayer_->setDisplayFunction(videoCallback, nullptr, TpVideoInterface::TP_VIDEO_DECODE_RGBA8888);
-    videoPlayer_->setScalingMode(TpVideoInterface::TP_VIDEO_SCALING_FIT); // 推荐格式
+    // videoPlayer_->setScalingMode(TpVideoInterface::TP_VIDEO_SCALING_FIT); // 推荐格式
 
     updateProgressTimer_ = new TpTimer();
     connect(updateProgressTimer_, timeout, this, &MainWindowService::slotUpdatePlayerProgress);

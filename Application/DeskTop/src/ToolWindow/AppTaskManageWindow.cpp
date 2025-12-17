@@ -5,7 +5,7 @@
 #include "TpAppManager.h"
 
 #ifndef TASK_MANAGER_COLOR
-#define TASK_MANAGER_COLOR _RGBA(255, 255, 255, 255)
+#define TASK_MANAGER_COLOR _RGBA(255, 255, 255, 150)
 #endif
 
 // 上下边界距离和任务水平/垂直间距

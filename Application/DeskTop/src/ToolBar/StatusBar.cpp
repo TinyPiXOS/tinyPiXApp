@@ -154,6 +154,9 @@ bool StatusBar::onMouseRleaseEvent(TpMouseEvent *event)
 
 bool StatusBar::onMouseMoveEvent(TpMouseEvent *event)
 {
+    // static int index = 0;
+    // std::cout << "onMouseMoveEvent  " << index++ << std::endl;
+
     if (globalTopSettingBar_ /*&& !tpFuzzyCompare(globalTopSettingBar_->windowOpacity(), 1.0f)*/ && event->state())
     {
         TpPoint curMousePos = event->globalPos();

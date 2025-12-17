@@ -6,8 +6,8 @@
 #include "ToolBar/TopBar.h"
 #include "ToolBar/BottomBar.h"
 #include "TpLabel.h"
-#include "TpAudioInterface.h"
-#include "TpVideoInterface.h"
+// #include "TpAudioInterface.h"
+// #include "TpVideoInterface.h"
 #include "TpTimer.h"
 
 /// @brief 视频绘制主界面
@@ -80,9 +80,9 @@ private:
     TpLabel *pauseIconLabel_;
 
     // 音频播放
-    TpAudioInterface *audioPlayer_;
+    // TpAudioInterface *audioPlayer_;
     // 视频播放
-    TpVideoInterface* videoPlayer_;
+    // TpVideoInterface* videoPlayer_;
 };
 
 #endif
