@@ -3,7 +3,6 @@
 
 #include "TpMainWindow.h"
 #include "TpTabWidget.h"
-#include "SonWindow/RecentlyWindow.h"
 #include "SonWindow/BrowseWindow.h"
 
 class MainWindowService
@@ -31,13 +30,6 @@ private:
     void caculateRect();
 
 private:
-    // titleBar *titleBar_;
-
-    TpTabWidget* mainTabWidget_; 
-
-    // 最近窗口
-    RecentlyWindow* recentlyWindow_;
-
     // 浏览窗口
     BrowseWindow* browseWindow_;
 };

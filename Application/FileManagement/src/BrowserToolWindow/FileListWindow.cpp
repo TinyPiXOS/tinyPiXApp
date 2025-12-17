@@ -157,21 +157,25 @@ void FileListWindow::refreshPath(const TpString &path)
     if (gridWidget)
         gridWidget->update();
     if (listWidget)
+    {
+        listWidget->setMinumumHeight(listFileLayout_->minumumSize().height());
         listWidget->update();
+    }
 
     // gridFileLayout_->update();
     // listFileLayout_->update();
 
-    update();
-
     widget()->setMinumumHeight(mainLayout_->minumumSize().height());
     widget()->setHeight(mainLayout_->minumumSize().height());
+
+    update();
 }
 
 void FileListWindow::SlotShowSetting(bool)
 {
-    settingWindow_->setVisible(true);
-    settingWindow_->update();
+    settingWindow_->show();
+    // settingWindow_->setVisible(true);
+    // settingWindow_->update();
 
     // std::cout << "  settingWindow_  " << settingWindow_->width() << "  " << settingWindow_->height() << std::endl;
 }

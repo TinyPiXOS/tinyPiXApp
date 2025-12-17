@@ -73,18 +73,18 @@ ListFileItem::ListFileItem(TpWidget *parent)
 
     nameLabel_ = new TpLabel(this);
     nameLabel_->font()->setFontSize(11);
-    nameLabel_->font()->setAlign(Tp::AlignCenter);
+    nameLabel_->font()->setAlign(Tp::AlignLeft | Tp::AlignBottom);
     nameLabel_->font()->setFontColor(_RGB(38, 38, 38));
     nameLabel_->installEventFilter(this);
 
     sizeLabel_ = new TpLabel(this);
-    sizeLabel_->font()->setAlign(Tp::AlignCenter);
+    sizeLabel_->font()->setAlign(Tp::AlignLeft | Tp::AlignVCenter);
     sizeLabel_->font()->setFontSize(9);
     sizeLabel_->font()->setFontColor(_RGB(140, 140, 140));
     sizeLabel_->installEventFilter(this);
 
     dateTimeLabel_ = new TpLabel(this);
-    dateTimeLabel_->font()->setAlign(Tp::AlignCenter);
+    dateTimeLabel_->font()->setAlign(Tp::AlignRight | Tp::AlignVCenter);
     dateTimeLabel_->font()->setFontSize(11);
     dateTimeLabel_->font()->setFontColor(_RGB(89, 89, 89));
     dateTimeLabel_->installEventFilter(this);
@@ -99,7 +99,6 @@ ListFileItem::ListFileItem(TpWidget *parent)
 
     mainLayout->addWidget(iconLabel_);
     mainLayout->addLayout(nameLayout);
-    mainLayout->addSpacer(new TpSpacerItem(20, 20, TpSpacerItem::Expanding));
     mainLayout->addWidget(dateTimeLabel_);
 
     setLayout(mainLayout);

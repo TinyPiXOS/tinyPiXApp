@@ -22,15 +22,13 @@ link_directories("/usr/lib/TinyPiX")
 set(SOURCE_FILES
     ${SOURCE_PATH}/main.cpp
     ${SOURCE_PATH}/MainWindowService.cpp
-    ${SOURCE_PATH}/SonWindow/RecentlyWindow.cpp
     ${SOURCE_PATH}/SonWindow/BrowseWindow.cpp
+    ${SOURCE_PATH}/SonWindow/ClearSpaceWindow.cpp
     ${SOURCE_PATH}/ToolWindow/DiskDeviceCheckBox.cpp
     ${SOURCE_PATH}/ToolWindow/UsbPopButton.cpp
     ${SOURCE_PATH}/BrowserToolWindow/FileListWindow.cpp
     ${SOURCE_PATH}/BrowserToolWindow/SettingWindow.cpp
     ${SOURCE_PATH}/BrowserToolWindow/ListFileItem.cpp
-    ${SOURCE_PATH}/RecentlyToolWindow/ClearSpaceWindow.cpp
-    ${SOURCE_PATH}/RecentlyToolWindow/PressPopWindow.cpp
 )
 
 include_directories(${SOURCE_PATH})

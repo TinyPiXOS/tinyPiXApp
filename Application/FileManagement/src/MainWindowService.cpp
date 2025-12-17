@@ -65,25 +65,11 @@ void MainWindowService::initUi()
 {
     TpString resPath = applicationDirPath() + "/../res/";
 
-    recentlyWindow_ = new RecentlyWindow();
-    // recentlyWindow_->setVisible(true);
-    // recentlyWindow_->setBackGroundColor(_RGB(255, 0, 0));
-
     browseWindow_ = new BrowseWindow();
-    // recentlyWindow_->setVisible(false);
-
-    mainTabWidget_ = new TpTabWidget(this);
-    mainTabWidget_->addTab(recentlyWindow_, "最近");
-    mainTabWidget_->addTab(browseWindow_, "浏览");
-
-    TpTabBar *tabBar = mainTabWidget_->tabBar();
-    tabBar->setIcon(0, applicationDirPath() + "/../res/最近-normal.png", applicationDirPath() + "/../res/最近-focus.png");
-    tabBar->setIcon(1, applicationDirPath() + "/../res/浏览-normal.png", applicationDirPath() + "/../res/浏览-focus.png");
 
     TpVBoxLayout *mainLayout = new TpVBoxLayout();
     mainLayout->setContentsMargins(0, 0, 0, 0);
-
-    mainLayout->addWidget(mainTabWidget_);
+    mainLayout->addWidget(browseWindow_);
 
     setLayout(mainLayout);
 }

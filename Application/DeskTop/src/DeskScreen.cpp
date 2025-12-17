@@ -859,7 +859,7 @@ DesktopAppButton *DeskScreen::configAppBtn(const TpString &appUuid, const TpStri
 void DeskScreen::startApp(const TpString &uuid, const TpVector<TpString> &argList)
 {
     // 是否是系统安装包
-    if (uuid.compare("SytemAppInstallUuid") == 0)
+    if (uuid.compare("TinyPiXSytemAppInstallUuid") == 0)
     {
         if (argList.size() == 0)
         {

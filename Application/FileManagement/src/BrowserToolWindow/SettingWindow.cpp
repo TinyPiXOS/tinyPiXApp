@@ -11,7 +11,7 @@ SettingWindow::SettingWindow() : TpDialog()
 {
     setBackGroundColor(BG_COLOR);
     init();
-    setVisible(false);
+    // setVisible(false);
 }
 
 SettingWindow::~SettingWindow()
@@ -20,9 +20,10 @@ SettingWindow::~SettingWindow()
 
 void SettingWindow::setVisible(bool visible)
 {
-    setSize(TpScreen::width(), TpScreen::height());
-    mainScrollPanel_->setFixedSize(TpDisplay::dp2Px(429), TpScreen::height());
-    mainScrollPanel_->move(TpScreen::width() - mainScrollPanel_->width(), 0);
+    TpSize screenSize = this->screenSize();
+    setSize(screenSize.width(), screenSize.height());
+    mainScrollPanel_->setFixedSize(TpDisplay::dp2Px(429), screenSize.height());
+    mainScrollPanel_->move(screenSize.width() - mainScrollPanel_->width(), 0);
 
     TpDialog::setVisible(visible);
 
@@ -31,12 +32,6 @@ void SettingWindow::setVisible(bool visible)
         // 关闭窗口时，通知外部数据刷新
         onChangeViewMode.emit(viewCbx_->currentIndex());
     }
-}
-
-bool SettingWindow::onPaintEvent(TpPaintEvent *event)
-{
-    TpDialog::onPaintEvent(event);
-    return true;
 }
 
 bool SettingWindow::onMouseRleaseEvent(TpMouseEvent *event)

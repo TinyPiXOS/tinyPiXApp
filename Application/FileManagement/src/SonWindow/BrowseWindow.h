@@ -14,6 +14,7 @@
 #include "TpMenuPanelWidget.h"
 #include "TpEvent.h"
 #include "SystemInfo/TpDiskManage.h"
+#include "ClearSpaceWindow.h"
 
 #include "ToolWindow/DiskDeviceCheckBox.h"
 #include "BrowserToolWindow/FileListWindow.h"
@@ -25,7 +26,7 @@ public:
     BrowseWindow(TpWidget *parent = nullptr);
     ~BrowseWindow();
 
-	virtual void setVisible(bool visible = true) override;
+    virtual void setVisible(bool visible = true) override;
 
 protected:
     virtual bool onPaintEvent(TpPaintEvent *event) override;
@@ -34,17 +35,20 @@ private:
     void init();
 
     // 快捷访问按钮点击事件
-    void fastPathBtnClicked(TpMediaTileButton* clickBtn);
+    void fastPathBtnClicked(TpMediaTileButton *clickBtn);
 
     // 设备节点点击
-    void devicePathBtnClicked(DiskDeviceCheckBox* clickBtn);
+    void devicePathBtnClicked(DiskDeviceCheckBox *clickBtn);
 
     // 数据来源路径切换
-    void sourceMenuChanged(TpMenuPanelItem* sourceItem);
+    void sourceMenuChanged(TpMenuPanelItem *sourceItem);
 
 private:
     // 主滚动显示区域
     TpScrollPanel *mainScrollPanel_;
+
+    TpButton *clearButton_;
+    ClearSpaceWindow *clearWindow_;
 
     // 搜索框
     TpLineEdit *searchEdit_;
@@ -58,8 +62,8 @@ private:
     TpMediaTileButton *textTileBtn_;
     TpMediaTileButton *musicTileBtn_;
     TpMediaTileButton *applicationTileBtn_;
-    
-    TpVector<TpMediaTileButton*> mediaBtnList_;
+
+    TpVector<TpMediaTileButton *> mediaBtnList_;
 
     // 数据来源选择菜单
     TpMenuPanelWidget *menuPanelWidget_;
@@ -68,7 +72,7 @@ private:
     FileListWindow *fileListWindow_;
 
     // 所有USB设备列表
-    TpDiskManage* diskManager_;
+    TpDiskManage *diskManager_;
     TpVector<DiskDeviceCheckBox *> deviceList_;
 };
 

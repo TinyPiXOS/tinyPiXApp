@@ -54,6 +54,7 @@ void ClearSpaceWindow::init()
     TpLabel *titleLabel = new TpLabel("空间清理");
     // titleLabel->setBackGroundColor(_RGB(255, 0, 0));
     titleLabel->font()->setFontSize(19);
+    titleLabel->font()->setAlign(Tp::AlignVCenter);
     // titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
     titleLabel->font()->setFontColor(_RGB(38, 38, 38));
     titleLabel->setText("空间清理");

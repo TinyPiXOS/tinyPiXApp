@@ -146,8 +146,23 @@ void BrowseWindow::init()
     titleLabel->font()->setFontSize(19);
     titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
     titleLabel->font()->setFontColor(_RGB(38, 38, 38));
-    titleLabel->installEventFilter(scrollWidget);
-    // titleLabel->setBackGroundColor(_RGB(255, 0, 0));
+    // titleLabel->installEventFilter(scrollWidget);
+
+    // 清理按钮
+    clearWindow_ = new ClearSpaceWindow();
+
+    clearButton_ = new TpButton(this);
+    clearButton_->setButtonStyle(TpButton::IconOnly);
+    clearButton_->setEnableBackGroundColor(false);
+    clearButton_->setFixedSize(TpDisplay::dp2Px(34), TpDisplay::dp2Px(34));
+    clearButton_->setIcon(applicationDirPath() + "/../res/清理.png");
+    connect(clearButton_, onClicked, [=](bool)
+            { clearWindow_->showMaximum(); });
+    clearButton_->installEventFilter(this);
+
+    TpHBoxLayout* titleLayout = new TpHBoxLayout();
+    titleLayout->addWidget(titleLabel);
+    titleLayout->addWidget(clearButton_);
 
     // 搜索
     searchEdit_ = new TpLineEdit();
@@ -249,7 +264,7 @@ void BrowseWindow::init()
     menuLayout->setContentsMargins(0, 0, layoutMargin, 0);
     menuLayout->setSpacing(10);
 
-    menuLayout->addWidget(titleLabel);
+    menuLayout->addLayout(titleLayout);
     menuLayout->addWidget(searchEdit_);
     menuLayout->addWidget(fastPathScroll_);
     // menuLayout->addWidget(testDevice);

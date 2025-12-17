@@ -1,6 +1,6 @@
 
 /*
-    最近-清理存储空间窗口
+    清理存储空间窗口
 */
 
 #ifndef __CLEAR_SPACE_WINDOW_H
