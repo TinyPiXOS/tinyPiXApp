@@ -230,18 +230,15 @@ void MainWindowService::refreshBarSize()
 {
     if (topBar_)
     {
-        topBar_->setSize(width(), 70);
+        topBar_->setSize(width(), 60);
         topBar_->move(0, 0);
-
         topBar_->show();
-        topBar_->close();
     }
 
     if (bottomBar_)
     {
-        bottomBar_->setSize(width(), 78);
+        bottomBar_->setSize(width(), 70);
         bottomBar_->move(0, height() - bottomBar_->height());
-
         bottomBar_->show();
     }
 }

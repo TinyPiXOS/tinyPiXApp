@@ -14,7 +14,7 @@ BottomBar::BottomBar()
     setEnabledBorderColor(false);
     setBackGroundColor(_RGBA(255, 255, 255, 125));
 
-    setWindowOpacity(0.7);
+    // setWindowOpacity(0.7);
     init();
 }
 
@@ -42,7 +42,7 @@ bool BottomBar::onResizeEvent(TpResizeEvent *event)
 
     // 调整布局
     // 进度条
-    progressSlider_->setSize(width() - globalLeftMargin - globalRightMargin, 6);
+    progressSlider_->setSize(width() - globalLeftMargin - globalRightMargin, 8);
     progressSlider_->move(globalLeftMargin, 0);
 
     int32_t operateBtnY = (height() - previousFileBtn_->height()) / 2.0 + 5;
@@ -161,7 +161,7 @@ TpButton *BottomBar::generalIconBtn(const TpString &iconPath)
     TpButton *newButton = new TpButton(this);
     newButton->setButtonStyle(TpButton::IconOnly);
     newButton->setEnableBackGroundColor(false);
-    newButton->setFixedSize(TpDisplay::dp2Px(34), TpDisplay::dp2Px(34));
+    newButton->setFixedSize(TpDisplay::dp2Px(28), TpDisplay::dp2Px(28));
     newButton->setIcon(iconPath);
     return newButton;
 }

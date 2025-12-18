@@ -45,8 +45,6 @@ protected:
 private:
     TpAnimation *valueAnimation_;
 
-    bool mouseLeftPress_;
-
     // 鼠标点击坐标
     TpPoint originPressPoint_;
     // 鼠标点击时的偏移量

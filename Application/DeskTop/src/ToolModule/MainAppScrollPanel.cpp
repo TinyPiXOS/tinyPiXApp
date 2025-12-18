@@ -3,7 +3,7 @@
 #include "math.h"
 
 MainAppScrollPanel::MainAppScrollPanel(TpWidget *parent)
-    : TpScrollPanel(parent), maxPageCount_(globalDesktopMaxPageNum), mouseLeftPress_(false), isSwitchPage_(false)
+    : TpScrollPanel(parent), maxPageCount_(globalDesktopMaxPageNum), isSwitchPage_(false)
 {
     setEnableBackGroundColor(false);
 
@@ -95,11 +95,12 @@ bool MainAppScrollPanel::onMousePressEvent(TpMouseEvent *event)
     TpScrollPanel::onMousePressEvent(event);
 
     // 鼠标左键点击，记录点击坐标
-    mouseLeftPress_ = true;
     originPressPoint_ = event->globalPos();
     updatePoint_ = originPressPoint_;
     originPressPos_ = horizontalPostion();
     // std::cout << "event->globalPos().X: " << event->globalPos().x() << "  event->globalPos().y(): " << event->globalPos().y() << std::endl;
+
+    valueAnimation_->stop();
 
     return true;
 }
@@ -108,42 +109,37 @@ bool MainAppScrollPanel::onMouseRleaseEvent(TpMouseEvent *event)
 {
     // TpScrollPanel::onMouseRleaseEvent(event);
 
-    mouseLeftPress_ = false;
+    int32_t curScrollValue = horizontalPostion();
 
-    if (isSwitchPage_)
+    if (curScrollValue == 0 || (curScrollValue % rect().width() == 0))
+        return true;
+
+    // 计算移动偏移量，决定是否翻页
+
+    // std::cout << "release curScrollValue : " << curScrollValue << std::endl;
+    // 判断当前偏移量距离哪一页近，就翻到哪一页
+    int32_t nextPageValue = -rect().width();
+    int32_t prePageValue = 0;
+
+    // 找到当前偏移量的上一页和下一页偏移量 prePageValue > nextPageValue
+    while (nextPageValue > curScrollValue)
     {
-        // 计算移动偏移量，决定是否翻页
-        int32_t curScrollValue = horizontalPostion();
-
-        // std::cout << "release curScrollValue : " << curScrollValue << std::endl;
-        // 判断当前偏移量距离哪一页近，就翻到哪一页
-        int32_t nextPageValue = -rect().width();
-        int32_t prePageValue = 0;
-
-        // 找到当前偏移量的上一页和下一页偏移量 prePageValue > nextPageValue
-        while (nextPageValue > curScrollValue)
-        {
-            nextPageValue -= rect().width();
-        }
-        prePageValue = nextPageValue + rect().width();
-
-        if (prePageValue > 0)
-            prePageValue = 0;
-
-        int32_t minValue = -(rect().width() * (maxPageCount_ - 1));
-        if (nextPageValue < minValue)
-            nextPageValue = minValue;
-
-        int32_t curPostion = isLeftRoll_ ? nextPageValue : prePageValue;
-
-        setAnimalHorizontalPostion(curPostion);
-
-        onPageChanged.emit(std::fabs(curPostion) / rect().width());
+        nextPageValue -= rect().width();
     }
-    else
-    {
-        setAnimalHorizontalPostion(originPressPos_);
-    }
+    prePageValue = nextPageValue + rect().width();
+
+    if (prePageValue > 0)
+        prePageValue = 0;
+
+    int32_t minValue = -(rect().width() * (maxPageCount_ - 1));
+    if (nextPageValue < minValue)
+        nextPageValue = minValue;
+
+    int32_t curPostion = isLeftRoll_ ? nextPageValue : prePageValue;
+
+    setAnimalHorizontalPostion(curPostion);
+
+    onPageChanged.emit(std::fabs(curPostion) / rect().width());
 
     return true;
 }
@@ -194,7 +190,7 @@ bool MainAppScrollPanel::onMouseMoveEvent(TpMouseEvent *event)
 {
     // TpScrollPanel::onMouseMoveEvent(event);
 
-    if (mouseLeftPress_)
+    if (event->state())
     {
         TpPoint curPoint = event->globalPos();
 
