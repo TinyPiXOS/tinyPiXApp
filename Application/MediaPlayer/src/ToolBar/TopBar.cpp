@@ -10,7 +10,7 @@ StatusBar::StatusBar()
     : TpDialog()
 {
     setEnabledBorderColor(false);
-    setBackGroundColor(_RGBA(255, 255, 255, 0));
+    setBackGroundColor(_RGBA(255, 255, 255, 125));
 
     init();
 }

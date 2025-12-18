@@ -13,6 +13,7 @@
 #include "TpNetDataGlobal.h"
 #include "TpGateway.h"
 #include "TpAppManager.h"
+#include "AppManage/TpAppInstall.h"
 
 FileListWindow::FileListWindow(TpWidget *parent)
     : TpScrollPanel(parent), rootPath_(""), curShowPath_(""), mode_(FileListWindow::Grid)
@@ -340,6 +341,24 @@ void FileListWindow::openFile(const TpString &filePath)
         imagePreviewWidget_->setImageFilePath(filePath);
         imagePreviewWidget_->showMaximum();
         return;
+    }
+    else if (fileSuffix.compare("tpk"))
+    {
+        TpAppInstall installPkg(fileSuffix);
+        TpString installUuid = installPkg.appUUID();
+
+        TpVector<TpString> installAppList = TpAppConfigIO::installAppUuidList();
+        if (installAppList.contains(installUuid))
+        {
+            TpMessageBox msg(TpMessageBox::Information);
+            msg.setText("此应用已安装!");
+            msg.exec();
+            return;
+        }
+    }
+    else
+    {
+
     }
 
     TpAppManager::OpenFileError openRes = TpAppManager::Instance()->openFile(filePath);

@@ -418,9 +418,9 @@ void DeskScreen::slotDeleteApp(DesktopAppButton *operateBtn)
 
 void DeskScreen::slotTimeoutInstallApp()
 {
-    std::cout << "安装应用UUID" << appInstallPtr_->getAppUUID() << std::endl;
+    std::cout << "安装应用UUID" << appInstallPtr_->appUUID() << std::endl;
 
-    int installSchedule = appInstallPtr_->getInstallSchedule();
+    int installSchedule = appInstallPtr_->installSchedule();
     std::cout << "安装进度： " << installSchedule << std::endl;
 
     // 更新安装进度UI
@@ -892,7 +892,7 @@ void DeskScreen::installApp(const TpString &pkgPath)
 {
     // 应用安装
     appInstallPtr_->setPath(pkgPath);
-    TpString installAppUuid = appInstallPtr_->getAppUUID();
+    TpString installAppUuid = appInstallPtr_->appUUID();
 
     // 判断应用是否已安装
     TpVector<TpString> instasllAppIDList = TpAppConfigIO::installAppUuidList();
@@ -946,8 +946,8 @@ void DeskScreen::installApp(const TpString &pkgPath)
     allAppInfoMap_[installPageNum].emplace_back(installAppInfp);
 
     // 桌面添加应用图标以及遮罩层
-    TpString iconPath = appInstallPtr_->getIcon();
-    TpString appName = appInstallPtr_->getAppName();
+    TpString iconPath = appInstallPtr_->icon();
+    TpString appName = appInstallPtr_->appName();
 
     std::cout << "Install iconPath" << iconPath << std::endl;
     std::cout << "Install appName" << appName << std::endl;

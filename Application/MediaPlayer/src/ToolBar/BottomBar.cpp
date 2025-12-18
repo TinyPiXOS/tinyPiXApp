@@ -12,8 +12,9 @@ BottomBar::BottomBar()
     : TpDialog(), allTimeS_(0), curTimeS_(0), isPause_(false)
 {
     setEnabledBorderColor(false);
-    setBackGroundColor(_RGBA(255, 255, 255, 0));
+    setBackGroundColor(_RGBA(255, 255, 255, 125));
 
+    setWindowOpacity(0.7);
     init();
 }
 

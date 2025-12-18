@@ -6,8 +6,6 @@ int32_t main(int32_t argc, char *argv[])
 	TpApp app(argc, argv);
 
 	MainWindowService *mainWindow = new MainWindowService();
-	mainWindow->update();
-
 	mainWindow->setBackBtnVisible(false);
 
 	if (argc > 1)
@@ -15,8 +13,9 @@ int32_t main(int32_t argc, char *argv[])
 		TpString inputFile = argv[1];
 		mainWindow->setBackBtnVisible(true);
 		mainWindow->setPlayFile(inputFile);
-		// mainWindow->setPlayFile("/System/data/千千阙歌.mp3");
 	}
+    // mainWindow->setPlayFile("/System/data/Music/千千阙歌.mp3");
+    // mainWindow->setPlayFile("/System/data/Videos/demo.mp4");
 
 	return app.run();
 }
