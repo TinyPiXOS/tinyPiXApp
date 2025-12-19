@@ -116,7 +116,13 @@ bool AppPreviewWidget::onMouseRleaseEvent(TpMouseEvent *event)
 
 bool AppPreviewWidget::onResizeEvent(TpResizeEvent *event)
 {
-    refreshUi();
+    TpWidget::onResizeEvent(event);
+
+    // 预览组件与屏幕尺寸比例相同
+    TpSize screenSize = this->screenSize();
+    float screenProportion = 1.0 * screenSize.width() / screenSize.height();
+    previewImgLabel_->setFixedHeight(width() / screenProportion);
+
     return true;
 }
 
@@ -138,7 +144,7 @@ void AppPreviewWidget::init()
     previewImgLabel_ = new TpLabel(this);
     previewImgLabel_->setProperty("Debug", "previewImgLabel_");
     previewImgLabel_->installEventFilter(this);
-    // previewImgLabel_->setBackGroundColor(_RGB(255, 255, 255));
+    previewImgLabel_->setBackGroundColor(_RGB(255, 255, 255));
 
     closeBtn_ = new TpButton(this);
     closeBtn_->setEnableBackGroundColor(false);
@@ -163,14 +169,4 @@ void AppPreviewWidget::init()
     mainLayout->addWidget(previewImgLabel_, 5);
 
     setLayout(mainLayout);
-}
-
-void AppPreviewWidget::refreshUi()
-{
-    // iconLabel_->move(8, 0);
-    // nameLabel_->move(iconLabel_->pos().x() + iconLabel_->width() + 8, 0);
-    // closeBtn_->move(width() - closeBtn_->width(), 0);
-
-    // previewImgLabel_->move(0, iconLabel_->pos().y() + iconLabel_->height() + 5);
-    // previewImgLabel_->setSize(width(), height() - previewImgLabel_->pos().y());
 }

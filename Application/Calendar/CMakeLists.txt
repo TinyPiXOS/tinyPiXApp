@@ -22,6 +22,8 @@ link_directories("/usr/lib/TinyPiX")
 set(SOURCE_FILES
     ${SOURCE_PATH}/main.cpp
     ${SOURCE_PATH}/MainWindowService.cpp
+    ${SOURCE_PATH}/Module/DetailSchedule.cpp
+    ${SOURCE_PATH}/Module/CalendarWidget.cpp
 )
 
 include_directories(${SOURCE_PATH})
@@ -31,6 +33,7 @@ include_directories(/usr/include/TinyPiX)
 include_directories(/usr/include/TinyPiX/TpService)
 include_directories(/usr/include/TinyPiX/TpCore)
 include_directories(/usr/include/TinyPiX/TpUtils)
+include_directories(/usr/include/TinyPiX/TpUtils/SystemInfo)
 
 include_directories(/usr/include/TinyPiX/TpGUI)
 include_directories(/usr/include/TinyPiX/TpGUI/GUI)

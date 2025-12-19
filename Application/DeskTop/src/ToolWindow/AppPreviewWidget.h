@@ -55,8 +55,6 @@ protected:
 private:
     void init();
 
-    void refreshUi();
-
 private:
     // 图标
     TpLabel *iconLabel_;

@@ -21,7 +21,7 @@ AppSettingBar::AppSettingBar()
     dateTimeLabel_ = new TpLabel(this);
     dateTimeLabel_->setProperty("type", "controlPanelDateTimeLabel");
     dateTimeLabel_->setText("2025年12月12日 周六");
-    dateTimeLabel_->font()->setFontForeColor(_RGB(255, 255, 255));
+    dateTimeLabel_->font()->setFontColor(_RGB(255, 255, 255));
     dateTimeLabel_->font()->setFontSize(globalMainScreen_->width() * 0.016); // TpDisplay::sp2Px(16)
     dateTimeLabel_->setSize(dateTimeLabel_->font()->pixelWidth(), dateTimeLabel_->font()->pixelHeight());
 
@@ -53,12 +53,14 @@ AppSettingBar::AppSettingBar()
     wifiBtn_->setCheckable(true);
     wifiBtn_->setText("WIFI");
     wifiBtn_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-WIFI.png");
+    wifiBtn_->font()->setFontColor(_RGB(255, 255, 255));
     wifiBtn_->setFixedSize(globalMainScreen_->width() * 0.14166, globalMainScreen_->width() * 0.14166);
     connect(wifiBtn_, onClicked, this, &AppSettingBar::slotSwitchWifi);
 
     bluetoothBtn_ = new TpPanelSwitchButton(this);
     bluetoothBtn_->setCheckable(true);
     bluetoothBtn_->setText("蓝牙");
+    bluetoothBtn_->font()->setFontColor(_RGB(255, 255, 255));
     bluetoothBtn_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-蓝牙.png");
     bluetoothBtn_->setFixedSize(globalMainScreen_->width() * 0.14166, globalMainScreen_->width() * 0.14166);
     connect(bluetoothBtn_, onClicked, this, &AppSettingBar::slotSwitchBluetooth);
@@ -66,6 +68,7 @@ AppSettingBar::AppSettingBar()
     sysLockBtn_ = new TpPanelSwitchButton(this);
     sysLockBtn_->setCheckable(true);
     sysLockBtn_->setText("锁定");
+    sysLockBtn_->font()->setFontColor(_RGB(255, 255, 255));
     sysLockBtn_->setFixedSize(globalMainScreen_->width() * 0.14166, globalMainScreen_->width() * 0.14166);
     sysLockBtn_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-锁定.png");
 
