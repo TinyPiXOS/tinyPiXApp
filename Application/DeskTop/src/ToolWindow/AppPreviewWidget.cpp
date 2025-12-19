@@ -119,9 +119,9 @@ bool AppPreviewWidget::onResizeEvent(TpResizeEvent *event)
     TpWidget::onResizeEvent(event);
 
     // 预览组件与屏幕尺寸比例相同
-    TpSize screenSize = this->screenSize();
-    float screenProportion = 1.0 * screenSize.width() / screenSize.height();
-    previewImgLabel_->setFixedHeight(width() / screenProportion);
+    // TpSize screenSize = this->screenSize();
+    // float screenProportion = 1.0 * screenSize.width() / screenSize.height();
+    // previewImgLabel_->setFixedHeight(width() / screenProportion);
 
     return true;
 }
@@ -137,6 +137,7 @@ void AppPreviewWidget::init()
     nameLabel_ = new TpLabel(this);
     nameLabel_->font()->setFontColor(_RGB(255, 255, 255));
     nameLabel_->font()->setFontSize(13);
+    nameLabel_->font()->setAlign(Tp::AlignVCenter);
     nameLabel_->setText("默认应用");
     nameLabel_->setProperty("Debug", "nameLabel_");
     nameLabel_->installEventFilter(this);
@@ -144,7 +145,7 @@ void AppPreviewWidget::init()
     previewImgLabel_ = new TpLabel(this);
     previewImgLabel_->setProperty("Debug", "previewImgLabel_");
     previewImgLabel_->installEventFilter(this);
-    previewImgLabel_->setBackGroundColor(_RGB(255, 255, 255));
+    // previewImgLabel_->setBackGroundColor(_RGB(255, 255, 255));
 
     closeBtn_ = new TpButton(this);
     closeBtn_->setEnableBackGroundColor(false);
@@ -166,7 +167,7 @@ void AppPreviewWidget::init()
     TpVBoxLayout *mainLayout = new TpVBoxLayout();
     mainLayout->setSpacing(5);
     mainLayout->addLayout(titleLayout, 1);
-    mainLayout->addWidget(previewImgLabel_, 5);
+    mainLayout->addWidget(previewImgLabel_, 4);
 
     setLayout(mainLayout);
 }

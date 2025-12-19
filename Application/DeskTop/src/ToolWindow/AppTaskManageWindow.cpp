@@ -11,7 +11,7 @@
 // 上下边界距离和任务水平/垂直间距
 static const uint32_t topBottomMargin = TpDisplay::dp2Px(35);
 static const uint32_t taskHInterval = TpDisplay::dp2Px(63);
-static const uint32_t taskVInterval = TpDisplay::dp2Px(29);
+static const uint32_t taskVInterval = TpDisplay::dp2Px(35);
 
 AppTaskManageWindow::AppTaskManageWindow()
     : TpDialog("tinyPiX_SYS_Float_0531acbf04")
@@ -162,8 +162,8 @@ bool AppTaskManageWindow::onResizeEvent(TpResizeEvent *event)
     taskScrollPanel_->setRect(0, 0, width(), height() - topBottomMargin - clearAllBtn_->height());
 
     // 根据屏幕大小，计算每个任务缩略图大小；减去上下边界，以及三行缩略中间的间隔
-    taskHeight_ = 1.0 * (height() - topBottomMargin * 3 - clearAllBtn_->height() - taskVInterval) / 2;
-    taskWidth_ = TpDisplay::dp2Px(250);
+    taskHeight_ = 1.0 * (height() - topBottomMargin * 6 - clearAllBtn_->height() - taskVInterval) / 2;
+    taskWidth_ = TpDisplay::dp2Px(260);
 
     int32_t btnX = (width() - clearAllBtn_->width()) / 2.0;
     clearAllBtn_->move(btnX, height() - topBottomMargin - clearAllBtn_->height());
@@ -188,6 +188,7 @@ void AppTaskManageWindow::slotClearAllApp(bool)
         childAppObj->deleteLater();
     }
     allTaskWidgetMap_.clear();
+    update();
 }
 
 void AppTaskManageWindow::slotKillApp(const TpString &uuid)
