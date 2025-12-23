@@ -418,6 +418,9 @@ void DeskScreen::slotDeleteApp(DesktopAppButton *operateBtn)
 
 void DeskScreen::slotTimeoutInstallApp()
 {
+    if (!installingApp_ || !appInstallPtr_)
+        return;
+
     std::cout << "安装应用UUID" << appInstallPtr_->appUUID() << std::endl;
 
     int installSchedule = appInstallPtr_->installSchedule();
@@ -693,7 +696,7 @@ void DeskScreen::createAppBtn()
             DesktopAppButton *appBtn = createDeskAppBtn(appInfoSptrIter, configIO.iconPath(), configIO.appName());
             if (!appBtn)
                 continue;
-            // appBtn->setInstallProgress(40);
+
             finalBtn = appBtn;
         }
     }

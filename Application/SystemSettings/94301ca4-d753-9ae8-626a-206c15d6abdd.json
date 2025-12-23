@@ -7,25 +7,28 @@
     "Architecture": "amd64",
     "Section": "",
     "Priority": "",
-    "Essential": "",
-    "Author": {
-        "name": "Chingan",
-        "email": "2111956539@qq.com"
-    },
-    "Provides": "",
+    "Essential": "no",
+    "Diskspace": "102400",
+    "Description": "this is tinyPiXOS test APP",
+    "Signature": "",
     "icon": "./res/icon.png",
-    "depend": [
-        {
-            "name": "libalsa",
-            "version": "1.5.1"
-        },
-        {
-            "name": "libssl",
-            "version": "1.0.0"
-        }
+    "Author": {
+        "name": "TinyPiXOS",
+        "email": "dev@tinypixos.com"
+    },
+    "FileExtension": [],
+    "StartupParameters": [
+        "--fullscreen",
+        "--server"
     ],
-    "lib": [
+    "Libraries": [],
+    "Dependencies": [],
+    "BinFiles": [
+    ],
+    "OtherFiles": [
+        "./data",
+        "./conf",
+        "./res",
         "./lib"
-    ],
-    "start": "./start.sh"
+    ]
 }

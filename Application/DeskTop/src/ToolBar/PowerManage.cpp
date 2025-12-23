@@ -19,7 +19,7 @@ PowerManage::PowerManage()
 
     closeBtn_ = new TpButton(this);
     closeBtn_->setButtonStyle(TpButton::IconOnly);
-    closeBtn_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-关闭.png");
+    closeBtn_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-关闭.svg");
     closeBtn_->setEnableBackGroundColor(false);
     closeBtn_->setSize(globalMainScreen_->width() * 0.055555, globalMainScreen_->width() * 0.055555);
     closeBtn_->setProperty("type", "ControlPanelPowerCloseButton");

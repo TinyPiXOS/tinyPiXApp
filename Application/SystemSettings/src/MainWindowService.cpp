@@ -57,11 +57,11 @@ bool MainWindowService::onActiveEvent(TpActiveEvent *event)
         if (bluetoothOnOffBtn)
         {
             bool blueIsOpen = false;
-            TpList<TpBluetoothLocal> blueToothDeviceList = TpBluetoothLocal::getAllDevice();
+            TpList<tpShared<TpBluetoothLocal>> blueToothDeviceList = TpBluetoothLocal::allDevice();
             if (blueToothDeviceList.size() > 0)
             {
-                TpBluetoothLocal &firstBlueDevice = blueToothDeviceList.front();
-                blueIsOpen = firstBlueDevice.isPowerOn();
+                tpShared<TpBluetoothLocal> firstBlueDevice = blueToothDeviceList.front();
+                blueIsOpen = firstBlueDevice->isPowerOn();
             }
 
             bluetoothOnOffBtn->setOnOff(blueIsOpen);
@@ -336,9 +336,9 @@ void MainWindowService::refreshTopMenuStatus()
         bluetoothOnOffBtn->setOnOff(false);
     }
 
-    TpList<TpBluetoothLocal> bluetoothDeviceList = TpBluetoothLocal::getAllDevice();
+    TpList<tpShared<TpBluetoothLocal>> bluetoothDeviceList = TpBluetoothLocal::allDevice();
     for (auto &bluetoothDevice : bluetoothDeviceList)
     {
-        std::cout << "蓝牙设备名称:" << bluetoothDevice.getName() << std::endl;
+        std::cout << "蓝牙设备名称:" << bluetoothDevice->name() << std::endl;
     }
 }

@@ -43,9 +43,32 @@ include_directories(/usr/include/TinyPiX/TpGUI/Widgets)
 
 add_executable(AnimationDemo ${SOURCE_FILES})
 
+# 指定依赖动态库目录
+if(CMAKE_CROSSCOMPILING)
+    target_link_directories(AnimationDemo PRIVATE
+    ${LOAD_SDK_LIB_PATH}
+)
+else()
+    target_link_directories(AnimationDemo PRIVATE
+    /usr/lib/TinyPiX
+)
+endif()
+
+# 在find_library之前设置
+set(CMAKE_PREFIX_PATH
+    "/usr/lib"
+    "/usr/lib/TinyPiX"
+    ${CMAKE_PREFIX_PATH}
+)
+
+LoadSDKLibrary(TPCORE_LIBRARY TpCore)
+LoadSDKLibrary(TPGUI_LIBRARY TpGUI)
+LoadSDKLibrary(TPUTILS_LIBRARY TpUtils)
+LoadSDKLibrary(TPSERVICE_LIBRARY TpService)
+LoadSDKLibrary(TPWMENGINE_LIBRARY TpWMEngine)
+
 # 将pthread库链接到可执行目标
-target_link_libraries(AnimationDemo TpWMEngine TpCore TpGUI TpUtils TpService
-                 )
+target_link_libraries(AnimationDemo ${TPCORE_LIBRARY} ${TPGUI_LIBRARY} ${TPUTILS_LIBRARY} ${TPSERVICE_LIBRARY} ${TPWMENGINE_LIBRARY})
 
 # 包含共享模块
 include(../../cmake/SetupAppInstallation.cmake)

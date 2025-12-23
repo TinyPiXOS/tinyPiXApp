@@ -65,14 +65,31 @@ add_executable(TpDesktop ${SOURCE_FILES})
 # set_target_properties(TpDesktop PROPERTIES VERSION 1.0 SOVERSION 1)
 
 # 指定依赖动态库目录
-link_directories("/usr/lib")
-
-target_link_directories(TpDesktop PRIVATE
+if(CMAKE_CROSSCOMPILING)
+    target_link_directories(TpDesktop PRIVATE
+    ${LOAD_SDK_LIB_PATH}
+)
+else()
+    target_link_directories(TpDesktop PRIVATE
     /usr/lib/TinyPiX
 )
+endif()
+
+# 在find_library之前设置
+set(CMAKE_PREFIX_PATH
+    "/usr/lib"
+    "/usr/lib/TinyPiX"
+    ${CMAKE_PREFIX_PATH}
+)
+
+LoadSDKLibrary(TPCORE_LIBRARY TpCore)
+LoadSDKLibrary(TPGUI_LIBRARY TpGUI)
+LoadSDKLibrary(TPUTILS_LIBRARY TpUtils)
+LoadSDKLibrary(TPSERVICE_LIBRARY TpService)
+LoadSDKLibrary(TPWMENGINE_LIBRARY TpWMEngine)
 
 # 将pthread库链接到可执行目标
-target_link_libraries(TpDesktop TpWMEngine TpCore TpGUI TpUtils TpService)
+target_link_libraries(TpDesktop ${TPCORE_LIBRARY} ${TPGUI_LIBRARY} ${TPUTILS_LIBRARY} ${TPSERVICE_LIBRARY} ${TPWMENGINE_LIBRARY})
 
 # 包含共享模块
 include(../../cmake/SetupAppInstallation.cmake)

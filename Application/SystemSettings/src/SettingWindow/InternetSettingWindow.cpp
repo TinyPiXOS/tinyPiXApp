@@ -17,11 +17,11 @@ void InternetSettingWindow::refreshData()
 {
     // 刷新所有的网卡列表
     netDeviceListCbx_->clear();
-    TpList<TpNetworkInterface> internetDeviceList = TpNetworkInterface::getAllDevice();
+    TpList<tpShared<TpNetworkInterface>> internetDeviceList = TpNetworkInterface::allDevice();
     for (const auto &internetDevice : internetDeviceList)
     {
         // std::cout << "网卡名称:" << internetDevice.getName() << std::endl;
-        TpListWidgetItem *curItem = netDeviceListCbx_->addItem(internetDevice.getName());
+        TpListWidgetItem *curItem = netDeviceListCbx_->addItem(internetDevice->name());
     }
 
     TpListWidgetItem *curSelectItem = netDeviceListCbx_->currentItem().front();
@@ -188,10 +188,10 @@ void InternetSettingWindow::initUi()
     netDeviceListCbx_->installEventFilter(this);
     connect(netDeviceListCbx_, onStatusChanged, this, &InternetSettingWindow::slotSwitchNetDevice);
 
-    TpList<TpNetworkInterface> internetDeviceList = TpNetworkInterface::getAllDevice();
+    TpList<tpShared<TpNetworkInterface>> internetDeviceList = TpNetworkInterface::allDevice();
     for (const auto &internetDevice : internetDeviceList)
     {
-        netDeviceListCbx_->addItem(internetDevice.getName());
+        netDeviceListCbx_->addItem(internetDevice->name());
     }
 
     // IPV4设置
@@ -292,7 +292,7 @@ void InternetSettingWindow::configDnsPanel()
     firstDnsEdit_ = new TpLineEdit();
     firstDnsEdit_->setPlaceholderText("请输入");
     firstDnsEdit_->setFixedSize(200, 30);
-    firstDnsEdit_->setAlign(Tp::AlignRight);
+    firstDnsEdit_->setAlign(Tp::AlignVCenter | Tp::AlignRight);
     firstDnsAddrItem->setCustomizeWidget(firstDnsEdit_);
     dnsConfigPanel_->addItem(firstDnsAddrItem);
 
@@ -301,7 +301,7 @@ void InternetSettingWindow::configDnsPanel()
     secondDnsEdit_ = new TpLineEdit();
     secondDnsEdit_->setPlaceholderText("请输入");
     secondDnsEdit_->setFixedSize(200, 30);
-    secondDnsEdit_->setAlign(Tp::AlignRight);
+    secondDnsEdit_->setAlign(Tp::AlignVCenter | Tp::AlignRight);
     secondDnsItem->setCustomizeWidget(secondDnsEdit_);
     dnsConfigPanel_->addItem(secondDnsItem);
 }
@@ -333,7 +333,7 @@ void InternetSettingWindow::refreshNetDeviceInfo(const TpString &netName)
         }
         else
         {
-            TpList<TpString> dnsStrList = curNetInterface.getDns();
+            TpList<TpString> dnsStrList = curNetInterface.dns();
 
             if (dnsStrList.size() > 0)
                 firstDnsEdit_->setText(dnsStrList.front());
@@ -347,11 +347,11 @@ void InternetSettingWindow::refreshNetDeviceInfo(const TpString &netName)
     else
     {
         // 获取静态IP信息
-        TpString ipStr = curNetInterface.getAddr();
-        TpString maskStr = curNetInterface.getNetmask();
-        TpString gatewayStr = curNetInterface.getGatway();
+        TpString ipStr = curNetInterface.addr();
+        TpString maskStr = curNetInterface.netmask();
+        TpString gatewayStr = curNetInterface.gatway();
 
-        TpList<TpString> dnsStrList = curNetInterface.getDns();
+        TpList<TpString> dnsStrList = curNetInterface.dns();
 
         ipAddrEdit_->setText(ipStr);
         maskEdit_->setText(maskStr);

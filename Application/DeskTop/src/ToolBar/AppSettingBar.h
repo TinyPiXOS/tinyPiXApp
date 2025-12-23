@@ -10,6 +10,8 @@
 #include "TpLabel.h"
 #include "TpPanelSwitchButton.h"
 #include "PowerManage.h"
+#include "Network/TpNetworkInterface.h"
+#include "Bluetooth/TpBluetoothLocal.h"
 
 class AppSettingBar
     : public TpDialog
@@ -79,6 +81,9 @@ private:
     // 电源管理窗口
     PowerManage *powerManageWindow_;
     // TpVector<TpButton *> operatorBtnList_;
+
+    // 无线网卡信息
+    tpShared<TpNetworkInterface> wifiNetwork_;
 };
 
 #endif

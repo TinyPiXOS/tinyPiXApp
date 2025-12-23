@@ -112,8 +112,10 @@ private:
 
     TpAppInstall *appInstallPtr_;
     TpTimer *appInstallTimer_;
+    // 当前正在安装的APP
+    DesktopAppButton *installingApp_;
 
-    SplashScreen* splashScreenWin_;
+    SplashScreen *splashScreenWin_;
 
     // APP显示主区域
     MainAppScrollPanel *mainAppPanel_;
@@ -146,9 +148,6 @@ private:
     // 鼠标按下时的APP对象，鼠标释放时置空
     DesktopAppButton *pressAppBtn_;
     TpRect pressBtnRect_;
-
-    // 当前正在安装的APP
-    DesktopAppButton *installingApp_;
 
     // 是否是APP移动模式
     bool isMoveMode_;

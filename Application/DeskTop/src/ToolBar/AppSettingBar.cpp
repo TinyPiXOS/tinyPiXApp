@@ -13,7 +13,7 @@
 #endif
 
 AppSettingBar::AppSettingBar()
-    : TpDialog("tinyPiX_SYS_Float_0531acbf04"), mouseLeftPress_(false)
+    : TpDialog("tinyPiX_SYS_Float_0531acbf04"), mouseLeftPress_(false), wifiNetwork_(nullptr)
 {
     this->setEnabledBorderColor(false);
     this->setBackGroundColor(SETTING_BAR_COLOR);
@@ -71,6 +71,26 @@ AppSettingBar::AppSettingBar()
     sysLockBtn_->font()->setFontColor(_RGB(255, 255, 255));
     sysLockBtn_->setFixedSize(globalMainScreen_->width() * 0.14166, globalMainScreen_->width() * 0.14166);
     sysLockBtn_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-锁定.png");
+
+    // 初始化无线网卡信息
+    TpList<tpShared<TpNetworkInterface>> netIfList = TpNetworkInterface::allDevice();
+    for (auto &netIf : netIfList)
+    {
+        if (netIf->isWireless())
+        {
+            wifiNetwork_ = netIf;
+            break;
+        }
+    }
+    // 如果没有无线网卡，提示不可用
+    if (!wifiNetwork_)
+    {
+        wifiBtn_->setEnabled(false);
+    }
+
+    // 获取蓝牙设备
+    TpList<tpShared<TpBluetoothLocal>> bluetoothDeviceList = TpBluetoothLocal::allDevice();
+    bluetoothBtn_->setEnabled(bluetoothDeviceList.size() > 0);
 
     powerManageWindow_ = new PowerManage();
 
@@ -195,6 +215,10 @@ void AppSettingBar::slotSwitchBluetooth(bool checked)
 
 void AppSettingBar::slotSwitchWifi(bool checked)
 {
+    if (!wifiNetwork_)
+        return;
+
+    checked ? wifiNetwork_->openDevice() : wifiNetwork_->closeDevice();
 }
 
 void AppSettingBar::slotChangeVoice(int32_t value)
