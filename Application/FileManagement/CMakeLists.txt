@@ -72,7 +72,6 @@ LoadSDKLibrary(TPSERVICE_LIBRARY TpService)
 LoadSDKLibrary(TPWMENGINE_LIBRARY TpWMEngine)
 LoadSDKLibrary(WEBP_LIBRARY webp)
 LoadSDKLibrary(PNG_LIBRARY png)
-LoadSDKLibrary(TURBOJPEG_LIBRARY turbojpeg)
 LoadSDKLibrary(GOMP_LIBRARY gomp)
 
 
