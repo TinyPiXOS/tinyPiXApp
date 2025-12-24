@@ -61,15 +61,25 @@ set(CMAKE_PREFIX_PATH
     ${CMAKE_PREFIX_PATH}
 )
 
+set(THORVG_STATIC_LIB /home/pix/pix_dev/TinyPiXOS/src/depend_lib/static/arm_32/libthorvg.a)
+
 LoadSDKLibrary(TPCORE_LIBRARY TpCore)
 LoadSDKLibrary(TPGUI_LIBRARY TpGUI)
 LoadSDKLibrary(TPUTILS_LIBRARY TpUtils)
 LoadSDKLibrary(TPSERVICE_LIBRARY TpService)
 LoadSDKLibrary(TPWMENGINE_LIBRARY TpWMEngine)
+LoadSDKLibrary(WEBP_LIBRARY webp)
+LoadSDKLibrary(PNG_LIBRARY png)
+LoadSDKLibrary(TURBOJPEG_LIBRARY turbojpeg)
+LoadSDKLibrary(GOMP_LIBRARY gomp)
 
 # 将pthread库链接到可执行目标
-target_link_libraries(PhotoAlbum ${TPCORE_LIBRARY} ${TPGUI_LIBRARY} ${TPUTILS_LIBRARY} ${TPSERVICE_LIBRARY} ${TPWMENGINE_LIBRARY})
-
+target_link_libraries(PhotoAlbum
+    ${TPCORE_LIBRARY} ${TPGUI_LIBRARY} ${TPUTILS_LIBRARY} ${TPSERVICE_LIBRARY} ${TPWMENGINE_LIBRARY}
+    ${WEBP_LIBRARY}
+    ${PNG_LIBRARY}
+    ${GOMP_LIBRARY}
+)
 # 包含共享模块
 include(../../cmake/SetupAppInstallation.cmake)
 
