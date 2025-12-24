@@ -33,7 +33,7 @@ AppSettingBar::AppSettingBar()
     connect(powerOffBtn_, onClicked, this, &AppSettingBar::slotPowerOff);
 
     // 声音进度条
-    voiceProgessBar_ = new TpSlideProgressBar(this);
+    voiceProgessBar_ = new TpIconSlider(this);
     voiceProgessBar_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-音量.png");
     voiceProgessBar_->setRange(0, 100);
     voiceProgessBar_->setValue(50);
@@ -41,7 +41,7 @@ AppSettingBar::AppSettingBar()
     connect(voiceProgessBar_, onValueChanged, this, &AppSettingBar::slotChangeVoice);
 
     // // 亮度进度条
-    lightProgessBar_ = new TpSlideProgressBar(this);
+    lightProgessBar_ = new TpIconSlider(this);
     lightProgessBar_->setIcon(applicationDirPath() + "/../res/controlPanel/控制面板-亮度.png");
     lightProgessBar_->setRange(0, 100);
     lightProgessBar_->setValue(100);
