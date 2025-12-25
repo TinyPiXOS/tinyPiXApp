@@ -6,7 +6,7 @@
 #include "TpEvent.h"
 #include "TpIconTopButton.h"
 #include "TpVector.h"
-#include "TpSlideProgressBar.h"
+#include "TpIconSlider.h"
 #include "TpLabel.h"
 #include "TpPanelSwitchButton.h"
 #include "PowerManage.h"
@@ -68,10 +68,10 @@ private:
     TpIconTopButton *powerOffBtn_;
 
     // // 声音进度条
-    TpSlideProgressBar *voiceProgessBar_;
+    TpIconSlider *voiceProgessBar_;
 
     // // 亮度进度条
-    TpSlideProgressBar *lightProgessBar_;
+    TpIconSlider *lightProgessBar_;
 
     TpPanelSwitchButton *wifiBtn_;
     TpPanelSwitchButton *bluetoothBtn_;
