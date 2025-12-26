@@ -78,7 +78,7 @@ LoadSDKLibrary(TPDESKTOP_LIBRARY TpDesktop)
 LoadSDKLibrary(TPWMENGINE_LIBRARY TpWMEngine)
 LoadSDKLibrary(WEBP_LIBRARY webp)
 LoadSDKLibrary(PNG_LIBRARY png)
-LoadSDKLibrary(GOMP_LIBRARY gomp)
+#LoadSDKLibrary(GOMP_LIBRARY gomp)
 
 
 # 将pthread库链接到可执行目标
@@ -86,7 +86,8 @@ target_link_libraries(FileManagement
     ${TPCORE_LIBRARY} ${TPGUI_LIBRARY} ${TPUTILS_LIBRARY} ${TPDESKTOP_LIBRARY} ${TPWMENGINE_LIBRARY}
     ${WEBP_LIBRARY}
     ${PNG_LIBRARY}
-    ${GOMP_LIBRARY}
+    gomp
+#    ${GOMP_LIBRARY}
 )
 
 # 包含共享模块
