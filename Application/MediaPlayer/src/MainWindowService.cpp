@@ -7,13 +7,13 @@
 #include "TpFont.h"
 #include "TpImage.h"
 #include "TpFileInfo.h"
-#include <TpAppManager.h>
+#include <TpDesktopAPI.h>
 #include "TpEvent.h"
 #include "TpAudioOutput.h"
 #include "TpVideoOutput.h"
 
 MainWindowService::MainWindowService()
-    : TpMainWindow(), topBar_(new StatusBar()), bottomBar_(new BottomBar()), fileType_(UnknowFile), mediaPlayer_(nullptr)
+    : TpDesktopMainWindow(), topBar_(new StatusBar()), bottomBar_(new BottomBar()), fileType_(UnknowFile), mediaPlayer_(nullptr)
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
@@ -23,7 +23,7 @@ MainWindowService::MainWindowService()
     isMusicIconLabel_->setVisible(true);
     isMusicIconLabel_->move((width() - isMusicIconLabel_->width()) / 2.0, (height() - isMusicIconLabel_->height()) / 2.0);
     setBackGroundColor(_RGB(78, 78, 78));
-    TpAppManager::Instance()->setStatusBarStyle(_RGB(78, 78, 78));
+    TpDesktopAPI::Instance()->setStatusBarStyle(_RGB(78, 78, 78));
 
     topBar_->setFileName("");
 }
@@ -116,7 +116,7 @@ bool MainWindowService::onVisibleEvent(TpVisibleEvent *event)
 {
     if (event->visible())
     {
-        TpAppManager::Instance()->setStatusBarStyle(_RGB(78, 78, 78));
+        TpDesktopAPI::Instance()->setStatusBarStyle(_RGB(78, 78, 78));
     }
 
     return true;

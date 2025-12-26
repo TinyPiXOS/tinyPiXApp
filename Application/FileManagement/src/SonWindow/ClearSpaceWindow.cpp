@@ -9,7 +9,7 @@
 
 int32_t layoutMargin = TpDisplay::dp2Px(20);
 
-ClearSpaceWindow::ClearSpaceWindow() : TpDialog()
+ClearSpaceWindow::ClearSpaceWindow() : TpDesktopDialog()
 {
     setBackGroundColor(_RGB(248, 248, 248));
     // setBackGroundColor(_RGB(248, 0, 0));
@@ -49,7 +49,7 @@ void ClearSpaceWindow::init()
     backBtn_->setFixedSize(TpDisplay::dp2Px(34), TpDisplay::dp2Px(34));
     backBtn_->setIcon(applicationDirPath() + "/../res/路径后退.png");
     connect(backBtn_, onClicked, [=](bool)
-            { setVisible(false); });
+            { std::cout << "backBtn_ " << std::endl;setVisible(false); });
 
     TpLabel *titleLabel = new TpLabel("空间清理");
     // titleLabel->setBackGroundColor(_RGB(255, 0, 0));

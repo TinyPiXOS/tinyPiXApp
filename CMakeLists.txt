@@ -18,7 +18,7 @@ message(STATUS "使用 SDK 路径: ${ARM_SDK_PATH}")
 set(INSTALL_RUN_APP_CONFIG_DIR "/System/conf/app")
 
 # 添加子目录
-add_subdirectory(Application/DeskTop)
+# add_subdirectory(Application/DeskTop)
 add_subdirectory(Application/FileManagement)
 add_subdirectory(Application/SystemSettings)
 add_subdirectory(Application/MediaPlayer)

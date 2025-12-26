@@ -2,16 +2,16 @@
 #include "TpLabel.h"
 #include "TpFont.h"
 #include "TpImage.h"
-#include <TpAppManager.h>
+#include <TpDesktopAPI.h>
 #include <TpEvent.h>
 
 MainWindowService::MainWindowService()
-    : TpMainWindow()
+    : TpDesktopMainWindow()
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(226, 226, 226));
-    TpAppManager::Instance()->setStatusBarStyle(_RGB(226, 226, 226));
+    TpDesktopAPI::Instance()->setStatusBarStyle(_RGB(226, 226, 226));
 
     TpLabel *label1 = new TpLabel(this);
     label1->font()->setFontColor(_RGB(255, 0, 0));
@@ -52,7 +52,7 @@ bool MainWindowService::onVisibleEvent(TpVisibleEvent *event)
 {
     if (event->visible())
     {
-        TpAppManager::Instance()->setStatusBarStyle(_RGB(226, 226, 226));
+        TpDesktopAPI::Instance()->setStatusBarStyle(_RGB(226, 226, 226));
     }
 
     return true;

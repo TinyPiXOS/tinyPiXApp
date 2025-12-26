@@ -3,16 +3,16 @@
 #include "TpSlider.h"
 #include "TpFont.h"
 #include "TpSignalSlot.h"
-#include <TpAppManager.h>
+#include <TpDesktopAPI.h>
 #include <TpEvent.h>
 
 MainWindowService::MainWindowService()
-    : TpMainWindow()
+    : TpDesktopMainWindow()
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(128, 128, 128));
-    TpAppManager::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
+    TpDesktopAPI::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
 
     TpLabel *valueText = new TpLabel(this);
     valueText->setText(TpString::number(50));
@@ -58,7 +58,7 @@ bool MainWindowService::onVisibleEvent(TpVisibleEvent *event)
 {
     if (event->visible())
     {
-        TpAppManager::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
+        TpDesktopAPI::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
     }
 
     return true;

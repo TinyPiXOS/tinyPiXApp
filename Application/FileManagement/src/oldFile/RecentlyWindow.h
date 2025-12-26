@@ -12,7 +12,7 @@
 #include "TpVector.h"
 #include "TpVBoxLayout.h"
 #include "TpButton.h"
-#include "TpDialog.h"
+#include "TpDesktopDialog.h"
 
 #include "ToolWindow/DiskDeviceCheckBox.h"
 #include "RecentlyToolWindow/ClearSpaceWindow.h"

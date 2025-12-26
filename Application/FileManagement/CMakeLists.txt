@@ -41,6 +41,10 @@ include_directories(/usr/include/TinyPiX/TpCore)
 include_directories(/usr/include/TinyPiX/TpUtils)
 include_directories(/usr/include/TinyPiX/TpUtils/SystemDevice)
 
+include_directories(/usr/include/TpDesktop)
+include_directories(/usr/include/TpDesktop/InteractData)
+include_directories(/usr/include/TpDesktop/Service)
+
 include_directories(/usr/include/TinyPiX/TpGUI)
 include_directories(/usr/include/TinyPiX/TpGUI/GUI)
 include_directories(/usr/include/TinyPiX/TpGUI/Widgets)
@@ -55,6 +59,7 @@ if(CMAKE_CROSSCOMPILING)
 else()
     target_link_directories(FileManagement PRIVATE
     /usr/lib/TinyPiX
+    /usr/lib/TpDesktop
 )
 endif()
 
@@ -62,13 +67,14 @@ endif()
 set(CMAKE_PREFIX_PATH
     "/usr/lib"
     "/usr/lib/TinyPiX"
+    "/usr/lib/TpDesktop"
     ${CMAKE_PREFIX_PATH}
 )
 
 LoadSDKLibrary(TPCORE_LIBRARY TpCore)
 LoadSDKLibrary(TPGUI_LIBRARY TpGUI)
 LoadSDKLibrary(TPUTILS_LIBRARY TpUtils)
-LoadSDKLibrary(TPSERVICE_LIBRARY TpService)
+LoadSDKLibrary(TPDESKTOP_LIBRARY TpDesktop)
 LoadSDKLibrary(TPWMENGINE_LIBRARY TpWMEngine)
 LoadSDKLibrary(WEBP_LIBRARY webp)
 LoadSDKLibrary(PNG_LIBRARY png)
@@ -77,7 +83,7 @@ LoadSDKLibrary(GOMP_LIBRARY gomp)
 
 # 将pthread库链接到可执行目标
 target_link_libraries(FileManagement
-    ${TPCORE_LIBRARY} ${TPGUI_LIBRARY} ${TPUTILS_LIBRARY} ${TPSERVICE_LIBRARY} ${TPWMENGINE_LIBRARY}
+    ${TPCORE_LIBRARY} ${TPGUI_LIBRARY} ${TPUTILS_LIBRARY} ${TPDESKTOP_LIBRARY} ${TPWMENGINE_LIBRARY}
     ${WEBP_LIBRARY}
     ${PNG_LIBRARY}
     ${GOMP_LIBRARY}

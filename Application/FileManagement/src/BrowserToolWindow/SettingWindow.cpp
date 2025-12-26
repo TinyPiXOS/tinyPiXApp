@@ -7,7 +7,7 @@
 
 #define BG_COLOR _RGBA(0, 0, 0, 153)
 
-SettingWindow::SettingWindow() : TpDialog()
+SettingWindow::SettingWindow() : TpDesktopDialog()
 {
     setBackGroundColor(BG_COLOR);
     init();
@@ -25,7 +25,7 @@ void SettingWindow::setVisible(bool visible)
     mainScrollPanel_->setFixedSize(TpDisplay::dp2Px(429), screenSize.height());
     mainScrollPanel_->move(screenSize.width() - mainScrollPanel_->width(), 0);
 
-    TpDialog::setVisible(visible);
+    TpDesktopDialog::setVisible(visible);
 
     if (visible == false)
     {
@@ -36,7 +36,7 @@ void SettingWindow::setVisible(bool visible)
 
 bool SettingWindow::onMouseRleaseEvent(TpMouseEvent *event)
 {
-    TpDialog::onMouseRleaseEvent(event);
+    TpDesktopDialog::onMouseRleaseEvent(event);
 
     if (!mainScrollPanel_->toScreen().contains(event->globalPos().x(), event->globalPos().y()))
     {

@@ -7,7 +7,7 @@
 #include "TpDate.h"
 
 StatusBar::StatusBar()
-    : TpDialog()
+    : TpDesktopDialog()
 {
     setEnabledBorderColor(false);
     setBackGroundColor(_RGBA(255, 255, 255, 125));
@@ -40,7 +40,7 @@ void StatusBar::setBackBtnVisible(const bool &visible)
 
 bool StatusBar::onResizeEvent(TpResizeEvent *event)
 {
-    TpDialog::onResizeEvent(event);
+    TpDesktopDialog::onResizeEvent(event);
 
     // 调整标题和列表按钮位置
     if (fileNameLabel_)

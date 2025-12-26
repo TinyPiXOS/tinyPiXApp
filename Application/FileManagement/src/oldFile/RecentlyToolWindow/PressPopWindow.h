@@ -6,14 +6,14 @@
 #ifndef __PRESS_POP_WINDOW_H
 #define __PRESS_POP_WINDOW_H
 
-#include "TpDialog.h"
+#include "TpDesktopDialog.h"
 #include "TpVBoxLayout.h"
 #include "TpIconTopButton.h"
 #include "TpMenu.h"
 #include "TpVector.h"
 
 class PressPopWindow
-    : public TpDialog
+    : public TpDesktopDialog
 {
 public:
     PressPopWindow();

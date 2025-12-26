@@ -9,7 +9,7 @@
 const int32_t buttonMargin = 16;
 
 BottomBar::BottomBar()
-    : TpDialog(), allTimeS_(0), curTimeS_(0), isPause_(false)
+    : TpDesktopDialog(), allTimeS_(0), curTimeS_(0), isPause_(false)
 {
     setEnabledBorderColor(false);
     setBackGroundColor(_RGBA(255, 255, 255, 125));
@@ -38,7 +38,7 @@ BottomBar::~BottomBar()
 
 bool BottomBar::onResizeEvent(TpResizeEvent *event)
 {
-    TpDialog::onResizeEvent(event);
+    TpDesktopDialog::onResizeEvent(event);
 
     // 调整布局
     // 进度条

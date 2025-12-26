@@ -1,11 +1,11 @@
 #ifndef __TOP_BAR_H
 #define __TOP_BAR_H
 
-#include "TpDialog.h"
+#include "TpDesktopDialog.h"
 #include "TpButton.h"
 #include "TpLabel.h"
 
-class StatusBar : public TpDialog
+class StatusBar : public TpDesktopDialog
 {
 public:
     StatusBar();

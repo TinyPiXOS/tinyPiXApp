@@ -4,7 +4,7 @@
 #include "TpDisplay.h"
 
 MainWindowService::MainWindowService()
-    : TpMainWindow()
+    : TpDesktopMainWindow()
 {
     setBackGroundColor(_RGB(255, 255, 255));
 

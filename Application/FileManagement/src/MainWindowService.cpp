@@ -3,7 +3,7 @@
 #include "FileManagementGlobal.h"
 #include "TpVBoxLayout.h"
 #include "TpTabBar.h"
-#include <TpAppManager.h>
+#include <TpDesktopAPI.h>
 
 enum TreeNodeType
 {
@@ -19,14 +19,14 @@ enum TreeNodeType
 static const uint32_t TreeNodeDataTypeRole = 0;
 
 MainWindowService::MainWindowService()
-    : TpMainWindow()
+    : TpDesktopMainWindow()
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     initUi();
 
     setBackGroundColor(_RGB(248, 248, 248));
-    TpAppManager::Instance()->setStatusBarStyle(_RGB(248, 248, 248));
+    TpDesktopAPI::Instance()->setStatusBarStyle(_RGB(248, 248, 248));
 }
 
 MainWindowService::~MainWindowService()
@@ -46,7 +46,7 @@ bool MainWindowService::onVisibleEvent(TpVisibleEvent *event)
 {
     if (event->visible())
     {
-        TpAppManager::Instance()->setStatusBarStyle(_RGB(248, 248, 248));
+        TpDesktopAPI::Instance()->setStatusBarStyle(_RGB(248, 248, 248));
     }
 
     return true;

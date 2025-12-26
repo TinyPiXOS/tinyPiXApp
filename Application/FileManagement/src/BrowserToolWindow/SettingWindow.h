@@ -6,7 +6,7 @@
 #ifndef __SETTING_WINDOW_H
 #define __SETTING_WINDOW_H
 
-#include "TpDialog.h"
+#include "TpDesktopDialog.h"
 #include "TpScrollPanel.h"
 #include "TpEvent.h"
 #include "TpButton.h"
@@ -15,7 +15,7 @@
 #include "TpLabel.h"
 
 class SettingWindow
-    : public TpDialog
+    : public TpDesktopDialog
 {
 public:
     SettingWindow();

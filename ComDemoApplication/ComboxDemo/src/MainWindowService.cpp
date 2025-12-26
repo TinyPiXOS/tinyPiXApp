@@ -1,15 +1,15 @@
 #include "MainWindowService.h"
 #include "TpComBox.h"
-#include <TpAppManager.h>
+#include <TpDesktopAPI.h>
 #include <TpEvent.h>
 
 MainWindowService::MainWindowService()
-    : TpMainWindow()
+    : TpDesktopMainWindow()
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(128, 128, 128));
-    TpAppManager::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
+    TpDesktopAPI::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
 
     TpComBox *listCombox = new TpComBox(this);
     listCombox->setTitle("视图模式");
@@ -35,7 +35,7 @@ bool MainWindowService::onVisibleEvent(TpVisibleEvent *event)
 {
     if (event->visible())
     {
-        TpAppManager::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
+        TpDesktopAPI::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
     }
 
     return true;

@@ -8,7 +8,7 @@
 #include "TpSwitchButton.h"
 #include "TpLine.h"
 #include "TpBluetoothLocal.h"
-#include "TpAppManager.h"
+#include "TpDesktopAPI.h"
 #include "TpSplashScreen.h"
 
 #include "SettingWindow/InternetSettingWindow.h"
@@ -19,14 +19,14 @@ const TpString SettingTypeStr = "settingType";
 #define BACKGROUND_COLOR _RGB(248, 248, 248)
 
 MainWindowService::MainWindowService()
-    : TpMainWindow(), curSelectItem_(nullptr)
+    : TpDesktopMainWindow(), curSelectItem_(nullptr)
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     initUi();
 
     setBackGroundColor(BACKGROUND_COLOR);
-    TpAppManager::Instance()->setStatusBarStyle(BACKGROUND_COLOR);
+    TpDesktopAPI::Instance()->setStatusBarStyle(BACKGROUND_COLOR);
 }
 
 MainWindowService::~MainWindowService()
@@ -179,7 +179,7 @@ bool MainWindowService::onVisibleEvent(TpVisibleEvent *event)
 {
     if (event->visible())
     {
-        TpAppManager::Instance()->setStatusBarStyle(BACKGROUND_COLOR);
+        TpDesktopAPI::Instance()->setStatusBarStyle(BACKGROUND_COLOR);
         TpSplashScreen::Instance()->closeSplashScreen();
     }
 

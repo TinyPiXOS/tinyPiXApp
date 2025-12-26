@@ -2,7 +2,7 @@
 #include "MainWindowService.h"
 #include <iostream>
 #include "BrowserToolWindow/FileListWindow.h"
-#include "TpDialog.h"
+#include "TpDesktopDialog.h"
 
 int32_t main(int32_t argc, char *argv[])
 {

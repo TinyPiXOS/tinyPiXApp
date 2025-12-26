@@ -12,7 +12,7 @@
 #include "TpFile.h"
 #include "TpNetDataGlobal.h"
 #include "TpGateway.h"
-#include "TpAppManager.h"
+#include "TpDesktopAPI.h"
 #include "AppManage/TpAppInstall.h"
 
 FileListWindow::FileListWindow(TpWidget *parent)
@@ -174,7 +174,7 @@ void FileListWindow::refreshPath(const TpString &path)
 
 void FileListWindow::SlotShowSetting(bool)
 {
-    settingWindow_->show();
+    settingWindow_->showMaximum();
     // settingWindow_->setVisible(true);
     // settingWindow_->update();
 
@@ -361,22 +361,22 @@ void FileListWindow::openFile(const TpString &filePath)
 
     }
 
-    TpAppManager::OpenFileError openRes = TpAppManager::Instance()->openFile(filePath);
+    TpDesktopAPI::OpenFileError openRes = TpDesktopAPI::Instance()->openFile(filePath);
 
     infoMsgWindow_->setMessageType(TpMessageBox::Error);
-    if (openRes == TpAppManager::FileNotExist)
+    if (openRes == TpDesktopAPI::FileNotExist)
     {
         infoMsgWindow_->setText("文件不存在!");
         infoMsgWindow_->exec();
         return;
     }
-    else if (openRes == TpAppManager::NotSupport)
+    else if (openRes == TpDesktopAPI::NotSupport)
     {
         infoMsgWindow_->setText("文件类型不支持!");
         infoMsgWindow_->exec();
         return;
     }
-    else if (openRes == TpAppManager::SystemFileDamage)
+    else if (openRes == TpDesktopAPI::SystemFileDamage)
     {
         infoMsgWindow_->setText("系统文件损坏!");
         infoMsgWindow_->exec();

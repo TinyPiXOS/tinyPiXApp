@@ -6,14 +6,14 @@
 #ifndef __CLEAR_SPACE_WINDOW_H
 #define __CLEAR_SPACE_WINDOW_H
 
-#include "TpDialog.h"
+#include "TpDesktopDialog.h"
 #include "TpVBoxLayout.h"
 #include "TpButton.h"
 #include "TpPercentProgressBar.h"
 #include "TpMessageBox.h"
 
 class ClearSpaceWindow
-    : public TpDialog
+    : public TpDesktopDialog
 {
 public:
     ClearSpaceWindow();

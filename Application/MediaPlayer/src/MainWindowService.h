@@ -1,7 +1,7 @@
 #ifndef __MAIN_WINDOW_SERVICE_H
 #define __MAIN_WINDOW_SERVICE_H
 
-#include "TpMainWindow.h"
+#include "TpDesktopMainWindow.h"
 #include "MediaPlayerGlobal.h"
 #include "ToolBar/TopBar.h"
 #include "ToolBar/BottomBar.h"
@@ -11,7 +11,7 @@
 
 /// @brief 视频绘制主界面
 class MainWindowService
-    : public TpMainWindow
+    : public TpDesktopMainWindow
 {
 public:
     enum PlayerFileType

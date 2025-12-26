@@ -4,7 +4,7 @@
 #include "TpFont.h"
 
 PressPopWindow::PressPopWindow()
-    : TpDialog()
+    : TpDesktopDialog()
 {
     setBackGroundColor(_RGB(248, 248, 248));
 
@@ -64,7 +64,7 @@ void PressPopWindow::init()
 
 bool PressPopWindow::onResizeEvent(TpResizeEvent *event)
 {
-    TpDialog::onResizeEvent(event);
+    TpDesktopDialog::onResizeEvent(event);
 
     if (buttonList_.size() > 0)
     {
