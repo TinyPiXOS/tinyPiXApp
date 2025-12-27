@@ -75,7 +75,7 @@ void MainWindowService::setPlayFile(const TpString &filePath)
         // 设置视频第一帧图片
         setBackGroundImage(TpImage(applicationDirPath() + "/../res/测试视频封面.jpg"));
 
-        mediaPlayer_->videoOutput()->setDisplayFunction(std::bind(&MainWindowService::videoRbgDataCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+        mediaPlayer_->videoOutput()->setDisplayFunction(std::bind(&MainWindowService::videoRbgDataCallback, this, std::placeholders::_1));
         mediaPlayer_->videoOutput()->setWindowCoordinates(0, 0);
 
         // std::cout << "width() : " << width() << " , " << height() << std::endl;
@@ -260,8 +260,9 @@ MainWindowService::PlayerFileType MainWindowService::checkFileType(const TpStrin
     }
 }
 
-int MainWindowService::videoRbgDataCallback(uint8_t **data, int *linesize, uint32_t format, void *userdata)
+int MainWindowService::videoRbgDataCallback(const TpVideoFrame &frame)
 {
+#if 0
     // 转换代码
     int width = this->width();
     // int height = this->height();
@@ -292,5 +293,6 @@ int MainWindowService::videoRbgDataCallback(uint8_t **data, int *linesize, uint3
 
     setBackGroundImage(curPoImage);
 
+#endif
     return 0;
 }

@@ -8,6 +8,7 @@
 #include "TpLabel.h"
 #include "TpTimer.h"
 #include "TpMediaPlayer.h"
+#include "TpVideoFrame.h"
 
 /// @brief 视频绘制主界面
 class MainWindowService
@@ -61,7 +62,7 @@ private:
     PlayerFileType checkFileType(const TpString &suffix);
 
     // 处理视频流回调
-    int videoRbgDataCallback(uint8_t **data, int *linesize, uint32_t format, void *userdata);
+    int videoRbgDataCallback(const TpVideoFrame& frame);
 
 private:
     StatusBar *topBar_;
