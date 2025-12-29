@@ -15,7 +15,7 @@ int32_t main(int32_t argc, char *argv[])
 		mainWindow->setPlayFile(inputFile);
 	}
     // mainWindow->setPlayFile("/System/data/Music/千千阙歌.mp3");
-    // mainWindow->setPlayFile("/System/data/Videos/demo.mp4");
+    mainWindow->setPlayFile("/System/data/Videos/demo.mp4");
 
 	return app.run();
 }

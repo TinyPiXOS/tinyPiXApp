@@ -262,6 +262,42 @@ MainWindowService::PlayerFileType MainWindowService::checkFileType(const TpStrin
 
 int MainWindowService::videoRbgDataCallback(const TpVideoFrame &frame)
 {
+    TpSize videoSize = frame.size();
+    std::cout << "videoSize " << videoSize.width() << ", " << videoSize.height() << std::endl;
+
+    if (videoSize.width() == 0 || videoSize.height() == 0)
+        return 0;
+
+    // videoSize.setWidth(this->width());
+    // videoSize.setHeight(576);
+
+    int *lineSize = frame.lines();
+    uint8_t **data = frame.data();
+
+    std::cout << "lineSize " << lineSize[0] << std::endl;
+
+    uint32_t *argbBuffer = new uint32_t[videoSize.width() * videoSize.height()];
+    for (int y = 0; y < videoSize.height(); y++)
+    {
+        uint8_t *srcRow = data[0] + y * lineSize[0]; // 使用linesize处理行对齐
+
+        for (int x = 0; x < videoSize.width(); x++)
+        {
+            uint8_t r = srcRow[x * 3 + 0];
+            uint8_t g = srcRow[x * 3 + 1];
+            uint8_t b = srcRow[x * 3 + 2];
+
+            // ARGB格式：0xAARRGGBB
+            argbBuffer[y * videoSize.width() + x] = (0xFF << 24) | (r << 16) | (g << 8) | b;
+        }
+    }
+
+    TpImage curPoImage;
+    curPoImage.load(argbBuffer, videoSize);
+    delete[] argbBuffer;
+
+    setBackGroundImage(curPoImage);
+
 #if 0
     // 转换代码
     int width = this->width();
