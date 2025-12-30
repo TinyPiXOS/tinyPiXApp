@@ -149,6 +149,27 @@ void MainWindowService::initUi()
     connect(updateProgressTimer_, timeout, this, &MainWindowService::slotUpdatePlayerProgress);
 }
 
+bool MainWindowService::onMousePressEvent(TpMouseEvent *event)
+{
+    TpDesktopMainWindow::onMousePressEvent(event);
+
+    return true;
+}
+
+bool MainWindowService::onMouseRleaseEvent(TpMouseEvent *event)
+{
+    TpDesktopMainWindow::onMouseRleaseEvent(event);
+
+    return true;
+}
+
+bool MainWindowService::onMouseMoveEvent(TpMouseEvent *event)
+{
+    TpDesktopMainWindow::onMouseMoveEvent(event);
+
+    return true;
+}
+
 void MainWindowService::slotUpdatePlayerProgress()
 {
     // 获取当前时长

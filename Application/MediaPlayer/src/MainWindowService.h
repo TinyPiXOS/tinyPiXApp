@@ -30,14 +30,17 @@ public:
     void setPlayFile(const TpString &filePath);
 
     // 设置是否具有后退按钮
-    void setBackBtnVisible(const bool& visible);
+    void setBackBtnVisible(const bool &visible);
 
 public:
     virtual bool appChange(int32_t id, int32_t pid, int32_t visible, int32_t active, int32_t color, uint8_t alpha, int32_t require) override;
     virtual bool onVisibleEvent(TpVisibleEvent *event) override;
 
-protected:
     virtual bool onActiveEvent(TpActiveEvent *event) override;
+
+    virtual bool onMousePressEvent(TpMouseEvent *event) override;
+    virtual bool onMouseRleaseEvent(TpMouseEvent *event) override;
+    virtual bool onMouseMoveEvent(TpMouseEvent *event) override;
 
 private:
     // 定时器更新播放进度
@@ -62,7 +65,7 @@ private:
     PlayerFileType checkFileType(const TpString &suffix);
 
     // 处理视频流回调
-    int videoRbgDataCallback(const TpVideoFrame& frame);
+    int videoRbgDataCallback(const TpVideoFrame &frame);
 
 private:
     StatusBar *topBar_;
@@ -80,7 +83,7 @@ private:
     TpLabel *pauseIconLabel_;
 
     // 多媒体播放
-    TpMediaPlayer* mediaPlayer_;
+    TpMediaPlayer *mediaPlayer_;
 };
 
 #endif
