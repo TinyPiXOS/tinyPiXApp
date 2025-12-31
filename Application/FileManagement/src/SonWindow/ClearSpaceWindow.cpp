@@ -51,25 +51,23 @@ void ClearSpaceWindow::init()
     connect(backBtn_, onClicked, [=](bool)
             { std::cout << "backBtn_ " << std::endl;setVisible(false); });
 
-    TpLabel *titleLabel = new TpLabel("空间清理");
-    // titleLabel->setBackGroundColor(_RGB(255, 0, 0));
-    titleLabel->font()->setFontSize(19);
-    titleLabel->font()->setAlign(Tp::AlignVCenter);
-    // titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
-    titleLabel->font()->setFontColor(_RGB(38, 38, 38));
-    titleLabel->setText("空间清理");
+    // TpLabel *titleLabel = new TpLabel("空间清理");
+    // titleLabel->font()->setFontSize(19);
+    // titleLabel->font()->setAlign(Tp::AlignVCenter);
+    // titleLabel->font()->setFontColor(_RGB(38, 38, 38));
+    // titleLabel->setText("空间清理");
 
     titleLayout->addWidget(backBtn_);
-    titleLayout->addWidget(titleLabel);
+    // titleLayout->addWidget(titleLabel);
 
-    TpWidget *localSpaceWidget = genLocalSpaceWidget();
+    // TpWidget *localSpaceWidget = genLocalSpaceWidget();
 
-    TpWidget *clearWidget = genClearFileWidget();
+    // TpWidget *clearWidget = genClearFileWidget();
 
     mainLayout->addLayout(titleLayout);
-    mainLayout->addWidget(localSpaceWidget);
-    mainLayout->addWidget(clearWidget);
-    mainLayout->addSpacer(new TpSpacerItem(20, 20, TpSpacerItem::Minimum, TpSpacerItem::Expanding));
+    // mainLayout->addWidget(localSpaceWidget);
+    // mainLayout->addWidget(clearWidget);
+    // mainLayout->addSpacer(new TpSpacerItem(20, 20, TpSpacerItem::Minimum, TpSpacerItem::Expanding));
 
     setLayout(mainLayout);
 }
