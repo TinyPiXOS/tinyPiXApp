@@ -1,10 +1,10 @@
 #ifndef __MAIN_WINDOW_SERVICE_H
 #define __MAIN_WINDOW_SERVICE_H
 
-#include "TpMainWindow.h"
+#include "TpDesktopMainWindow.h"
 
 class MainWindowService
-    : public TpMainWindow
+    : public TpDesktopMainWindow
 {
 public:
     MainWindowService();

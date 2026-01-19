@@ -2,26 +2,31 @@
 #include "TpSignalSlot.h"
 #include "SystemSettingsGlobal.h"
 #include "TpHBoxLayout.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpLabel.h"
 #include "TpFont.h"
-#include "TpOnOffButton.h"
+#include "TpSwitchButton.h"
 #include "TpLine.h"
 #include "TpBluetoothLocal.h"
+#include "TpDesktopAPI.h"
+#include "TpSplashScreen.h"
 
 #include "SettingWindow/InternetSettingWindow.h"
 #include "SettingWindow/BluetoothSettingWindow.h"
 
 const TpString SettingTypeStr = "settingType";
 
+#define BACKGROUND_COLOR _RGB(248, 248, 248)
+
 MainWindowService::MainWindowService()
-    : TpMainWindow(), curSelectItem_(nullptr)
+    : TpDesktopMainWindow(), curSelectItem_(nullptr)
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     initUi();
 
-    setBackGroundColor(_RGB(248, 248, 248));
+    setBackGroundColor(BACKGROUND_COLOR);
+    TpDesktopAPI::Instance()->setStatusBarStyle(BACKGROUND_COLOR);
 }
 
 MainWindowService::~MainWindowService()
@@ -48,14 +53,14 @@ bool MainWindowService::onActiveEvent(TpActiveEvent *event)
     // 获取蓝牙设备状态;取第一个蓝牙设备的状态
     if (allMenuItemMapper_.contains(BlueToothSetting))
     {
-        TpOnOffButton *bluetoothOnOffBtn = dynamic_cast<TpOnOffButton *>(allMenuItemMapper_.value(BlueToothSetting)->customizeWidget());
+        TpSwitchButton *bluetoothOnOffBtn = dynamic_cast<TpSwitchButton *>(allMenuItemMapper_.value(BlueToothSetting)->customizeWidget());
         if (bluetoothOnOffBtn)
         {
             bool blueIsOpen = false;
-            TpList<TpBluetoothLocal> blueToothDeviceList = TpBluetoothLocal::getAllDevice();
+            TpList<tpShared<TpBluetoothHostInfo>> blueToothDeviceList = TpBluetoothLocal::allDevice();
             if (blueToothDeviceList.size() > 0)
             {
-                TpBluetoothLocal& firstBlueDevice = blueToothDeviceList.front();
+                TpBluetoothLocal firstBlueDevice(blueToothDeviceList.front()->name());
                 blueIsOpen = firstBlueDevice.isPowerOn();
             }
 
@@ -83,7 +88,7 @@ void MainWindowService::initUi()
     TpLabel *titleLabel = new TpLabel("设置");
     titleLabel->font()->setFontSize(19);
     titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
-    titleLabel->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
+    titleLabel->font()->setFontColor(_RGB(38, 38, 38));
     titleLabel->installEventFilter(scrollWidget);
     // titleLabel->setBackGroundColor(_RGB(255, 0, 0));
 
@@ -105,7 +110,7 @@ void MainWindowService::initUi()
     // titleLabel->setBackGroundColor(_RGB(255, 0, 0));
     subTitleLabel_->font()->setFontSize(19);
     subTitleLabel_->setFixedHeight(titleLabel->font()->pixelHeight());
-    subTitleLabel_->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
+    subTitleLabel_->font()->setFontColor(_RGB(38, 38, 38));
     subTitleLabel_->setText("");
     subTitleLabel_->installEventFilter(settingWindow_);
 
@@ -124,6 +129,7 @@ void MainWindowService::initUi()
     int32_t layoutMargin = TpDisplay::dp2Px(20);
 
     TpVBoxLayout *rightWindowLayout = new TpVBoxLayout();
+    rightWindowLayout->setSpacing(18);
     rightWindowLayout->setContentsMargins(layoutMargin, 0, layoutMargin, 0);
     rightWindowLayout->addLayout(subTitleLayout);
     rightWindowLayout->addWidget(settingWindow_);
@@ -167,6 +173,17 @@ void MainWindowService::initUi()
 
     // 创建子窗口
     createAllSettingWindow();
+}
+
+bool MainWindowService::onVisibleEvent(TpVisibleEvent *event)
+{
+    if (event->visible())
+    {
+        TpDesktopAPI::Instance()->setStatusBarStyle(BACKGROUND_COLOR);
+        TpSplashScreen::Instance()->closeSplashScreen();
+    }
+
+    return true;
 }
 
 void MainWindowService::slotClickMenuItem(TpMenuPanelItem *deviceBtn)
@@ -236,7 +253,7 @@ void MainWindowService::createAllSettingTopMenu(TpVBoxLayout *menuLayout)
             TpString menuItemName = generalSettingNames(menuType);
 
             TpMenuPanelItem *menuPanelItem = new TpMenuPanelItem();
-            menuPanelItem->setIcon(applicationDirPath() + "/../res/menuItem/" + menuItemName + ".png");
+            menuPanelItem->setIcon(applicationDirPath() + "/../res/menuItem/" + menuItemName + ".svg");
             menuPanelItem->setTitle(menuItemName);
             menuPanelItem->setProperty(SettingTypeStr, (int32_t)menuType);
 
@@ -290,7 +307,7 @@ TpWidget *MainWindowService::generalCustomWidget(const SettingType &type)
 {
     if (type == BlueToothSetting)
     {
-        TpOnOffButton *onOffBnt = new TpOnOffButton();
+        TpSwitchButton *onOffBnt = new TpSwitchButton();
         onOffBnt->setFixedSize(45, 24);
         return onOffBnt;
     }
@@ -313,15 +330,15 @@ void MainWindowService::refreshTopMenuStatus()
     allMenuItemMapper_[WLANSetting]->setSubTitle("关闭");
     allMenuItemMapper_[HotspotSetting]->setSubTitle("关闭");
 
-    TpOnOffButton *bluetoothOnOffBtn = dynamic_cast<TpOnOffButton *>(allMenuItemMapper_[BlueToothSetting]->customizeWidget());
+    TpSwitchButton *bluetoothOnOffBtn = dynamic_cast<TpSwitchButton *>(allMenuItemMapper_[BlueToothSetting]->customizeWidget());
     if (bluetoothOnOffBtn)
     {
         bluetoothOnOffBtn->setOnOff(false);
     }
 
-    TpList<TpBluetoothLocal> bluetoothDeviceList = TpBluetoothLocal::getAllDevice();
+    TpList<tpShared<TpBluetoothHostInfo>> bluetoothDeviceList = TpBluetoothLocal::allDevice();
     for (auto &bluetoothDevice : bluetoothDeviceList)
     {
-        std::cout << "蓝牙设备名称:" << bluetoothDevice.getName() << std::endl;
+        std::cout << "蓝牙设备名称:" << bluetoothDevice->name() << std::endl;
     }
 }

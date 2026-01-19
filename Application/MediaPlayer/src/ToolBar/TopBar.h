@@ -1,15 +1,15 @@
 #ifndef __TOP_BAR_H
 #define __TOP_BAR_H
 
-#include "TpDialog.h"
+#include "TpDesktopDialog.h"
 #include "TpButton.h"
 #include "TpLabel.h"
 
-class TopBar : public TpDialog
+class StatusBar : public TpDesktopDialog
 {
 public:
-    TopBar();
-    virtual ~TopBar();
+    StatusBar();
+    virtual ~StatusBar();
 
     // 设置文件名称
     void setFileName(const TpString &fileName);

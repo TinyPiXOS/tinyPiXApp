@@ -1,12 +1,14 @@
 #include "MainWindowService.h"
 #include "PhotoAlbumGlobal.h"
+#include <TpDesktopAPI.h>
 
 MainWindowService::MainWindowService()
-    : TpMainWindow()
+    : TpDesktopMainWindow()
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(248, 248, 248));
+    TpDesktopAPI::Instance()->setStatusBarStyle(_RGB(248, 248, 248));
 }
 
 MainWindowService::~MainWindowService()

@@ -1,14 +1,14 @@
 #ifndef __BOTTOM_BAR_H
 #define __BOTTOM_BAR_H
 
-#include "TpDialog.h"
+#include "TpDesktopDialog.h"
 #include "TpButton.h"
 #include "TpLabel.h"
 #include "TpSlider.h"
 #include "TpMenu.h"
 #include "MediaPlayerGlobal.h"
 
-class BottomBar : public TpDialog
+class BottomBar : public TpDesktopDialog
 {
 public:
     BottomBar();

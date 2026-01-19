@@ -2,24 +2,24 @@
 #include "TpFont.h"
 #include "TpString.h"
 #include "MediaPlayerGlobal.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpTime.h"
 #include "TpDate.h"
 
-TopBar::TopBar()
-    : TpDialog()
+StatusBar::StatusBar()
+    : TpDesktopDialog()
 {
     setEnabledBorderColor(false);
-    setBackGroundColor(_RGBA(255, 255, 255, 0));
+    setBackGroundColor(_RGBA(255, 255, 255, 125));
 
     init();
 }
 
-TopBar::~TopBar()
+StatusBar::~StatusBar()
 {
 }
 
-void TopBar::setFileName(const TpString &fileName)
+void StatusBar::setFileName(const TpString &fileName)
 {
     fileNameLabel_->setText(fileName);
 
@@ -33,14 +33,14 @@ void TopBar::setFileName(const TpString &fileName)
     // fileNameLabel_->update();
 }
 
-void TopBar::setBackBtnVisible(const bool &visible)
+void StatusBar::setBackBtnVisible(const bool &visible)
 {
     closeMediaBtn_->setVisible(visible);
 }
 
-bool TopBar::onResizeEvent(TpResizeEvent *event)
+bool StatusBar::onResizeEvent(TpResizeEvent *event)
 {
-    TpDialog::onResizeEvent(event);
+    TpDesktopDialog::onResizeEvent(event);
 
     // 调整标题和列表按钮位置
     if (fileNameLabel_)
@@ -61,14 +61,14 @@ bool TopBar::onResizeEvent(TpResizeEvent *event)
     return true;
 }
 
-void TopBar::slotCloseMedia(bool)
+void StatusBar::slotCloseMedia(bool)
 {
 }
 
-void TopBar::init()
+void StatusBar::init()
 {
     fileNameLabel_ = new TpLabel(this);
-    fileNameLabel_->font()->setFontColor(_RGB(255, 255, 255), _RGB(255, 255, 255));
+    fileNameLabel_->font()->setFontColor(_RGB(255, 255, 255));
     fileNameLabel_->font()->setFontSize(18);
     fileNameLabel_->setText("");
 
@@ -85,6 +85,6 @@ void TopBar::init()
     closeMediaBtn_->setEnableBackGroundColor(false);
     closeMediaBtn_->setFixedSize(TpDisplay::dp2Px(34), TpDisplay::dp2Px(34));
     closeMediaBtn_->setIcon(applicationDirPath() + "/../res/后退.png");
-    connect(closeMediaBtn_, onClicked, this, &TopBar::slotCloseMedia);
+    connect(closeMediaBtn_, onClicked, this, &StatusBar::slotCloseMedia);
     closeMediaBtn_->setVisible(false);
 }

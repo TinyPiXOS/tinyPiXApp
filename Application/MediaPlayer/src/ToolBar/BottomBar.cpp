@@ -1,19 +1,20 @@
 #include "BottomBar.h"
 #include "TpFont.h"
 #include "TpString.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpTime.h"
 #include "TpDate.h"
 
 // 按钮之间间距
-const int32_t buttonMargin = 31;
+const int32_t buttonMargin = 16;
 
 BottomBar::BottomBar()
-    : TpDialog(), allTimeS_(0), curTimeS_(0), isPause_(false)
+    : TpDesktopDialog(), allTimeS_(0), curTimeS_(0), isPause_(false)
 {
     setEnabledBorderColor(false);
-    setBackGroundColor(_RGBA(255, 255, 255, 0));
+    setBackGroundColor(_RGBA(255, 255, 255, 125));
 
+    // setWindowOpacity(0.7);
     init();
 }
 
@@ -37,11 +38,11 @@ BottomBar::~BottomBar()
 
 bool BottomBar::onResizeEvent(TpResizeEvent *event)
 {
-    TpDialog::onResizeEvent(event);
+    TpDesktopDialog::onResizeEvent(event);
 
     // 调整布局
     // 进度条
-    progressSlider_->setSize(width() - globalLeftMargin - globalRightMargin, 6);
+    progressSlider_->setSize(width() - globalLeftMargin - globalRightMargin, 8);
     progressSlider_->move(globalLeftMargin, 0);
 
     int32_t operateBtnY = (height() - previousFileBtn_->height()) / 2.0 + 5;
@@ -145,8 +146,10 @@ void BottomBar::init()
     progressLabel_ = new TpLabel(this);
     progressLabel_->setText("0:0 / 0:0");
     progressLabel_->setEnableBackGroundColor(false);
-    progressLabel_->font()->setFontColor(_RGB(255, 255, 255), _RGB(255, 255, 255));
+    progressLabel_->font()->setFontColor(_RGB(255, 255, 255));
     progressLabel_->font()->setFontSize(15);
+    progressLabel_->setFixedHeight(progressLabel_->font()->pixelHeight());
+    progressLabel_->setMinumumWidth(progressLabel_->font()->pixelWidth());
 
     progressSlider_ = new TpSlider(this);
     progressSlider_->setValue(0);
@@ -158,7 +161,7 @@ TpButton *BottomBar::generalIconBtn(const TpString &iconPath)
     TpButton *newButton = new TpButton(this);
     newButton->setButtonStyle(TpButton::IconOnly);
     newButton->setEnableBackGroundColor(false);
-    newButton->setFixedSize(TpDisplay::dp2Px(34), TpDisplay::dp2Px(34));
+    newButton->setFixedSize(TpDisplay::dp2Px(28), TpDisplay::dp2Px(28));
     newButton->setIcon(iconPath);
     return newButton;
 }

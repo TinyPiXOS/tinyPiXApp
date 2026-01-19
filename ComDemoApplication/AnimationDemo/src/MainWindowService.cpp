@@ -1,18 +1,21 @@
 #include "MainWindowService.h"
-#include "TpDialog.h"
+#include "TpDesktopDialog.h"
 #include "TpButton.h"
 #include "TpAnimation.h"
 #include "TpSignalSlot.h"
+#include <TpDesktopAPI.h>
+#include "TpEvent.h"
 
 MainWindowService::MainWindowService()
-    : TpMainWindow()
+    : TpDesktopMainWindow()
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
     setBackGroundColor(_RGB(128, 128, 128));
+    TpDesktopAPI::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
 
     // 效果展示窗体
-    TpDialog *exampleWidget = new TpDialog();
+    TpDesktopDialog *exampleWidget = new TpDesktopDialog();
     // TpWidget *exampleWidget = new TpWidget(this);
     exampleWidget->setBackGroundColor(_RGB(255, 255, 255));
     exampleWidget->setRect(350, 20, 100, 100);
@@ -85,8 +88,8 @@ MainWindowService::MainWindowService()
     connect(hideBtn, onClicked, [=](bool)
             {
 		TpAnimation* widgetAnimation = new TpAnimation(exampleWidget, TpAnimation::WindowOpacity);
-		widgetAnimation->setStartValue(255);
-		widgetAnimation->setEndValue(50);
+		widgetAnimation->setStartValue(1.0);
+		widgetAnimation->setEndValue(0.5);
 		widgetAnimation->setDuration(1000);
 		widgetAnimation->start(); });
 
@@ -98,8 +101,8 @@ MainWindowService::MainWindowService()
     connect(showBtn, onClicked, [=](bool)
             {
 		TpAnimation* widgetAnimation = new TpAnimation(exampleWidget, TpAnimation::WindowOpacity);
-		widgetAnimation->setStartValue(0);
-		widgetAnimation->setEndValue(255);
+		widgetAnimation->setStartValue(0.5);
+		widgetAnimation->setEndValue(1.0);
 		widgetAnimation->setDuration(1000);
 		widgetAnimation->start(); });
 
@@ -178,6 +181,16 @@ MainWindowService::~MainWindowService()
 bool MainWindowService::appChange(int32_t id, int32_t pid, int32_t visible, int32_t active, int32_t color, uint8_t alpha, int32_t require)
 {
     std::cout << "systemSetting::appChange" << std::endl;
+
+    return true;
+}
+
+bool MainWindowService::onVisibleEvent(TpVisibleEvent *event)
+{
+    if (event->visible())
+    {
+        TpDesktopAPI::Instance()->setStatusBarStyle(_RGB(128, 128, 128));
+    }
 
     return true;
 }

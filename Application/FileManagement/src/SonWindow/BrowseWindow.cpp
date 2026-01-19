@@ -1,7 +1,7 @@
 #include "BrowseWindow.h"
 #include "TpHBoxLayout.h"
 #include "TpVBoxLayout.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpPainter.h"
 #include "FileManagementGlobal.h"
 
@@ -145,9 +145,24 @@ void BrowseWindow::init()
     TpLabel *titleLabel = new TpLabel("浏览");
     titleLabel->font()->setFontSize(19);
     titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
-    titleLabel->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
-    titleLabel->installEventFilter(scrollWidget);
-    // titleLabel->setBackGroundColor(_RGB(255, 0, 0));
+    titleLabel->font()->setFontColor(_RGB(38, 38, 38));
+    // titleLabel->installEventFilter(scrollWidget);
+
+    // 清理按钮
+    clearWindow_ = new ClearSpaceWindow();
+
+    clearButton_ = new TpButton(this);
+    clearButton_->setButtonStyle(TpButton::IconOnly);
+    clearButton_->setEnableBackGroundColor(false);
+    clearButton_->setFixedSize(TpDisplay::dp2Px(34), TpDisplay::dp2Px(34));
+    clearButton_->setIcon(applicationDirPath() + "/../res/清理.png");
+    connect(clearButton_, onClicked, [=](bool)
+            { clearWindow_->showMaximum(); });
+    clearButton_->installEventFilter(this);
+
+    TpHBoxLayout* titleLayout = new TpHBoxLayout();
+    titleLayout->addWidget(titleLabel);
+    titleLayout->addWidget(clearButton_);
 
     // 搜索
     searchEdit_ = new TpLineEdit();
@@ -227,7 +242,7 @@ void BrowseWindow::init()
     TpLabel *sourceLabel = new TpLabel("来源");
     sourceLabel->font()->setFontSize(11);
     sourceLabel->setFixedHeight(sourceLabel->font()->pixelHeight());
-    sourceLabel->font()->setFontColor(_RGB(89, 89, 89), _RGB(89, 89, 89));
+    sourceLabel->font()->setFontColor(_RGB(89, 89, 89));
     sourceLabel->installEventFilter(scrollWidget);
 
     menuPanelWidget_ = new TpMenuPanelWidget();
@@ -238,7 +253,7 @@ void BrowseWindow::init()
 #if 1 // 临时数据，TODO，要修改为从配置文件读取
     TpMenuPanelItem *downloadPanelItem = new TpMenuPanelItem();
     downloadPanelItem->setProperty(ITEM_PATH_TYPE, "/System/data/Downloads");
-    downloadPanelItem->setIcon(applicationDirPath() + "/../res/fileSource/下载与接收.png");
+    downloadPanelItem->setIcon(applicationDirPath() + "/../res/fileSource/下载与接收.svg");
     downloadPanelItem->setTitle("下载与接收");
     menuPanelWidget_->addItem(downloadPanelItem);
 #endif
@@ -249,7 +264,7 @@ void BrowseWindow::init()
     menuLayout->setContentsMargins(0, 0, layoutMargin, 0);
     menuLayout->setSpacing(10);
 
-    menuLayout->addWidget(titleLabel);
+    menuLayout->addLayout(titleLayout);
     menuLayout->addWidget(searchEdit_);
     menuLayout->addWidget(fastPathScroll_);
     // menuLayout->addWidget(testDevice);

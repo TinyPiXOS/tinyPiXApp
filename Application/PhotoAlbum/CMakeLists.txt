@@ -20,6 +20,8 @@ set(SOURCE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 # 指定动态库目录
 link_directories("/usr/lib")
+link_directories("/usr/lib/TinyPiX")
+
 
 # 定义源码路径宏
 set(SOURCE_FILES
@@ -31,18 +33,59 @@ include_directories(${SOURCE_PATH})
 include_directories(/usr/include)
 include_directories(/usr/include/TinyPiX/TpWM)
 include_directories(/usr/include/TinyPiX)
+include_directories(/usr/include/TinyPiX/TpService)
+include_directories(/usr/include/TinyPiX/TpCore)
 include_directories(/usr/include/TinyPiX/TpUtils)
-include_directories(/usr/include/TinyPiX/TpExtUtils)
+
+include_directories(/usr/include/TpDesktop)
+include_directories(/usr/include/TpDesktop/InteractData)
+include_directories(/usr/include/TpDesktop/Service)
+
 include_directories(/usr/include/TinyPiX/TpGUI)
-include_directories(/usr/include/TinyPiX/TpGUI/Core)
-include_directories(/usr/include/TinyPiX/TpGUI/Screen)
+include_directories(/usr/include/TinyPiX/TpGUI/GUI)
 include_directories(/usr/include/TinyPiX/TpGUI/Widgets)
 
 add_executable(PhotoAlbum ${SOURCE_FILES})
 
-# 将pthread库链接到可执行目标
-target_link_libraries(PhotoAlbum TpWMEngine TpGUI TpUtils TpExtUtils )
+# 指定依赖动态库目录
+if(CMAKE_CROSSCOMPILING)
+    target_link_directories(PhotoAlbum PRIVATE
+    ${LOAD_SDK_LIB_PATH}
+)
+else()
+    target_link_directories(PhotoAlbum PRIVATE
+        /usr/lib/TinyPiX
+        /usr/lib/TpDesktop
+    )
+endif()
 
+# 在find_library之前设置
+set(CMAKE_PREFIX_PATH
+    "/usr/lib"
+    "/usr/lib/TinyPiX"
+    "/usr/lib/TpDesktop"
+    ${CMAKE_PREFIX_PATH}
+)
+
+set(THORVG_STATIC_LIB /home/pix/pix_dev/TinyPiXOS/src/depend_lib/static/arm_32/libthorvg.a)
+
+LoadSDKLibrary(TPCORE_LIBRARY TpCore)
+LoadSDKLibrary(TPGUI_LIBRARY TpGUI)
+LoadSDKLibrary(TPUTILS_LIBRARY TpUtils)
+LoadSDKLibrary(TPDESKTOP_LIBRARY TpDesktop)
+LoadSDKLibrary(TPWMENGINE_LIBRARY TpWMEngine)
+LoadSDKLibrary(WEBP_LIBRARY webp)
+LoadSDKLibrary(PNG_LIBRARY png)
+#LoadSDKLibrary(GOMP_LIBRARY gomp)
+
+# 将pthread库链接到可执行目标
+target_link_libraries(PhotoAlbum
+    ${TPCORE_LIBRARY} ${TPGUI_LIBRARY} ${TPUTILS_LIBRARY} ${TPDESKTOP_LIBRARY} ${TPWMENGINE_LIBRARY}
+    ${WEBP_LIBRARY}
+    ${PNG_LIBRARY}
+    gomp
+#    ${GOMP_LIBRARY}
+)
 # 包含共享模块
 include(../../cmake/SetupAppInstallation.cmake)
 

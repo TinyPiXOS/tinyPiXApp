@@ -1,5 +1,5 @@
 #include "FileListWindow.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpVBoxLayout.h"
 #include "TpHBoxLayout.h"
 #include "TpLabel.h"
@@ -12,7 +12,8 @@
 #include "TpFile.h"
 #include "TpNetDataGlobal.h"
 #include "TpGateway.h"
-#include "Service/TpSystemApi.h"
+#include "TpDesktopAPI.h"
+#include "AppManage/TpAppInstall.h"
 
 FileListWindow::FileListWindow(TpWidget *parent)
     : TpScrollPanel(parent), rootPath_(""), curShowPath_(""), mode_(FileListWindow::Grid)
@@ -157,22 +158,25 @@ void FileListWindow::refreshPath(const TpString &path)
     if (gridWidget)
         gridWidget->update();
     if (listWidget)
+    {
+        listWidget->setMinumumHeight(listFileLayout_->minumumSize().height());
         listWidget->update();
+    }
 
     // gridFileLayout_->update();
     // listFileLayout_->update();
 
-    update();
-
-    std::cout << "FileListWindow 最小高度 " << mainLayout_->minumumSize().height() << std::endl;
-
     widget()->setMinumumHeight(mainLayout_->minumumSize().height());
+    widget()->setHeight(mainLayout_->minumumSize().height());
+
+    update();
 }
 
 void FileListWindow::SlotShowSetting(bool)
 {
-    settingWindow_->setVisible(true);
-    settingWindow_->update();
+    settingWindow_->showMaximum();
+    // settingWindow_->setVisible(true);
+    // settingWindow_->update();
 
     // std::cout << "  settingWindow_  " << settingWindow_->width() << "  " << settingWindow_->height() << std::endl;
 }
@@ -196,11 +200,12 @@ void FileListWindow::init()
     mainLayout_->setContentsMargins(TpDisplay::dp2Px(20), 0, 0, 0);
 
     TpHBoxLayout *titleLayout = new TpHBoxLayout();
-    titleLayout->setSpacing(20);
+    titleLayout->setSpacing(15);
     titleLayout->setContentsMargins(0, 0, 0, 0);
 
     gridFileLayout_ = new TpFlexLayout();
     gridFileLayout_->setContentsMargins(0, 0, 0, 0);
+    gridFileLayout_->setSpacing(25);
     gridFileLayout_->installEventFilter(scrollWidget);
 
     listFileLayout_ = new TpVBoxLayout();
@@ -208,19 +213,20 @@ void FileListWindow::init()
     listFileLayout_->installEventFilter(scrollWidget);
 
     TpLabel *titleLabel = new TpLabel("内部存储");
-    // titleLabel->setBackGroundColor(_RGB(255, 0, 0));
+    titleLabel->setAlign(Tp::AlignCenter);
     titleLabel->font()->setFontSize(19);
-    titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
-    titleLabel->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
+    titleLabel->setFixedHeight(TpDisplay::dp2Px(30)); // titleLabel->font()->pixelHeight()
+    titleLabel->font()->setFontColor(_RGB(38, 38, 38));
     titleLabel->setText("内部存储");
     titleLabel->installEventFilter(scrollWidget);
 
     pathBackBtn_ = new TpButton();
-    pathBackBtn_->setButtonStyle(TpButton::IconOnly);
     pathBackBtn_->setEnableBackGroundColor(false);
-    pathBackBtn_->setFixedSize(TpDisplay::dp2Px(34), TpDisplay::dp2Px(34));
+    pathBackBtn_->setButtonStyle(TpButton::IconOnly);
+    pathBackBtn_->setFixedSize(TpDisplay::dp2Px(30), TpDisplay::dp2Px(30));
+    // pathBackBtn_->setFixedSize(titleLabel->font()->pixelHeight(), titleLabel->font()->pixelHeight());
     pathBackBtn_->setIcon(applicationDirPath() + "/../res/路径后退.png");
-    pathBackBtn_->setVisible(false);
+    // pathBackBtn_->setVisible(false);
     connect(pathBackBtn_, onClicked, [=](bool)
             { SlotBackPath(); });
 
@@ -235,7 +241,7 @@ void FileListWindow::init()
     settingBtn_ = new TpButton();
     settingBtn_->setButtonStyle(TpButton::IconOnly);
     settingBtn_->setEnableBackGroundColor(false);
-    settingBtn_->setFixedSize(TpDisplay::dp2Px(34), TpDisplay::dp2Px(34));
+    settingBtn_->setFixedSize(TpDisplay::dp2Px(30), TpDisplay::dp2Px(30));
     settingBtn_->setIcon(applicationDirPath() + "/../res/功能设置.png");
     connect(settingBtn_, onClicked, this, &FileListWindow::SlotShowSetting);
 
@@ -247,7 +253,7 @@ void FileListWindow::init()
     titleLayout->addWidget(pathBackBtn_);
     titleLayout->addWidget(titleLabel);
     titleLayout->addWidget(popBtn_);
-    titleLayout->addSpacer(new TpSpacerItem(20, 20, TpSpacerItem::Expanding, TpSpacerItem::Minimum));
+    titleLayout->addSpacer(new TpSpacerItem(20, 10, TpSpacerItem::Expanding, TpSpacerItem::Minimum));
     titleLayout->addWidget(settingBtn_);
     titleLayout->installEventFilter(scrollWidget);
 
@@ -336,23 +342,41 @@ void FileListWindow::openFile(const TpString &filePath)
         imagePreviewWidget_->showMaximum();
         return;
     }
+    else if (fileSuffix.compare("tpk"))
+    {
+        TpAppInstall installPkg(fileSuffix);
+        TpString installUuid = installPkg.appUUID();
 
-    TpSystemApi::OpenFileError openRes = TpSystemApi::Instance()->openFile(filePath);
+        TpVector<TpString> installAppList = TpAppConfigIO::installAppUuidList();
+        if (installAppList.contains(installUuid))
+        {
+            TpMessageBox msg(TpMessageBox::Information);
+            msg.setText("此应用已安装!");
+            msg.exec();
+            return;
+        }
+    }
+    else
+    {
+
+    }
+
+    TpDesktopAPI::OpenFileError openRes = TpDesktopAPI::Instance()->openFile(filePath);
 
     infoMsgWindow_->setMessageType(TpMessageBox::Error);
-    if (openRes == TpSystemApi::FileNotExist)
+    if (openRes == TpDesktopAPI::FileNotExist)
     {
         infoMsgWindow_->setText("文件不存在!");
         infoMsgWindow_->exec();
         return;
     }
-    else if (openRes == TpSystemApi::NotSupport)
+    else if (openRes == TpDesktopAPI::NotSupport)
     {
         infoMsgWindow_->setText("文件类型不支持!");
         infoMsgWindow_->exec();
         return;
     }
-    else if (openRes == TpSystemApi::SystemFileDamage)
+    else if (openRes == TpDesktopAPI::SystemFileDamage)
     {
         infoMsgWindow_->setText("系统文件损坏!");
         infoMsgWindow_->exec();

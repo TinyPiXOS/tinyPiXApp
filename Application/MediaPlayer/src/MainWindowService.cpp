@@ -1,16 +1,19 @@
 #include "MainWindowService.h"
 #include "TpSignalSlot.h"
 #include "TpHBoxLayout.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpLabel.h"
 #include "TpLine.h"
 #include "TpFont.h"
 #include "TpImage.h"
 #include "TpFileInfo.h"
-#include "TpSurface.h"
+#include <TpDesktopAPI.h>
+#include "TpEvent.h"
+#include "TpAudioOutput.h"
+#include "TpVideoOutput.h"
 
 MainWindowService::MainWindowService()
-    : TpMainWindow(), topBar_(new TopBar()), bottomBar_(new BottomBar()), fileType_(UnknowFile), videoPlayer_(nullptr)
+    : TpDesktopMainWindow(), topBar_(new StatusBar()), bottomBar_(new BottomBar()), fileType_(UnknowFile), mediaPlayer_(nullptr)
 {
     setStyleSheet(applicationDirPath() + "/../data/style.css");
 
@@ -20,12 +23,9 @@ MainWindowService::MainWindowService()
     isMusicIconLabel_->setVisible(true);
     isMusicIconLabel_->move((width() - isMusicIconLabel_->width()) / 2.0, (height() - isMusicIconLabel_->height()) / 2.0);
     setBackGroundColor(_RGB(78, 78, 78));
+    TpDesktopAPI::Instance()->setStatusBarStyle(_RGB(78, 78, 78));
 
     topBar_->setFileName("");
-
-    // 测试
-    // setPlayFile(applicationDirPath() + "/../res/demo.mp4");
-    // setPlayFile(applicationDirPath() + "/../res/千千阙歌.mp3");
 }
 
 MainWindowService::~MainWindowService()
@@ -53,30 +53,20 @@ void MainWindowService::setPlayFile(const TpString &filePath)
         std::cout << "暂不支持的文件格式：" << fileSuffix << std::endl;
         return;
     }
-    else if (fileType_ == AudioFile)
+
+    // 启动设备
+    if (!mediaPlayer_->isOpen())
+        mediaPlayer_->openDevice();
+
+    mediaPlayer_->audioOutput()->setVolume(100);
+    mediaPlayer_->addFile(filePath);
+
+    if (fileType_ == AudioFile)
     {
         // 音频文件，设置背景色；和音频icon
         isMusicIconLabel_->setVisible(true);
         isMusicIconLabel_->move((width() - isMusicIconLabel_->width()) / 2.0, (height() - isMusicIconLabel_->height()) / 2.0);
         setBackGroundColor(_RGB(78, 78, 78));
-
-        // 启动音频设备
-        audioPlayer_->addFile(filePath.c_str());
-
-        if (!audioPlayer_->isOpen())
-            audioPlayer_->openDevice();
-
-        audioPlayer_->setVolume(100);
-        audioPlayer_->playStart();
-
-        std::cout << "播放文件： " << filePath << std::endl;
-
-        // 获取总时长
-        // double audioAllTimeS = audioPlayer_->getDuration();
-        // bottomBar_->setDurationTimeS(audioAllTimeS);
-        // std::cout << "audioAllTimeS " << audioAllTimeS << std::endl;
-
-        updateProgressTimer_->start();
     }
     else if (fileType_ == VideoFile)
     {
@@ -85,25 +75,21 @@ void MainWindowService::setPlayFile(const TpString &filePath)
         // 设置视频第一帧图片
         setBackGroundImage(TpImage(applicationDirPath() + "/../res/测试视频封面.jpg"));
 
-        // 启动视频设备
-        videoPlayer_->setWindowSize(width(), height());
+        mediaPlayer_->videoOutput()->setDisplayFunction(std::bind(&MainWindowService::videoRbgDataCallback, this, std::placeholders::_1));
+        mediaPlayer_->videoOutput()->setWindowCoordinates(0, 0);
 
-        videoPlayer_->addFile(filePath.c_str());
-
-        if (!videoPlayer_->isOpen())
-        {
-            std::cout << "Video Open Device" << std::endl;
-            videoPlayer_->openDevice();
-        }
-
-        videoPlayer_->setVolume(100);
-        // videoPlayer_->playStart();
-
-        updateProgressTimer_->start();
+        // std::cout << "width() : " << width() << " , " << height() << std::endl;
+        mediaPlayer_->videoOutput()->setWindowSize(width(), height());
+        mediaPlayer_->videoOutput()->setScalingMode(TpVideoOutput::TP_VIDEO_SCALING_FIT);
     }
     else
     {
     }
+
+    std::cout << "播放文件： " << filePath << std::endl;
+
+    mediaPlayer_->playStart();
+    updateProgressTimer_->start();
 
     // 设置文件名称
     TpString fileBaseName = inputFile.fileName();
@@ -122,6 +108,16 @@ bool MainWindowService::appChange(int32_t id, int32_t pid, int32_t visible, int3
     std::cout << "MainWindowService::appChange" << std::endl;
 
     refreshBarSize();
+
+    return true;
+}
+
+bool MainWindowService::onVisibleEvent(TpVisibleEvent *event)
+{
+    if (event->visible())
+    {
+        TpDesktopAPI::Instance()->setStatusBarStyle(_RGB(78, 78, 78));
+    }
 
     return true;
 }
@@ -147,46 +143,47 @@ void MainWindowService::initUi()
     connect(bottomBar_, alterPostion, this, &MainWindowService::slotSwitchPos);
     connect(bottomBar_, switchSpeed, this, &MainWindowService::slotSwitchSpeed);
 
-    audioPlayer_ = new TpAudioInterface("hw:1,0");
-    videoPlayer_ = new TpVideoInterface();
-
-    TpVideoInterface::UserCallback videoCallback = std::bind(&MainWindowService::videoRbgDataCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
-    videoPlayer_->setDisplayFunction(videoCallback);
-    videoPlayer_->setScalingMode(TpVideoInterface::TP_VIDEO_SCALING_FIT); // 推荐格式
+    mediaPlayer_ = new TpMediaPlayer();
 
     updateProgressTimer_ = new TpTimer();
     connect(updateProgressTimer_, timeout, this, &MainWindowService::slotUpdatePlayerProgress);
 }
 
+bool MainWindowService::onMousePressEvent(TpMouseEvent *event)
+{
+    TpDesktopMainWindow::onMousePressEvent(event);
+
+    return true;
+}
+
+bool MainWindowService::onMouseRleaseEvent(TpMouseEvent *event)
+{
+    TpDesktopMainWindow::onMouseRleaseEvent(event);
+
+    return true;
+}
+
+bool MainWindowService::onMouseMoveEvent(TpMouseEvent *event)
+{
+    TpDesktopMainWindow::onMouseMoveEvent(event);
+
+    return true;
+}
+
 void MainWindowService::slotUpdatePlayerProgress()
 {
     // 获取当前时长
-    if (fileType_ == AudioFile)
+    if (mediaPlayer_->isPlayEnd())
     {
-        if (audioPlayer_->isPlayEnd())
-        {
-            updateProgressTimer_->stop();
-            return;
-        }
-        int curTimeS = audioPlayer_->getPosition();
-        bottomBar_->setCurTimeS(curTimeS);
+        updateProgressTimer_->stop();
+        return;
+    }
 
-        double audioAllTimeS = audioPlayer_->getDuration();
-        bottomBar_->setDurationTimeS(audioAllTimeS);
+    int curTimeS = mediaPlayer_->getPosition();
+    bottomBar_->setCurTimeS(curTimeS);
 
-        // std::cout << "audioAllTimeS " << audioAllTimeS << std::endl;
-    }
-    else if (fileType_ == VideoFile)
-    {
-        if (videoPlayer_->isPlayEnd())
-        {
-            updateProgressTimer_->stop();
-            return;
-        }
-    }
-    else
-    {
-    }
+    double audioAllTimeS = mediaPlayer_->getDuration();
+    bottomBar_->setDurationTimeS(audioAllTimeS);
 }
 
 void MainWindowService::slotOperateMedia(PlayerOperate status)
@@ -196,47 +193,21 @@ void MainWindowService::slotOperateMedia(PlayerOperate status)
 
     if (status == Pause)
     {
-        if (fileType_ == AudioFile)
-        {
-            audioPlayer_->playPause();
-            updateProgressTimer_->stop();
-        }
-        else
-        {
-        }
+        mediaPlayer_->playPause();
+        updateProgressTimer_->stop();
     }
     else if (status == Continue)
     {
-        if (fileType_ == AudioFile)
-        {
-            audioPlayer_->playContinue();
-            updateProgressTimer_->start();
-        }
-        else
-        {
-        }
+        mediaPlayer_->playContinue();
+        updateProgressTimer_->start();
     }
     else if (status == Forward)
     {
-        if (fileType_ == AudioFile)
-        {
-            std::cout << "audioPlayer_->getPosition() + 5 " << audioPlayer_->getPosition() + 5 << std::endl;
-            audioPlayer_->setPosition(audioPlayer_->getPosition() + 5);
-        }
-        else
-        {
-        }
+        mediaPlayer_->setPosition(mediaPlayer_->getPosition() + 5);
     }
     else if (status == Backward)
     {
-        if (fileType_ == AudioFile)
-        {
-            std::cout << "audioPlayer_->getPosition() - 5 " << audioPlayer_->getPosition() - 5 << std::endl;
-            audioPlayer_->setPosition(audioPlayer_->getPosition() - 5);
-        }
-        else
-        {
-        }
+        mediaPlayer_->setPosition(mediaPlayer_->getPosition() - 5);
     }
     else if (status == NextFile)
     {
@@ -254,14 +225,8 @@ void MainWindowService::slotSwitchPos(int32_t curTimeS)
     if (fileType_ == UnknowFile)
         return;
 
-    if (fileType_ == AudioFile)
-    {
-        std::cout << "CurPosTime " << curTimeS << std::endl;
-        audioPlayer_->setPosition(curTimeS);
-    }
-    else
-    {
-    }
+    std::cout << "CurPosTime " << curTimeS << std::endl;
+    mediaPlayer_->setPosition(curTimeS);
 }
 
 void MainWindowService::slotSwitchSpeed(int32_t speedIndex)
@@ -279,32 +244,23 @@ void MainWindowService::slotSwitchSpeed(int32_t speedIndex)
     else
         speed = 1;
 
-    if (fileType_ == AudioFile)
-    {
-        std::cout << "CurSpeed " << speed << std::endl;
-        audioPlayer_->setSpeed(speed);
-    }
-    else
-    {
-    }
+    mediaPlayer_->setSpeed(speed);
 }
 
 void MainWindowService::refreshBarSize()
 {
     if (topBar_)
     {
-        topBar_->setSize(width(), 70);
+        topBar_->setSize(width(), 60);
         topBar_->move(0, 0);
-
-        topBar_->update();
+        topBar_->show();
     }
 
     if (bottomBar_)
     {
-        bottomBar_->setSize(width(), 84);
+        bottomBar_->setSize(width(), 70);
         bottomBar_->move(0, height() - bottomBar_->height());
-
-        bottomBar_->update();
+        bottomBar_->show();
     }
 }
 
@@ -325,67 +281,75 @@ MainWindowService::PlayerFileType MainWindowService::checkFileType(const TpStrin
     }
 }
 
-int MainWindowService::videoRbgDataCallback(uint8_t **data, int *linesize, uint32_t format, void *userdata)
+int MainWindowService::videoRbgDataCallback(const TpVideoFrame &frame)
 {
-    std::cout << " MainWindowService::videoRbgDataCallback " << std::endl;
-    // for (int i = 0; i < linesize[0]; i = i + 3)
-    // {
-    //     uint8_t r = data[0][i];
-    //     uint8_t g = data[0][i + 1];
-    //     uint8_t b = data[0][i + 2];
-    // }
+    TpSize videoSize = frame.size();
+    std::cout << "videoSize " << videoSize.width() << ", " << videoSize.height() << std::endl;
 
-    uint32_t width = this->width();
-    uint32_t height = this->height();
+    if (videoSize.width() == 0 || videoSize.height() == 0)
+        return 0;
 
-    // 2. 创建临时tpSurface对象
-    auto surface = tpMakeShared<TpSurface>();
+    // videoSize.setWidth(this->width());
+    // videoSize.setHeight(576);
 
-    // 3. 创建与视频帧尺寸匹配的Surface（ARGB32格式）
-    if (!surface->create(
-            nullptr,    // 内部分配内存
-            width,      // 视频宽度
-            height,     // 视频高度
-            TP_RGB_32,  // 32位ARGB格式
-            width * 4,  // stride（每行字节数：宽度*4）
-            0x00FF0000, // R掩码（RGBA顺序）
-            0x0000FF00, // G掩码
-            0x000000FF, // B掩码
-            0xFF000000, // A掩码
-            0xFF,       // alpha值
-            false,      // 不启用colorKey
-            0          // colorKey值
-            ))
+    int *lineSize = frame.lines();
+    uint8_t **data = frame.data();
+
+    std::cout << "lineSize " << lineSize[0] << std::endl;
+
+    uint32_t *argbBuffer = new uint32_t[videoSize.width() * videoSize.height()];
+    for (int y = 0; y < videoSize.height(); y++)
     {
-        // 创建失败处理
-        return -1;
+        uint8_t *srcRow = data[0] + y * lineSize[0]; // 使用linesize处理行对齐
+
+        for (int x = 0; x < videoSize.width(); x++)
+        {
+            uint8_t r = srcRow[x * 3 + 0];
+            uint8_t g = srcRow[x * 3 + 1];
+            uint8_t b = srcRow[x * 3 + 2];
+
+            // ARGB格式：0xAARRGGBB
+            argbBuffer[y * videoSize.width() + x] = (0xFF << 24) | (r << 16) | (g << 8) | b;
+        }
     }
 
-    // 4. 获取surface内存指针
-    uint32_t *surfaceData = static_cast<uint32_t *>(surface->matrix());
-    if (!surfaceData)
+    TpImage curPoImage;
+    curPoImage.load(argbBuffer, videoSize);
+    delete[] argbBuffer;
+
+    setBackGroundImage(curPoImage);
+
+#if 0
+    // 转换代码
+    int width = this->width();
+    // int height = this->height();
+    int height = 576;
+    uint32_t *argbBuffer = new uint32_t[width * height];
+
+    // std::cout << "linesize " << linesize[0] << std::endl;
+    // std::cout << "width  " << width << "  " << height << std::endl;
+
+    for (int y = 0; y < height; y++)
     {
-        return -1;
+        uint8_t *srcRow = data[0] + y * linesize[0]; // 使用linesize处理行对齐
+
+        for (int x = 0; x < width; x++)
+        {
+            uint8_t r = srcRow[x * 3 + 0];
+            uint8_t g = srcRow[x * 3 + 1];
+            uint8_t b = srcRow[x * 3 + 2];
+
+            // ARGB格式：0xAARRGGBB
+            argbBuffer[y * width + x] = (0xFF << 24) | (r << 16) | (g << 8) | b;
+        }
     }
 
-    // 5. 转换RGB24到ARGB32并复制数据
-    uint8_t *srcPtr = data[0];
-    int srcStride = linesize[0];
+    TpImage curPoImage;
+    curPoImage.load(argbBuffer, TpSize(width, height));
+    delete[] argbBuffer;
 
-    for (int i = 0; i < linesize[0]; i = i + 3)
-    {
-        // 读取RGB分量
-        uint8_t r = srcPtr[i];
-        uint8_t g = srcPtr[i + 1];
-        uint8_t b = srcPtr[i + 2];
+    setBackGroundImage(curPoImage);
 
-        // 转换为ARGB32：0xAARRGGBB格式
-        *surfaceData++ = (0xFF << 24) | (r << 16) | (g << 8) | b;
-    }
-
-    // 6. 将surface传递到渲染线程
-    // setBackGroundImage(surface);
-    update();
-
+#endif
     return 0;
 }

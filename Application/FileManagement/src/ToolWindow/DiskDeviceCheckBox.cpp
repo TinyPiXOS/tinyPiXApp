@@ -1,6 +1,6 @@
 #include "DiskDeviceCheckBox.h"
 #include "TpHBoxLayout.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpFont.h"
 #include "TpPainter.h"
 #include "TpLine.h"
@@ -109,7 +109,7 @@ void DiskDeviceCheckBox::init()
     iconLabel_->setFixedSize(TpDisplay::dp2Px(33), TpDisplay::dp2Px(33));
 
     deviceNameLabel_ = new TpLabel(this);
-    deviceNameLabel_->font()->setFontColor(cssData->color(), cssData->color());
+    deviceNameLabel_->font()->setFontColor(cssData->color());
     deviceNameLabel_->font()->setFontSize(cssData->fontSize());
 
     TpLine *subLine = new TpLine();
@@ -119,7 +119,7 @@ void DiskDeviceCheckBox::init()
     subLine->setLineWidth(2);
 
     spaceLabel_ = new TpLabel(this);
-    spaceLabel_->font()->setFontColor(_RGB(140, 140, 140), _RGB(140, 140, 140));
+    spaceLabel_->font()->setFontColor(_RGB(140, 140, 140));
     spaceLabel_->font()->setFontSize(cssData->fontSize());
 
     expandLabel_ = new TpLabel(this);

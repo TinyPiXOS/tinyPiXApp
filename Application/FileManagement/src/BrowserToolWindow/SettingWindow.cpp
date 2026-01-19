@@ -1,17 +1,17 @@
 #include "SettingWindow.h"
 #include "TpVBoxLayout.h"
 #include "TpHBoxLayout.h"
-#include "TpDisplay.h"
+#include "SystemInfo/TpDisplay.h"
 #include "TpEvent.h"
 #include "TpFont.h"
 
 #define BG_COLOR _RGBA(0, 0, 0, 153)
 
-SettingWindow::SettingWindow() : TpDialog()
+SettingWindow::SettingWindow() : TpDesktopDialog()
 {
     setBackGroundColor(BG_COLOR);
     init();
-    setVisible(false);
+    // setVisible(false);
 }
 
 SettingWindow::~SettingWindow()
@@ -20,11 +20,12 @@ SettingWindow::~SettingWindow()
 
 void SettingWindow::setVisible(bool visible)
 {
-    setSize(TpScreen::width(), TpScreen::height());
-    mainScrollPanel_->setFixedSize(TpDisplay::dp2Px(429), TpScreen::height());
-    mainScrollPanel_->move(TpScreen::width() - mainScrollPanel_->width(), 0);
+    TpSize screenSize = this->screenSize();
+    setSize(screenSize.width(), screenSize.height());
+    mainScrollPanel_->setFixedSize(TpDisplay::dp2Px(429), screenSize.height());
+    mainScrollPanel_->move(screenSize.width() - mainScrollPanel_->width(), 0);
 
-    TpDialog::setVisible(visible);
+    TpDesktopDialog::setVisible(visible);
 
     if (visible == false)
     {
@@ -33,15 +34,9 @@ void SettingWindow::setVisible(bool visible)
     }
 }
 
-bool SettingWindow::onPaintEvent(TpPaintEvent *event)
-{
-    TpDialog::onPaintEvent(event);
-    return true;
-}
-
 bool SettingWindow::onMouseRleaseEvent(TpMouseEvent *event)
 {
-    TpDialog::onMouseRleaseEvent(event);
+    TpDesktopDialog::onMouseRleaseEvent(event);
 
     if (!mainScrollPanel_->toScreen().contains(event->globalPos().x(), event->globalPos().y()))
     {
@@ -63,7 +58,7 @@ void SettingWindow::init()
     TpLabel *titleLabel = new TpLabel("功能设置");
     titleLabel->font()->setFontSize(19);
     titleLabel->setFixedHeight(titleLabel->font()->pixelHeight());
-    titleLabel->font()->setFontColor(_RGB(38, 38, 38), _RGB(38, 38, 38));
+    titleLabel->font()->setFontColor(_RGB(38, 38, 38));
 
     closeBtn_ = new TpButton();
     closeBtn_->setButtonStyle(TpButton::IconOnly);
@@ -122,7 +117,7 @@ TpLabel *SettingWindow::createContentLabel(const TpString &text)
     // viewLabel->setAlign(TpLabel::TP_ALIGN_RIGHT);
     viewLabel->font()->setFontSize(12);
     viewLabel->setFixedHeight(viewLabel->font()->pixelHeight());
-    viewLabel->font()->setFontColor(_RGB(89, 89, 89), _RGB(89, 89, 89));
+    viewLabel->font()->setFontColor(_RGB(89, 89, 89));
     viewLabel->installEventFilter(mainScrollPanel_);
 
     return viewLabel;

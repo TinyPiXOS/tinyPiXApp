@@ -1,0 +1,43 @@
+
+/*
+    清理存储空间窗口
+*/
+
+#ifndef __CLEAR_SPACE_WINDOW_H
+#define __CLEAR_SPACE_WINDOW_H
+
+#include "TpDesktopDialog.h"
+#include "TpVBoxLayout.h"
+#include "TpButton.h"
+#include "TpPercentProgressBar.h"
+#include "TpMessageBox.h"
+
+class ClearSpaceWindow
+    : public TpDesktopDialog
+{
+public:
+    ClearSpaceWindow();
+    ~ClearSpaceWindow();
+
+private:
+    // 清理垃圾文件
+    void SlotClearSpaceFile(bool);
+
+private:
+    void init();
+
+    // 构建本地空间子窗口
+    TpWidget *genLocalSpaceWidget();
+
+    // 生成清理空间子窗口
+    TpWidget *genClearFileWidget();
+
+private:
+    TpMessageBox *infoMsgWin_;
+    // 返回上层按钮
+    TpButton *backBtn_;
+
+    TpButton *releaseSpaceBtn_;
+};
+
+#endif
